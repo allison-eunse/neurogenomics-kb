@@ -1,0 +1,23 @@
+id: opengenome2
+name: OpenGenome2
+description: 8.8T-token multi-domain genome dataset used to train Evo 2.
+storage_location:
+  huggingface: https://huggingface.co/datasets/arcinstitute/opengenome2
+schema_ref: docs/data/schemas.md#opengenome2
+dtypes: jsonl + fasta
+required_columns:
+  - sequence
+  - organism
+  - split
+  - augmentation_flags
+counts:
+  tokens: 8_800_000_000_000
+  records: 40_000_000
+modalities:
+  - dna
+access: public (large download)
+restrictions: Cite Arc Institute and abide by dataset licensing per subset.
+maintainers:
+  - name: Allison Eun Se You
+verified: false
+last_updated: 2025-11-15

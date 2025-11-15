@@ -1,34 +1,50 @@
 site_name: Neurogenomics KB
-site_description: TBD
-site_author: TBD
-
+site_description: Code-first knowledge base for genetics and brain foundation models and multimodal integration
+repo_url: https://github.com/YOUR_ORG/neurogenomics-kb
 theme:
   name: material
-  palette:
-    - scheme: default
-      primary: blue
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - scheme: slate
-      primary: blue
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
-
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+    - toc.integrate
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - tables
+  - footnotes
+  - def_list
+plugins:
+  - search
 nav:
   - Home: index.md
   - Models:
-    - Genetics: models/genetics/index.md
-    - Brain: models/brain/index.md
-  - Integration: integration/index.md
-  - Data: data/index.md
-  - Code Walkthroughs: code_walkthroughs/index.md
-  - Decisions: decisions/index.md
-
-markdown_extensions:
-  - pymdownx.highlight
-  - pymdownx.superfences
-  - pymdownx.tabbed
-  - tables
+      - Genetics:
+          - Evo 2: models/genetics/evo2.md
+          - DNABERT-2: models/genetics/dnabert2.md
+          - Caduceus: models/genetics/caduceus.md
+          - Nucleotide Transformer: models/genetics/nucleotide_transformer.md
+      - Brain:
+          - SwiFT: models/brain/swift.md
+          - NeuroMamba: models/brain/neuromamba.md
+          - DiVER: models/brain/diver.md
+          - External roundup: models/brain/external_roundup.md
+  - Integration:
+      - Baselines: integration/playbook_baselines.md
+      - Alignment: integration/playbook_alignment.md
+      - Design patterns: integration/design_patterns.md
+      - Benchmarks: integration/benchmarks.md
+  - Data:
+      - UKB data map: data/ukb_data_map.md
+      - Schemas: data/schemas.md
+      - Governance & QC: data/governance_qc.md
+  - Code walkthroughs:
+      - Evo 2: code_walkthroughs/evo2_walkthrough.md
+      - DNABERT-2: code_walkthroughs/dnabert2_walkthrough.md
+      - Caduceus: code_walkthroughs/caduceus_walkthrough.md
+      - SwiFT: code_walkthroughs/swift_walkthrough.md
+  - Decisions:
+      - Baseline scope (Nov 2025): decisions/2025-11-baseline-scope.md
+      - Integration direction (Nov 2025): decisions/2025-11-integration-direction.md
 

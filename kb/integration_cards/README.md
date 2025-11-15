@@ -1,22 +1,23 @@
-# Integration Cards
+Integration cards capture multimodal pipelines:
 
-This directory contains YAML files documenting integrations between models, datasets, tools, and pipelines in the neurogenomics knowledge base.
-
-## Structure
-
-Each integration card (`*.yaml`) documents:
-- Components being integrated (models, datasets, tools)
-- Integration workflow and purpose
-- Requirements and usage
-- Documentation and references
-
-## Template
-
-See `template.yaml` for the integration card schema.
-
-## Usage
-
-1. Copy `template.yaml` to create a new integration card
-2. Fill in all relevant fields
-3. Use descriptive filenames (e.g., `genetics-brain-pipeline.yaml`)
-
+```
+id: unique_slug
+name: Title
+summary: 2–3 sentences
+models:
+  - model_id
+  - ...
+datasets:
+  - dataset_id
+pipelines:
+  - bulleted free text describing scripts/configs
+status: idea|designing|running
+outputs:
+  - path: relative/path
+    description: artifact description
+ci_checks:
+  - optional list of preflight commands
+owner: Person or team
+verified: false
+last_updated: YYYY-MM-DD
+```

@@ -1,54 +1,21 @@
-# Integration Card Template
-# Copy this file and rename it for each integration
-
-id: TBD  # Unique identifier for this integration
-name: TBD  # Human-readable name
-version: TBD  # Version of this integration
-date_created: TBD  # YYYY-MM-DD
-last_updated: TBD  # YYYY-MM-DD
-
-description: TBD  # Brief description of the integration
-
-# Components being integrated
-components:
-  - name: TBD  # Name of component (model, dataset, tool, etc.)
-    type: TBD  # Type: model, dataset, tool, pipeline, etc.
-    version: TBD  # Version of the component
-    reference: TBD  # Link or citation to the component
-  - name: TBD
-    type: TBD
-    version: TBD
-    reference: TBD
-
-# Integration details
-integration_type: TBD  # e.g., model_pipeline, data_processing, tool_chain
-purpose: TBD  # Purpose of this integration
-workflow: TBD  # Description of how components work together
-
-# Requirements
-requirements:
-  dependencies: []  # List of dependencies
-  environment: TBD  # Environment requirements
-  compute_resources: TBD  # Computational requirements
-
-# Usage
-usage:
-  input: TBD  # Input format/requirements
-  output: TBD  # Output format
-  examples: []  # Example usage
-
-# Documentation
-documentation:
-  code_repository: TBD  # Link to code
-  paper: TBD  # Link to paper or documentation
-  tutorials: []  # Links to tutorials
-
-# Metadata
-tags: []  # Tags for categorization
-authors: []  # Authors/maintainers
-license: TBD  # License information
-
-# Status
-status: TBD  # active, deprecated, experimental, etc.
-notes: TBD  # Additional notes
+id: integration_slug
+name: Integration name
+summary: |
+  Why this pipeline exists and the decision context.
+models:
+  - model_id_here
+  - another_model
+datasets:
+  - dataset_id
+pipelines:
+  - describe scripts/configs/notebooks
+status: designing
+outputs:
+  - path: outputs/example
+    description: artifact
+ci_checks:
+  - python scripts/manage_kb.py validate models
+owner: Owner name
+verified: false
+last_updated: 2025-01-01
 

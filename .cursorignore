@@ -1,0 +1,54 @@
+# Cursor ignore patterns for neurogenomics-kb worktree
+# Worktrees naturally isolate to their directory, but this provides additional exclusions
+
+# Build artifacts and cache
+site/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg-info/
+dist/
+build/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# RAG/Vector DB files (can be large)
+*.index
+*.faiss
+*.pkl
+chroma/
+向量数据库/
+kb/rag/vectordb/
+
+# External repos (large, reference only)
+# Keep structure but exclude heavy files
+external_repos/*/pretrained_models/
+external_repos/*/training-runs/
+external_repos/*/checkpoints/
+external_repos/*/*.ckpt
+external_repos/*/*.pt
+external_repos/*/*.pth
+external_repos/*/*.safetensors
+
+# Git and version control
+.git/
+.gitignore
+
+# Environment files
+.env
+.env.local
+.env.*.local
+

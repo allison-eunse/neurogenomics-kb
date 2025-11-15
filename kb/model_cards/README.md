@@ -1,24 +1,49 @@
-# Model Cards
+Every model must have a YAML card under `kb/model_cards/{id}.yaml`:
 
-This directory contains YAML files documenting models used in the neurogenomics knowledge base.
-
-## Structure
-
-Each model card (`*.yaml`) documents:
-- Model architecture and details
-- Training data and procedure
-- Evaluation metrics and performance
-- Limitations and intended use
-- Usage instructions and examples
-- Citation and maintenance information
-
-## Template
-
-See `template.yaml` for the model card schema.
-
-## Usage
-
-1. Copy `template.yaml` to create a new model card
-2. Fill in all relevant fields
-3. Use descriptive filenames (e.g., `genetics-predictor-v1.yaml`, `brain-imaging-classifier.yaml`)
-
+```
+id: slug
+name: Human readable name
+modality: genetics|brain|multimodal
+domain: dna|fmri|multimodal
+summary: |
+  3–5 lines
+arch:
+  type: architecture label
+  backbone: key file(s)
+  parameters: ~size
+  context_length: tokens/timepoints
+  special_features:
+    - bullet list
+repo: https://...
+weights:
+  huggingface:
+    - url
+  artifacts:
+    - path
+tokenizer: {...}
+context_length: int
+checkpoints:
+  - name: ckpt
+    path: url
+license:
+  code: SPDX id
+  weights: SPDX id
+  data: short note
+datasets:
+  - dataset_id
+tasks:
+  - masked_language_modeling
+how_to_infer:
+  huggingface: |
+    code snippet
+inference_api:
+  provider: huggingface|local
+  endpoint: url/instructions
+integrations:
+  - integration_id
+ tags:
+  - keyword
+verified: false
+last_updated: YYYY-MM-DD
+notes: Optional paragraph
+```

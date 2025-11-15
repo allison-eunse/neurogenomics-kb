@@ -1,0 +1,67 @@
+id: brainlm
+name: BrainLM
+modality: brain
+domain: fmri
+summary: >-
+  Masked autoencoding language model for fMRI voxel time-series. Uses ViT-MAE
+  scaffolding with custom BrainLM embeddings that mix voxel coordinates and
+  patched time windows to learn denoised cortical dynamics.
+arch:
+  type: ViT-MAE + Nystromformer encoder/decoder
+  backbone: brainlm_mae/modeling_brainlm.py (BrainLMEmbeddings + BrainLMEncoder + BrainLMDecoder)
+  parameters: 111M / 650M
+  context_length: 207760  # 424 voxels × 490 timepoints
+  special_features:
+    - Random per-voxel masking via random_masking_4D function
+    - xyz positional projection fused with signal patches
+    - Optional tanh decoder for bounded reconstructions
+tokenizer:
+  type: continuous patches
+  notes: signal and xyz projections are learned linear layers; no discrete tokens.
+context_length: 207760
+checkpoints:
+  - name: brainlm-base
+    path: https://huggingface.co/vandijklab/brainlm
+    context_length: 207760
+repo: https://github.com/vandijklab/BrainLM
+weights:
+  huggingface:
+    - https://huggingface.co/vandijklab/brainlm
+license:
+  code: CC-BY-NC-ND-4.0
+  weights: CC-BY-NC-ND-4.0
+  data: UK Biobank restricted (project 33278)
+datasets:
+  - ukb_fmri_tensor
+  - hcp_fmri_tensor
+tasks:
+  - masked_time_series_modeling
+  - zero_shot_prediction
+  - embedding_export
+how_to_infer:
+  tutorial: |
+    jupyter nbconvert --to notebook --execute external_repos/brainlm/brainlm_tutorial.ipynb
+  trainer: |
+    python external_repos/brainlm/train.py \
+      --config configs/pretrain.yaml \
+      --output_dir outputs/brainlm_pretrain
+inference_api:
+  provider: local
+  endpoint: external_repos/brainlm/brainlm_tutorial.ipynb
+  input_format: PyTorch tensors shaped [batch, voxels, timepoints]
+  output: reconstructed signals + latent embeddings
+integrations:
+  - ukb_genetics_brain_alignment
+  - rag_neurogenomics
+tags:
+  - mae
+  - fmri
+  - masked-modeling
+  - ukb
+verified: false
+last_updated: 2025-11-15
+maintainers:
+  - name: Allison Eun Se You
+notes: >-
+  Convert UKB NIfTI volumes with convert_ukbiobank_to_arrow.py before invoking
+  BrainLM; toolkit notebooks document voxel/timepoint orientation adjustments.

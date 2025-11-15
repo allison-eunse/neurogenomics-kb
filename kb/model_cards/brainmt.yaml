@@ -1,0 +1,62 @@
+id: brainmt
+name: BrainMT
+modality: brain
+domain: fmri
+summary: >-
+  Hybrid bidirectional Mamba + Transformer architecture for voxel-level fMRI,
+  combining temporal-first Mamba mixers with spatial self-attention blocks to
+  capture long-range dependencies on UKB/HCP data.
+arch:
+  type: Hybrid Mamba + Transformer
+  backbone: src/brainmt/models/brain_mt.py (Conv patch embed → Mamba layers → MHSA)
+  parameters: 120M (default)
+  context_length: 180000000  # ~91×109×91 voxels × 200 time frames before downsampling
+  special_features:
+    - Bidirectional Mamba blocks handle temporal scans efficiently
+    - Hydra configs under configs/ gate dataset/task choices
+    - Distributed training ready via torchrun + NCCL toggles
+tokenizer:
+  type: 4D conv patches
+  notes: PatchEmbed + conv downsamplers convert NIfTI volumes into token grids.
+checkpoints:
+  - name: brainmt-hcp-regression
+    path: (pending release)
+repo: https://github.com/arunkumar-kannan/brainmt-fmri
+weights:
+  huggingface: []
+license:
+  code: MIT
+  weights: TBD
+  data: UKB and HCP (restricted)
+datasets:
+  - ukb_fmri_tensor
+  - hcp_fmri_tensor
+tasks:
+  - regression (fluid intelligence)
+  - classification (sex)
+  - self_supervised_pretraining
+how_to_infer:
+  training: |
+    torchrun --nproc-per-node=2 external_repos/brainmt/src/brainmt/train.py task=regression \
+      dataset.fmri.img_path=/mnt/ukb_fmri/tensors dataset.fmri.target_path=/mnt/targets.pkl
+  inference: |
+    python external_repos/brainmt/src/brainmt/inference.py \
+      task=classification inference.checkpoint_path=/checkpoints/best.pth
+inference_api:
+  provider: local
+  endpoint: external_repos/brainmt/src/brainmt/inference.py
+  input_format: FP16 tensors per subject (torch .pt)
+  output: subject-level predictions and feature exports
+integrations:
+  - ukb_genetics_brain_alignment
+tags:
+  - mamba
+  - transformer
+  - hydra
+  - fmri
+verified: false
+last_updated: 2025-11-15
+maintainers:
+  - name: Allison Eun Se You
+notes: >-
+  Set NCCL_P2P_DISABLE=1 when training on multi-GPU workstations with limited P2P support.

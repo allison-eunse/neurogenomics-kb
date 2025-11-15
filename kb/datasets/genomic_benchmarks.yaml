@@ -1,0 +1,21 @@
+id: genomic_benchmarks
+name: GenomicBenchmarks downstream suite
+description: Eight supervised classification tasks from Grešová et al. used for Caduceus evaluation.
+storage_location:
+  huggingface: https://huggingface.co/datasets/katielink/genomic-benchmarks
+schema_ref: docs/data/schemas.md#genomic-benchmarks
+dtypes: parquet / arrow
+required_columns:
+  - sequence
+  - label
+  - split
+counts:
+  records: 1_400_000
+modalities:
+  - dna
+access: public
+restrictions: Provide attribution to GenomicBenchmarks maintainers.
+maintainers:
+  - name: Allison Eun Se You
+verified: false
+last_updated: 2025-11-15

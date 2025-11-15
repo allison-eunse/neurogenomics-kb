@@ -1,0 +1,22 @@
+id: refseq_generator
+name: RefSeq GENERator corpus
+description: RefSeq-derived multi-kingdom dataset used for GENERator pretraining.
+storage_location:
+  source: NCBI RefSeq mirrors + GenerTeam preprocessing scripts
+schema_ref: docs/data/schemas.md#refseq-generator
+dtypes: fasta + parquet metadata
+required_columns:
+  - accession
+  - taxonomy_group
+  - sequence
+  - split
+counts:
+  base_pairs: 515_000_000_000
+modalities:
+  - dna
+access: mixed (RefSeq public; GenerTeam curated tasks on HF)
+restrictions: Respect RefSeq redistribution policy; cite GenerTeam for curated subsets.
+maintainers:
+  - name: Allison Eun Se You
+verified: false
+last_updated: 2025-11-15

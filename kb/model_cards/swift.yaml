@@ -1,0 +1,66 @@
+id: swift
+name: SwiFT
+modality: brain
+domain: fmri
+summary: >-
+  Swin Transformer for 4D fMRI (3D spatial × temporal) with Lightning training
+  loops, contrastive/self-supervised options, and datamodule utilities for UKB,
+  HCP, and ABCD cohorts.
+arch:
+  type: Swin Transformer 4D
+  backbone: project/module/models/swin_transformer_4d.py
+  parameters: 80M (default config)
+  context_length: 17766400  # 96×96×96 voxels × 20 frames
+  special_features:
+    - Windowed attention along spatial + temporal axes
+    - PyTorch Lightning trainer with contrastive options
+    - DataModule encapsulates normalization + splitting
+tokenizer:
+  type: 4D patch embedding (windowed Swin)
+context_length: 17766400
+checkpoints:
+  - name: contrastive_pretrained.ckpt
+    path: external_repos/swift/pretrained_models/contrastive_pretrained.ckpt
+repo: https://github.com/Transconnectome/SwiFT
+weights:
+  artifacts:
+    - external_repos/swift/pretrained_models/contrastive_pretrained.ckpt
+license:
+  code: Apache-2.0
+  weights: Apache-2.0
+  data: UKB/HCP/ABCD restricted
+datasets:
+  - ukb_fmri_tensor
+  - hcp_fmri_tensor
+tasks:
+  - contrastive_pretraining
+  - classification (sex, site)
+  - regression (cognition)
+how_to_infer:
+  training: |
+    python external_repos/swift/project/main.py \
+      --dataset_name UKB --downstream_task sex \
+      --image_path /mnt/ukb_fmri --loggername tensorboard --project_name swift_baseline
+  inference: |
+    python external_repos/swift/project/main.py \
+      --dataset_name UKB --test_only --test_ckpt_path pretrained_models/contrastive_pretrained.ckpt
+inference_api:
+  provider: local
+  endpoint: external_repos/swift/project/main.py
+  input_format: torch tensor directory produced by preprocessing pipeline
+  output: task-level predictions + embeddings (via lightning callbacks)
+integrations:
+  - ukb_genetics_brain_alignment
+  - rag_neurogenomics
+tags:
+  - swin
+  - fmri
+  - contrastive
+  - lightning
+verified: false
+last_updated: 2025-11-15
+maintainers:
+  - name: Allison Eun Se You
+notes: >-
+  Use sample_scripts/sample_script.sh as a template for interactive jobs; for Slurm
+  clusters run sample_script.slurm with correct NEPTUNE credentials.

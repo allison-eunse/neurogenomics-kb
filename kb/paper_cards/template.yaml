@@ -1,134 +1,15 @@
-# Paper Card Template
-# Copy this file and rename it for each paper
-
-id: TBD  # Unique identifier for this paper
-title: TBD  # Paper title
-year: TBD  # Publication year
-date_published: TBD  # YYYY-MM-DD
-date_added: TBD  # YYYY-MM-DD when added to KB
-last_updated: TBD  # YYYY-MM-DD
-
-# Authors
-authors: []  # List of authors
-corresponding_author: TBD  # Corresponding author
-affiliations: []  # List of affiliations
-
-# Publication details
-publication:
-  venue: TBD  # Journal, conference, or preprint server
-  venue_type: TBD  # journal, conference, preprint, workshop, etc.
-  volume: TBD  # Volume number if applicable
-  issue: TBD  # Issue number if applicable
-  pages: TBD  # Page numbers if applicable
-  doi: TBD  # DOI
-  arxiv_id: TBD  # arXiv ID if applicable
-  url: TBD  # URL to paper
-  pdf_url: TBD  # URL to PDF
-  
-# Citation
-citation:
-  bibtex: TBD  # BibTeX citation
-  plain_text: TBD  # Plain text citation
-  apa: TBD  # APA format citation
-  mla: TBD  # MLA format citation
-  
-# Abstract and summary
-abstract: TBD  # Paper abstract
-summary: TBD  # Brief summary of the paper
-key_contributions: []  # List of key contributions
-  
-# Keywords and topics
-keywords: []  # Keywords from the paper
-topics: []  # Research topics
-domains: []  # Research domains: e.g., genetics, neuroscience, imaging, etc.
-  
-# Methodology
-methodology:
-  approach: TBD  # General approach
-  methods: []  # List of methods used
-  tools: []  # Tools and software used
-  algorithms: []  # Algorithms used
-  
-# Data
-data:
-  datasets_used: []  # List of datasets used
-  data_types: []  # Types of data: e.g., genomics, imaging, etc.
-  data_availability: TBD  # Data availability statement
-  data_links: []  # Links to datasets
-  
-# Models
-models:
-  models_proposed: []  # Models proposed in the paper
-  models_used: []  # Models used from other papers
-  model_links: []  # Links to model implementations
-  
-# Results
-results:
-  key_findings: []  # Key findings
-  metrics: {}  # Performance metrics reported
-  comparisons: {}  # Comparisons with other methods
-  figures: []  # Important figures/tables
-  
-# Code and reproducibility
-code:
-  available: TBD  # yes, no, partial
-  repository: TBD  # Code repository URL
-  language: TBD  # Programming language
-  license: TBD  # Code license
-  documentation: TBD  # Documentation URL
-  
-# Reproducibility
-reproducibility:
-  reproducible: TBD  # yes, no, partial, unknown
-  materials_available: []  # Available materials: code, data, models, etc.
-  replication_notes: TBD  # Notes on replication
-  
-# Related work
-related_work:
-  builds_on: []  # Papers this builds on
-  cited_by: []  # Papers that cite this (if tracked)
-  related_papers: []  # Related papers
-  
-# Integration
-integration:
-  models_mentioned: []  # Models mentioned/referenced
-  datasets_mentioned: []  # Datasets mentioned/referenced
-  tools_mentioned: []  # Tools mentioned/referenced
-  integration_cards: []  # Related integration cards
-  
-# Impact
-impact:
-  citations: TBD  # Number of citations (if tracked)
-  influence: TBD  # Assessment of influence
-  applications: []  # Applications of the work
-  
-# Notes and annotations
-notes:
-  reviewer_notes: TBD  # Notes from reviewers
-  internal_notes: TBD  # Internal notes
-  important_sections: []  # Important sections to read
-  takeaway: TBD  # Key takeaway message
-  
-# Status
-status:
-  read: TBD  # yes, no, partial
-  reviewed: TBD  # yes, no, in_progress
-  relevance: TBD  # high, medium, low
-  priority: TBD  # high, medium, low
-  
-# Tags and categories
-tags: []  # Tags for categorization
-categories: []  # Categories: e.g., methodology, application, review, etc.
-  
-# Additional metadata
-metadata:
-  paper_type: TBD  # research, review, survey, tutorial, etc.
-  language: TBD  # Language of the paper
-  pages: TBD  # Number of pages
-  figures: TBD  # Number of figures
-  tables: TBD  # Number of tables
-  
-# Status
-status: TBD  # active, archived, etc.
-notes: TBD  # Additional notes
+id: paper_slug
+title: Paper title
+authors:
+  - Author A
+venue_year: Venue 2025
+link: https://example.com/doi
+modality: genetics
+summary: |
+  Three to five sentences summarizing contributions.
+relevance: Why it matters for Neurogenomics KB.
+code_links:
+  - https://github.com/example
+verified: false
+last_updated: 2025-01-01
 

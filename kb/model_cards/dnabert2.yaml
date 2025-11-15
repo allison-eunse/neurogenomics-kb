@@ -1,0 +1,84 @@
+id: dnabert2
+name: DNABERT-2
+modality: genetics
+domain: dna
+summary: >-
+  117M-parameter BERT encoder with byte-pair tokenization and ALiBi positional
+  bias, pretrained on multi-species genomes and paired with the Genome Understanding
+  Evaluation (GUE) benchmark.
+arch:
+  type: BERT encoder with ALiBi and BPE tokenizer
+  backbone: finetune/train.py (Hugging Face Trainer with AutoModelForSequenceClassification)
+  parameters: 117M
+  context_length: 512
+  special_features:
+    - Byte-pair tokenization replaces fixed k-mer vocabulary
+    - Optional LoRA fine-tuning hooks via PEFT
+    - Multi-label classification and regression ready collator
+  optimizer_defaults:
+    lr: 3e-5
+    batch_size: 32
+    grad_accumulation: 1
+tokenizer:
+  type: byte-pair (BPE)
+  model: zhihan1996/DNABERT-2-117M
+tokenizer_config:
+  truncation: true
+  padding: longest
+  max_length: 512
+context_length: 512
+checkpoints:
+  - name: zhihan1996/DNABERT-2-117M
+    path: https://huggingface.co/zhihan1996/DNABERT-2-117M
+    context_length: 512
+repo: https://github.com/Zhihan1996/DNABERT2
+weights:
+  huggingface:
+    - https://huggingface.co/zhihan1996/DNABERT-2-117M
+license:
+  code: Apache-2.0
+  weights: Apache-2.0
+  data: Multi-species genomes (see repo for per-dataset licenses)
+datasets:
+  - multi_species_corpus
+  - gue_benchmark
+  - nucleotide_transformer_tasks
+tasks:
+  - masked_language_modeling
+  - sequence_classification
+  - embedding_export
+how_to_infer:
+  huggingface: |
+    import torch
+    from transformers import AutoTokenizer, AutoModel
+
+    tokenizer = AutoTokenizer.from_pretrained("zhihan1996/DNABERT-2-117M", trust_remote_code=True)
+    model = AutoModel.from_pretrained("zhihan1996/DNABERT-2-117M", trust_remote_code=True)
+    hidden_states = model(tokenizer("ACGTAG", return_tensors="pt")["input_ids"])[0]
+  finetune: |
+    python external_repos/dnabert2/finetune/train.py \
+      --model_name_or_path zhihan1996/DNABERT-2-117M \
+      --data_path /mnt/gue \
+      --run_name dnabert2_gue \
+      --model_max_length 512 --per_device_train_batch_size 8 --gradient_accumulation_steps 4
+inference_api:
+  provider: huggingface
+  endpoint: https://huggingface.co/zhihan1996/DNABERT-2-117M
+  input_format: DNA strings or k-mer text via tokenizer
+  output: contextual embeddings / logits
+integrations:
+  - genetics_embeddings_pipeline
+  - rag_neurogenomics
+tags:
+  - transformer
+  - bpe
+  - multi-species
+  - benchmark-ready
+verified: false
+last_updated: 2025-11-15
+maintainers:
+  - name: Allison Eun Se You
+    role: curator
+notes: >-
+  finetune/train.py exposes LoRA switches (--use_lora flag) for lightweight adaptation on
+  small bespoke assays.

@@ -1,0 +1,77 @@
+id: evo2
+name: Evo 2
+modality: genetics
+domain: dna
+summary: >-
+  StripedHyena-2 based autoregressive DNA model (1B–40B params) trained on the
+  8.8T-token OpenGenome2 corpus with FP8-enabled inference, supporting scoring,
+  embeddings, and generation across 1Mbp contexts.
+arch:
+  type: StripedHyena 2 (mixer-based decoder)
+  backbone: evo2/models.py (Vortex inference wrapper + StripedHyena core)
+  parameters: [1B, 7B, 40B]
+  context_length: 1000000
+  special_features:
+    - FP8 precision + TransformerEngine hooks for large checkpoints
+    - Reverse-complement scoring via score_sequences_rc method
+    - Hook-based intermediate embeddings (layer names accessible via state_dict)
+tokenizer:
+  type: character
+  vocab_size: 512
+  notes: Provided by CharLevelTokenizer inside Vortex.
+context_length: 1000000
+checkpoints:
+  - name: evo2_7b
+    path: https://huggingface.co/arcinstitute/evo2_7b
+  - name: evo2_40b
+    path: https://huggingface.co/arcinstitute/evo2_40b
+repo: https://github.com/ArcInstitute/evo2
+weights:
+  huggingface:
+    - https://huggingface.co/arcinstitute
+license:
+  code: Apache-2.0
+  weights: Apache-2.0
+  data: OpenGenome2 (see dataset card)
+datasets:
+  - opengenome2
+  - gue_benchmark
+  - nucleotide_transformer_tasks
+tasks:
+  - causal_language_modeling
+  - sequence_generation
+  - variant_effect_prediction
+  - embedding_export
+how_to_infer:
+  python_api: |
+    from evo2 import Evo2
+    model = Evo2('evo2_7b')
+    prompt = "ACGT" * 100
+    output = model.generate(prompt_seqs=[prompt], n_tokens=256, temperature=0.8)
+    print(output.sequences[0])
+  scoring: |
+    from evo2 import Evo2
+    model = Evo2('evo2_7b')
+    scores = model.score_sequences(['ACGTAC'], batch_size=2, reduce_method='mean')
+    print(scores)
+inference_api:
+  provider: NVIDIA NIM / Hugging Face
+  endpoint: https://health.api.nvidia.com/v1/biology/arc/evo2-40b/generate
+  input_format: JSON payload (sequence, num_tokens, top_k)
+  output: generated DNA sequences + probabilities
+integrations:
+  - genetics_embeddings_pipeline
+  - ukb_genetics_brain_alignment
+  - rag_neurogenomics
+tags:
+  - stripedhyena
+  - fp8
+  - long-context
+  - generation
+verified: false
+last_updated: 2025-11-15
+maintainers:
+  - name: Allison Eun Se You
+notes: >-
+  40B checkpoint requires multi-GPU inference with 80GB GPUs and FP8 kernels from
+  TransformerEngine. Ensure CUDA 12.1+ and FlashAttention 2.8+ drivers.

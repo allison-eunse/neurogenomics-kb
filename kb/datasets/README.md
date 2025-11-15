@@ -1,24 +1,23 @@
-# Dataset Cards
+Dataset card schema (one YAML per dataset under `kb/datasets/`):
 
-This directory contains YAML files documenting datasets used in the neurogenomics knowledge base.
-
-## Structure
-
-Each dataset card (`*.yaml`) documents:
-- Dataset composition and structure
-- Data collection and preprocessing
-- Access and licensing information
-- Dataset characteristics and population information
-- Usage guidelines and limitations
-- Citation and maintenance information
-
-## Template
-
-See `template.yaml` for the dataset card schema.
-
-## Usage
-
-1. Copy `template.yaml` to create a new dataset card
-2. Fill in all relevant fields
-3. Use descriptive filenames (e.g., `genomics-cohort-v1.yaml`, `brain-imaging-dataset.yaml`)
-
+```
+id: unique_slug
+name: Human-readable title
+description: Short paragraph
+storage_location:
+  bucket|huggingface|drive|source: URI or path
+schema_ref: docs/data/schemas.md#anchor
+dtypes: description of expected file types
+required_columns:
+  - column
+counts:
+  subjects|records|base_pairs: numeric summary
+modalities:
+  - dna|fmri|clinical
+access: public|restricted|mixed
+restrictions: Notes on licensing/compliance
+maintainers:
+  - name: Contact or team
+verified: true|false
+last_updated: YYYY-MM-DD
+```

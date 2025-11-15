@@ -1,131 +1,46 @@
-# Model Card Template
-# Copy this file and rename it for each model
-
-id: TBD  # Unique identifier for this model
-name: TBD  # Human-readable name
-version: TBD  # Version of the model
-date_created: TBD  # YYYY-MM-DD
-last_updated: TBD  # YYYY-MM-DD
-
-# Model description
-description: TBD  # Brief description of the model
-full_description: TBD  # Detailed description
-
-# Model details
-model_details:
-  architecture: TBD  # Model architecture: e.g., transformer, CNN, RNN, etc.
-  framework: TBD  # Framework: e.g., PyTorch, TensorFlow, JAX, etc.
-  model_type: TBD  # Type: e.g., classification, regression, generative, etc.
-  input_format: TBD  # Expected input format
-  output_format: TBD  # Output format
-  parameters: TBD  # Number of parameters
-  
-# Model architecture
-architecture:
-  type: TBD  # Architecture type
-  layers: TBD  # Number of layers or architecture details
-  configuration: TBD  # Configuration details
-  hyperparameters: {}  # Key hyperparameters
-  
-# Training data
-training_data:
-  name: TBD  # Name of training dataset
-  description: TBD  # Description of training data
-  samples: TBD  # Number of training samples
-  data_types: []  # Types of data: e.g., genomics, imaging, etc.
-  preprocessing: TBD  # Preprocessing applied to training data
-  splits: {}  # Train/validation/test splits
-  
-# Training procedure
-training:
-  algorithm: TBD  # Training algorithm
-  optimizer: TBD  # Optimizer used
-  learning_rate: TBD  # Learning rate
-  batch_size: TBD  # Batch size
-  epochs: TBD  # Number of epochs
-  hardware: TBD  # Hardware used for training
-  training_time: TBD  # Training time
-  regularization: TBD  # Regularization techniques
-  
-# Evaluation data
-evaluation_data:
-  datasets: []  # List of evaluation datasets
-  metrics: {}  # Evaluation metrics and results
-  performance: {}  # Performance on different tasks/datasets
-  baselines: {}  # Comparison with baseline models
-  
-# Performance metrics
-metrics:
-  primary: {}  # Primary metrics
-  secondary: {}  # Secondary metrics
-  task_specific: {}  # Task-specific metrics
-  confidence_intervals: {}  # Confidence intervals if available
-  
-# Limitations
-limitations:
-  known_limitations: []  # Known limitations
-  out_of_scope: []  # Out-of-scope use cases
-  bias: TBD  # Known biases
-  fairness: TBD  # Fairness considerations
-  ethical_considerations: TBD  # Ethical considerations
-  
-# Intended use
-intended_use:
-  use_cases: []  # Intended use cases
-  users: []  # Intended users
-  context: TBD  # Context of use
-  restrictions: TBD  # Restrictions on use
-  
-# Factors
-factors:
-  relevant_factors: []  # Factors that affect performance
-  evaluation_factors: []  # Factors used in evaluation
-  training_factors: []  # Factors in training data
-  
-# Metrics by factors
-metrics_by_factors: {}  # Performance metrics broken down by relevant factors
-  
-# Model artifacts
-artifacts:
-  model_files: []  # Model file locations
-  checkpoint: TBD  # Checkpoint location
-  code: TBD  # Code repository
-  weights: TBD  # Model weights location
-  config: TBD  # Configuration file location
-  
-# Usage
-usage:
-  installation: TBD  # Installation instructions
-  inference: TBD  # Inference instructions
-  examples: []  # Usage examples
-  api: TBD  # API documentation if available
-  
-# Citation
-citation:
-  paper: TBD  # Link to paper
-  bibtex: TBD  # BibTeX citation
-  plain_text: TBD  # Plain text citation
-  authors: []  # Authors
-  
-# Contact and maintenance
-maintenance:
-  maintainers: []  # List of maintainers
-  contact: TBD  # Contact information
-  update_frequency: TBD  # Update frequency
-  support: TBD  # Support information
-  
-# License
+id: model_slug
+name: Model Name
+modality: genetics
+domain: dna
+summary: |
+  2–3 sentences summarizing the model.
+arch:
+  type: architecture label
+  backbone: path/to/core/file.py
+  parameters: 0M
+  context_length: 0
+  special_features:
+    - bullet
+repo: https://github.com/org/repo
+weights:
+  huggingface:
+    - https://huggingface.co/org/model
+  artifacts: []
+tokenizer:
+  type: description
+context_length: 0
+checkpoints:
+  - name: checkpoint_name
+    path: https://...
 license:
-  model_license: TBD  # License for the model
-  code_license: TBD  # License for the code
-  data_license: TBD  # License for training data
-  
-# Tags and categories
-tags: []  # Tags for categorization
-categories: []  # Categories: e.g., genetics, brain, imaging, etc.
-domain: TBD  # Domain: e.g., neurogenomics, genomics, neuroscience, etc.
-  
-# Status
-status: TBD  # active, archived, deprecated, etc.
-notes: TBD  # Additional notes
+  code: SPDX-ID
+  weights: SPDX-ID
+  data: short note
+datasets:
+  - dataset_id
+tasks:
+  - masked_language_modeling
+how_to_infer:
+  huggingface: |
+    python snippet
+inference_api:
+  provider: huggingface
+  endpoint: https://...
+integrations:
+  - integration_id
+tags:
+  - keyword
+verified: false
+last_updated: 2025-01-01
+notes: Optional paragraph
 

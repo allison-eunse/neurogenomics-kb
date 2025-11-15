@@ -1,0 +1,24 @@
+id: hcp_fmri_tensor
+name: HCP-YA fMRI tensors
+description: Human Connectome Project Young Adult dataset converted into SwiFT/BrainMT compatible tensor tiles.
+storage_location:
+  bucket: s3://hcp-fmri-derived
+  path: tensors/v2025_09/
+schema_ref: docs/data/schemas.md#hcp-fmri
+dtypes: torch .pt + csv targets
+required_columns:
+  - subject
+  - tensor_path
+  - task
+  - target
+counts:
+  subjects: 1_200
+  frames_per_subject: 1200
+modalities:
+  - fmri
+access: restricted
+restrictions: Requires HCP Data Use Agreement compliance.
+maintainers:
+  - name: Allison Eun Se You
+verified: false
+last_updated: 2025-11-15

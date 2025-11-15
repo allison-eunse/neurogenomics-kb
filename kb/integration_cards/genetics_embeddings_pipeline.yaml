@@ -1,0 +1,27 @@
+id: genetics_embeddings_pipeline
+name: Genetics embedding export pipeline
+summary: Generate long-context DNA embeddings + checkpoints from Caduceus, DNABERT-2, GENERator, and Evo 2.
+models:
+  - caduceus
+  - dnabert2
+  - generator
+  - evo2
+datasets:
+  - hg38_reference
+  - genomic_benchmarks
+  - nucleotide_transformer_tasks
+pipelines:
+  - scripts/manage_kb.py ops embeddings <model>
+  - external_repos/caduceus/vep_embeddings.py for MLM checkpoints
+  - external_repos/dnabert2/finetune/train.py for supervised probes
+status: drafting
+outputs:
+  - path: data/genetics/embeddings/v0
+    description: HDF5 shards with `[eid, model, layer, vector]`
+ci_checks:
+  - python scripts/manage_kb.py validate models
+  - python scripts/manage_kb.py validate datasets
+  - python scripts/manage_kb.py ci docs
+owner: Allison Eun Se You
+verified: false
+last_updated: 2025-11-15

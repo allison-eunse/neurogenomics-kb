@@ -1,0 +1,141 @@
+{
+  "docs_markdown": [
+    "docs/code_walkthroughs/brainml_walkthrough.md",
+    "docs/code_walkthroughs/brainmt_walkthrough.md",
+    "docs/code_walkthroughs/caduceus_walkthrough.md",
+    "docs/code_walkthroughs/dnabert2_walkthrough.md",
+    "docs/code_walkthroughs/evo2_walkthrough.md",
+    "docs/code_walkthroughs/index.md",
+    "docs/code_walkthroughs/swift_walkthrough.md",
+    "docs/data/governance_qc.md",
+    "docs/data/index.md",
+    "docs/data/schemas.md",
+    "docs/data/ukb_data_map.md",
+    "docs/decisions/2025-11-baseline-scope.md",
+    "docs/decisions/2025-11-integration-direction.md",
+    "docs/decisions/index.md",
+    "docs/index.md",
+    "docs/integration/benchmarks.md",
+    "docs/integration/design_patterns.md",
+    "docs/integration/index.md",
+    "docs/integration/playbook_alignment.md",
+    "docs/integration/playbook_baselines.md",
+    "docs/models/brain/brainlm.md",
+    "docs/models/brain/brainmt.md",
+    "docs/models/brain/index.md",
+    "docs/models/brain/swift.md",
+    "docs/models/genetics/caduceus.md",
+    "docs/models/genetics/dnabert2.md",
+    "docs/models/genetics/evo2.md",
+    "docs/models/genetics/generator.md",
+    "docs/models/genetics/index.md"
+  ],
+  "kb_cards": {
+    "model_cards": [
+      "kb/model_cards/brainlm.yaml",
+      "kb/model_cards/brainmt.yaml",
+      "kb/model_cards/caduceus.yaml",
+      "kb/model_cards/dnabert2.yaml",
+      "kb/model_cards/evo2.yaml",
+      "kb/model_cards/generator.yaml",
+      "kb/model_cards/swift.yaml",
+      "kb/model_cards/template.yaml"
+    ],
+    "datasets": [
+      "kb/datasets/gener_tasks.yaml",
+      "kb/datasets/genomic_benchmarks.yaml",
+      "kb/datasets/gue_benchmark.yaml",
+      "kb/datasets/hcp_fmri_tensor.yaml",
+      "kb/datasets/hg38_reference.yaml",
+      "kb/datasets/multi_species_corpus.yaml",
+      "kb/datasets/nucleotide_transformer_tasks.yaml",
+      "kb/datasets/opengenome2.yaml",
+      "kb/datasets/refseq_generator.yaml",
+      "kb/datasets/template.yaml",
+      "kb/datasets/ukb_fmri_tensor.yaml"
+    ],
+    "integration_cards": [
+      "kb/integration_cards/genetics_embeddings_pipeline.yaml",
+      "kb/integration_cards/template.yaml",
+      "kb/integration_cards/ukb_genetics_brain_alignment.yaml"
+    ],
+    "paper_cards": [
+      "kb/paper_cards/template.yaml"
+    ]
+  },
+  "scripts": [
+    "scripts/manage_kb.py"
+  ],
+  "external_repos": {
+    "brainlm": {
+      "readme": "external_repos/brainlm/README.md",
+      "requirements": "external_repos/brainlm/requirements.txt",
+      "has_tests": true
+    },
+    "brainmt": {
+      "readme": "external_repos/brainmt/README.md",
+      "requirements": "external_repos/brainmt/requirements.txt",
+      "has_tests": false
+    },
+    "caduceus": {
+      "readme": "external_repos/caduceus/README.md",
+      "requirements": null,
+      "has_tests": false
+    },
+    "dnabert2": {
+      "readme": "external_repos/dnabert2/README.md",
+      "requirements": "external_repos/dnabert2/requirements.txt",
+      "has_tests": false
+    },
+    "evo2": {
+      "readme": "external_repos/evo2/README.md",
+      "requirements": null,
+      "has_tests": false
+    },
+    "generator": {
+      "readme": "external_repos/generator/README.md",
+      "requirements": "external_repos/generator/requirements.txt",
+      "has_tests": false
+    },
+    "swift": {
+      "readme": "external_repos/swift/README.md",
+      "requirements": null,
+      "has_tests": false
+    }
+  },
+  "parallel_tasks": [
+    {
+      "id": 1,
+      "label": "Docs & MkDocs site",
+      "paths": [
+        "docs/",
+        "mkdocs.yml"
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Knowledge base YAML cards",
+      "paths": [
+        "kb/model_cards/",
+        "kb/datasets/",
+        "kb/integration_cards/"
+      ]
+    },
+    {
+      "id": 3,
+      "label": "External research repos",
+      "paths": [
+        "external_repos/"
+      ]
+    },
+    {
+      "id": 4,
+      "label": "RAG + orchestration scripts",
+      "paths": [
+        "scripts/",
+        "rag/",
+        "kb/rag/"
+      ]
+    }
+  ]
+}

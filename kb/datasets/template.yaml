@@ -1,93 +1,22 @@
-# Dataset Card Template
-# Copy this file and rename it for each dataset
-
-id: TBD  # Unique identifier for this dataset
-name: TBD  # Human-readable name
-version: TBD  # Version of the dataset
-date_created: TBD  # YYYY-MM-DD
-last_updated: TBD  # YYYY-MM-DD
-
-# Dataset description
-description: TBD  # Brief description of the dataset
-full_description: TBD  # Detailed description
-
-# Dataset composition
-composition:
-  samples: TBD  # Number of samples
-  subjects: TBD  # Number of subjects/individuals
-  data_types: []  # List of data types: e.g., genomics, transcriptomics, imaging, etc.
-  modalities: []  # List of modalities: e.g., DNA, RNA, fMRI, EEG, etc.
-  
-# Data structure
-structure:
-  format: TBD  # File format: e.g., HDF5, VCF, BAM, etc.
-  organization: TBD  # How data is organized
-  schema: TBD  # Data schema or structure description
-  
-# Data collection
-collection:
-  source: TBD  # Data source
-  collection_method: TBD  # How data was collected
-  collection_date: TBD  # Date range of collection
-  locations: []  # Geographic locations if applicable
-  
-# Preprocessing
-preprocessing:
-  steps: []  # List of preprocessing steps
-  tools: []  # Tools used for preprocessing
-  quality_control: TBD  # Quality control procedures
-  
-# Data access
-access:
-  availability: TBD  # public, restricted, private
-  location: TBD  # URL or path to dataset
-  access_procedures: TBD  # How to access the dataset
-  license: TBD  # License information
-  restrictions: TBD  # Any restrictions on use
-  
-# Dataset characteristics
-characteristics:
-  size: TBD  # Dataset size (e.g., GB, TB)
-  dimensions: TBD  # Dimensionality description
-  features: []  # List of features/variables
-  annotations: []  # Available annotations
-  
-# Population information
-population:
-  species: TBD  # e.g., Homo sapiens, Mus musculus
-  demographics: TBD  # Demographic information
-  inclusion_criteria: []  # Inclusion criteria
-  exclusion_criteria: []  # Exclusion criteria
-  
-# Metadata
-metadata:
-  paper: TBD  # Link to associated paper
-  repository: TBD  # Link to data repository
-  documentation: TBD  # Link to documentation
-  code: TBD  # Link to code for data processing
-  
-# Usage
-usage:
-  use_cases: []  # Intended use cases
-  limitations: TBD  # Known limitations
-  recommendations: TBD  # Recommendations for use
-  
-# Maintenance
-maintenance:
-  maintainers: []  # List of maintainers
-  update_frequency: TBD  # How often dataset is updated
-  support: TBD  # Support contact information
-  
-# Citation
-citation:
-  bibtex: TBD  # BibTeX citation
-  plain_text: TBD  # Plain text citation
-  
-# Tags and categories
-tags: []  # Tags for categorization
-categories: []  # Categories: e.g., genetics, brain, imaging, etc.
-  
-# Status
-status: TBD  # active, archived, deprecated, etc.
-notes: TBD  # Additional notes
+id: example_dataset
+name: Example dataset
+description: |
+  2–3 sentences describing scope, provenance, and why it matters.
+storage_location:
+  bucket: s3://path-or remove field if not applicable
+schema_ref: docs/data/schemas.md#anchor
+dtypes: parquet / csv / tensors
+required_columns:
+  - column_a
+  - column_b
+counts:
+  subjects: 0
+modalities:
+  - dna
+access: public
+restrictions: Cite upstream owners
+maintainers:
+  - name: Owner
+verified: false
+last_updated: 2025-01-01
 

@@ -1,0 +1,31 @@
+id: ukb_genetics_brain_alignment
+name: UKB genetics ↔ brain FM alignment
+summary: Align long-range genetics embeddings with fMRI foundation model embeddings for downstream psychiatric outcomes.
+models:
+  - caduceus
+  - dnabert2
+  - generator
+  - evo2
+  - brainlm
+  - brainmt
+  - swift
+datasets:
+  - ukb_fmri_tensor
+  - hg38_reference
+  - ukb_covariates (coming soon)
+  - genetics_embeddings (generated)
+pipelines:
+  - scripts/manage_kb.py rag-index (metadata for RAG + dashboards)
+  - alignment.playbook configs under docs/integration/
+  - contrastive training notebooks (TBD)
+status: design
+outputs:
+  - path: integration/ukb_alignment/versioned/
+    description: Hydra configs + checkpoints for CLIP-style aligners
+ci_checks:
+  - Ensure every referenced model doc has `<!-- model-id: ... -->`
+  - Validate dataset schemas before running experiments
+  - Fail build if docs mention models with missing cards
+owner: Allison Eun Se You
+verified: false
+last_updated: 2025-11-15

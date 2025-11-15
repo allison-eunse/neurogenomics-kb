@@ -1,0 +1,78 @@
+id: generator
+name: GENERator
+modality: genetics
+domain: dna
+summary: >-
+  Long-context transformer decoder (6-mer tokenizer) trained on RefSeq-derived
+  corpora for genomic sequence generation, recovery, and downstream understanding.
+arch:
+  type: GPT-style decoder with sliding-window attention
+  backbone: src/tasks/downstream modules + FlashAttention/Liger kernels
+  parameters: 1.2B–3B per checkpoint
+  context_length: 1000000
+  special_features:
+    - Sliding-window causal attention up to 1M bp with FlashAttention + Liger Kernel
+    - 6-mer tokenizer (sequence length must be divisible by 6)
+    - Downstream task suite under src/tasks/downstream/
+tokenizer:
+  type: 6-mer BPE
+  notes: Pad or trim sequences to multiples of 6 to avoid out-of-vocabulary token artifacts.
+context_length: 1000000
+checkpoints:
+  - name: GENERator-v2-eukaryote-1.2b-base
+    path: https://huggingface.co/GenerTeam/GENERator-v2-eukaryote-1.2b-base
+  - name: GENERator-v2-prokaryote-3b-base
+    path: https://huggingface.co/GenerTeam/GENERator-v2-prokaryote-3b-base
+repo: https://github.com/GenerTeam/GENERator
+weights:
+  huggingface:
+    - https://huggingface.co/GenerTeam
+license:
+  code: MIT
+  weights: MIT
+  data: RefSeq (NCBI), Gener tasks (HF datasets)
+datasets:
+  - refseq_generator
+  - gener_tasks
+  - nucleotide_transformer_tasks
+  - genomic_benchmarks
+tasks:
+  - causal_language_modeling
+  - variant_effect_prediction
+  - sequence_recovery
+  - sequence_understanding
+how_to_infer:
+  huggingface: |
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    model = AutoModelForCausalLM.from_pretrained("GenerTeam/GENERator-v2-eukaryote-1.2b-base", torch_dtype="bfloat16")
+    tokenizer = AutoTokenizer.from_pretrained("GenerTeam/GENERator-v2-eukaryote-1.2b-base")
+    prompt = "ACGT" * 512
+    inputs = tokenizer(prompt, return_tensors="pt")
+    out = model.generate(**inputs, max_new_tokens=600, top_k=4, temperature=0.9)
+    print(tokenizer.decode(out[0]))
+  downstream: |
+    python external_repos/generator/src/tasks/downstream/sequence_understanding.py \
+      --model_name GenerTeam/GENERator-v2-eukaryote-1.2b-base \
+      --dataset_name GenerTeam/gener-tasks --subset_name gene_classification --batch_size 8 --bf16
+inference_api:
+  provider: huggingface
+  endpoint: https://huggingface.co/GenerTeam/GENERator-v2-eukaryote-1.2b-base
+  input_format: DNA prompts (multiples of 6 bp)
+  output: generated continuation + logits
+integrations:
+  - genetics_embeddings_pipeline
+  - rag_neurogenomics
+  - ukb_genetics_brain_alignment
+tags:
+  - decoder-only
+  - long-context
+  - generative
+  - flash-attn
+verified: false
+last_updated: 2025-11-15
+maintainers:
+  - name: Allison Eun Se You
+    role: curator
+notes: >-
+  Always pad sequences to multiples of 6 to avoid out-of-vocabulary tokens; see README warning.

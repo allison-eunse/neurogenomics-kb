@@ -1,0 +1,96 @@
+id: caduceus
+name: Caduceus
+modality: genetics
+domain: dna
+summary: >-
+  Bidirectional RC-equivariant long-range DNA language model adapted from HyenaDNA
+  infrastructure with RC parameter sharing (RCPS) and Hyena-style long convolutions.
+arch:
+  type: RC-equivariant Hyena + Transformer
+  backbone: src/models/sequence/dna_embedding.py (LMBackbone + RCPS adapters)
+  parameters: "~150M (d_model=256, n_layer=16)"
+  context_length: 131072
+  special_features:
+    - Reverse-complement equivariance toggled via model.config.rcps parameter
+    - Hyena long convolutions + attention layers for >100k bp
+    - Distributed-compatible long context trainer with FlashAttention
+  optimizer_defaults:
+    lr: 0.008
+    batch_size: 1024
+    mlm_probability: 0.15
+tokenizer:
+  type: character (1 bp)
+  vocab: [A, C, G, T, N, <pad>]
+  bp_per_token: 1
+  notes: Uses RC-aware augmentation toggled with dataset.rc_aug parameter.
+context_length: 131072
+checkpoints:
+  - name: caduceus-ph
+    path: https://huggingface.co/kuleshov-group/caduceus-ph_seqlen-131k_d_model-256_n_layer-16
+    context_length: 131072
+    dtype: bf16
+  - name: caduceus-ps
+    path: https://huggingface.co/kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16
+    context_length: 131072
+    dtype: bf16
+repo: https://github.com/kuleshov-group/caduceus
+weights:
+  huggingface:
+    - https://huggingface.co/collections/kuleshov-group/caducues-65dcb89b4f54e416ef61c350
+  artifacts:
+    - external_repos/caduceus/outputs
+license:
+  code: Apache-2.0
+  weights: Apache-2.0
+  data: >-
+    hg38 reference genome (UCSC terms) + GenomicBenchmarks (CC-BY 4.0) + NT tasks (InstaDeep terms).
+datasets:
+  - hg38_reference
+  - genomic_benchmarks
+  - nucleotide_transformer_tasks
+  - gue_benchmark
+tasks:
+  - masked_language_modeling
+  - variant_effect_prediction
+  - genomics_classification
+  - embeddings_export
+how_to_infer:
+  huggingface: |
+    from transformers import AutoTokenizer, AutoModelForMaskedLM
+    model = AutoModelForMaskedLM.from_pretrained(
+        "kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16"
+    )
+    tokenizer = AutoTokenizer.from_pretrained(
+        "kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16"
+    )
+    inputs = tokenizer("ACGT" * 1000, return_tensors="pt")
+    logits = model(**inputs).logits
+  embeddings: |
+    torchrun --standalone --nproc-per-node=8 external_repos/caduceus/vep_embeddings.py \
+      --model_name_or_path kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16 \
+      --seq_len 131072 --bp_per_token 1 --embed_dump_batch_size 1 --rcps
+inference_api:
+  provider: huggingface
+  endpoint: https://huggingface.co/kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16
+  input_format: FASTA / plain DNA strings
+  output: Masked-LM logits + hidden states
+  tokenizer_config:
+    pad_to_multiple: 16
+    mlm_probability: 0.15
+integrations:
+  - genetics_embeddings_pipeline
+  - ukb_genetics_brain_alignment
+  - rag_neurogenomics
+tags:
+  - long-context
+  - rc-equivariant
+  - flash-attn
+  - masked-language-modeling
+verified: false
+last_updated: 2025-11-15
+maintainers:
+  - name: Allison Eun Se You
+    role: curator
+notes: >-
+  Use dataset.rcps=true for strict RC weight tying. Set dataset.rc_aug=true when
+  using non-equivariant checkpoints to match paper performance.
