@@ -1,0 +1,41 @@
+name: codex-gate
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          pip install -r requirements.txt
+
+      - name: Determine base ref
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "BASE_REF=${{ github.base_ref }}" >> $GITHUB_ENV
+            git fetch origin ${{ github.base_ref }}:${{ github.base_ref }} --depth=1
+          else
+            echo "BASE_REF=main" >> $GITHUB_ENV
+            git fetch origin main:main --depth=1
+          fi
+
+      - name: Run Codex gate (full)
+        run: |
+          python scripts/codex_gate.py --mode full --since origin/${{ env.BASE_REF }} --label ci
+

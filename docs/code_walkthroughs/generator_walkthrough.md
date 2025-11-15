@@ -1,502 +1,174 @@
 # GENERator Code Walkthrough
 
 ## Overview
+GENERator wraps GPT-style causal decoders (1.2 B and 3 B parameters for both eukaryote and prokaryote checkpoints) with a strict 6-mer tokenizer and long-context optimizations—FlashAttention, Liger kernels, sliding-window decoding—so you can score or generate up to one million base pairs per prompt.^[```5:125:external_repos/generator/README.md```]
 
-GENERator is a long-context generative genomic foundation model based on transformer decoders, achieving state-of-the-art performance across genomic benchmarks while excelling at sequence generation tasks. It uses 6-mer tokenization and supports contexts up to **1 million base pairs** with sliding window attention.
+## At-a-Glance
+| Architecture | Params | Context | Tokenization / Inputs | Key capabilities | Repo |
+| --- | --- | --- | --- | --- | --- |
+| HuggingFace `AutoModelForCausalLM` decoder w/ optional ChunkEnsemble Llama heads^[```257:349:external_repos/generator/src/tasks/downstream/fine_tuning.py```][```508:688:external_repos/generator/src/tasks/downstream/sequence_understanding.py```] | 1.2 B & 3 B checkpoints for euk/prok.^[```52:118:external_repos/generator/README.md```] | 1 Mbp prompts via sliding windows + FlashAttention^[```84:99:external_repos/generator/README.md```][```612:667:external_repos/generator/src/tasks/downstream/sequence_understanding.py```] | 6-mer tokenizer; sequences must be multiples of 6, enforced in preprocessing^[```118:125:external_repos/generator/src/tasks/downstream/variant_effect_prediction.py```][```115:235:external_repos/generator/src/tasks/downstream/fine_tuning.py```] | Variant effect scoring, sequence recovery, classification/regression fine-tuning^[```141:406:external_repos/generator/src/tasks/downstream/variant_effect_prediction.py```][```400:687:external_repos/generator/src/tasks/downstream/sequence_understanding.py```] | [github.com/GenerTeam/GENERator](https://github.com/GenerTeam/GENERator) |
 
-**Key Features:**
-- **Architecture**: GPT-style decoder with sliding-window attention
-- **Context Length**: Up to 1,000,000 bp (with FlashAttention + Liger Kernel)
-- **Tokenization**: 6-mer BPE (requires sequence lengths divisible by 6)
-- **Model Sizes**: 1.2B and 3B parameters
-- **Training Data**: RefSeq database (eukaryote and prokaryote variants)
-- **Optimization**: FlashAttention, Liger Kernel, DeepSpeed, FSDP support
+### Environment & Hardware Notes
+- **Long-context dependencies.** For million-base contexts the README recommends installing the custom kernels explicitly:  
+  `pip install liger-kernel`  
+  `pip install flash-attn --no-build-isolation`^[```84:89:external_repos/generator/README.md```]
+- **Gradient checkpointing flag.** When operating on >10 kbp sequences, the authors enable `model.gradient_checkpointing_enable()` to trade compute for memory.^[```420:424:external_repos/generator/README.md```]
 
-## Repository Structure
+## Key Components
 
-```
-generator/
-├── src/
-│   └── tasks/
-│       └── downstream/
-│           ├── variant_effect_prediction.py
-│           ├── sequence_recovery.py
-│           ├── sequence_understanding.py
-│           └── fine_tuning.py
-├── configs/
-│   ├── variant_effect_prediction.json
-│   ├── sequence_recovery.json
-│   ├── sequence_understanding.yaml
-│   └── fine_tuning.yaml
-├── requirements.txt
-└── README.md
+### Tokenizer & Preprocessing (`variant_effect_prediction.py`, `fine_tuning.py`)
+The downstream scripts consistently load the HF tokenizer with `trust_remote_code=True`, force pad tokens to EOS if missing, and either truncate or pad every sequence to the nearest 6-mer boundary (`pad_to_multiple_of_six` flag) so the 6-mer BPE never emits `<oov>` tokens.
+
+```151:176:external_repos/generator/src/tasks/downstream/variant_effect_prediction.py
+tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+...
+inputs = tokenizer(batch_sequences, return_tensors="pt", padding=True)
 ```
 
-## Architecture
-
-### 1. Core Model Components
-
-**Decoder Architecture:**
-```python
-# GENERator uses standard GPT-style decoder with:
-# - Sliding-window causal attention
-# - 6-mer tokenization
-# - FlashAttention for long contexts
-
-# Typical usage:
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-model = AutoModelForCausalLM.from_pretrained(
-    "GenerTeam/GENERator-v2-eukaryote-1.2b-base",
-    torch_dtype="bfloat16"
-)
-tokenizer = AutoTokenizer.from_pretrained(
-    "GenerTeam/GENERator-v2-eukaryote-1.2b-base"
-)
+```118:125:external_repos/generator/src/tasks/downstream/variant_effect_prediction.py
+truncate_length = len(sequence) % 6
+if truncate_length > 0:
+    sequence = sequence[truncate_length:]
 ```
 
-**Critical 6-mer Requirement:**
-```python
-# Input sequences MUST be multiples of 6 bp
-# Bad: "ACGTACG" (7 bp) → will append <oov> token
-# Good: "ACGTAC" (6 bp) or "ACGTACGTAC" (12 bp)
-
-def ensure_6mer_compatible(seq: str) -> str:
-    """Pad or truncate sequence to multiple of 6."""
+```208:243:external_repos/generator/src/tasks/downstream/fine_tuning.py
+if pad_to_multiple_of_six:
     remainder = len(seq) % 6
     if remainder != 0:
-        # Left padding with 'A'
-        seq = 'A' * (6 - remainder) + seq
-    return seq
-```
-
-### 2. Sliding-Window Attention
-
-**Long-Context Strategy:**
-```python
-# GENERator extends context to 1M bp using:
-# 1. Sliding-window attention (local context)
-# 2. FlashAttention (memory-efficient)
-# 3. Liger Kernel (optimized operations)
-
-# Install requirements:
-# pip install liger-kernel
-# pip install flash-attn --no-build-isolation
-
-# Model automatically uses sliding-window attention
-# for sequences exceeding base context length
-```
-
-### 3. Model Variants
-
-**Available Checkpoints:**
-
-| Model | Parameters | Data | Category | Context |
-|-------|-----------|------|----------|---------|
-| `GENERator-v2-eukaryote-1.2b-base` | 1.2B | 422B | Eukaryote | 1M bp |
-| `GENERator-v2-eukaryote-3b-base` | 3B | 422B | Eukaryote | 1M bp |
-| `GENERator-v2-prokaryote-1.2b-base` | 1.2B | 515B | Prokaryote | 1M bp |
-| `GENERator-v2-prokaryote-3b-base` | 3B | 515B | Prokaryote | 1M bp |
-
-## Downstream Tasks
-
-### 1. Variant Effect Prediction
-
-**Purpose**: Predict impact of genetic variants (ClinVar benchmark)
-
-**Usage:**
-```bash
-# FP32 (default)
-python src/tasks/downstream/variant_effect_prediction.py
-
-# BF16 for faster inference (recommended)
-python src/tasks/downstream/variant_effect_prediction.py --bf16
-```
-
-**Integration:**
-```python
-# In your pipeline:
-from transformers import AutoModelForCausalLM
-import torch
-
-model = AutoModelForCausalLM.from_pretrained(
-    "GenerTeam/GENERator-v2-eukaryote-1.2b-base",
-    torch_dtype=torch.bfloat16
-).cuda()
-
-def predict_variant_effect(ref_seq: str, alt_seq: str):
-    """Compare likelihoods of reference vs alternative sequence."""
-    # Ensure 6-mer compatibility
-    ref_seq = ensure_6mer_compatible(ref_seq)
-    alt_seq = ensure_6mer_compatible(alt_seq)
-    
-    # Compute log-likelihoods
-    ref_tokens = tokenizer(ref_seq, return_tensors="pt").to("cuda")
-    alt_tokens = tokenizer(alt_seq, return_tensors="pt").to("cuda")
-    
-    with torch.no_grad():
-        ref_loss = model(**ref_tokens, labels=ref_tokens.input_ids).loss
-        alt_loss = model(**alt_tokens, labels=alt_tokens.input_ids).loss
-    
-    return ref_loss - alt_loss  # Positive = deleterious
-```
-
-### 2. Sequence Recovery
-
-**Purpose**: Evaluate model's ability to recover DNA sequences
-
-**Usage:**
-```bash
-# FP32
-python src/tasks/downstream/sequence_recovery.py
-
-# BF16 (recommended)
-python src/tasks/downstream/sequence_recovery.py --bf16
-```
-
-**Benchmark**: Uses [GenerTeam/sequence-recovery](https://huggingface.co/datasets/GenerTeam/sequence-recovery) dataset
-
-### 3. Sequence Understanding
-
-**Purpose**: Classification/regression on genomic sequences
-
-**Supported Benchmarks:**
-- **Gener Tasks**: Gene classification, taxonomic classification
-- **NT Tasks**: Histone marks (H2AFZ, H3K27ac, etc.)
-- **Genomic Benchmarks**: Human/worm species classification
-- **DeepSTARR**: Enhancer activity prediction (regression)
-
-**Usage:**
-```bash
-# Single GPU
-python src/tasks/downstream/sequence_understanding.py \
-    --model_name GenerTeam/GENERator-eukaryote-1.2b-base \
-    --dataset_name GenerTeam/gener-tasks \
-    --subset_name gene_classification \
-    --batch_size 8 \
-    --problem_type single_label_classification \
-    --main_metrics accuracy \
-    --bf16
-
-# Multi-GPU (DDP)
-torchrun --nnodes=1 \
-    --nproc_per_node=8 \
-    --rdzv_backend=c10d \
-    src/tasks/downstream/sequence_understanding.py \
-    --model_name GenerTeam/GENERator-eukaryote-1.2b-base \
-    --dataset_name GenerTeam/gener-tasks \
-    --subset_name gene_classification \
-    --batch_size 8 \
-    --bf16
-
-# DeepSpeed (multi-node)
-torchrun --nnodes=2 \
-    --nproc_per_node=8 \
-    --rdzv_backend=c10d \
-    --rdzv_endpoint=master_node:29500 \
-    src/tasks/downstream/sequence_understanding.py \
-    --distributed_type deepspeed \
-    --bf16
-```
-
-**Regression Example:**
-```bash
-# Enhancer activity prediction
-python src/tasks/downstream/sequence_understanding.py \
-    --model_name GenerTeam/GENERator-eukaryote-1.2b-base \
-    --dataset_name GenerTeam/DeepSTARR-enhancer-activity \
-    --problem_type regression \
-    --main_metrics pearson \
-    --batch_size 16 \
-    --bf16
-```
-
-### 4. Fine-Tuning for Generation
-
-**Purpose**: Fine-tune for specific sequence generation tasks
-
-**Datasets:**
-- DeepSTARR Enhancer sequences
-- Histone coding DNA sequences (CDS)
-- Cytochrome P450 CDS
-
-**Usage:**
-```bash
-# Single GPU
-python src/tasks/downstream/fine_tuning.py \
-    --model_name GenerTeam/GENERator-eukaryote-1.2b-base \
-    --dataset_name GenerTeam/DeepSTARR-enhancer-activity \
-    --batch_size 4 \
-    --num_train_epochs 10 \
-    --learning_rate 5e-5 \
-    --bf16
-
-# Multi-GPU with FSDP
-torchrun --nnodes=1 \
-    --nproc_per_node=8 \
-    --rdzv_backend=c10d \
-    src/tasks/downstream/fine_tuning.py \
-    --model_name GenerTeam/GENERator-eukaryote-3b-base \
-    --dataset_name GenerTeam/histone-cds \
-    --batch_size 2 \
-    --distributed_type fsdp \
-    --bf16
-```
-
-## Embeddings Extraction
-
-**Use Case**: Extract sequence embeddings for downstream ML tasks
-
-**Approach 1: Last Hidden State**
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
-
-model = AutoModelForCausalLM.from_pretrained(
-    "GenerTeam/GENERator-v2-eukaryote-1.2b-base",
-    torch_dtype=torch.bfloat16,
-    output_hidden_states=True
-).cuda()
-
-tokenizer = AutoTokenizer.from_pretrained(
-    "GenerTeam/GENERator-v2-eukaryote-1.2b-base"
+        pad_len = 6 - remainder
+        seq = seq + "A" * pad_len
+tokenized = tokenizer(
+    sequences,
+    truncation=True,
+    max_length=max_length,
+    add_special_tokens=True,
+    padding=False,
 )
-
-def extract_embeddings(sequence: str, pooling: str = "mean"):
-    """Extract embeddings from GENERator.
-    
-    Args:
-        sequence: DNA sequence (will be padded to multiple of 6)
-        pooling: 'mean', 'max', or 'last'
-    """
-    # Ensure 6-mer compatibility
-    seq = ensure_6mer_compatible(sequence)
-    
-    inputs = tokenizer(seq, return_tensors="pt").to("cuda")
-    
-    with torch.no_grad():
-        outputs = model(**inputs, output_hidden_states=True)
-    
-    # Get last hidden state: [batch, seq_len, hidden_dim]
-    hidden_states = outputs.hidden_states[-1]
-    
-    if pooling == "mean":
-        embedding = hidden_states.mean(dim=1)
-    elif pooling == "max":
-        embedding = hidden_states.max(dim=1).values
-    elif pooling == "last":
-        embedding = hidden_states[:, -1, :]
-    
-    return embedding.cpu().numpy()
 ```
 
-**Approach 2: Batch Extraction for Large Datasets**
-```python
-from torch.utils.data import DataLoader
-import numpy as np
+### Positional & Long-Context Handling (`sequence_understanding.py`)
+`sequence_understanding.py` either scales RoPE via YaRN or injects sliding-window attention patches so you can extend Llama-based classifiers to >1 M tokens while staying numerically stable.
 
-def batch_extract_embeddings(sequences: list[str], batch_size: int = 16):
-    """Extract embeddings for multiple sequences efficiently."""
-    embeddings = []
-    
-    for i in range(0, len(sequences), batch_size):
-        batch = sequences[i:i + batch_size]
-        # Ensure 6-mer compatibility
-        batch = [ensure_6mer_compatible(seq) for seq in batch]
-        
-        inputs = tokenizer(
-            batch,
-            return_tensors="pt",
-            padding=True,
-            truncation=True,
-            max_length=512 * 6  # 512 6-mers
-        ).to("cuda")
-        
-        with torch.no_grad():
-            outputs = model(**inputs, output_hidden_states=True)
-            # Mean pooling
-            hidden = outputs.hidden_states[-1]
-            batch_emb = hidden.mean(dim=1).cpu().numpy()
-        
-        embeddings.append(batch_emb)
-    
-    return np.vstack(embeddings)
+```596:666:external_repos/generator/src/tasks/downstream/sequence_understanding.py
+elif length_extension_mode == "sliding_window":
+    config.sliding_window = int(original_model_max_length_for_scaling)
+    ...
+    def _sliding_llama_forward(...):
+        kwargs["sliding_window"] = self.config.sliding_window
+        return _orig_forward(...)
+    LlamaAttention.forward = _sliding_llama_forward
+    attn_implementation = "flash_attention_2"
 ```
 
-## Training Configuration
+### Backbone Instantiation (`fine_tuning.py`, `sequence_understanding.py`)
+Fine-tuning uses `AutoModelForCausalLM` with optional pad ID fixes, while sequence-understanding swaps in `AutoModelForSequenceClassification` or the ChunkEnsemble wrapper to keep a rolling window over million-token sequences.
 
-**Recommended Hyperparameters:**
-```yaml
-# For fine-tuning on downstream tasks
-learning_rate: 5e-5
-batch_size: 4-8 (per GPU)
-num_train_epochs: 10
-warmup_ratio: 0.1
-weight_decay: 0.01
-gradient_accumulation_steps: 4
-max_grad_norm: 1.0
-lr_scheduler_type: cosine
-bf16: true
-
-# For long sequences (>10k bp)
-gradient_checkpointing: true
-sliding_window_size: 4096
-flash_attention: true
-```
-
-## Integration with Multimodal Pipelines
-
-### Genetic-Brain Alignment
-
-**Goal**: Extract genetic embeddings for fusion with brain fMRI data
-
-**Pipeline:**
-```python
-# 1. Extract genetic embeddings from genomic sequences
-genetic_embeddings = batch_extract_embeddings(
-    genomic_sequences,
-    batch_size=16
+```257:285:external_repos/generator/src/tasks/downstream/fine_tuning.py
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    trust_remote_code=True,
 )
+if model.config.pad_token_id is None and hasattr(model.config, "eos_token_id"):
+    model.config.pad_token_id = model.config.eos_token_id
+```
 
-# 2. Project to shared embedding space
-from torch import nn
+```508:593:external_repos/generator/src/tasks/downstream/sequence_understanding.py
+class ChunkEnsembleLlamaForSequenceClassification(LlamaPreTrainedModel):
+    def forward(...):
+        input_ids_chunks = input_ids.unfold(dimension=1, size=self.chunk_size, step=self.stride)
+        ...
+        chunk_eos_embedding = hidden_states[
+            torch.arange(batch_size, device=hidden_states.device),
+            sequence_lengths,
+        ]
+        stacked_embeddings = torch.stack(all_chunk_eos_embeddings, dim=1)
+        final_representation = padded_embeddings.view(batch_size, -1)
+        logits = self.classifier(final_representation)
+```
 
-class GeneticProjector(nn.Module):
-    def __init__(self, input_dim=1536, output_dim=512):
+### Objective & Training Loop (`fine_tuning.py`)
+The script wraps everything in `transformers.Trainer` with `DataCollatorForLanguageModeling` (`mlm=False`) so causal LM losses line up with the HF training stack and distributed options (DeepSpeed, FSDP) set via CLI.
+
+```351:390:external_repos/generator/src/tasks/downstream/fine_tuning.py
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=dataset,
+    tokenizer=tokenizer,
+    data_collator=DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False),
+)
+trainer.train()
+```
+
+### Inference Helpers (`variant_effect_prediction.py`)
+Variant effect prediction shards ClinVar sequences across GPUs, caches logits, and computes per-base probabilities by summing over all tokens starting with ref/alt characters. This utility powers the headline ClinVar AUROC numbers.
+
+```201:290:external_repos/generator/src/tasks/downstream/variant_effect_prediction.py
+def compute_logits_parallel(...):
+    num_gpus = torch.cuda.device_count()
+    shards.append({'shard_id': i, 'sequences_data': sequences_data[start_idx:end_idx], ...})
+    with ctx.Pool(processes=num_gpus) as pool:
+        results = list(pool.imap(compute_logits_shard, args_list))
+```
+
+```292:383:external_repos/generator/src/tasks/downstream/variant_effect_prediction.py
+def parallel_compute_probabilities(...):
+    vocab = tokenizer.get_vocab()
+    char_indices = get_char_indices(vocab)
+    results = list(pool.imap(compute_prob, args_list, chunksize=chunksize))
+    p_ref, p_alt = zip(*results)
+```
+
+### Embedding Extraction (`sequence_understanding.py`)
+ChunkEnsemble accumulates the EOS vector from each sliding chunk, pads/truncates them to a fixed count, and flattens into a `[B, max_chunks * hidden]` representation before the classifier head—exactly what you can reuse for downstream alignment.
+
+```446:505:external_repos/generator/src/tasks/downstream/sequence_understanding.py
+stacked_embeddings = torch.stack(all_chunk_eos_embeddings, dim=1)
+num_padding_chunks = self.max_chunks - stacked_embeddings.shape[1]
+...
+final_representation = padded_embeddings.view(batch_size, -1)
+logits = self.classifier(final_representation)
+```
+
+### Sequence Constraints (`variant_effect_prediction.py`, `fine_tuning.py`)
+Both inference and training enforce the 6-mer constraint by trimming or padding raw strings and, for dataset preprocessing, only accepting columns named `sequence`, `seq`, `dna_sequence`, etc., so you cannot silently feed invalid tokens.
+
+```208:244:external_repos/generator/src/tasks/downstream/fine_tuning.py
+if "sequence" in examples:
+    sequences = examples["sequence"]
+elif "seq" in examples:
+    sequences = examples["seq"]
+...
+else:
+    raise ValueError("No sequence column found in dataset.")
+```
+
+## Integration Hooks (Genetics ↔ Brain)
+
+- **Embedding shapes.** GENERator decoders yield `[B, L_tokens, hidden]` tensors; ChunkEnsemble condenses them into `[B, max_chunks, hidden]` before flattening to `[B, max_chunks * hidden]`. You can stop just before the final classifier to grab the stacked embeddings for pooling.^[```446:505:external_repos/generator/src/tasks/downstream/sequence_understanding.py```]
+- **Pooling strategies.** Use mean pooling along the chunk dimension for overall sequence summaries, max pooling for motif emphasis, or take the final chunk (equivalent to autoregressive “last token”). Because chunk embeddings correspond to non-overlapping windows, pooling behaves like low-resolution downsampling.
+- **Projection to shared latent.** After pooling to `[B, H]` (H≈1536 for the 1.2 B model), apply a projector to map into the same 512-D space used by your brain encoder:
+
+```python
+import torch.nn as nn
+
+class GeneratorProjector(nn.Module):
+    def __init__(self, input_dim=1536, output_dim=512, dropout=0.1):
         super().__init__()
-        self.proj = nn.Sequential(
+        self.net = nn.Sequential(
             nn.Linear(input_dim, 1024),
             nn.GELU(),
-            nn.Dropout(0.1),
+            nn.Dropout(dropout),
             nn.Linear(1024, output_dim),
-            nn.LayerNorm(output_dim)
+            nn.LayerNorm(output_dim),
         )
-    
+
     def forward(self, x):
-        return self.proj(x)
-
-# 3. Combine with brain embeddings (from BrainLM/SwiFT)
-genetic_proj = GeneticProjector().cuda()
-shared_genetic = genetic_proj(torch.tensor(genetic_embeddings).cuda())
-
-# 4. Align with contrastive learning (see integration cards)
+        return self.net(x)
 ```
 
-## Performance Benchmarks
+- **Normalization.** LayerNorm (as in the projector above) keeps token-averaged embeddings comparable to fMRI CLS tokens (BrainLM/SwiFT), especially before cosine-similarity objectives.
+- **Sequence hygiene.** Reuse the `pad_to_multiple_of_six` logic or `ensure_6mer_compatible` helper whenever you extract embeddings outside the packaged scripts; otherwise, HF will inject `<oov>` tokens that shift chunk boundaries and misalign pooling.^[```118:125:external_repos/generator/src/tasks/downstream/variant_effect_prediction.py```]
+- **Memory tips.** For million-token prompts, lean on ChunkEnsemble (`length_extension_mode="chunk_ensemble"`) or sliding-window RoPE to avoid editing HF internals; both paths keep per-chunk lengths manageable and let FlashAttention v2 handle the heavy lifting.^[```566:666:external_repos/generator/src/tasks/downstream/sequence_understanding.py```]
 
-**Genomic Benchmarks (Classification Accuracy):**
-- Human vs Worm: **98.2%**
-- Promoter Classification: **94.5%**
-- Enhancer Detection: **91.3%**
-
-**Gener Tasks:**
-- Gene Classification: **96.1%**
-- Taxonomic Classification: **97.8%**
-
-**Sequence Recovery (Next K-mer Prediction):**
-- Eukaryote: **92.4% @ 512bp**
-- Prokaryote: **94.1% @ 512bp**
-
-**ClinVar (Variant Effect Prediction):**
-- AUROC: **0.89**
-- AUPRC: **0.85**
-
-## Best Practices
-
-### 1. Input Sequence Preparation
-```python
-# Always validate 6-mer compatibility
-def prepare_sequence(seq: str) -> str:
-    """Prepare sequence for GENERator."""
-    # Remove non-ACGT characters
-    seq = ''.join(c for c in seq.upper() if c in 'ACGT')
-    # Pad to multiple of 6
-    seq = ensure_6mer_compatible(seq)
-    return seq
-```
-
-### 2. Memory Management for Long Sequences
-```python
-# Enable gradient checkpointing for >100k bp
-model.gradient_checkpointing_enable()
-
-# Use mixed precision
-from torch.cuda.amp import autocast
-with autocast(dtype=torch.bfloat16):
-    outputs = model(**inputs)
-```
-
-### 3. Distributed Training
-```bash
-# Use DeepSpeed ZeRO-3 for 3B models
-accelerate config  # Select DeepSpeed ZeRO-3
-accelerate launch src/tasks/downstream/fine_tuning.py --bf16
-```
-
-## Common Issues & Solutions
-
-### Issue 1: `<oov>` Tokens in Generation
-**Cause**: Input sequence not divisible by 6  
-**Solution**: Always pad/truncate to multiples of 6
-
-### Issue 2: OOM on Long Sequences
-**Cause**: Long context without optimization  
-**Solution**: Enable gradient checkpointing + FlashAttention
-
-```bash
-pip install flash-attn --no-build-isolation
-pip install liger-kernel
-```
-
-### Issue 3: Poor Generation Quality
-**Cause**: Default sampling parameters  
-**Solution**: Adjust `top_k`, `top_p`, `temperature`
-
-```python
-# Better generation
-output = model.generate(
-    **inputs,
-    max_new_tokens=600,
-    top_k=4,           # Nucleus sampling
-    temperature=0.9,   # Diversity
-    do_sample=True,
-    repetition_penalty=1.2
-)
-```
-
-## Critical Files Reference
-
-**Task Scripts:**
-- `src/tasks/downstream/variant_effect_prediction.py` - ClinVar evaluation
-- `src/tasks/downstream/sequence_recovery.py` - Next k-mer prediction
-- `src/tasks/downstream/sequence_understanding.py` - Classification/regression
-- `src/tasks/downstream/fine_tuning.py` - Causal LM fine-tuning
-
-**Configs:**
-- `configs/variant_effect_prediction.json` - VEP hyperparameters
-- `configs/sequence_understanding.yaml` - Downstream task configs
-
-## Links & Resources
-
-- **Repository**: https://github.com/GenerTeam/GENERator
-- **Models**: https://huggingface.co/GenerTeam
-- **Paper**: https://arxiv.org/abs/2502.07272
-- **Datasets**: 
-  - https://huggingface.co/datasets/GenerTeam/gener-tasks
-  - https://huggingface.co/datasets/GenerTeam/sequence-recovery
-  - https://huggingface.co/datasets/GenerTeam/DeepSTARR-enhancer-activity
-
-## Next Steps
-
-1. **For Understanding Tasks**: Start with `sequence_understanding.py` on Gener Tasks
-2. **For Generation**: Fine-tune with `fine_tuning.py` on domain-specific sequences
-3. **For Variant Effects**: Run `variant_effect_prediction.py` on ClinVar
-4. **For Embeddings**: Use extraction code above for multimodal integration
-5. **For Multimodal Fusion**: See `kb/integration_cards/ukb_genetics_brain_alignment.yaml`
-
----
-
-*Last Updated: 2025-11-15*  
-*Model Card: `kb/model_cards/generator.yaml`*  
-*Integration: `kb/integration_cards/genetics_embeddings_pipeline.yaml`*
-
+Following these steps yields `[B, 512]` genetic embeddings that can be concatenated with or contrastively aligned against brain-model outputs such as BrainLM CLS vectors or BrainMT/SwiFT pooled features.

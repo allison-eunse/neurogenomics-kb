@@ -45,6 +45,25 @@ python scripts/manage_kb.py validate models
 python scripts/manage_kb.py validate datasets
 ```
 
+## Codex Quality Gate (2-Cycle Workflow)
+
+Use `scripts/codex_gate.py` to enforce an automatic pass/fail gate whenever you run Codex in two consecutive cycles. The gate bundles domain tests (`manage_kb` validators + MkDocs), Python linting (`ruff`), and static type checks (`mypy`), then records the outcome so Cycle 2 can compare itself to Cycle 1.
+
+```
+# Cycle 1 – quick sanity before giving Codex control
+python scripts/codex_gate.py --mode fast --label cycle1 --since origin/main
+
+# Cycle 2 – full sweep before handing work back
+python scripts/codex_gate.py --mode full --label cycle2 --since HEAD~1
+```
+
+- `--mode fast` skips the MkDocs build for a faster signal; `--mode full` runs everything.
+- `--since` scopes checks to paths that changed versus the provided git ref (fallback: run all).
+- Results are stored under `~/.cache/codex_gate/neurogenomics-kb` (override via `--state-dir`).
+- `--fail-fast` stops on the first failure, and `--list-checks` shows the exact commands.
+
+If Cycle 2 introduces a regression, the gate exits with a non-zero status so the automation can halt before launching the next Codex pass.
+
 ## Usage
 
 ### Explore Model Cards

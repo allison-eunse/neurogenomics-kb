@@ -66,6 +66,10 @@ python scripts/manage_kb.py validate datasets
 python -c "import yaml; from pathlib import Path; \
 [print(f'✓ {f.stem}') for f in Path('kb/model_cards').glob('*.yaml') \
 if f.stem != 'template' and yaml.safe_load(f.read_text())]"
+
+# Codex gate (fast / full)
+python scripts/codex_gate.py --mode fast --label cycle1 --since origin/main
+python scripts/codex_gate.py --mode full --label cycle2 --since HEAD~1
 ```
 
 ### PDF Converter

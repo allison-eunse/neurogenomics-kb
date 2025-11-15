@@ -4,3 +4,6 @@ pyyaml>=6.0.2
 typer>=0.12.5
 rich>=13.9.2
 rapidfuzz>=3.9.6
+mypy>=1.11.1
+ruff>=0.6.8
+types-PyYAML>=6.0.12

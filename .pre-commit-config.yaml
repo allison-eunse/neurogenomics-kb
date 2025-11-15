@@ -1,0 +1,51 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.8
+    hooks:
+      - id: ruff
+        args: [--fix]
+        stages: [commit, push, manual]
+      - id: ruff-format
+        stages: [commit, push, manual]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.11.1
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-PyYAML>=6.0.12]
+        files: ^scripts/
+        stages: [commit, push, manual]
+
+  - repo: local
+    hooks:
+      - id: kb-validate-models
+        name: kb-validate-models
+        entry: python scripts/manage_kb.py validate models
+        language: system
+        pass_filenames: false
+        stages: [push, manual]
+      - id: kb-validate-datasets
+        name: kb-validate-datasets
+        entry: python scripts/manage_kb.py validate datasets
+        language: system
+        pass_filenames: false
+        stages: [push, manual]
+      - id: kb-validate-links
+        name: kb-validate-links
+        entry: python scripts/manage_kb.py validate links
+        language: system
+        pass_filenames: false
+        stages: [push, manual]
+      - id: kb-ci-docs
+        name: kb-ci-docs
+        entry: python scripts/manage_kb.py ci docs
+        language: system
+        pass_filenames: false
+        stages: [push, manual]
+      - id: kb-ci-weights
+        name: kb-ci-weights
+        entry: python scripts/manage_kb.py ci weights
+        language: system
+        pass_filenames: false
+        stages: [push, manual]
+
