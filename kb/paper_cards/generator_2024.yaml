@@ -1,0 +1,41 @@
+title: "GENERator: A Long-Context Generative Genomic Foundation Model"
+authors: ["TBD"]
+year: 2024
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/GENERator- A Long-Context Generative Genomic Foundation Model .pdf"
+
+summary: |
+  Long-context generative DNA language model. Transformer decoder with 6-mer tokenization.
+  Shows strong performance on genomic benchmarks and generation tasks.
+
+key_contributions:
+  - "Generative DNA LM: autoregressive modeling of genomic sequences"
+  - "6-mer tokenization: balance between char-level and BPE"
+  - "Long-context capability for regulatory and structural variants"
+
+architecture:
+  backbone: "GPT-style Transformer decoder"
+  tokenization: "6-mer with deterministic framing"
+  context_length: "Long (exact length TBD from paper)"
+
+key_takeaways_for_us:
+  - "6-mer tokenization requires careful RC handling (frame alignment)"
+  - "Apply RC at nucleotide level first, then tokenize deterministically"
+  - "Mean pooling over tokens for sequence embeddings"
+  - "Test RC-averaging stability vs Caduceus"
+
+implications_for_project:
+  - "Alternative genetics FM to Caduceus/Evo2"
+  - "Ablation: compare GENERator vs Caduceus vs Evo2 embeddings"
+  - "Tokenizer hygiene critical: document k-mer frame handling"
+
+related_to:
+  - "docs/code_walkthroughs/generator_walkthrough.md"
+  - "docs/models/genetics/generator.md"
+  - "docs/integration/modality_features/genomics.md"
+  - "kb/model_cards/generator.yaml"
+
+verification_status: "needs_human_review"
+notes: "Read for 6-mer/RC details; ensure deterministic tokenization in pipeline"
+
+tags: ["genomics", "foundation_model", "generative", "6mer", "long_context"]
+

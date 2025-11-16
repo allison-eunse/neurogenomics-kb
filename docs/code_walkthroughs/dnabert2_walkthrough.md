@@ -1,5 +1,7 @@
 # DNABERT-2 Code Walkthrough
 
+> **KB references:** [Model card](../models/genetics/dnabert2.md) · [Genomics feature spec](../integration/modality_features/genomics.md) · [Integration strategy](../integration/integration_strategy.md) · [Experiment config stub](../kb/templates/experiment_config_stub.md)
+
 ## Overview
 DNABERT‑2 swaps classic k-mer vocabularies for a DNA BPE tokenizer backed by ALiBi positional bias in a 117 M parameter BERT encoder, and the repo focuses on supervised fine-tuning utilities for the Genome Understanding Evaluation benchmark.^[```30:110:external_repos/dnabert2/README.md```]
 

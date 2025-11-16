@@ -1,5 +1,7 @@
 # Evo 2 Code Walkthrough
 
+> **KB references:** [Model card](../models/genetics/evo2.md) · [Genomics feature spec](../integration/modality_features/genomics.md) · [Integration strategy](../integration/integration_strategy.md) · [Experiment config stub](../kb/templates/experiment_config_stub.md)
+
 ## Overview
 Evo 2 packages StripedHyena 2 checkpoints behind a lightweight Python API so you can run 1 Mbp autoregressive DNA modeling, scoring, and generation without touching the underlying Vortex stack. The repo exposes the 1B/7B/40B parameter checkpoints described in the bioRxiv preprint and HuggingFace collection, all of which share the same tokenizer (single‐nucleotide CharLevelTokenizer with a 512-symbol vocab) and reverse-complement aware inference utilities.^[```5:118:external_repos/evo2/README.md```]
 

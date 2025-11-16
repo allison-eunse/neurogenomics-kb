@@ -1,0 +1,47 @@
+title: "BrainLM: A Foundation Model for Brain Activity Recordings"
+authors: ["Azabou, Mehdi", "et al."]
+year: 2024
+venue: "NeurIPS 2024"
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/BRAINLM- A FOUNDATION MODEL FOR BRAIN ACTIVITY RECORDINGS.pdf"
+
+summary: |
+  ViT-MAE for fMRI: masked autoencoding on parcel time series. Pretrained on UK Biobank
+  + HCP (thousands of subjects, multi-site). Shows strong linear-probe performance on
+  downstream tasks (age/sex/anxiety) and generalization to external cohorts.
+
+key_contributions:
+  - "Self-supervised MAE pretraining on large-scale fMRI (UKB + HCP)"
+  - "Nystromformer encoder for efficient attention over parcels × time patches"
+  - "Site-invariant representations via diverse multi-site pretraining"
+  - "Strong zero-shot network inference and forecasting capabilities"
+
+architecture:
+  backbone: "ViT-MAE with Nystromformer encoder + lightweight decoder"
+  params: "111M / 650M checkpoints"
+  inputs: "424 parcels × 490 timepoints → windowed patches"
+  masking_ratio: "~75% of patches masked during pretraining"
+  pooling: "Mean pooling over encoder tokens → subject-level embedding"
+
+key_takeaways_for_us:
+  - "Extract subject embeddings via [CLS] or mean pooling after encoding"
+  - "Project to 512-D for downstream tasks (PCA or small MLP)"
+  - "Robust to site differences; validates on UKB + external HCP"
+  - "Linear probes achieve strong age/sex/cognition prediction"
+
+implications_for_project:
+  - "Primary fMRI FM candidate (Option B in modality features)"
+  - "Use pretrained checkpoints for subject-level rs-fMRI embeddings"
+  - "Late fusion with gene embeddings: [gene_512 | brain_512] → LR/GBDT"
+  - "Sanity check: predict age/sex with linear probe before fusion experiments"
+
+related_to:
+  - "docs/code_walkthroughs/brainlm_walkthrough.md"
+  - "docs/models/brain/brainlm.md"
+  - "docs/integration/modality_features/fmri.md"
+  - "kb/model_cards/brainlm.yaml"
+
+verification_status: "needs_human_review"
+notes: "Strong baseline for fMRI embeddings; gradient checkpointing available for memory efficiency"
+
+tags: ["fmri", "foundation_model", "vit_mae", "self_supervised", "multi_site", "neuroimaging"]
+

@@ -1,0 +1,46 @@
+title: "Caduceus: Bi-Directional Equivariant Long-Range DNA Sequence Modeling"
+authors: ["Schiff, Yair", "et al."]
+year: 2024
+venue: "ICML 2024"
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/Caduceus- Bi-Directional Equivariant Long-Range DNA Sequence Modeling .pdf"
+
+summary: |
+  RC-equivariant DNA foundation model using BiMamba/Hyena. Enforces reverse-complement
+  symmetry via architectural constraints (RC Positional Symmetry). Shows gains on
+  genomic benchmarks and MDD classification via learned strand-robust representations.
+
+key_contributions:
+  - "RC-equivariant architecture: forward and RC embeddings are predictable transforms"
+  - "BiMamba + Hyena: efficient long-range modeling (up to 1M context)"
+  - "RC Positional Symmetry (RCPS): specialized positional encoding preserving strand symmetry"
+  - "Strong performance on genomic benchmarks (Nucleotide Transformer tasks, GUE)"
+
+architecture:
+  backbone: "BiMamba (bidirectional Mamba) or Hyena"
+  context_length: "up to 1M tokens"
+  rc_mechanism: "RCPS positional encoding + equivariant layer design"
+  tokenization: "character-level (A/C/G/T/N)"
+
+key_takeaways_for_us:
+  - "Always RC-average embeddings: z = (forward + RC) / 2"
+  - "Use mean pooling over tokens (more stable than CLS for DNA)"
+  - "Strand-robust gene vectors suitable for cross-modal fusion"
+  - "Demonstrated on MDD classification (see Yoon et al. BIOKDD '25 for details)"
+
+implications_for_project:
+  - "Primary genetics FM candidate for gene embeddings"
+  - "RC-averaging protocol is critical hygiene step"
+  - "Exon-level pooling → gene → subject aggregation"
+  - "LOGO attribution (ΔAUC) to identify key genes (e.g., SOD2)"
+
+related_to:
+  - "docs/code_walkthroughs/caduceus_walkthrough.md"
+  - "docs/models/genetics/caduceus.md"
+  - "docs/integration/modality_features/genomics.md"
+  - "kb/model_cards/caduceus.yaml"
+
+verification_status: "needs_human_review"
+notes: "Read for RC-equivariance theory; refer to walkthrough for implementation hooks"
+
+tags: ["genomics", "foundation_model", "rc_equivariance", "mamba", "hyena", "long_context"]
+

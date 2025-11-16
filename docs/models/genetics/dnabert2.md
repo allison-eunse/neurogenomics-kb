@@ -1,32 +1,16 @@
+---
+title: DNABERT-2 — Model Card (light)
+status: draft
+updated: 2025-11-16
+---
+
 # DNABERT-2
 
-## Summary
-TBD
+Tokenization
+- BPE/k-mer hybrids; ensure RC is applied before tokenization; maintain frame.
 
-## Links
-- Repo: TBD
-- Hugging Face weights: TBD
+Pooling
+- Mean or CLS; verify linear-probe stability.
 
-## Inputs
-- TBD
-
-## How to run
-```bash
-# TBD
-python scripts/run_dnabert2.py --config TBD
-```
-
-## Strengths
-- TBD
-
-## Limits
-- TBD
-
-## Safety
-- TBD
-
-
-
-
-
-
+Notes
+- Not strictly RC-equivariant; averaging forward/RC stabilizes.

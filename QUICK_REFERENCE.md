@@ -100,11 +100,13 @@ python markdown_to_pdf.py summary.md summary.pdf
 
 ## 📊 Repository Stats
 
-### Neurogenomics-KB
-- **Code Walkthroughs**: 8 complete guides
+### Neurogenomics-KB (Updated Nov 17, 2025)
+- **Code Walkthroughs**: 9 complete guides (with KB reference links)
 - **Model Cards**: 7 validated YAML files
-- **Dataset Cards**: 10 specifications
+- **Paper Cards**: 11 structured cards (NEW ✨)
+- **Dataset Cards**: 11 specifications + UKB manifest stub (NEW ✨)
 - **Integration Cards**: 2 multimodal strategies
+- **Experiment Configs**: 3 ready-to-run templates (NEW ✨)
 - **External Repos**: 7 reference implementations
 
 ### PDF Converter
@@ -157,15 +159,31 @@ python markdown_to_pdf.py summary.md summary.pdf
 
 ## 🔗 Quick Links
 
+### Documentation
+- **Main KB Index**: `docs/index.md`
+- **Code Walkthroughs**: `docs/code_walkthroughs/`
+- **Integration Strategy**: `docs/integration/integration_strategy.md`
+- **Analysis Recipes**: `docs/integration/analysis_recipes/`
+- **Integration Plan**: `docs/decisions/2025-11-integration-plan.md`
+
+### Cards
 - **Model Cards**: `kb/model_cards/`
-- **Walkthroughs**: `docs/code_walkthroughs/`
-- **Integration**: `docs/integration/`
+- **Paper Cards**: `kb/paper_cards/` (NEW ✨)
+- **Dataset Cards**: `kb/datasets/`
+- **Integration Cards**: `kb/integration_cards/`
+
+### Configs & Tools
+- **Experiment Configs**: `configs/experiments/` (NEW ✨)
 - **KB Script**: `scripts/manage_kb.py`
 - **PDF Tools**: `~/Projects/pdf<->md;ai-summaries/`
 
+### Summaries
+- **KB Completion**: `KB_COMPLETION_SUMMARY.md` (NEW ✨)
+- **Organization**: `ORGANIZATION_SUMMARY.md`
+
 ---
 
-**Last Updated**: November 15, 2025  
+**Last Updated**: November 17, 2025  
 **Organized by**: Allison Eun Se You  
-**Status**: ✅ Clean, validated, and ready to use
+**Status**: ✅ Nov 21 KB Complete — Ready for Nov 26 baselines
 

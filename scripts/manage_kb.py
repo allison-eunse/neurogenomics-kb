@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 """Utility CLI for Neurogenomics KB metadata, docs, and CI checks."""
+
 from __future__ import annotations
 
 import json
 import re
+from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Tuple
+from typing import Any
 
 import typer
 import yaml
 from rapidfuzz import fuzz
 from rich.console import Console
-from rich.table import Table
 
 ROOT = Path(__file__).resolve().parent.parent
 KB_ROOT = ROOT / "kb"
@@ -23,24 +24,82 @@ INTEGRATION_DIR = KB_ROOT / "integration_cards"
 RAG_DIR = KB_ROOT / "rag"
 
 console = Console()
-app = typer.Typer(help="Manage Neurogenomics KB metadata", rich_markup_mode="markdown")
-catalog_app = typer.Typer(help="Generate catalogs from YAML metadata", rich_markup_mode="markdown")
-validate_app = typer.Typer(help="Validate cards and references", rich_markup_mode="markdown")
-ci_app = typer.Typer(help="CI-style checks for docs ↔ metadata consistency", rich_markup_mode="markdown")
-ops_app = typer.Typer(help="Helper snippets for embeddings, inference, and walkthrough drafts", rich_markup_mode="markdown")
+app = typer.Typer(
+    help="Manage Neurogenomics KB metadata",
+    rich_markup_mode="markdown",
+)
+catalog_app = typer.Typer(
+    help="Generate catalogs from YAML metadata",
+    rich_markup_mode="markdown",
+)
+validate_app = typer.Typer(
+    help="Validate cards and references",
+    rich_markup_mode="markdown",
+)
+ci_app = typer.Typer(
+    help="CI-style checks for docs ↔ metadata consistency",
+    rich_markup_mode="markdown",
+)
+ops_app = typer.Typer(
+    help="Helper snippets for embeddings, inference, and walkthrough drafts",
+    rich_markup_mode="markdown",
+)
 
 app.add_typer(catalog_app, name="catalog")
 app.add_typer(validate_app, name="validate")
 app.add_typer(ci_app, name="ci")
 app.add_typer(ops_app, name="ops")
 
-MODEL_REQUIRED_FIELDS = ["id", "name", "repo", "weights", "license", "context_length", "tasks"]
-DATASET_REQUIRED_FIELDS = ["id", "name", "storage_location", "required_columns", "schema_ref", "modalities"]
-MODEL_ID_PATTERN = re.compile(r"<!--\\s*model-id:\\s*([a-z0-9_\-]+)\\s*-->", re.IGNORECASE)
+MODEL_REQUIRED_FIELDS = [
+    "id",
+    "name",
+    "repo",
+    "weights",
+    "license",
+    "context_length",
+    "tasks",
+]
+DATASET_REQUIRED_FIELDS = [
+    "id",
+    "name",
+    "storage_location",
+    "required_columns",
+    "schema_ref",
+    "modalities",
+]
+MODEL_ID_PATTERN = re.compile(
+    r"<!--\s*model-id:\s*([a-z0-9_\-]+)\s*-->",
+    re.IGNORECASE,
+)
+
+CATALOG_OUT_OPTION = typer.Option(
+    None,
+    help="Write markdown table to this path",
+)
+CATALOG_INCLUDE_UNVERIFIED_OPTION = typer.Option(
+    True,
+    help="Include cards still pending review",
+)
+DESTINATION_MARKDOWN_OPTION = typer.Option(
+    None,
+    help="Destination markdown",
+)
+WALKTHROUGH_OUT_OPTION = typer.Option(
+    None,
+    help="Destination markdown",
+)
+WALKTHROUGH_OVERWRITE_OPTION = typer.Option(
+    False,
+    help="Overwrite existing file",
+)
+RAG_INDEX_OUT_OPTION = typer.Option(
+    RAG_DIR / "index.json",
+    help="Output JSON",
+)
 
 
-def _load_cards(directory: Path) -> List[Tuple[Path, Dict[str, Any]]]:
-    items: List[Tuple[Path, Dict[str, Any]]] = []
+def _load_cards(directory: Path) -> list[tuple[Path, dict[str, Any]]]:
+    items: list[tuple[Path, dict[str, Any]]] = []
     for path in sorted(directory.glob("*.yaml")):
         if path.stem.lower().startswith("template"):
             continue
@@ -58,14 +117,14 @@ def _ensure_dir(entity: str, path: Path) -> Path:
     return path
 
 
-def _markdown_table(headers: List[str], rows: List[List[str]]) -> str:
+def _markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     header_line = "| " + " | ".join(headers) + " |"
     sep_line = "| " + " | ".join(["---"] * len(headers)) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([header_line, sep_line, *body])
 
 
-def _summarize_tasks(card: Dict[str, Any], max_items: int = 3) -> str:
+def _summarize_tasks(card: dict[str, Any], max_items: int = 3) -> str:
     tasks = card.get("tasks") or []
     if not isinstance(tasks, list):
         return str(tasks)
@@ -79,8 +138,8 @@ def _bool_icon(value: bool) -> str:
     return "✅" if value else "⚠️"
 
 
-def _load_model_index(include_unverified: bool = True) -> List[Dict[str, Any]]:
-    cards: List[Dict[str, Any]] = []
+def _load_model_index(include_unverified: bool = True) -> list[dict[str, Any]]:
+    cards: list[dict[str, Any]] = []
     for path, data in _load_cards(MODEL_DIR):
         data.setdefault("id", path.stem)
         data.setdefault("verified", False)
@@ -91,8 +150,8 @@ def _load_model_index(include_unverified: bool = True) -> List[Dict[str, Any]]:
     return cards
 
 
-def _load_dataset_index() -> List[Dict[str, Any]]:
-    cards: List[Dict[str, Any]] = []
+def _load_dataset_index() -> list[dict[str, Any]]:
+    cards: list[dict[str, Any]] = []
     for path, data in _load_cards(DATASET_DIR):
         data.setdefault("id", path.stem)
         data["_path"] = path
@@ -100,8 +159,8 @@ def _load_dataset_index() -> List[Dict[str, Any]]:
     return cards
 
 
-def _load_integration_index() -> List[Dict[str, Any]]:
-    cards: List[Dict[str, Any]] = []
+def _load_integration_index() -> list[dict[str, Any]]:
+    cards: list[dict[str, Any]] = []
     for path, data in _load_cards(INTEGRATION_DIR):
         data.setdefault("id", path.stem)
         data["_path"] = path
@@ -111,28 +170,34 @@ def _load_integration_index() -> List[Dict[str, Any]]:
 
 @catalog_app.command("models")
 def catalog_models(
-    out: Path = typer.Option(None, help="Write markdown table to this path"),
-    include_unverified: bool = typer.Option(True, help="Include cards still pending review"),
+    out: Path = CATALOG_OUT_OPTION,
+    include_unverified: bool = CATALOG_INCLUDE_UNVERIFIED_OPTION,
 ):
     """Render a markdown summary of all model cards."""
     cards = _load_model_index(include_unverified=include_unverified)
     if not cards:
         raise typer.Exit(code=1)
     headers = ["Model", "Domain", "Context", "Verified", "Key tasks", "Tags"]
-    rows: List[List[str]] = []
+    rows: list[list[str]] = []
     for card in cards:
         name = f"[{card['name']}]({card['repo']})"
         context = str(card.get("context_length", "?"))
         tags = card.get("tags") or []
-        rows.append([
-            name,
-            card.get("modality", card.get("domain", "?")),
-            context,
-            _bool_icon(card.get("verified", False)),
-            _summarize_tasks(card),
-            ", ".join(tags[:4]) or "—",
-        ])
-    markdown = "# Model catalog\n\n" + _markdown_table(headers, rows) + "\n\n_Generated via `python scripts/manage_kb.py catalog models`_.\n"
+        rows.append(
+            [
+                name,
+                card.get("modality", card.get("domain", "?")),
+                context,
+                _bool_icon(card.get("verified", False)),
+                _summarize_tasks(card),
+                ", ".join(tags[:4]) or "—",
+            ]
+        )
+    markdown = (
+        "# Model catalog\n\n"
+        + _markdown_table(headers, rows)
+        + "\n\n_Generated via `python scripts/manage_kb.py catalog models`_.\n"
+    )
     if out:
         path = _ensure_dir("catalog", out)
         path.write_text(markdown)
@@ -141,23 +206,29 @@ def catalog_models(
 
 
 @catalog_app.command("datasets")
-def catalog_datasets(out: Path = typer.Option(None, help="Destination markdown")):
+def catalog_datasets(out: Path = DESTINATION_MARKDOWN_OPTION):
     cards = _load_dataset_index()
     if not cards:
         raise typer.Exit(code=1)
     headers = ["Dataset", "Modalities", "Records", "Access", "Verified"]
-    rows: List[List[str]] = []
+    rows: list[list[str]] = []
     for card in cards:
         counts = card.get("counts") or {}
         record_hint = counts.get("records") or counts.get("subjects") or counts.get("base_pairs")
-        rows.append([
-            f"`{card['id']}`",
-            ", ".join(card.get("modalities", [])) or "—",
-            str(record_hint or "—"),
-            card.get("access", "—"),
-            _bool_icon(card.get("verified", False)),
-        ])
-    markdown = "# Dataset catalog\n\n" + _markdown_table(headers, rows) + "\n\n_Generated via `python scripts/manage_kb.py catalog datasets`_.\n"
+        rows.append(
+            [
+                f"`{card['id']}`",
+                ", ".join(card.get("modalities", [])) or "—",
+                str(record_hint or "—"),
+                card.get("access", "—"),
+                _bool_icon(card.get("verified", False)),
+            ]
+        )
+    markdown = (
+        "# Dataset catalog\n\n"
+        + _markdown_table(headers, rows)
+        + "\n\n_Generated via `python scripts/manage_kb.py catalog datasets`_.\n"
+    )
     if out:
         path = _ensure_dir("catalog", out)
         path.write_text(markdown)
@@ -166,21 +237,27 @@ def catalog_datasets(out: Path = typer.Option(None, help="Destination markdown")
 
 
 @catalog_app.command("integrations")
-def catalog_integrations(out: Path = typer.Option(None, help="Destination markdown")):
+def catalog_integrations(out: Path = DESTINATION_MARKDOWN_OPTION):
     cards = _load_integration_index()
     if not cards:
         raise typer.Exit(code=1)
     headers = ["Integration", "Models", "Datasets", "Status", "Verified"]
-    rows: List[List[str]] = []
+    rows: list[list[str]] = []
     for card in cards:
-        rows.append([
-            f"`{card['id']}`",
-            ", ".join(card.get("models", [])) or "—",
-            ", ".join(card.get("datasets", [])) or "—",
-            card.get("status", "—"),
-            _bool_icon(card.get("verified", False)),
-        ])
-    markdown = "# Integration catalog\n\n" + _markdown_table(headers, rows) + "\n\n_Generated via `python scripts/manage_kb.py catalog integrations`_.\n"
+        rows.append(
+            [
+                f"`{card['id']}`",
+                ", ".join(card.get("models", [])) or "—",
+                ", ".join(card.get("datasets", [])) or "—",
+                card.get("status", "—"),
+                _bool_icon(card.get("verified", False)),
+            ]
+        )
+    markdown = (
+        "# Integration catalog\n\n"
+        + _markdown_table(headers, rows)
+        + "\n\n_Generated via `python scripts/manage_kb.py catalog integrations`_.\n"
+    )
     if out:
         path = _ensure_dir("catalog", out)
         path.write_text(markdown)
@@ -192,7 +269,7 @@ def catalog_integrations(out: Path = typer.Option(None, help="Destination markdo
 def validate_models() -> None:
     """Ensure every model card has the required fields populated."""
     cards = _load_model_index(include_unverified=True)
-    missing: List[str] = []
+    missing: list[str] = []
     for card in cards:
         for field in MODEL_REQUIRED_FIELDS:
             if not card.get(field):
@@ -207,7 +284,7 @@ def validate_models() -> None:
 @validate_app.command("datasets")
 def validate_datasets() -> None:
     cards = _load_dataset_index()
-    missing: List[str] = []
+    missing: list[str] = []
     for card in cards:
         for field in DATASET_REQUIRED_FIELDS:
             if not card.get(field):
@@ -229,7 +306,7 @@ def validate_links() -> None:
     """Check that every integration references existing models/datasets."""
     model_ids = {card["id"] for card in _load_model_index(include_unverified=True)}
     dataset_ids = {card["id"] for card in _load_dataset_index()}
-    issues: List[str] = []
+    issues: list[str] = []
     for card in _load_integration_index():
         for model_id in card.get("models", []):
             if model_id not in model_ids:
@@ -249,8 +326,8 @@ def _extract_model_id(markdown: str) -> str | None:
     return match.group(1).strip().lower() if match else None
 
 
-def _scan_model_docs(paths: Iterable[Path]) -> List[Tuple[Path, str | None]]:
-    results: List[Tuple[Path, str | None]] = []
+def _scan_model_docs(paths: Iterable[Path]) -> list[tuple[Path, str | None]]:
+    results: list[tuple[Path, str | None]] = []
     for md_path in paths:
         if md_path.name.startswith("index"):
             continue
@@ -261,20 +338,25 @@ def _scan_model_docs(paths: Iterable[Path]) -> List[Tuple[Path, str | None]]:
 
 @ci_app.command("docs")
 def ci_docs() -> None:
-    """Ensure docs/models/* and docs/code_walkthroughs/* declare a `model-id` comment with a matching card."""
+    """Ensure docs/models/* and docs/code_walkthroughs/* declare `model-id` markers."""
     model_ids = {card["id"] for card in _load_model_index(include_unverified=True)}
     doc_paths = list((DOCS_ROOT / "models").rglob("*.md"))
     walk_paths = list((DOCS_ROOT / "code_walkthroughs").glob("*.md"))
-    issues: List[str] = []
+    issues: list[str] = []
     for path, doc_model_id in _scan_model_docs(doc_paths + walk_paths):
         if not doc_model_id:
             issues.append(f"{path.relative_to(ROOT)} missing <!-- model-id: ... --> marker")
             continue
         if doc_model_id not in model_ids:
-            closest = max(model_ids, key=lambda mid: fuzz.ratio(mid, doc_model_id))
-            issues.append(
-                f"{path.relative_to(ROOT)} references unknown model `{doc_model_id}` (did you mean `{closest}`?)"
+            missing_id = doc_model_id
+            assert missing_id is not None
+            closest = max(model_ids, key=lambda mid: fuzz.ratio(mid, missing_id))
+            note = (
+                f"{path.relative_to(ROOT)} references unknown model `{missing_id}` "
+                f"(did you mean `{closest}`? If you forgot to add a model card, "
+                "run `python scripts/manage_kb.py add-model <model-id>`)."
             )
+            issues.append(note)
     if issues:
         for issue in issues:
             console.print(f"[red]doc:[/] {issue}")
@@ -286,7 +368,7 @@ def ci_docs() -> None:
 def ci_weights() -> None:
     """Fail if any model doc lacks links to weights/licenses."""
     cards = _load_model_index(include_unverified=True)
-    issues: List[str] = []
+    issues: list[str] = []
     for card in cards:
         weights = card.get("weights") or {}
         license_block = card.get("license") or {}
@@ -302,7 +384,9 @@ def ci_weights() -> None:
 
 
 @ops_app.command("embeddings")
-def ops_embeddings(model_id: str = typer.Argument(..., help="Model slug (matches model card id)")) -> None:
+def ops_embeddings(
+    model_id: str = typer.Argument(..., help="Model slug (matches model card id)"),
+) -> None:
     snippets = OPS_CONFIG.get(model_id)
     if not snippets or "embeddings" not in snippets:
         raise typer.Exit(code=2)
@@ -322,8 +406,8 @@ def ops_inference(model_id: str = typer.Argument(...)) -> None:
 @ops_app.command("walkthrough-draft")
 def ops_walkthrough_draft(
     model_id: str = typer.Argument(...),
-    out: Path = typer.Option(None, help="Destination markdown"),
-    overwrite: bool = typer.Option(False, help="Overwrite existing file"),
+    out: Path = WALKTHROUGH_OUT_OPTION,
+    overwrite: bool = WALKTHROUGH_OVERWRITE_OPTION,
 ):
     cards = {card["id"]: card for card in _load_model_index(include_unverified=True)}
     if model_id not in cards:
@@ -334,7 +418,9 @@ def ops_walkthrough_draft(
         repo=card["repo"],
         summary=card.get("summary", ""),
         context=card.get("context_length", "?"),
-        checkpoints="\n".join(f"- {item}" for item in card.get("checkpoints", [])) or "- (add checkpoints)",
+        checkpoints=(
+            "\n".join(f"- {item}" for item in card.get("checkpoints", [])) or "- (add checkpoints)"
+        ),
     )
     if out:
         path = _ensure_dir("walkthrough", out)
@@ -346,7 +432,7 @@ def ops_walkthrough_draft(
 
 
 @app.command("rag-index")
-def build_rag_index(out: Path = typer.Option(RAG_DIR / "index.json", help="Output JSON")) -> None:
+def build_rag_index(out: Path = RAG_INDEX_OUT_OPTION) -> None:
     payload = {
         "generated_at": datetime.utcnow().isoformat() + "Z",
         "models": _load_model_index(include_unverified=True),
@@ -358,7 +444,7 @@ def build_rag_index(out: Path = typer.Option(RAG_DIR / "index.json", help="Outpu
     console.print(f"[green]Wrote RAG index to {path.relative_to(ROOT)}")
 
 
-OPS_CONFIG: Dict[str, Dict[str, str]] = {
+OPS_CONFIG: dict[str, dict[str, str]] = {
     "caduceus": {
         "embeddings": """```
 torchrun --standalone --nproc-per-node=8 external_repos/caduceus/vep_embeddings.py \
@@ -367,8 +453,12 @@ torchrun --standalone --nproc-per-node=8 external_repos/caduceus/vep_embeddings.
 ```""",
         "inference": """```python
 from transformers import AutoTokenizer, AutoModelForMaskedLM
-model = AutoModelForMaskedLM.from_pretrained("kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16")
-tokenizer = AutoTokenizer.from_pretrained("kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16")
+model = AutoModelForMaskedLM.from_pretrained(
+    "kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16"
+)
+tokenizer = AutoTokenizer.from_pretrained(
+    "kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16"
+)
 inputs = tokenizer("ACGT" * 1000, return_tensors="pt")
 logits = model(**inputs).logits
 ```""",
@@ -415,26 +505,34 @@ print(out.sequences[0])
     },
     "brainlm": {
         "embeddings": """```
-python external_repos/brainlm/train.py --config configs/pretrain.yaml --output_dir outputs/brainlm_pretrain
+python external_repos/brainlm/train.py \
+  --config configs/pretrain.yaml \
+  --output_dir outputs/brainlm_pretrain
 ```""",
         "inference": """```
-python external_repos/brainlm/brainlm_tutorial.ipynb  # run via Jupyter to create zero-shot predictions
+python external_repos/brainlm/brainlm_tutorial.ipynb \
+  # run via Jupyter to create zero-shot predictions
 ```""",
     },
     "brainmt": {
         "embeddings": """```
-torchrun --nproc-per-node=4 external_repos/brainmt/src/brainmt/train.py task=regression dataset.fmri.img_path=/path/to/tensors
+torchrun --nproc-per-node=4 external_repos/brainmt/src/brainmt/train.py \
+  task=regression dataset.fmri.img_path=/path/to/tensors
 ```""",
         "inference": """```
-python external_repos/brainmt/src/brainmt/inference.py task=classification inference.checkpoint_path=/path/to.ckpt
+python external_repos/brainmt/src/brainmt/inference.py \
+  task=classification inference.checkpoint_path=/path/to.ckpt
 ```""",
     },
     "swift": {
         "embeddings": """```
-python external_repos/swift/project/main.py --dataset_name UKB --downstream_task sex --pretraining --use_contrastive
+python external_repos/swift/project/main.py \
+  --dataset_name UKB --downstream_task sex --pretraining --use_contrastive
 ```""",
         "inference": """```
-python external_repos/swift/project/main.py --dataset_name UKB --test_only --test_ckpt_path pretrained_models/contrastive_pretrained.ckpt
+python external_repos/swift/project/main.py \
+  --dataset_name UKB --test_only \
+  --test_ckpt_path pretrained_models/contrastive_pretrained.ckpt
 ```""",
     },
 }

@@ -1,5 +1,7 @@
 # SwiFT Code Walkthrough
 
+> **KB references:** [Model card](../models/brain/swift.md) · [fMRI feature spec](../integration/modality_features/fmri.md) · [Integration strategy](../integration/integration_strategy.md) · [Experiment config stub](../kb/templates/experiment_config_stub.md)
+
 ## Overview
 SwiFT (Swin 4D fMRI Transformer) tokenizes 4D fMRI volumes with 3D convolutions, processes them with windowed 4D self-attention (spatial + temporal windows), and trains contrastive or supervised heads via PyTorch Lightning.^[```1:400:external_repos/swift/project/module/models/swin4d_transformer_ver7.py```][```1:188:external_repos/swift/project/main.py```]
 

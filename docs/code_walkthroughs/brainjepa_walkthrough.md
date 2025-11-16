@@ -1,5 +1,7 @@
 # Brain-JEPA Code Walkthrough
 
+> **KB references:** [Model card](../models/brain/brainjepa.md) · [fMRI feature spec](../integration/modality_features/fmri.md) · [Integration strategy](../integration/integration_strategy.md) · [Experiment config stub](../kb/templates/experiment_config_stub.md)
+
 ## Overview
 Brain-JEPA extends Image/Joint-Embedding Predictive Architecture ideas to 4D fMRI tensors: a Vision Transformer encoder ingests masked spatiotemporal blocks, a predictor Transformer reconstructs masked targets with gradient-informed positional encodings, and masking policies operate jointly across space and time.^[```1:200:external_repos/brainjepa/src/models/vision_transformer.py```][```18:282:external_repos/brainjepa/src/masks/spatialtemporal_multiblock.py```]
 

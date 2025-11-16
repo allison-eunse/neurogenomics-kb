@@ -1,0 +1,140 @@
+---
+experiment_name: "Prediction Baselines: Gene vs sMRI vs Fusion"
+objective: "Compare single-modality and late-fusion classifiers for MDD prediction"
+status: "template"
+created: "2025-11-17"
+deadline: "2025-11-26"
+
+datasets:
+  # Same as CCA experiment
+  genetics: "kb/datasets/ukb_wes.yaml"
+  smri: "kb/datasets/ukb_smri_freesurfer.yaml"
+  manifest: "kb/datasets/ukb_manifest_stub.yaml"
+  phenotype: "mdd_diagnosis"  # binary outcome
+
+feature_preparation:
+  # Reuse exact preprocessing from 01_cca_gene_smri.yaml
+  genetics:
+    model: "caduceus"
+    rc_average: true
+    pooling: "mean"
+    project_to: 512  # PCA or MLP
+  smri:
+    features: "aparc.stats + aseg.stats (~176 features)"
+    project_to: 512  # PCA
+  covariates: ["age", "sex", "site", "icv", "pc1", "pc2", "pc3", "pc4", "pc5", "pc6", "pc7", "pc8", "pc9", "pc10"]
+  preprocessing:
+    z_score: true
+    residualize: true
+    projection_method: "PCA"
+
+cross_validation:
+  # Same folds as CCA experiment (CRITICAL for fair comparison)
+  strategy: "StratifiedGroupKFold"
+  k_folds: 5
+  group_by: "site"
+  stratify_by: "mdd_diagnosis"
+  seed: 42  # must match CCA experiment
+
+models:
+  logistic_regression:
+    penalty: "l2"
+    C: [0.5, 1.0, 2.0]  # tune via nested CV
+    solver: "saga"  # or liblinear
+    class_weight: "balanced"
+    max_iter: 5000
+  
+  lightgbm:
+    num_leaves: 31
+    max_depth: -1
+    learning_rate: 0.05
+    n_estimators: 1000
+    early_stopping_rounds: 50
+    scale_pos_weight: "auto"  # N_neg / N_pos
+    metric: "auc"
+  
+  catboost:
+    depth: [6, 8]  # tune
+    learning_rate: 0.05
+    iterations: 2000
+    early_stopping_rounds: 50
+    loss_function: "Logloss"
+    auto_class_weights: "Balanced"
+
+baselines:
+  gene_only:
+    input: "gene_embeddings_512d"
+    models: ["logistic_regression", "lightgbm", "catboost"]
+  
+  smri_only:
+    input: "smri_features_512d"
+    models: ["logistic_regression", "lightgbm", "catboost"]
+  
+  fusion:
+    input: "concat([gene_512d, smri_512d]) → 1024d"
+    models: ["logistic_regression", "lightgbm", "catboost"]
+
+evaluation:
+  metrics:
+    - "AUROC (mean ± SD across folds)"
+    - "AUPRC (mean ± SD across folds)"
+    - "Brier score"
+    - "Calibration error (ECE)"
+  
+  statistical_tests:
+    - name: "DeLong test"
+      comparison: "Fusion vs Gene_only"
+      null_hypothesis: "AUC_fusion = AUC_gene"
+    - name: "DeLong test"
+      comparison: "Fusion vs sMRI_only"
+      null_hypothesis: "AUC_fusion = AUC_smri"
+    - name: "Bootstrap"
+      n_bootstrap: 1000
+      confidence_level: 0.95
+      metric: "AUROC difference (Fusion - max(Gene, sMRI))"
+  
+  interpretation:
+    logistic_regression:
+      - "Coefficient magnitudes (top 20 features)"
+      - "Odds ratios with 95% CIs"
+    lightgbm_catboost:
+      - "Feature importance (gain/split)"
+      - "SHAP values (top 20 features)"
+
+outputs:
+  results_dir: "results/2025-11-26_prediction_baselines/"
+  tables:
+    - "performance_summary.csv (model × baseline × metrics)"
+    - "per_fold_results.csv (for DeLong/bootstrap)"
+    - "feature_importance.csv (LR coefficients, GBDT gains, SHAP)"
+  plots:
+    - "roc_curves.png (Gene vs sMRI vs Fusion, best model per baseline)"
+    - "pr_curves.png"
+    - "calibration_curves.png"
+    - "feature_importance_bars.png (top 20)"
+  predictions:
+    - "held_out_predictions.csv (fold, subject_id, y_true, y_pred_proba)"
+
+next_steps:
+  if_fusion_wins:
+    - "Proceed to two-tower contrastive alignment"
+    - "Consider EI-style stacking over best per-modality models"
+    - "Run LOGO attribution on gene features"
+  if_no_fusion_gain:
+    - "Check for modality imbalance (one dominates)"
+    - "Try alternative projections (MLP, different dims)"
+    - "Inspect per-fold variance (stability)"
+    - "Consider intermediate fusion (contrastive) if late fusion fails"
+
+references:
+  - "docs/integration/analysis_recipes/prediction_baselines.md"
+  - "docs/integration/integration_strategy.md"
+  - "kb/paper_cards/ensemble_integration_li2022.yaml"
+  - "kb/paper_cards/oncology_multimodal_waqas2024.yaml"
+
+notes: |
+  - Use SAME CV folds as CCA experiment (seed=42, same splits).
+  - Save held-out predictions for post-hoc statistical tests.
+  - DeLong test requires predictions from same test set (within each fold).
+  - If Fusion > single-modality consistently (p < 0.05), strong evidence for integration value.
+

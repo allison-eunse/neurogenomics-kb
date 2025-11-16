@@ -1,0 +1,43 @@
+title: "Genome-wide Association Studies in Ancestrally Diverse Populations: Opportunities, Methods, Pitfalls, and Recommendations"
+authors: ["Peterson, Roseann E.", "et al."]
+year: 2019
+journal: "Cell"
+doi: "10.1016/j.cell.2019.11.015"
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/Genome-wide Association Studies in Ancestrally Diverse Populations- Opportunities, Methods, Pitfalls, and Recommendations.pdf"
+
+summary: |
+  Guidelines for GWAS in diverse ancestries. Emphasizes population stratification control,
+  admixture modeling, trans-ancestry meta-analysis, and ethical considerations.
+
+key_takeaways:
+  - "Population stratification is the primary confound; control with PCs (10-20)"
+  - "Diverse cohorts improve power and generalizability but require careful QC"
+  - "Trans-ancestry meta-analysis can fine-map causal variants"
+  - "Ethical considerations: equitable benefit, community engagement, data sovereignty"
+
+methods:
+  ancestry_control:
+    - "Compute genetic PCs (recommend 10-20 for diverse samples)"
+    - "Use ancestry-specific or admixture-adjusted analyses"
+    - "Avoid naive pooling without PC adjustment"
+  qc_for_diversity:
+    - "Check for batch effects correlated with ancestry"
+    - "Use LD-aware clumping within ancestry groups"
+    - "Validate in independent ancestries when possible"
+
+implications_for_project:
+  - "Always include top 10 genetic PCs as covariates (already in manifest stub)"
+  - "Document ancestry composition of UKB sample"
+  - "If UK Biobank is primarily European, note generalization limits"
+  - "Future: test gene embeddings in diverse cohorts (ADNI, PPMI, others)"
+
+related_to:
+  - "kb/datasets/ukb_manifest_stub.yaml"
+  - "docs/integration/integration_strategy.md (confounds section)"
+  - "kb/paper_cards/prs_guide.yaml"
+
+verification_status: "needs_human_review"
+notes: "Reinforces importance of genetic PC control; keep in mind for future diverse cohorts"
+
+tags: ["gwas", "ancestry", "population_stratification", "genetic_pcs", "diversity", "ethics"]
+

@@ -1,0 +1,44 @@
+title: "A guide to performing Polygenic Risk Score analyses"
+authors: ["Choi, Shing Wan", "O'Reilly, Paul F."]
+year: 2019
+journal: "Nature Protocols"
+doi: "10.1038/s41596-019-0203-3"
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/A guide to performing Polygenic Risk Score analyses.pdf"
+
+summary: |
+  Comprehensive protocol for PRS computation, QC, and association testing.
+  Covers clumping, p-value thresholding, ancestry adjustment, and validation.
+
+key_takeaways:
+  - "Standard PRS pipeline: QC → clump → threshold → score → validate"
+  - "Ancestry control critical: use within-ancestry GWAS + adjust with PCs"
+  - "Multiple p-value thresholds (e.g., 5e-8, 1e-5, 0.05, 1.0) for robustness"
+  - "Validate PRS in independent cohort; report R² and OR with CIs"
+
+methods:
+  qc_steps:
+    - "Remove SNPs with MAF < 0.01, genotyping rate < 95%, HWE p < 1e-6"
+    - "Remove samples with high missingness, relatedness, non-European ancestry (if GWAS is European)"
+  prs_computation:
+    - "Clumping: LD r² < 0.1, window 250kb"
+    - "P-value thresholds: test multiple (5e-8, 1e-5, 1e-3, 0.05, 0.5, 1.0)"
+    - "Weighted sum: PRS = Σ(βᵢ × dosageᵢ)"
+  association:
+    - "Logistic/linear regression: outcome ~ PRS + age + sex + PCs"
+    - "Report Nagelkerke R², OR, β with 95% CIs"
+
+implications_for_project:
+  - "Optional extension after FM embeddings: compute PRS for MDD/cognition"
+  - "Compare PRS vs FM embeddings: which predicts better?"
+  - "Partial correlations: PRS vs brain features vs gene embeddings"
+  - "Control genetic PCs in all analyses (overlaps with PRS adjustment)"
+
+related_to:
+  - "docs/integration/modality_features/genomics.md"
+  - "kb/datasets/ukb_manifest_stub.yaml (genetic PCs section)"
+
+verification_status: "needs_human_review"
+notes: "Reference for optional PRS baseline; defer until after FM embedding baselines"
+
+tags: ["genomics", "prs", "gwas", "polygenic_risk", "ancestry", "qc"]
+

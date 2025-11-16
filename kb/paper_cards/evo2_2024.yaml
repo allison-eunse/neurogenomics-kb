@@ -1,0 +1,46 @@
+title: "Genome modeling and design across all domains of life with Evo 2"
+authors: ["Arc Institute Team"]
+year: 2024
+venue: "bioRxiv"
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/Genome modeling and design across all domains of life with Evo 2.pdf"
+
+summary: |
+  StripedHyena 2 foundation model for DNA sequences up to 1 Mbp context.
+  Character-level tokenization (512 vocab). Supports autoregressive scoring,
+  generation, and RC-aware inference. 1B/7B/40B parameter checkpoints.
+
+key_contributions:
+  - "1M+ context window for genomic sequences (StripedHyena 2 architecture)"
+  - "Single-nucleotide tokenization with 512-symbol vocab"
+  - "RC-aware scoring utilities built-in"
+  - "Multi-scale checkpoints (1B/7B/40B) for different compute budgets"
+
+architecture:
+  backbone: "StripedHyena 2 (Hyena + Mamba hybrid layers)"
+  context_length: "1,048,576 tokens (~1 Mbp)"
+  tokenization: "CharLevelTokenizer (A/C/G/T/N + special tokens)"
+  params: "1B / 7B / 40B checkpoints"
+
+key_takeaways_for_us:
+  - "Ultra-long context useful for regulatory regions, structural variants"
+  - "RC-averaging via built-in score_sequences_rc function"
+  - "Mean pooling over token embeddings for sequence-level features"
+  - "Memory-efficient inference with cached generation"
+
+implications_for_project:
+  - "Top candidate for long-context gene embeddings"
+  - "Use 7B checkpoint (balance performance/memory)"
+  - "Extract exon embeddings → pool to gene → aggregate to subject"
+  - "Compare vs Caduceus (RC-equivariant) and GENERator (6-mer)"
+
+related_to:
+  - "docs/code_walkthroughs/evo2_walkthrough.md"
+  - "docs/models/genetics/evo2.md"
+  - "docs/integration/modality_features/genomics.md"
+  - "kb/model_cards/evo2.yaml"
+
+verification_status: "needs_human_review"
+notes: "Primary long-context DNA FM; refer to walkthrough for batching/memory tips"
+
+tags: ["genomics", "foundation_model", "long_context", "striped_hyena", "rc_aware"]
+

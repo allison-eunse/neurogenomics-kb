@@ -1,0 +1,44 @@
+title: "Integrating multimodal data through interpretable heterogeneous ensembles"
+authors: ["Li, Xichen", "Siahpirani, Alireza Fotuhi", "Lee, Dong-yeon", "Saha, Akash", "Huang, Lei", "Pan, Chen", "Roy, Sushmita"]
+year: 2022
+journal: "Bioinformatics Advances"
+doi: "10.1093/bioadv/vbac065"
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/Integrating multimodal data through interpretable heterogeneous ensembles.pdf"
+
+summary: |
+  Late integration via heterogeneous ensembles (LR/trees/SVM) outperforms early fusion 
+  for multimodal biological data (STRING protein networks, EHR COVID-19 mortality). 
+  Introduces rank-based interpretation method for ensemble importance.
+
+key_takeaways:
+  - "Late fusion preserves modality-specific signal under heterogeneous semantics"
+  - "Stacking with diverse base learners (LR, RF, SVM) improves robustness and handles missing data"
+  - "Rank-based interpretation aggregates feature importance across heterogeneous models"
+  - "Outperforms early fusion (graph-based, concatenation) on STRING and EHR tasks"
+
+methods:
+  integration_strategy: "late_fusion"
+  base_learners: ["logistic_regression", "random_forest", "svm"]
+  meta_learner: "stacking_with_cross_validation"
+  interpretation: "rank_aggregation_of_feature_importance"
+  
+datasets_used:
+  - "STRING protein-protein interaction networks (multi-view)"
+  - "EHR (electronic health records) for COVID-19 mortality prediction"
+
+implications_for_project:
+  - "Adopt LR + GBDT (LightGBM/CatBoost) as per-modality and fusion baselines"
+  - "Consider EI-style stacking after simple late-fusion baselines succeed"
+  - "Use permutation importance + rank aggregation for interpretability"
+  - "Justifies late integration first for gene-brain heterogeneous semantics"
+
+related_to:
+  - "docs/decisions/2025-11-integration-plan.md"
+  - "docs/integration/integration_strategy.md"
+  - "docs/generated/kb_curated/integration_cards/ensemble_integration.md"
+
+verification_status: "needs_human_review"
+notes: "Core paper justifying late integration strategy; read for stacking implementation details if baselines show fusion gains"
+
+tags: ["integration", "ensemble_learning", "multimodal", "interpretability", "late_fusion"]
+

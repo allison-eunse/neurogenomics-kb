@@ -1,0 +1,138 @@
+---
+experiment_name: "CCA: Gene × sMRI Baseline"
+objective: "Test cross-modal structure between gene embeddings and sMRI ROIs using CCA + permutation"
+status: "template"
+created: "2025-11-17"
+deadline: "2025-11-26"
+
+datasets:
+  genetics:
+    source: "kb/datasets/ukb_wes.yaml"  # (create after data inventory)
+    gene_set: "38 MDD candidate genes (Yoon et al. BIOKDD'25)"
+    n_subjects: TBD
+  smri:
+    source: "kb/datasets/ukb_smri_freesurfer.yaml"  # (create after data inventory)
+    features: "aparc.stats (Desikan-Killiany) + aseg.stats"
+    n_subjects: TBD
+  manifest:
+    source: "kb/datasets/ukb_manifest_stub.yaml"
+    overlap_subjects: TBD  # subjects with both genetics + sMRI
+
+feature_preparation:
+  genetics:
+    model: "caduceus"  # or evo2, generator
+    model_card: "kb/model_cards/caduceus.yaml"
+    embedding_extraction:
+      - "Load Caduceus checkpoint"
+      - "For each gene: extract exon sequences from hg38"
+      - "Tokenize each exon (char-level)"
+      - "Embed forward and RC; average: z = (z_fwd + z_rc) / 2"
+      - "Mean pool over exon tokens → exon_embedding"
+      - "Average exon embeddings → gene_embedding"
+      - "Concatenate 38 gene embeddings → subject_vector (shape: [N, 38*H])"
+    pooling: "mean"
+    rc_average: true
+    output_dim: "38 genes × hidden_dim (e.g., 38 × 256 = 9,728)"
+    project_to: 512  # via PCA or MLP
+  
+  smri:
+    pipeline: "FreeSurfer 7.x aparc.stats + aseg.stats"
+    features:
+      - "Cortical thickness (68 ROIs)"
+      - "Cortical volume (68 ROIs)"
+      - "Subcortical volumes (aseg: ~40 structures)"
+    total_features: "~176 features"
+    project_to: 512  # via PCA
+  
+  covariates:
+    - age
+    - sex
+    - site  # scanner site
+    - icv   # intracranial volume (for sMRI normalization)
+    - pc1   # genetic PCs 1-10
+    - pc2
+    - pc3
+    - pc4
+    - pc5
+    - pc6
+    - pc7
+    - pc8
+    - pc9
+    - pc10
+  
+  preprocessing:
+    z_score: true  # per feature
+    residualize: true  # regress out covariates within train folds
+    projection:
+      method: "PCA"  # or "MLP" (Linear→GELU→Dropout→Linear→LayerNorm)
+      target_dim: 512
+      fit_on: "train_fold"
+      apply_to: "train + test"
+
+cross_validation:
+  strategy: "StratifiedGroupKFold"
+  k_folds: 5
+  group_by: "site"  # prevent site leakage
+  stratify_by: "mdd_diagnosis"  # if available; else random
+  seed: 42
+
+analysis:
+  method: "cca_permutation"
+  recipe: "docs/integration/analysis_recipes/cca_permutation.md"
+  n_components: 10  # compute top 10 canonical pairs
+  n_permutations: 1000
+  permutation_method: "shuffle_subjects_in_modality_B"  # shuffle sMRI alignment
+  report_top_k: 3  # report ρ1, ρ2, ρ3 with p-values
+
+evaluation:
+  metrics:
+    - "canonical_correlations (ρ1–ρ3)"
+    - "permutation_pvalues"
+    - "cca_loadings (top 10 genes, top 10 ROIs per component)"
+  
+  statistical_tests:
+    - "Permutation test: p = (count(ρ1_null ≥ ρ1_obs) + 1) / (B + 1)"
+    - "Optional: bootstrap CIs on ρ1"
+  
+  interpretation:
+    - "Gene loadings: which genes drive canonical components?"
+    - "ROI loadings: which brain regions co-vary with gene axes?"
+    - "Partial correlations: canonical scores vs MDD/PHQ-9 controlling covariates"
+
+outputs:
+  results_dir: "results/2025-11-26_cca_gene_smri/"
+  tables:
+    - "canonical_correlations.csv (ρ1–ρk, p-values, CIs)"
+    - "gene_loadings.csv (weights per gene per component)"
+    - "roi_loadings.csv (weights per ROI per component)"
+  plots:
+    - "correlation_bars.png (ρ1–ρ3 with error bars)"
+    - "gene_loadings_heatmap.png"
+    - "roi_loadings_heatmap.png"
+    - "canonical_scores_scatter.png (component 1 vs 2, colored by MDD)"
+  logs:
+    - "preprocessing_log.txt (z-score stats, PCA explained variance)"
+    - "cca_fit_log.txt (convergence, condition numbers)"
+
+next_steps:
+  if_significant:
+    - "Proceed to prediction baselines (Gene vs sMRI vs Fusion)"
+    - "Run partial correlations with clinical outcomes"
+  if_not_significant:
+    - "Check preprocessing (outliers, site effects)"
+    - "Try alternative projection (MLP vs PCA)"
+    - "Inspect per-fold ρ1 variance (fold stability)"
+
+references:
+  - "docs/decisions/2025-11-integration-plan.md"
+  - "docs/integration/analysis_recipes/cca_permutation.md"
+  - "docs/integration/modality_features/genomics.md"
+  - "docs/integration/modality_features/smri.md"
+  - "kb/paper_cards/yoon_biokdd2025.yaml"
+
+notes: |
+  - First signal check for cross-modal structure.
+  - If ρ1 significant (p < 0.05 after permutation), strong evidence for shared variance.
+  - Loadings guide which genes/ROIs to focus on in interpretation.
+  - Same preprocessing and CV folds will be reused for prediction baselines.
+

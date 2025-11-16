@@ -1,0 +1,40 @@
+title: "BrainMT: A Hybrid Mamba-Transformer Architecture for Modeling Long-Range Dependencies in Functional MRI Data"
+authors: ["TBD"]
+year: 2024
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/BrainMT- A Hybrid Mamba-Transformer Architecture for Modeling Long-Range Dependencies in Functional MRI Data.pdf"
+
+summary: |
+  Hybrid Mamba-Transformer for fMRI. Combines Mamba's efficient long-range modeling
+  with Transformer's attention for spatiotemporal dynamics. Multitask pretraining
+  across various brain tasks.
+
+key_contributions:
+  - "Hybrid architecture: Mamba for temporal efficiency + Transformer spatial attention"
+  - "Multitask pretraining: age/sex/cognitive tasks jointly"
+  - "Efficient long-sequence modeling for fMRI time series"
+
+architecture:
+  backbone: "Interleaved Mamba + Transformer blocks"
+  inputs: "fMRI time series (parcellated or voxel-level)"
+  training: "Multitask heads for diverse downstream objectives"
+
+key_takeaways_for_us:
+  - "Efficient for long fMRI sequences"
+  - "Multitask setup may provide richer embeddings"
+  - "Complexity higher than BrainLM/JEPA; test if baselines need boost"
+
+implications_for_project:
+  - "Candidate for later exploration if single-task models insufficient"
+  - "Defer until after Nov 26 baselines"
+  - "Multitask approach could inspire auxiliary objectives"
+
+related_to:
+  - "docs/code_walkthroughs/brainmt_walkthrough.md"
+  - "docs/models/brain/brainmt.md"
+  - "docs/integration/modality_features/fmri.md"
+
+verification_status: "needs_human_review"
+notes: "Advanced; prioritize simpler BrainLM/JEPA first"
+
+tags: ["fmri", "foundation_model", "mamba", "transformer", "hybrid", "multitask"]
+

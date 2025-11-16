@@ -1,33 +1,13 @@
-# Evo 2
+---
+title: Evo2 — Model Card (light)
+status: draft
+updated: 2025-11-16
+---
 
-## Summary
-Evo 2 foundation model for DNA. Long-context sequence modeling with a hybrid architecture pretrained on large genomes.
+# Evo2
 
-## Links
-- Repo: TODO
-- Hugging Face weights: TODO
+Summary
+- Advanced sequence FM; treat with RC averaging similar to Caduceus where supported.
 
-## Inputs
-- DNA tokens
-- Context length: long-window (update once verified)
-
-## How to run
-```bash
-# Placeholder; update once pipelines are verified
-python scripts/run_evo2.py --config configs/evo2.yaml
-```
-
-## Strengths
-- Placeholder strengths item
-
-## Limits
-- Placeholder limits item
-
-## Safety
-- Placeholder safety consideration
-
-
-
-
-
-
+Usage
+- Exon/gene embeddings; project to 512 for downstream.

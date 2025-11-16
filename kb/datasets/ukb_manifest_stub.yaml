@@ -1,0 +1,115 @@
+name: "UKB Multimodal Manifest"
+description: "Subject-level manifest linking genetics (WES), sMRI, and fMRI data with covariates"
+status: "stub"
+updated: "2025-11-17"
+
+paths:
+  manifest_csv: "/path/to/ukb/manifest.csv"
+  genetics_root: "/path/to/ukb/wes/"
+  smri_root: "/path/to/ukb/smri/freesurfer/"
+  fmri_root: "/path/to/ukb/fmri/preprocessed/"
+
+sample_sizes:
+  n_total: TBD
+  n_genetics_ok: TBD
+  n_smri_ok: TBD
+  n_fmri_ok: TBD
+  n_multimodal_full: TBD  # subjects with all three modalities
+
+splits:
+  strategy: "stratified_group_kfold"  # group by site
+  k_folds: 5
+  train_frac: 0.7
+  val_frac: 0.15
+  test_frac: 0.15
+  seed: 42
+
+inclusion_criteria:
+  genetics:
+    - "WES coverage ≥30×"
+    - "Passed ancestry QC"
+    - "No excess heterozygosity"
+  smri:
+    - "FreeSurfer QC pass"
+    - "No major artifacts"
+  fmri:
+    - "Motion FD_mean < 0.5mm"
+    - "Minimum 400 timepoints after scrubbing"
+    - "Parcellation: Schaefer-400 or AAL"
+
+covariates:
+  demographics:
+    - age
+    - sex
+    - site  # scanner site
+  genetics_confounds:
+    - pc1   # genetic PCs 1-10 for ancestry
+    - pc2
+    - pc3
+    - pc4
+    - pc5
+    - pc6
+    - pc7
+    - pc8
+    - pc9
+    - pc10
+  imaging_confounds:
+    - motion_fd      # framewise displacement (fMRI)
+    - icv            # intracranial volume (sMRI normalization)
+  socioeconomic:
+    - ses            # if available
+    - education_years
+
+phenotypes:
+  primary:
+    - mdd_diagnosis       # Major Depressive Disorder (binary)
+    - phq9_score         # Depression severity (continuous)
+  secondary:
+    - cognitive_composite  # fluid intelligence / reaction time
+    - anxiety_score
+    - suicide_attempt_history
+  stratifications:
+    - eoMDD  # early-onset MDD (age < 21)
+    - loMDD  # late-onset MDD (age ≥ 21)
+
+qc_thresholds:
+  genetics:
+    missing_rate_per_sample: 0.05
+    missing_rate_per_snp: 0.05
+    maf_threshold: 0.01
+  smri:
+    freesurfer_qc_score: "pass"
+    euler_number_threshold: -217  # standard FreeSurfer QC
+  fmri:
+    motion_fd_mean: 0.5
+    motion_fd_max: 5.0
+    min_timepoints: 400
+
+preprocessing:
+  genetics:
+    variant_calling: "GATK best practices"
+    imputation: "Michigan Imputation Server (HRC r1.1)"
+    pca: "PLINK --pca 10"
+  smri:
+    pipeline: "FreeSurfer 7.x"
+    outputs: "aparc.stats (Desikan-Killiany), aseg.stats"
+    harmonization: "ComBat if multi-site"
+  fmri:
+    pipeline: "fMRIPrep 20.x + custom nuisance regression"
+    parcellation: "Schaefer-400 (7 networks)"
+    fc_computation: "Pearson correlation → Fisher z-transform"
+    motion_correction: "ICA-AROMA + scrubbing"
+
+notes: |
+  - Fill sample sizes after data inventory meeting with 은지선생님
+  - Confirm phenotype availability and coding
+  - Verify site/scanner distribution for stratified CV
+  - Check overlap between modalities (Venn diagram)
+  - Document any exclusions (psychiatric medication, neurological conditions)
+
+references:
+  - "UKB data access application: [PROJECT_ID]"
+  - "UKB showcase: https://biobank.ndph.ox.ac.uk/showcase/"
+
+verified: false
+

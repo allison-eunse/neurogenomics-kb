@@ -1,0 +1,47 @@
+title: "Brain Harmony: A Multimodal Foundation Model Unifying Morphology and Function into 1D Tokens"
+authors: ["Li, Yifan", "et al."]
+year: 2024
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/Brain Harmony- A Multimodal Foundation Model Unifying Morphology and Function into 1D Tokens.pdf"
+
+summary: |
+  Unified sMRI + fMRI foundation model. Introduces TAPE (Temporal Adaptive Patch Embedding)
+  to handle heterogeneous TRs across datasets, and hub tokens for multimodal fusion.
+  Shows improved generalization across UKB, HCP, ADNI, PPMI.
+
+key_contributions:
+  - "TAPE: resizes temporal patches to fixed duration τ regardless of TR"
+  - "Hub tokens: learnable tokens that aggregate modality-specific information"
+  - "Unified sMRI (morphology) + fMRI (function) in single model"
+  - "Robust to TR heterogeneity (0.7s UKB/HCP vs 2-3s ADNI/PPMI)"
+
+architecture:
+  backbone: "Transformer with specialized patching and hub-token fusion"
+  inputs:
+    smri: "Cortical thickness/volume ROIs"
+    fmri: "Parcel time series with variable TR"
+  tape_mechanism: "PI-resize to ensure each token = τ seconds of real time"
+  hub_tokens: "Cross-modality attention aggregation"
+
+key_takeaways_for_us:
+  - "Solves TR heterogeneity problem (critical for multi-site fMRI)"
+  - "Hub tokens = intermediate fusion approach (heavier than late fusion)"
+  - "Useful if we see TR/site drift limiting simple FC or BrainLM/JEPA"
+  - "Engineering cost higher than late fusion; defer until baselines done"
+
+implications_for_project:
+  - "Defer to escalation phase (after Nov 26 baselines)"
+  - "Use if TR heterogeneity becomes a bottleneck in fMRI analysis"
+  - "Hub-token pattern may inspire two-tower contrastive projectors"
+  - "Keep as Option C for multimodal brain embeddings"
+
+related_to:
+  - "docs/code_walkthroughs/brainharmony_walkthrough.md"
+  - "docs/models/brain/brainharmony.md"
+  - "docs/integration/modality_features/fmri.md"
+  - "docs/integration/modality_features/smri.md"
+
+verification_status: "needs_human_review"
+notes: "Advanced technique; only use if TR/site issues block simpler approaches"
+
+tags: ["fmri", "smri", "foundation_model", "multimodal", "tr_adaptation", "hub_tokens"]
+

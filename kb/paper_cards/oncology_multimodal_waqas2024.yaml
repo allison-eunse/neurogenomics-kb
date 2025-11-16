@@ -1,0 +1,45 @@
+title: "Multimodal data integration in oncology: challenges and opportunities with deep neural networks"
+authors: ["Waqas, Ahmad", "et al."]
+year: 2024
+journal: "TBD"
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/Multimodal data integration,oncology;deep neural networks.pdf"
+
+summary: |
+  Systematic review of multimodal integration strategies in oncology. 
+  Codifies taxonomy (early/intermediate/late fusion), cautions on heterogeneous semantics,
+  alignment, missingness, modality collapse, over-smoothing (GNNs), confounds, and leakage.
+
+key_takeaways:
+  - "Taxonomy: early fusion (feature concat), intermediate (shared latent), late fusion (decision-level)"
+  - "Heterogeneous semantics → prefer late integration to preserve modality-specific signal"
+  - "Critical confounds: site/scanner, acquisition parameters, batch effects, demographics"
+  - "Evaluation discipline: stratified CV, same folds across modalities, AUROC/AUPRC, calibration, significance tests"
+  - "Failure modes: alignment errors, missing data, over-smoothing in GNNs, leakage from preprocessing"
+
+methods:
+  integration_levels:
+    early: "Feature concatenation or joint graph construction before training"
+    intermediate: "Shared encoder or joint latent space (e.g., VAE, contrastive)"
+    late: "Train per-modality models, ensemble predictions"
+  recommended_practices:
+    - "Residualization/harmonization of features vs covariates"
+    - "Fold sharing across modalities for fair comparison"
+    - "Report AUROC, AUPRC with CIs; use DeLong/bootstrap for significance"
+    - "Control for site, demographics, motion (imaging), batch (omics)"
+
+implications_for_project:
+  - "Start with late integration (gene vs brain vs fusion) for heterogeneous modalities"
+  - "Z-score + residualize features against age/sex/site/motion/genetic PCs"
+  - "Use same CV folds; report AUC/AUPRC ± SD; test fusion gains with DeLong"
+  - "Defer early/intermediate fusion until baselines establish fusion value"
+
+related_to:
+  - "docs/decisions/2025-11-integration-plan.md"
+  - "docs/integration/integration_strategy.md"
+  - "docs/generated/kb_curated/integration_cards/oncology_multimodal_review.md"
+
+verification_status: "needs_human_review"
+notes: "Core principles paper; extract confound checklist and evaluation protocol for our pipeline"
+
+tags: ["integration", "multimodal", "oncology", "deep_learning", "evaluation", "confounds"]
+

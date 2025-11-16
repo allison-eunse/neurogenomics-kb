@@ -1,32 +1,22 @@
+---
+title: Caduceus — Model Card (light)
+status: draft
+updated: 2025-11-16
+---
+
 # Caduceus
 
-## Summary
-TBD
+Purpose
+- RC-equivariant DNA foundation model.
 
-## Links
-- Repo: TBD
-- Hugging Face weights: TBD
+Inductive biases
+- Bi-directional RC symmetry; sequence grammar capture.
 
-## Inputs
-- TBD
+Hygiene
+- Compute forward and RC embeddings; average; mean pooling unless CLS was trained.
 
-## How to run
-```bash
-# TBD
-python scripts/run_caduceus.py --config TBD
-```
+Attribution
+- LOGO ΔAUC with Wilcoxon + FDR.
 
-## Strengths
-- TBD
-
-## Limits
-- TBD
-
-## Safety
-- TBD
-
-
-
-
-
-
+Implications
+- Strand-robust gene vectors for fusion and CCA.

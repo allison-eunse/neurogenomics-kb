@@ -1,5 +1,7 @@
 # Caduceus Code Walkthrough
 
+> **KB references:** [Model card](../models/genetics/caduceus.md) · [Genomics feature spec](../integration/modality_features/genomics.md) · [Integration strategy](../integration/integration_strategy.md) · [Experiment config stub](../kb/templates/experiment_config_stub.md)
+
 ## Overview
 Caduceus couples Mamba sequence mixers with reverse-complement parameter sharing so every layer sees both DNA strands simultaneously, yielding 131 kbp masked-language-model checkpoints that remain equivariant to strand flips across the published HuggingFace collection.^[```6:141:external_repos/caduceus/README.md```]
 

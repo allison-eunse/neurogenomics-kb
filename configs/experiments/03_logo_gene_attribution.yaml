@@ -1,0 +1,118 @@
+---
+experiment_name: "LOGO: Gene Attribution for MDD Classification"
+objective: "Identify most predictive genes using Leave-One-Gene-Out with nested CV and statistical testing"
+status: "template"
+created: "2025-11-17"
+deadline: "2025-11-26"
+
+datasets:
+  genetics: "kb/datasets/ukb_wes.yaml"
+  manifest: "kb/datasets/ukb_manifest_stub.yaml"
+  phenotype: "mdd_diagnosis"
+  gene_set: "38 MDD candidate genes (Yoon et al. BIOKDD'25)"
+
+feature_preparation:
+  # Same as prediction baselines
+  genetics:
+    model: "caduceus"
+    rc_average: true
+    pooling: "mean"
+    per_gene_embedding: true  # keep genes separate, don't concat yet
+    output: "[N_subjects, 38_genes, hidden_dim]"
+    project_per_gene: false  # project after dropping gene
+  covariates: ["age", "sex", "site", "pc1", "pc2", "pc3", "pc4", "pc5", "pc6", "pc7", "pc8", "pc9", "pc10"]
+  preprocessing:
+    z_score: true
+    residualize: true
+
+cross_validation:
+  # Nested CV to avoid optimistic bias
+  outer_cv:
+    strategy: "StratifiedGroupKFold"
+    k_folds: 5
+    group_by: "site"
+    stratify_by: "mdd_diagnosis"
+    seed: 42
+  inner_cv:
+    strategy: "StratifiedKFold"
+    k_folds: 3
+    for: "hyperparameter tuning within each outer fold"
+
+logo_protocol:
+  for_each_gene_g:
+    steps:
+      - "Baseline model: train on all 38 genes → AUC_full"
+      - "Drop gene g: train on remaining 37 genes → AUC_no_g"
+      - "Compute ΔAUC_g = AUC_full - AUC_no_g"
+      - "Repeat across all outer CV folds → [ΔAUC_g_fold1, ..., ΔAUC_g_fold5]"
+  
+  statistical_test:
+    method: "Wilcoxon signed-rank test"
+    null_hypothesis: "ΔAUC_g = 0"
+    per_gene_p_value: "Wilcoxon test across 5 folds"
+  
+  multiple_testing_correction:
+    method: "Benjamini-Hochberg FDR"
+    alpha: 0.05
+    report: "q-values (FDR-adjusted p-values)"
+
+model:
+  # Use best model from prediction baselines
+  type: "logistic_regression"  # or lightgbm/catboost if better
+  hyperparameters:
+    # Tune within inner CV folds
+    penalty: "l2"
+    C: [0.5, 1.0, 2.0]
+    solver: "saga"
+    class_weight: "balanced"
+    max_iter: 5000
+
+evaluation:
+  per_gene_metrics:
+    - "ΔAUC_mean (mean across folds)"
+    - "ΔAUC_std (std across folds)"
+    - "Wilcoxon_p"
+    - "FDR_q"
+  
+  ranking:
+    - "Rank genes by ΔAUC_mean (descending)"
+    - "Filter: q < 0.05 (FDR-significant)"
+
+outputs:
+  results_dir: "results/2025-11-26_logo_attribution/"
+  tables:
+    - "logo_results.csv (gene, ΔAUC_mean, ΔAUC_std, Wilcoxon_p, FDR_q, rank)"
+    - "top_genes.csv (genes with q < 0.05, sorted by ΔAUC)"
+  plots:
+    - "logo_barplot.png (genes ranked by ΔAUC, error bars = ±1 SD, highlight q < 0.05)"
+    - "volcano_plot.png (ΔAUC vs -log10(q), label top genes)"
+  logs:
+    - "logo_run_log.txt (per-gene, per-fold AUCs)"
+
+expected_results:
+  sanity_check:
+    - "SOD2 should emerge as top gene (per Yoon et al. BIOKDD'25)"
+    - "If SOD2 not significant, check preprocessing/RC-averaging"
+  
+  interpretation:
+    - "Top genes (q < 0.05) are most predictive for MDD"
+    - "Connect to biological pathways: oxidative stress, synaptic function, etc."
+    - "Cross-reference with CCA loadings: do top LOGO genes also load strongly on canonical components?"
+
+next_steps:
+  - "Compare LOGO rankings with CCA gene loadings"
+  - "Partial correlations: top gene embeddings vs brain ROIs vs MDD"
+  - "Stratify by eoMDD vs loMDD if sample size permits"
+
+references:
+  - "kb/paper_cards/yoon_biokdd2025.yaml"
+  - "kb/paper_cards/caduceus_2024.yaml"
+  - "docs/integration/modality_features/genomics.md"
+
+notes: |
+  - LOGO is gold standard for interpretable gene importance.
+  - Nested CV prevents hyperparameter overfitting bias in ΔAUC.
+  - Wilcoxon is nonparametric (robust to non-normal ΔAUC distributions).
+  - FDR control critical with 38 genes (38 tests).
+  - Expected to replicate SOD2 signal from prior work.
+

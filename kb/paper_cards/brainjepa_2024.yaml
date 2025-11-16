@@ -1,0 +1,47 @@
+title: "Brain-JEPA: Brain Dynamics Foundation Model with Joint-Embedding Predictive Architecture"
+authors: ["Wang, Richard", "et al."]
+year: 2024
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/Brain-JEPA- Brain Dynamics Foundation Model.pdf"
+
+summary: |
+  JEPA (Joint-Embedding Predictive Architecture) for fMRI. Uses functional gradient
+  positioning and spatiotemporal masking (Cross-ROI, Cross-Time, Double-Cross) to learn
+  semantic latent representations. Better linear-probe performance than MAE baselines.
+
+key_contributions:
+  - "JEPA framework adapted for fMRI: predict target latents from context latents"
+  - "Brain Gradient Positioning: functional coordinate system (not anatomical)"
+  - "Spatiotemporal masking strategies emphasize long-range dependencies"
+  - "Superior downstream task performance vs MAE (age, sex, cognition)"
+
+architecture:
+  backbone: "Transformer encoder (context) + predictor (targets)"
+  positioning: "Brain functional gradients (consistent across subjects/sites)"
+  masking:
+    - "Cross-ROI: mask entire ROI time series"
+    - "Cross-Time: mask contiguous time blocks"
+    - "Double-Cross: combined spatial + temporal"
+  pooling: "Mean pooling over context encoder tokens"
+
+key_takeaways_for_us:
+  - "Better off-the-shelf representations than BrainLM MAE"
+  - "Functional positioning reduces site sensitivity"
+  - "Extract embeddings via mean pooling; project to 512-D"
+  - "Stronger for linear probing → good for late fusion baselines"
+
+implications_for_project:
+  - "Alternative to BrainLM for fMRI embeddings (Option B)"
+  - "Test both BrainLM and Brain-JEPA; compare linear-probe age/sex AUCs"
+  - "Use in late fusion: [gene_512 | brainjepa_512] → LR/GBDT"
+  - "Functional positioning may help with multi-site robustness"
+
+related_to:
+  - "docs/code_walkthroughs/brainjepa_walkthrough.md"
+  - "docs/models/brain/brainjepa.md"
+  - "docs/integration/modality_features/fmri.md"
+
+verification_status: "needs_human_review"
+notes: "JEPA often outperforms MAE for downstream tasks; worth testing alongside BrainLM"
+
+tags: ["fmri", "foundation_model", "jepa", "self_supervised", "spatiotemporal", "neuroimaging"]
+

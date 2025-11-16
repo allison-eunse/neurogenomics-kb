@@ -1,5 +1,7 @@
 # GENERator Code Walkthrough
 
+> **KB references:** [Model card](../models/genetics/generator.md) · [Genomics feature spec](../integration/modality_features/genomics.md) · [Integration strategy](../integration/integration_strategy.md) · [Experiment config stub](../kb/templates/experiment_config_stub.md)
+
 ## Overview
 GENERator wraps GPT-style causal decoders (1.2 B and 3 B parameters for both eukaryote and prokaryote checkpoints) with a strict 6-mer tokenizer and long-context optimizations—FlashAttention, Liger kernels, sliding-window decoding—so you can score or generate up to one million base pairs per prompt.^[```5:125:external_repos/generator/README.md```]
 

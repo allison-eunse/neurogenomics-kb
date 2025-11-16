@@ -1,5 +1,7 @@
 # BrainMT Code Walkthrough
 
+> **KB references:** [Model card](../models/brain/brainmt.md) · [fMRI feature spec](../integration/modality_features/fmri.md) · [Integration strategy](../integration/integration_strategy.md) · [Experiment config stub](../kb/templates/experiment_config_stub.md)
+
 ## Overview
 BrainMT pairs bidirectional Mamba mixers (temporal-first scanning) with MHSA transformer blocks to model long-range fMRI dynamics, delivering state-of-the-art regression/classification on UKB and HCP phenotypes.^[```3:170:external_repos/brainmt/README.md```][```294:462:external_repos/brainmt/src/brainmt/models/brain_mt.py```]
 

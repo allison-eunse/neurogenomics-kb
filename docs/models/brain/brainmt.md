@@ -1,9 +1,13 @@
-# NeuroMamba
+---
+title: BrainMT — Model Card (light)
+status: draft
+updated: 2025-11-16
+---
 
-Short summary: state-space inspired spatiotemporal model for whole-brain signals (verify official repo/paper).
+# BrainMT
 
-Links:
-- Repo: TBD (verify official source)
-- Paper: TBD
+Purpose
+- Multitask brain transformer.
 
-
+Usage for us
+- Candidate later if we need multitask heads; start with simpler pipelines.

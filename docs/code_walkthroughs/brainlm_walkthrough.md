@@ -1,5 +1,7 @@
 # BrainLM Code Walkthrough
 
+> **KB references:** [Model card](../models/brain/brainlm.md) · [fMRI feature spec](../integration/modality_features/fmri.md) · [Integration strategy](../integration/integration_strategy.md) · [Experiment config stub](../kb/templates/experiment_config_stub.md)
+
 ## Overview
 BrainLM is a ViT-MAE–style masked autoencoder: it slices each voxel’s time course into short windows, randomly masks most of them, and reconstructs the missing segments with Nystromformer encoder layers and a lightweight decoder trained on UK Biobank fMRI.^[```1:48:external_repos/brainlm/README.md```][```63:205:external_repos/brainlm/brainlm_mae/modeling_brainlm.py```]
 

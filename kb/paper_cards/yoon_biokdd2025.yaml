@@ -1,0 +1,47 @@
+title: "DNA Foundation Models for Major Depressive Disorder Classification and Gene Attribution"
+authors: ["Yoon, [First Name]", "et al."]
+year: 2025
+venue: "BIOKDD'25 Workshop"
+pdf_source: "/Users/allison/Projects/pdf<->md;ai-summaries/input/yoon paper.pdf"
+
+summary: |
+  Application of Caduceus and DNABERT-2 to MDD classification using 38 candidate genes.
+  Demonstrates LOGO (Leave-One-Gene-Out) attribution with nested CV, Wilcoxon tests,
+  and FDR control. Identifies SOD2 as top predictive gene.
+
+key_contributions:
+  - "MDD classification from gene embeddings: AUC ~0.85"
+  - "LOGO attribution protocol: ΔAUC per gene with statistical rigor"
+  - "Nested CV + Wilcoxon signed-rank + FDR (Benjamini-Hochberg)"
+  - "SOD2 emerges as most important gene (consistent with oxidative stress literature)"
+
+methods:
+  models_used: ["Caduceus", "DNABERT-2"]
+  gene_set: "38 MDD candidate genes from literature"
+  embeddings: "Exon-level pooling → gene-level aggregation"
+  attribution: "LOGO with nested CV; ΔAUC; Wilcoxon + FDR"
+  evaluation: "AUROC, AUPRC; balanced class weights"
+
+key_takeaways_for_us:
+  - "RC-averaging critical for stable embeddings (Caduceus)"
+  - "LOGO is gold standard for interpretable gene importance"
+  - "Nested CV avoids optimistic bias in attribution"
+  - "Mean pooling over exons works well for gene-level features"
+
+implications_for_project:
+  - "Direct methodological template for our genetics pipeline"
+  - "Adopt LOGO protocol exactly as described"
+  - "Use same gene set (38 MDD genes) for initial baselines"
+  - "Expected to replicate SOD2 signal as sanity check"
+
+related_to:
+  - "docs/decisions/2025-11-integration-plan.md"
+  - "docs/integration/modality_features/genomics.md"
+  - "docs/integration/analysis_recipes/prediction_baselines.md"
+  - "kb/paper_cards/caduceus_2024.yaml"
+
+verification_status: "needs_human_review"
+notes: "Our own prior work; exact protocol to follow for genetics-only baseline"
+
+tags: ["genomics", "mdd", "logo_attribution", "caduceus", "gene_importance", "nested_cv"]
+

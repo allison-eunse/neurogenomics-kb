@@ -1,28 +1,16 @@
-# Nucleotide Transformer
+---
+title: GENERator — Model Card (light)
+status: draft
+updated: 2025-11-16
+---
 
-## Summary
-TBD
+# GENERator
 
-## Links
-- Repo: TBD
-- Hugging Face weights: TBD
+Purpose
+- Long-context generative DNA LM.
 
-## Inputs
-- TBD
+Hygiene
+- Tokenizer sensitivity (k-mer/BPE) and RC handling; apply RC at nucleotide level pre-tokenization.
 
-## How to run
-```bash
-# TBD
-python scripts/run_nucleotide_transformer.py --config TBD
-```
-
-## Strengths
-- TBD
-
-## Limits
-- TBD
-
-## Safety
-- TBD
-
-
+Implications
+- Be explicit about tokenization scheme; test RC averaging stability.
