@@ -182,9 +182,7 @@ In addition to standalone neurogenomics analyses, **neuro-omics-kb** serves as t
 
 ## 🔗 Related Repositories
 
-- **PDF/Markdown Converter**: [pdf-md-ai-summaries](https://github.com/allison-eunse/pdf-md-ai-summaries)
 - **Model Implementations**: See links in individual model cards
-- **Datasets**: UK Biobank (restricted), HCP, OpenGenome2
 
 ---
 
