@@ -106,16 +106,16 @@ nav:
   - Code walkthroughs:
       - Index: code_walkthroughs/index.md
       - Genetics:
-      - Caduceus: code_walkthroughs/caduceus_walkthrough.md
-      - DNABERT-2: code_walkthroughs/dnabert2_walkthrough.md
-      - Evo 2: code_walkthroughs/evo2_walkthrough.md
-      - GENERator: code_walkthroughs/generator_walkthrough.md
+          - Caduceus: code_walkthroughs/caduceus_walkthrough.md
+          - DNABERT-2: code_walkthroughs/dnabert2_walkthrough.md
+          - Evo 2: code_walkthroughs/evo2_walkthrough.md
+          - GENERator: code_walkthroughs/generator_walkthrough.md
       - Brain:
-      - BrainLM: code_walkthroughs/brainlm_walkthrough.md
-      - Brain-JEPA: code_walkthroughs/brainjepa_walkthrough.md
-      - Brain Harmony: code_walkthroughs/brainharmony_walkthrough.md
-      - BrainMT: code_walkthroughs/brainmt_walkthrough.md
-      - SwiFT: code_walkthroughs/swift_walkthrough.md
+          - BrainLM: code_walkthroughs/brainlm_walkthrough.md
+          - Brain-JEPA: code_walkthroughs/brainjepa_walkthrough.md
+          - Brain Harmony: code_walkthroughs/brainharmony_walkthrough.md
+          - BrainMT: code_walkthroughs/brainmt_walkthrough.md
+          - SwiFT: code_walkthroughs/swift_walkthrough.md
       - Multimodal:
           - BAGEL: code_walkthroughs/bagel_walkthrough.md
           - MoT: code_walkthroughs/mot_walkthrough.md
