@@ -90,15 +90,24 @@ nav:
       - Governance & QC: data/governance_qc.md
   - Code walkthroughs:
       - Index: code_walkthroughs/index.md
-      - Caduceus: code_walkthroughs/caduceus_walkthrough.md
-      - DNABERT-2: code_walkthroughs/dnabert2_walkthrough.md
-      - Evo 2: code_walkthroughs/evo2_walkthrough.md
-      - GENERator: code_walkthroughs/generator_walkthrough.md
-      - BrainLM: code_walkthroughs/brainlm_walkthrough.md
-      - Brain-JEPA: code_walkthroughs/brainjepa_walkthrough.md
-      - Brain Harmony: code_walkthroughs/brainharmony_walkthrough.md
-      - BrainMT: code_walkthroughs/brainmt_walkthrough.md
-      - SwiFT: code_walkthroughs/swift_walkthrough.md
+      - Genetics:
+          - Caduceus: code_walkthroughs/caduceus_walkthrough.md
+          - DNABERT-2: code_walkthroughs/dnabert2_walkthrough.md
+          - Evo 2: code_walkthroughs/evo2_walkthrough.md
+          - GENERator: code_walkthroughs/generator_walkthrough.md
+      - Brain:
+          - BrainLM: code_walkthroughs/brainlm_walkthrough.md
+          - Brain-JEPA: code_walkthroughs/brainjepa_walkthrough.md
+          - Brain Harmony: code_walkthroughs/brainharmony_walkthrough.md
+          - BrainMT: code_walkthroughs/brainmt_walkthrough.md
+          - SwiFT: code_walkthroughs/swift_walkthrough.md
+      - Multimodal:
+          - BAGEL: code_walkthroughs/bagel_walkthrough.md
+          - MoT: code_walkthroughs/mot_walkthrough.md
+          - M3FM: code_walkthroughs/m3fm_walkthrough.md
+          - Me-LLaMA: code_walkthroughs/melamma_walkthrough.md
+          - TITAN: code_walkthroughs/titan_walkthrough.md
+          - FMS-Medical: code_walkthroughs/fms_medical_walkthrough.md
   - Decisions:
       - Integration plan (Nov 2025): decisions/2025-11-integration-plan.md
 
