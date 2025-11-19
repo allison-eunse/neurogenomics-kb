@@ -42,8 +42,8 @@ python scripts/manage_kb.py validate models
 
 **New to foundation models?** Start with:
 1. 📖 [KB Overview](https://allison-eunse.github.io/neuro-omics-kb/guide/kb_overview/) - Understand the structure
-2. 🧬 [Genetics Models Overview](https://allison-eunse.github.io/neuro-omics-kb/models/genetics/) - DNA sequence models
-3. 🧠 [Brain Models Overview](https://allison-eunse.github.io/neuro-omics-kb/models/brain/) - Neuroimaging models
+2. 🧬 [Genetics Models Overview](https://allison-eunse.github.io/neuro-omics-kb/models/genetics/index.html) - DNA sequence models
+3. 🧠 [Brain Models Overview](https://allison-eunse.github.io/neuro-omics-kb/models/brain/index.html) - Neuroimaging models
 4. 🔗 [Integration Strategy](https://allison-eunse.github.io/neuro-omics-kb/integration/integration_strategy/) - How to combine modalities
 
 ---

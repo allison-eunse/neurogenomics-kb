@@ -40,7 +40,7 @@ updated: 2025-11-19
     - Extract gene embeddings from DNA sequences
     - Analyze variant effects and predict phenotypes
     - Generate gene-level representations for downstream analysis
-    
+
     [:octicons-arrow-right-24: Explore Genetics Models](models/genetics/)
 
 -   :material-brain: **Brain Imaging**
@@ -52,7 +52,7 @@ updated: 2025-11-19
     - Process fMRI and sMRI neuroimaging data
     - Extract site-robust brain embeddings
     - Harmonize multi-site imaging datasets
-    
+
     [:octicons-arrow-right-24: Explore Brain Models](models/brain/)
 
 -   :material-link-variant: **Multimodal Integration**
@@ -64,7 +64,7 @@ updated: 2025-11-19
     - Fuse gene + brain embeddings via CCA or late fusion
     - Build gene-brain-behavior prediction models
     - Implement cross-modal alignment strategies
-    
+
     [:octicons-arrow-right-24: Explore Integration Strategy](integration/integration_strategy/)
 
 -   :material-flask: **Reproducible Research**
@@ -76,7 +76,7 @@ updated: 2025-11-19
     - Use validated analysis pipelines and recipes
     - Clone experiment configs with proper CV schemes
     - Apply quality gates for multi-site cohorts
-    
+
     [:octicons-arrow-right-24: Explore Analysis Recipes](integration/analysis_recipes/cca_permutation/)
 
 </div>
