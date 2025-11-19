@@ -129,7 +129,7 @@ If adapting TITAN for neuroimaging:
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [TITAN (2025)](../../generated/kb_curated/papers-md/titan_2025.md)
+- **Paper summary & notes (PDF):** [TITAN (2025)](../../generated/kb_curated/papers-pdf/titan_2025.pdf)
 - **Code walkthrough:** [TITAN walkthrough](../../code_walkthroughs/titan_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/titan.yaml`
 - **Paper card (YAML):** `kb/paper_cards/titan_2025.yaml`

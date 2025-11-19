@@ -99,7 +99,7 @@ BrainMT demonstrates **efficient long-context modeling** for multimodal systems:
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [BrainMT (2025)](../../generated/kb_curated/papers-md/brainmt_2025.md)
+- **Paper summary & notes (PDF):** [BrainMT (2025)](../../generated/kb_curated/papers-pdf/brainmt_2025.pdf)
 - **Code walkthrough:** [BrainMT walkthrough](../../code_walkthroughs/brainmt_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/brainmt.yaml`
 - **Paper card (YAML):** `kb/paper_cards/brainmt_2025.yaml`

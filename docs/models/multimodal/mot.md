@@ -122,7 +122,7 @@ MoT is an **architectural pattern**, not a standalone model, but if implementing
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [MoT (2025)](../../generated/kb_curated/papers-md/mot_2025.md)
+- **Paper summary & notes (PDF):** [MoT (2025)](../../generated/kb_curated/papers-pdf/mot_2025.pdf)
 - **Code walkthrough:** [MoT walkthrough](../../code_walkthroughs/mot_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/mot.yaml` (if exists)
 - **Paper card (YAML):** `kb/paper_cards/mot_2025.yaml`

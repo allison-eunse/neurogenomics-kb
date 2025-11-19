@@ -99,11 +99,10 @@ DNABERT-2 provides **flexible tokenization** for Brain-Omics systems:
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
+- **Paper summary & notes (PDF):** [DNABERT-2 (2024)](../../generated/kb_curated/papers-pdf/dnabert2_2024.pdf)
 - **Paper card (YAML):** `kb/paper_cards/dnabert2_2024.yaml` (contains structured summary and metadata)
 - **Code walkthrough:** [DNABERT-2 walkthrough](../../code_walkthroughs/dnabert2_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/dnabert2.yaml`
-
-**Note:** Paper summary is available in the paper card YAML. A detailed markdown summary is pending curation.
 
 **Integration recipes:**
 - [Modality Features: Genomics](../../integration/modality_features/genomics.md)

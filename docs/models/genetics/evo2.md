@@ -107,7 +107,7 @@ Evo2 enables **whole-locus genetic representations** for Brain-Omics systems:
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [Evo2 (2024)](../../generated/kb_curated/papers-md/evo2_2024.md)
+- **Paper summary & notes (PDF):** [Evo2 (2024)](../../generated/kb_curated/papers-pdf/evo2_2024.pdf)
 - **Code walkthrough:** [Evo2 walkthrough](../../code_walkthroughs/evo2_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/evo2.yaml`
 - **Paper card (YAML):** `kb/paper_cards/evo2_2024.yaml`

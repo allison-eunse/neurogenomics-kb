@@ -125,7 +125,7 @@ If adapting M3FM for brain imaging:
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [M3FM (2025)](../../generated/kb_curated/papers-md/m3fm_2025.md)
+- **Paper summary & notes (PDF):** [M3FM (2025)](../../generated/kb_curated/papers-pdf/m3fm_2025.pdf)
 - **Code walkthrough:** [M3FM walkthrough](../../code_walkthroughs/m3fm_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/m3fm.yaml`
 - **Paper card (YAML):** `kb/paper_cards/m3fm_2025.yaml`

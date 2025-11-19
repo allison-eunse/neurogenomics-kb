@@ -92,7 +92,7 @@ Brain-JEPA provides **lower-latency fMRI encoding** compared to full autoencodin
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [Brain-JEPA (2024)](../../generated/kb_curated/papers-md/brainjepa_2024.md)
+- **Paper summary & notes (PDF):** [Brain-JEPA (2024)](../../generated/kb_curated/papers-pdf/brainjepa_2024.pdf)
 - **Code walkthrough:** [Brain-JEPA walkthrough](../../code_walkthroughs/brainjepa_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/brainjepa.yaml`
 - **Paper card (YAML):** `kb/paper_cards/brainjepa_2024.yaml`

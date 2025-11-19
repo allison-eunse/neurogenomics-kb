@@ -100,10 +100,10 @@ Caduceus provides **strand-robust genetic representations** for Brain-Omics syst
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [Caduceus (2024)](../../generated/kb_curated/papers-md/caduceus_2024.md)
+- **Paper summary & notes (PDF):** [Caduceus (2024)](../../generated/kb_curated/papers-pdf/caduceus_2024.pdf)
+- **Paper card (YAML):** `kb/paper_cards/caduceus_2024.yaml`
 - **Code walkthrough:** [Caduceus walkthrough](../../code_walkthroughs/caduceus_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/caduceus.yaml`
-- **Paper card (YAML):** `kb/paper_cards/caduceus_2024.yaml`
 
 **Integration recipes:**
 - [Modality Features: Genomics](../../integration/modality_features/genomics.md)

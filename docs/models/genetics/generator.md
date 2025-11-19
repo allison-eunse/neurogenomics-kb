@@ -104,7 +104,7 @@ GENERator demonstrates **generative modeling** for biological sequences:
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [GENERator (2024)](../../generated/kb_curated/papers-md/generator_2024.md)
+- **Paper summary & notes (PDF):** [GENERator (2024)](../../generated/kb_curated/papers-pdf/generator_2024.pdf)
 - **Code walkthrough:** [GENERator walkthrough](../../code_walkthroughs/generator_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/generator.yaml`
 - **Paper card (YAML):** `kb/paper_cards/generator_2024.yaml`

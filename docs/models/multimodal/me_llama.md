@@ -135,7 +135,7 @@ If adapting Me-LLaMA for neuro-omics:
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [Me-LLaMA (2024)](../../generated/kb_curated/papers-md/me_llama_2024.md)
+- **Paper summary & notes (PDF):** [Me-LLaMA (2024)](../../generated/kb_curated/papers-pdf/me_llama_2024.pdf)
 - **Code walkthrough:** [Me-LLaMA walkthrough](../../code_walkthroughs/melamma_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/me_llama.yaml`
 - **Paper card (YAML):** `kb/paper_cards/me_llama_2024.yaml`

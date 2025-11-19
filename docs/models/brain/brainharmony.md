@@ -93,7 +93,7 @@ Brain Harmony exemplifies **modality-adaptive fusion** for Brain-Omics systems:
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [Brain Harmony (2025)](../../generated/kb_curated/papers-md/brainharmony_2025.md)
+- **Paper summary & notes (PDF):** [Brain Harmony (2025)](../../generated/kb_curated/papers-pdf/brainharmony_2025.pdf)
 - **Code walkthrough:** [Brain Harmony walkthrough](../../code_walkthroughs/brainharmony_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/brainharmony.yaml`
 - **Paper card (YAML):** `kb/paper_cards/brainharmony_2025.yaml`

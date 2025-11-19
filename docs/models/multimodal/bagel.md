@@ -114,7 +114,7 @@ BAGEL is not used for embedding extraction in the Neuro-Omics KB (domain mismatc
 ### Knowledge Base Resources
 
 **Curated materials in this KB:**
-- **Paper summary & notes:** [BAGEL (2025)](../../generated/kb_curated/papers-md/bagel_2025.md)
+- **Paper summary & notes (PDF):** [BAGEL (2025)](../../generated/kb_curated/papers-pdf/bagel_2025.pdf)
 - **Code walkthrough:** [BAGEL walkthrough](../../code_walkthroughs/bagel_walkthrough.md)
 - **Model card (YAML):** `kb/model_cards/bagel.yaml` (if exists)
 - **Paper card (YAML):** `kb/paper_cards/bagel_2025.yaml`
