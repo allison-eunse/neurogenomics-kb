@@ -31,6 +31,13 @@ Structured YAML metadata for all key papers referenced in the KB. Each card incl
 | Brain Harmony | [brainharmony_2025.yaml](brainharmony_2025.yaml) | TAPE + hub tokens | sMRI + fMRI |
 | BrainMT | [brainmt_2025.yaml](brainmt_2025.yaml) | Hybrid Mamba-Transformer | fMRI |
 
+## Foundation Models — Multimodal / Unified FMs
+
+| Model | Card | Architecture | Modalities |
+|-------|------|--------------|------------|
+| Mixture-of-Transformers (MoT) | [mot_2025.yaml](mot_2025.yaml) | Sparse modality-aware transformer | Text · Image · Speech |
+| BAGEL | [bagel_2025.yaml](bagel_2025.yaml) | Unified decoder-only MoT-based FM | Text · Image · Video · Web |
+
 ## Methods & Prior Work
 
 | Paper | Card | Contribution |

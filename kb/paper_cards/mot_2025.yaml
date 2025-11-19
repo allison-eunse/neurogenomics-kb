@@ -1,0 +1,68 @@
+title: "Mixture-of-Transformers: A Sparse and Scalable Architecture for Multi-Modal Foundation Models"
+authors:
+  - Weixin Liang
+  - Lili Yu
+  - Liang Luo
+  - Srinivasan Iyer
+  - Ning Dong
+  - Chunting Zhou
+  - Gargi Ghosh
+  - Mike Lewis
+  - Wen-tau Yih
+  - Luke Zettlemoyer
+  - Xi Victoria Lin
+year: 2025
+venue: "Transactions on Machine Learning Research (TMLR)"
+doi: "10.48550/arXiv.2411.04996"
+pdf_source: "https://arxiv.org/abs/2411.04996"
+local_pdf_path: "docs/generated/kb_curated/papers-pdf/mot_2025.pdf"
+summary_md_path: "docs/generated/kb_curated/papers-md/mot_2025.md"
+
+summary: |
+  Mixture-of-Transformers (MoT) is a sparse multi-modal transformer architecture that keeps
+  full self-attention over mixed text–image–speech sequences while decoupling all non-embedding
+  parameters (FFNs, attention projections, layer norms) by modality. In Chameleon-style
+  autoregressive generation and Transfusion-style text+diffusion settings, MoT consistently
+  matches or exceeds dense multimodal transformers while using roughly 40–60% of the pretraining
+  FLOPs and substantially less wall-clock time.^[See arXiv:2411.04996](https://arxiv.org/abs/2411.04996)
+  The paper demonstrates that simple modality-aware sparsity is a practical alternative to
+  learned MoE routing for scaling unified multimodal FMs.
+
+key_contributions:
+  - "Modality-aware sparsity over non-embedding parameters (FFNs, attention, norms) with shared global self-attention."
+  - "Drop-in replacement for dense transformers in Chameleon (text–image–speech) and Transfusion (text+diffusion images)."
+  - "Matches dense baselines on multimodal benchmarks while using ~55.8% of FLOPs in the Chameleon-7B setting and similar or lower wall-clock."
+  - "Shows stable scaling across model sizes and provides a simpler alternative to MoE-4x experts."
+
+methods:
+  architecture: "Mixture-of-Transformers (MoT) sparse multimodal transformer"
+  modalities:
+    - text
+    - image
+    - speech
+  settings:
+    - "Chameleon-style unified text–image and text–image–speech generation"
+    - "Transfusion-style text + diffusion image generation"
+
+implications_for_project:
+  - "Template for introducing modality-aware sparsity into future Brain–Omics models that mix genetics, MRI/fMRI, EEG, and language tokens."
+  - "Suggests using per-modality FFNs/attention projections for brain vs. genetics vs. behavioural embeddings while retaining early-fusion attention."
+  - "Supports compute-efficient scaling of unified multimodal FMs that might combine neuro-omics representations with language and imaging."
+
+related_to:
+  - "docs/generated/kb_curated/papers-md/mot_2025.md"
+  - "docs/integration/design_patterns.md"
+  - "docs/code_walkthroughs/mot_walkthrough.md"
+
+verification_status: "needs_human_review"
+notes: "Card summarizes high-level architecture and compute claims from Mixture-of-Transformers; review original TMLR paper for any neuro-omics-specific adaptations before reusing patterns."
+
+tags:
+  - multimodal
+  - architecture
+  - foundation_model
+  - sparse
+  - mixture-of-transformers
+  - efficiency
+
+

@@ -4,6 +4,23 @@ description: "Subject-level manifest linking genetics (WES), sMRI, and fMRI data
 status: "stub"
 last_updated: "2025-11-17"
 
+storage_location:
+  source: "ukb_secure_storage:/path/to/ukb"
+
+schema_ref: "docs/data/schemas.md#ukb_manifest_schema"
+
+modalities:
+  - genetics
+  - smri
+  - fmri
+
+required_columns:
+  - eid
+  - has_genetics
+  - has_smri
+  - has_fmri
+  - split
+
 paths:
   manifest_csv: "/path/to/ukb/manifest.csv"
   genetics_root: "/path/to/ukb/wes/"

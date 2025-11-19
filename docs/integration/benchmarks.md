@@ -2,7 +2,10 @@
 
 ## Datasets
 - UK Biobank
-- Targets: MDD (Howard et al.) and cognition (TBD task list)
+- Targets:
+  - **Primary:** MDD diagnosis (binary; Howard et al. GWAS), PHQ-9 depression severity (continuous)
+  - **Secondary cognitive:** Fluid intelligence, reaction time, cognitive composite
+  - **Stratifications:** Early-onset MDD (age < 21), late-onset MDD (age ≥ 21)
 
 ## Splits
 - GroupKFold by site

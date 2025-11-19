@@ -3,24 +3,24 @@
 > **KB references:** Model card (pending) · [Integration strategy](../integration/integration_strategy.md) · [Experiment config stub](../kb/templates/experiment_config_stub.md)
 
 ## Overview
-M3FM couples multilingual CLIP text embeddings with the original R2Gen relational-memory Transformer decoder to generate bilingual COVID-era chest X-ray reports. The entrypoint `M3FM.py` wires tokenization, dataset splits, optimizer/scheduler, and the trainer while `modules/text_extractor.py` handles medical text preprocessing and embedding, and `modules/encoder_decoder.py` implements the Transformer + RelationalMemory decoder that outputs report logits for teacher-forced training; inference routes beam/greedy decoding through English or Chinese heads via CLI flags.^[```1:72:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/README.md```][```15:126:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/M3FM.py```][```16:53:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/text_extractor.py```][```227:355:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/encoder_decoder.py```][```130:210:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/inference.py```]
+M3FM couples multilingual CLIP text embeddings with the original R2Gen relational-memory Transformer decoder to generate bilingual COVID-era chest X-ray reports. The entrypoint `M3FM.py` wires tokenization, dataset splits, optimizer/scheduler, and the trainer while `modules/text_extractor.py` handles medical text preprocessing and embedding, and `modules/encoder_decoder.py` implements the Transformer + RelationalMemory decoder that outputs report logits for teacher-forced training; inference routes beam/greedy decoding through English or Chinese heads via CLI flags.^[```1:72:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md```][```15:126:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/M3FM.py```][```16:53:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py```][```227:355:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/encoder_decoder.py```][```130:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py```]
 
 ## At-a-Glance
 | Architecture | Params | Context | Inputs | Key capabilities | Repo |
 | --- | --- | --- | --- | --- | --- |
-| Multilingual CLIP text embeddings → relational-memory Transformer decoder (beam/greedy) for bilingual CXRs.^[```16:53:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/text_extractor.py```][```227:355:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/encoder_decoder.py```][```130:210:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/inference.py```] | Defaults: `d_model=512`, FFN 2048, 3 decoder layers, 8 heads, `rm_num_slots=3`, `beam_size=3`, `epochs=15`.^[```29:81:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/M3FM.py```][```34:76:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/inference.py```] | 224×224 CXRs with max 100 tokens; BOS token `1` (English) or `2` (Chinese) selects the generation language.^[```18:75:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/dataloaders.py```][```20:115:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/datasets.py```][```162:210:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/inference.py```] | `annotation.json` + image roots streamed by `R2DataLoader`, yielding `(reports_ids, reports_ids_use)` tensors for teacher forcing.^[```18:75:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/dataloaders.py```][```20:115:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/datasets.py```] | Trainer wraps SGD + StepLR, gradient clipping, multilingual greedy decoding, and BLEU/SPICE-compatible evaluation utilities.^[```91:124:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/M3FM.py```][```203:221:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/trainer.py```][```130:210:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/inference.py```] | [github.com/ai-in-health/M3FM](https://github.com/ai-in-health/M3FM) |
+| Multilingual CLIP text embeddings → relational-memory Transformer decoder (beam/greedy) for bilingual CXRs.^[```16:53:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py```][```227:355:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/encoder_decoder.py```][```130:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py```] | Defaults: `d_model=512`, FFN 2048, 3 decoder layers, 8 heads, `rm_num_slots=3`, `beam_size=3`, `epochs=15`.^[```29:81:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/M3FM.py```][```34:76:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py```] | 224×224 CXRs with max 100 tokens; BOS token `1` (English) or `2` (Chinese) selects the generation language.^[```18:75:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/dataloaders.py```][```20:115:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/datasets.py```][```162:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py```] | `annotation.json` + image roots streamed by `R2DataLoader`, yielding `(reports_ids, reports_ids_use)` tensors for teacher forcing.^[```18:75:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/dataloaders.py```][```20:115:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/datasets.py```] | Trainer wraps SGD + StepLR, gradient clipping, multilingual greedy decoding, and BLEU/SPICE-compatible evaluation utilities.^[```91:124:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/M3FM.py```][```203:221:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/trainer.py```][```130:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py```] | [github.com/ai-in-health/M3FM](https://github.com/ai-in-health/M3FM) |
 
 ### Environment & Hardware Notes
-- **Conda + pip workflow.** Create `conda create -n M3FM python==3.9`, activate, install CUDA 11.8-compatible PyTorch (`torch>=1.10.1`, `torchvision>=0.11.2`, `pytorch-cuda==11.8`) followed by `pip install -r requirements.txt`; repo validated on `torch==2.2.1`.^[```4:21:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/README.md```]
-- **Metric prerequisites.** Java, `pycocoevalcap`, `pycocotools`, and Stanford CoreNLP jars are required for SPICE; README documents manual download/placement steps to avoid firewalls.^[```46:71:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/README.md```]
-- **Language evaluation assets.** Place `stanford-corenlp-4.5.2` under `data/` and keep `corenlp_root` in `configs/__init__.py` synchronized when switching between English and Chinese inference.^[```61:71:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/README.md```]
+- **Conda + pip workflow.** Create `conda create -n M3FM python==3.9`, activate, install CUDA 11.8-compatible PyTorch (`torch>=1.10.1`, `torchvision>=0.11.2`, `pytorch-cuda==11.8`) followed by `pip install -r requirements.txt`; repo validated on `torch==2.2.1`.^[```4:21:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md```]
+- **Metric prerequisites.** Java, `pycocoevalcap`, `pycocotools`, and Stanford CoreNLP jars are required for SPICE; README documents manual download/placement steps to avoid firewalls.^[```46:71:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md```]
+- **Language evaluation assets.** Place `stanford-corenlp-4.5.2` under `data/` and keep `corenlp_root` in `configs/__init__.py` synchronized when switching between English and Chinese inference.^[```61:71:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md```]
 
 ## Key Components
 
 ### Tokenizer + Data Interface (`modules/dataloaders.py`, `modules/datasets.py`)
 `R2DataLoader` centralizes resizing/normalization, dataset selection (IU X-Ray vs. MIMIC/COV), and a collate function that pads both the teacher-forced `reports_ids` (targets) and decoder inputs (`reports_ids_use`). The dataset class uses cleaned strings to build token IDs, tracks language label via the leading token, and emits both full targets and shifted inputs.
 
-```8:45:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/dataloaders.py
+```8:45:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/dataloaders.py
 class R2DataLoader(DataLoader):
     def __init__(self, args, tokenizer, split, shuffle):
         self.args = args
@@ -52,7 +52,7 @@ class R2DataLoader(DataLoader):
             self.dataset = MimiccxrSingleImageDataset(self.args, self.tokenizer, self.split, transform=self.transform)
 ```
 
-```48:74:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/dataloaders.py
+```48:74:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/dataloaders.py
     @staticmethod
     def collate_fn(data):
         images_id, images, reports_ids, report, seq_lengths, seq_length1,image_path_all, reports_ids_use = zip(*data)
@@ -79,7 +79,7 @@ class R2DataLoader(DataLoader):
 ### Multilingual TextExtractor (`modules/text_extractor.py`)
 The `TextExtractor` loads `M-CLIP/XLM-Roberta-Large-Vit-L-14`, averages contextual token embeddings with attention masking, projects them through CLIP’s linear head, then applies a learnable affine + ReLU to map the 768-d output to the 512-d hidden size expected by the decoder. Reports are cleaned per language before tokenization, enabling bilingual support without retraining the encoder.
 
-```16:53:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/text_extractor.py
+```16:53:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py
 class TextExtractor(nn.Module):
     def __init__(self, args):
         super(TextExtractor, self).__init__()
@@ -122,7 +122,7 @@ class TextExtractor(nn.Module):
 ### Relational-Memory Transformer Decoder (`modules/encoder_decoder.py`)
 `Transformer` wraps a Decoder-only stack augmented with conditional layer norm controlled by a relational memory module. Before projection, the model reshapes logits to match token vocab (default 464). Memory slots capture long-range dependencies from the previous tokens, improving report fluency over vanilla Transformer decoders.
 
-```228:252:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/encoder_decoder.py
+```228:252:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/encoder_decoder.py
 class Transformer(nn.Module):
     def __init__(self):
         super(Transformer, self).__init__()
@@ -152,7 +152,7 @@ class Transformer(nn.Module):
 ### Trainer & Scheduler (`modules/trainer.py`)
 `Trainer._train_epoch` streams teacher-forced batches, clips gradients to `0.1`, steps SGD and the StepLR schedule every iteration, and records average loss per epoch. Mixed precision isn’t enabled here, so plan GPU memory accordingly.
 
-```203:221:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/trainer.py
+```203:221:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/trainer.py
     def _train_epoch(self, epoch):
 
         train_loss = 0
@@ -177,7 +177,7 @@ class Transformer(nn.Module):
 ### Bilingual Inference Script (`inference.py`)
 `inference.py` mirrors the training CLI, loads both English and Chinese `R2GenModel` variants, performs greedy decoding conditioned on the BOS token, and prints generated reports. Changing `--language` toggles which head runs and when the search halts.
 
-```162:210:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/inference.py
+```162:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py
 if args.language=='English' or args.language=='All':
     model_en.eval()
     output = False
@@ -205,7 +205,7 @@ if args.language=='English' or args.language=='All':
 ```
 
 ## Integration Hooks (Vision ↔ Clinical Language)
-- **Tap 512-d text embeddings.** `TextExtractor` already outputs normalized 512-d vectors before relational memory; export them for multimodal alignment (e.g., with genetic embeddings) or to seed cross-modal contrastive losses.^[```16:53:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/text_extractor.py```]
-- **Language-aware batching.** The dataset prefixes each sequence with `1` (English) or `2` (Chinese); filtering on the first token lets you run per-language evaluators or remap tokens to KB-friendly ontologies without retraining.^[```20:75:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/modules/datasets.py```]
-- **Reuse greedy decoder outputs.** `greedy_decoder` yields raw token IDs before detokenization, making it straightforward to log intermediate logits or route them into KB experiment trackers for BLEU/SPICE comparisons across modalities.^[```130:210:/Users/allison/Projects/neurogenomics-kb/external_repos/M3FM/inference.py```]
+- **Tap 512-d text embeddings.** `TextExtractor` already outputs normalized 512-d vectors before relational memory; export them for multimodal alignment (e.g., with genetic embeddings) or to seed cross-modal contrastive losses.^[```16:53:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py```]
+- **Language-aware batching.** The dataset prefixes each sequence with `1` (English) or `2` (Chinese); filtering on the first token lets you run per-language evaluators or remap tokens to KB-friendly ontologies without retraining.^[```20:75:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/datasets.py```]
+- **Reuse greedy decoder outputs.** `greedy_decoder` yields raw token IDs before detokenization, making it straightforward to log intermediate logits or route them into KB experiment trackers for BLEU/SPICE comparisons across modalities.^[```130:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py```]
 

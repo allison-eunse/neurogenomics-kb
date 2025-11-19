@@ -1,0 +1,71 @@
+title: "Emerging Properties in Unified Multimodal Pretraining"
+short_name: "BAGEL"
+authors:
+  - Chaorui Deng
+  - Deyao Zhu
+  - Kunchang Li
+  - Chenhui Gou
+  - Feng Li
+  - Zeyu Wang
+  - Shu Zhong
+  - Weihao Yu
+  - Xiaonan Nie
+  - Ziang Song
+  - Guang Shi
+  - Haoqi Fan
+year: 2025
+venue: "arXiv preprint"
+pdf_source: "https://arxiv.org/abs/2505.14683"
+local_pdf_path: "docs/generated/kb_curated/papers-pdf/bagel_2025.pdf"
+summary_md_path: "docs/generated/kb_curated/papers-md/bagel_2025.md"
+
+summary: |
+  BAGEL is an open-source unified multimodal foundation model that uses a Qwen2.5-based
+  decoder-only transformer with Mixture-of-Transformer-Experts (MoT) to jointly support
+  multimodal understanding and generation over text, images, video, and web data.^[See arXiv:2505.14683](https://arxiv.org/abs/2505.14683)
+  Visual understanding uses a SigLIP2-style ViT encoder, while visual generation uses a FLUX
+  VAE plus rectified-flow diffusion conditioned on the transformer states. Trained on trillions
+  of interleaved multimodal tokens, BAGEL exhibits emerging capabilities in complex multimodal
+  reasoning, free-form visual manipulation, 3D manipulation, and navigation, and outperforms
+  prior open-source unified models on standard multimodal benchmarks.
+
+key_contributions:
+  - "Unified decoder-only multimodal FM (text, images, video, web) with MoT experts for understanding vs. generation."
+  - "Carefully curated, reasoning-oriented, interleaved multimodal corpus at trillions of tokens."
+  - "IntelligentBench benchmark suite to surface emerging multimodal reasoning and manipulation abilities."
+  - "Open-source code and checkpoints that narrow the gap with proprietary unified systems."
+
+model:
+  name: "BAGEL"
+  backbone: "Qwen2.5 decoder-only transformer with RMSNorm, SwiGLU, RoPE, GQA, QK-Norm"
+  architecture: "MoT-based unified multimodal FM with separate understanding and generation experts"
+  modalities:
+    - text
+    - image
+    - video
+    - web
+  parameter_scale: "7B active parameters (14B total with experts)"
+
+implications_for_project:
+  - "Reference design for a unified Brain–Omics–LLM FM where neuro-omics embeddings (genetics, brain, behaviour) could be treated as additional modalities alongside text and vision."
+  - "Supports the KB goal of documenting large-scale multimodal FMs that motivate ARPA-H-style Brain-Omics Models (BOMs)."
+  - "Highlights the importance of interleaved, reasoning-oriented multimodal data and dedicated benchmarks when scaling unified models."
+
+related_to:
+  - "docs/generated/kb_curated/papers-md/bagel_2025.md"
+  - "docs/integration/integration_strategy.md"
+  - "docs/integration/design_patterns.md"
+  - "docs/code_walkthroughs/bagel_walkthrough.md"
+
+verification_status: "needs_human_review"
+notes: "Card focuses on high-level architecture and capabilities of BAGEL; consult the full arXiv preprint before adapting design choices for neuro-omics-specific multimodal models."
+
+tags:
+  - multimodal
+  - foundation_model
+  - unified
+  - vision-language
+  - video
+  - generation
+
+

@@ -3,24 +3,24 @@
 > **KB references:** Model card (pending) · [Integration strategy](../integration/integration_strategy.md) · [Experiment config stub](../kb/templates/experiment_config_stub.md)
 
 ## Overview
-Me-LLaMA extends LLaMA-2/3 checkpoints through 129B-token continual pre-training (biomedical + clinical + general corpora) followed by 214K-instruction LoRA-based tuning, then evaluates models with a custom `lm_eval` harness covering 12 medical QA/NLP benchmarks. The README documents data composition, optimizer settings, and HPC footprint, while the `src/` tree contains a prompt-aware evaluation CLI, task registry, and optional OpenAI-backed `ChatLM` for API comparisons.^[```1:188:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/README.md```][```1:97:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/eval.py```][```1:210:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/evaluator.py```]
+Me-LLaMA extends LLaMA-2/3 checkpoints through 129B-token continual pre-training (biomedical + clinical + general corpora) followed by 214K-instruction LoRA-based tuning, then evaluates models with a custom `lm_eval` harness covering 12 medical QA/NLP benchmarks. The README documents data composition, optimizer settings, and HPC footprint, while the `src/` tree contains a prompt-aware evaluation CLI, task registry, and optional OpenAI-backed `ChatLM` for API comparisons.^[```1:188:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/README.md```][```1:97:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/eval.py```][```1:210:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/evaluator.py```]
 
 ## At-a-Glance
 | Architecture | Params | Context | Inputs | Key capabilities | Repo |
 | --- | --- | --- | --- | --- | --- |
-| Continual-pretrained LLaMA2/3 (13B/70B/8B) + instruction tuning + prompt wrapper evaluation harness.^[```33:134:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/README.md```][```1:97:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/eval.py```] | Uses AdamW (lr 8e-6), cosine schedule (5% warmup), bf16, DeepSpeed model parallelism, 8×H100 for LoRA instruction tuning.^[```80:90:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/README.md```] | 129B tokens with 15 : 1 : 4 biomedical : clinical : general ratio plus 214K instruction samples; guidelines + PubMed + general corpora.^[```68:77:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/README.md```] | `poetry run python src/eval.py --model hf-causal-vllm --tasks PUBMEDQA,...` with optional OpenAI API keys; default PYTHONPATH extends `src/` and `medical-evaluation` for metrics.^[```143:188:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/README.md```][```1:14:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/scripts/run_evaluation.sh```] | Custom `lm_eval` fork with medical tasks (`tasks/vital_measure.py`), prompt templating, JSON output, caching, and OpenAI-compatible `ChatLM` for API baselines.^[```1:210:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/evaluator.py```][```1:120:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/tasks/vital_measure.py```][```12:165:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/chatlm.py```] | [github.com/BIDS-Xu-Lab/Me-LLaMA](https://github.com/BIDS-Xu-Lab/Me-LLaMA) |
+| Continual-pretrained LLaMA2/3 (13B/70B/8B) + instruction tuning + prompt wrapper evaluation harness.^[```33:134:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/README.md```][```1:97:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/eval.py```] | Uses AdamW (lr 8e-6), cosine schedule (5% warmup), bf16, DeepSpeed model parallelism, 8×H100 for LoRA instruction tuning.^[```80:90:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/README.md```] | 129B tokens with 15 : 1 : 4 biomedical : clinical : general ratio plus 214K instruction samples; guidelines + PubMed + general corpora.^[```68:77:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/README.md```] | `poetry run python src/eval.py --model hf-causal-vllm --tasks PUBMEDQA,...` with optional OpenAI API keys; default PYTHONPATH extends `src/` and `medical-evaluation` for metrics.^[```143:188:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/README.md```][```1:14:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/scripts/run_evaluation.sh```] | Custom `lm_eval` fork with medical tasks (`tasks/vital_measure.py`), prompt templating, JSON output, caching, and OpenAI-compatible `ChatLM` for API baselines.^[```1:210:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/evaluator.py```][```1:120:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/tasks/vital_measure.py```][```12:165:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/chatlm.py```] | [github.com/BIDS-Xu-Lab/Me-LLaMA](https://github.com/BIDS-Xu-Lab/Me-LLaMA) |
 
 ### Environment & Hardware Notes
-- **Poetry-first install.** Clone the repo, run `poetry install`, export `PYTHONPATH="$repo/src:$repo/src/medical-evaluation:$repo/src/metrics/BARTScore"`, and optionally set `CUDA_VISIBLE_DEVICES` before running evaluation scripts.^[```1:14:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/scripts/run_evaluation.sh```]
-- **Metric assets.** Download `bart_score.pth` (BARTScore), install `en_core_web_lg`, and keep Stanford CoreNLP + multilingual extras for evaluation tasks that rely on syntax or multilingual scoring.^[```143:188:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/README.md```]
-- **API comparisons.** Set `OPENAI_API_SECRET_KEY` when using `--model gpt-4` (see README instructions) so `ChatLM` can enqueue HTTPX requests with exponential backoff.^[```178:188:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/README.md```][```12:165:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/chatlm.py```]
+- **Poetry-first install.** Clone the repo, run `poetry install`, export `PYTHONPATH="$repo/src:$repo/src/medical-evaluation:$repo/src/metrics/BARTScore"`, and optionally set `CUDA_VISIBLE_DEVICES` before running evaluation scripts.^[```1:14:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/scripts/run_evaluation.sh```]
+- **Metric assets.** Download `bart_score.pth` (BARTScore), install `en_core_web_lg`, and keep Stanford CoreNLP + multilingual extras for evaluation tasks that rely on syntax or multilingual scoring.^[```143:188:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/README.md```]
+- **API comparisons.** Set `OPENAI_API_SECRET_KEY` when using `--model gpt-4` (see README instructions) so `ChatLM` can enqueue HTTPX requests with exponential backoff.^[```178:188:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/README.md```][```12:165:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/chatlm.py```]
 
 ## Key Components
 
 ### Evaluation Entrypoint (`src/eval.py`)
 `parse_args` exposes the same knobs as upstream `lm_eval` (model/model_args/tasks/few-shot/batching/output). `main()` resolves task patterns, optional description dicts, and forwards everything to `evaluator.simple_evaluate`, writing JSON to `--output_path` when provided.
 
-```13:94:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/eval.py
+```13:94:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/eval.py
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", required=True)
@@ -69,7 +69,7 @@ def parse_args():
 ### Evaluator & Task Dispatch (`src/evaluator.py`)
 `simple_evaluate` instantiates a Hugging Face (or OpenAI) LM, wraps it with a caching layer, builds the medical task dictionary, and runs `evaluate` to orchestrate prompts, few-shot contexts, turn-based conversations, and metric aggregation. Bootstrap statistics, JSON logging, and caching directories mirror upstream `lm_eval` APIs for drop-in adoption.
 
-```19:133:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/evaluator.py
+```19:133:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/evaluator.py
 @positional_deprecated
 def simple_evaluate(
     model,
@@ -136,7 +136,7 @@ def simple_evaluate(
 ### Medical Task Registry (`src/tasks/__init__.py`)
 `TASK_REGISTRY` maps human-readable task names to custom task classes (PubMedQA, MedQA, MedMCQA, etc.). Pattern-matched CLI arguments expand into this registry, so adding a new dataset is a matter of appending to `TASK_REGISTRY` or creating a JSON-backed task via `add_json_task`.
 
-```9:34:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/tasks/__init__.py
+```9:34:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/tasks/__init__.py
 TASK_REGISTRY = {
     "PUBMEDQA": vital_measure.PUBMEDQA,
     "MedQA": vital_measure.MedQA,
@@ -156,7 +156,7 @@ TASK_REGISTRY = {
 ### Task Definitions & Metrics (`src/tasks/vital_measure.py`)
 `Classification` (and its subclasses) provides language-cleaning, response parsing, accuracy/F1/MCC aggregation, and sequence labeling utilities. `SequentialLabeling`/`NER` extend this to HTML BIO alignment, while summarization tasks use Rouge/BARTScore (loaded via Poetry extras).
 
-```50:181:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/tasks/vital_measure.py
+```50:181:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/tasks/vital_measure.py
 class Classification(Task):
     CALCULATE_MCC = False
     LOWER_CASE = True
@@ -204,7 +204,7 @@ class Classification(Task):
 ### ChatLM + Prompt Templates (`src/chatlm.py`, `src/model_prompt.py`)
 For API-based baselines, `ChatLM` batches requests with asyncio + HTTPX, uses exponential backoff, and overrides `greedy_until`. Prompt wrappers in `model_prompt.py` add `Human/Assistant` prefixes when `--model_prompt mellama_prompt` is provided.
 
-```12:154:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/chatlm.py
+```12:154:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/chatlm.py
 async def single_chat(client, **kwargs):
     ...
 
@@ -240,7 +240,7 @@ class ChatLM(BaseLM):
             ))
 ```
 
-```1:12:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/model_prompt.py
+```1:12:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/model_prompt.py
 def no_prompt(ctx):
     return ctx
 
@@ -256,7 +256,7 @@ MODEL_PROMPT_MAP = {
 ```
 
 ## Integration Hooks (Language ↔ KB)
-- **Extend the task roster.** Add a new `Task` subclass in `tasks/vital_measure.py`, register it via `TASK_REGISTRY`, and it becomes instantly available to KB experiment configs via `--tasks` filters.^[```9:34:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/tasks/__init__.py```]
-- **Standardize prompts.** Use `MODEL_PROMPT_MAP` to ensure generated transcripts align with KB annotation guidelines (e.g., always wrap with `Human/Assistant` before ingesting outputs into evaluation cards).^[```1:12:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/model_prompt.py```]
-- **Capture evaluation metadata.** `simple_evaluate` returns JSON with config, bootstrap stats, and per-task metrics; store these blobs under `kb/results/` to track longitudinal performance as you fine-tune domain-specific adapters.^[```19:133:/Users/allison/Projects/neurogenomics-kb/external_repos/me-lamma/src/evaluator.py```]
+- **Extend the task roster.** Add a new `Task` subclass in `tasks/vital_measure.py`, register it via `TASK_REGISTRY`, and it becomes instantly available to KB experiment configs via `--tasks` filters.^[```9:34:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/tasks/__init__.py```]
+- **Standardize prompts.** Use `MODEL_PROMPT_MAP` to ensure generated transcripts align with KB annotation guidelines (e.g., always wrap with `Human/Assistant` before ingesting outputs into evaluation cards).^[```1:12:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/model_prompt.py```]
+- **Capture evaluation metadata.** `simple_evaluate` returns JSON with config, bootstrap stats, and per-task metrics; store these blobs under `kb/results/` to track longitudinal performance as you fine-tune domain-specific adapters.^[```19:133:/Users/allison/Projects/neuro-omics-kb/external_repos/me-lamma/src/evaluator.py```]
 

@@ -10,9 +10,15 @@
 ## brain_idps.parquet
 - `eid`
 - `site`
-- `modality`
-- Selected IDPs (columns TBD)
-- Confounds (motion, tSNR, etc.)
+- `modality` (sMRI or fMRI)
+- Selected IDPs:
+  - **sMRI:** FreeSurfer 7.x `aparc.stats` (cortical thickness, ~68 regions) + `aseg.stats` (subcortical volumes, ~40 structures) + surface area → ~176 features
+  - **fMRI:** Parcel-wise BOLD statistics (mean, variance), connectivity matrices (optional), or direct FM embeddings (BrainLM, Brain-JEPA)
+- Confounds:
+  - `intracranial_volume` (sMRI)
+  - `mean_fd` (mean framewise displacement, fMRI)
+  - `tsnr` (temporal SNR, fMRI)
+  - `euler_number` (FreeSurfer QC metric, sMRI)
 
 ## participants.parquet
 - `eid`

@@ -43,7 +43,7 @@ tags: [paper-notes, genetics, gwas]
 
 ---
 
-## 6. Hooks into Neurogenomics KB
+## 6. Hooks into Neuro-Omics KB
 
 **Relevant KB assets**
 

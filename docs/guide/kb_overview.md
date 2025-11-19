@@ -4,7 +4,7 @@ status: draft
 updated: 2025-11-18
 ---
 
-# Navigating the Neurogenomics KB
+# Navigating the Neuro-Omics KB
 
 This page orients new readers to the structure of the knowledge base, how the YAML cards feed into the rendered docs, and where to find integration-critical metadata for **gene–brain–behaviour foundation models**. The KB began with **adult UK Biobank–centric gene–brain FM alignment** (genetics FM + MRI Brain FM outputs) and now supports **developmental and neurodevelopmental longitudinal multimodal FMs** spanning MRI/fMRI Brain FMs, EEG/EPhys FMs, genetics / multi-omics FMs, and behavioural / developmental phenotypes.
 

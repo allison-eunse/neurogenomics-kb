@@ -1,4 +1,4 @@
-# Cursor ignore patterns for neurogenomics-kb worktree
+# Cursor ignore patterns for neuro-omics-kb worktree
 # Worktrees naturally isolate to their directory, but this provides additional exclusions
 
 # Build artifacts and cache

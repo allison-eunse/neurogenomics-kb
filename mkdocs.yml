@@ -1,6 +1,7 @@
-site_name: Neurogenomics KB
+site_name: Neuro-Omics KB
 site_description: Code-first knowledge base for genetics and brain foundation models and multimodal integration
-repo_url: https://github.com/allison-eunse/neurogenomics-kb
+repo_url: https://github.com/allison-eunse/neuro-omics-kb
+site_url: https://allison-eunse.github.io/neuro-omics-kb/
 theme:
   name: material
   palette:
@@ -33,6 +34,22 @@ markdown_extensions:
   - tables
   - footnotes
   - def_list
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/allison-eunse/neuro-omics-kb
+      name: GitHub Repository
+    - icon: fontawesome/solid/book
+      link: https://allison-eunse.github.io/neuro-omics-kb/
+      name: Documentation
+  generator: false
+
+copyright: |
+  Maintained by Allison Eun Se You | Last updated November 2025
+
 plugins:
   - search
 nav:
@@ -65,6 +82,7 @@ nav:
           - sMRI: integration/modality_features/smri.md
           - fMRI: integration/modality_features/fmri.md
       - Design patterns: integration/design_patterns.md
+      - Multimodal architectures: integration/multimodal_architectures.md
       - Benchmarks: integration/benchmarks.md
   - Data:
       - UKB data map: data/ukb_data_map.md

@@ -1,10 +1,10 @@
-# Neurogenomics-KB Tree View
+# Neuro-Omics-KB Tree View
 **Last Updated**: 2025-11-17
 
 ## Quick Navigation
 
 ```
-neurogenomics-kb/
+neuro-omics-kb/
 │
 ├── 📖 README.md                     ← Repository overview
 ├── 📝 KB_COMPLETION_SUMMARY.md      ← Nov 21 completion report (NEW ✨)

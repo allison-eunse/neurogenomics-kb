@@ -29,3 +29,5 @@ Each walkthrough now surfaces the KB scaffolding you need to turn narrative note
 | [Me-LLaMA](melamma_walkthrough.md) | — | — |
 | [TITAN](titan_walkthrough.md) | — | — |
 | [FMS-Medical](fms_medical_walkthrough.md) | — | — |
+| [BAGEL](bagel_walkthrough.md) | — | — |
+| [MoT](mot_walkthrough.md) | — | — |

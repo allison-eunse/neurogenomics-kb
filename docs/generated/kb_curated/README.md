@@ -68,3 +68,5 @@ All PDFs/MDs under `docs/generated/kb_curated/` mirror the outputs generated in 
 | GWAS in diverse populations (2019) | [PDF](papers-pdf/gwas_diverse_populations.pdf) · [MD](papers-md/gwas_diverse_populations.md) | [PubMed 36158455](https://pubmed.ncbi.nlm.nih.gov/36158455/) |
 | PRS guide (2019) | [PDF](papers-pdf/prs_guide.pdf) · [MD](papers-md/prs_guide.md) | [PubMed 31607513](https://pubmed.ncbi.nlm.nih.gov/31607513/) |
 | Yoon et al. BIOKDD'25 (MDD embeddings) | [PDF](papers-pdf/yoon_biokdd2025.pdf) · [MD](papers-md/yoon_biokdd2025.md) | [bioRxiv 10.1101/2025.02.18.638918](https://www.biorxiv.org/content/10.1101/2025.02.18.638918v1.full.pdf) |
+| Mixture-of-Transformers (2025) | [PDF](papers-pdf/mot_2025.pdf) · [MD](papers-md/mot_2025.md) | [arXiv:2411.04996](https://arxiv.org/abs/2411.04996) |
+| BAGEL unified multimodal FM (2025) | [PDF](papers-pdf/bagel_2025.pdf) · [MD](papers-md/bagel_2025.md) | [arXiv:2505.14683](https://arxiv.org/abs/2505.14683) |

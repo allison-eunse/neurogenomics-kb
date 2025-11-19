@@ -1,60 +1,71 @@
-# Neurogenomics-KB Quick Reference
+# Neuro-Omics-KB Quick Reference
 
-## 📍 Repository Locations
-
-### 1. **Neurogenomics KB** (Documentation & Metadata)
-**Location**: `/Users/allison/.cursor/worktrees/neurogenomics-kb/2wmpo/`  
-**GitHub**: (your existing repo)  
-**Purpose**: Knowledge base - documentation, YAML cards, walkthroughs
-
-### 2. **PDF Converter** (Separate Utility)
-**Location**: `/Users/allison/Projects/pdf<->md;ai-summaries/`  
-**GitHub**: https://github.com/allison-eunse/pdf-md-ai-summaries  
-**Purpose**: PDF↔MD conversion + AI summaries
+> **🔗 Quick Links:** [📖 Docs Site](https://allison-eunse.github.io/neuro-omics-kb/) | [🧬 Genetics Models](https://allison-eunse.github.io/neuro-omics-kb/models/genetics/) | [🧠 Brain Models](https://allison-eunse.github.io/neuro-omics-kb/models/brain/) | [🔗 Integration](https://allison-eunse.github.io/neuro-omics-kb/integration/)
 
 ---
 
-## 🎯 Neurogenomics-KB Structure
+## 📍 Repository Structure
+
+### Neuro-Omics KB (This Repository)
+**GitHub**: https://github.com/allison-eunse/neuro-omics-kb  
+**Docs**: https://allison-eunse.github.io/neuro-omics-kb/  
+**Purpose**: Knowledge base - documentation, YAML cards, walkthroughs
+
+### Companion: PDF Converter
+**GitHub**: https://github.com/allison-eunse/pdf-md-ai-summaries  
+**Purpose**: PDF↔MD conversion + AI summaries for paper curation
+
+---
+
+## 🎯 Repository Overview
 
 ### Documentation
 ```
 docs/code_walkthroughs/
-├── brainharmony_walkthrough.md  (Hub-token fusion)
-├── brainjepa_walkthrough.md     (JEPA latent forecast)
-├── brainlm_walkthrough.md       (BrainLM MAE guide)
-├── brainmt_walkthrough.md       (BrainMT Mamba+Transformer)
-├── caduceus_walkthrough.md      (RC-equivariant Hyena)
-├── dnabert2_walkthrough.md      (BPE tokenization)
-├── evo2_walkthrough.md          (StripedHyena 1M context)
-├── generator_walkthrough.md     (6-mer generative model)
-├── swift_walkthrough.md         (Swin 4D fMRI)
-└── index.md
+├── Brain FMs (5):
+│   ├── brainharmony_walkthrough.md  (Hub-token fusion)
+│   ├── brainjepa_walkthrough.md     (JEPA latent forecast)
+│   ├── brainlm_walkthrough.md       (BrainLM MAE guide)
+│   ├── brainmt_walkthrough.md       (BrainMT Mamba+Transformer)
+│   └── swift_walkthrough.md         (Swin 4D fMRI)
+├── Genetics FMs (4):
+│   ├── caduceus_walkthrough.md      (RC-equivariant Hyena)
+│   ├── dnabert2_walkthrough.md      (BPE tokenization)
+│   ├── evo2_walkthrough.md          (StripedHyena 1M context)
+│   └── generator_walkthrough.md     (6-mer generative model)
+└── Multimodal/Clinical (6):
+    ├── bagel_walkthrough.md         (Unified multimodal)
+    ├── mot_walkthrough.md           (Mixture-of-Transformers)
+    ├── m3fm_walkthrough.md          (Multilingual CXR)
+    ├── melamma_walkthrough.md       (Medical LLM)
+    ├── titan_walkthrough.md         (Whole-slide imaging)
+    └── fms_medical_walkthrough.md   (FM catalog)
 ```
 
 ### Metadata Cards
 ```
 kb/
-├── model_cards/       (7 models: all valid YAML)
-├── datasets/          (11 datasets + UKB manifest: HF counts, subset splits, access/licensing, modality columns, base-pair stats)
-├── integration_cards/ (2 cards: embeddings + alignment)
-└── paper_cards/       (templates ready)
+├── model_cards/       (9 models: all valid YAML)
+├── datasets/          (13 datasets + UKB manifest)
+├── integration_cards/ (Embeddings + harmonization strategies)
+└── paper_cards/       (14 structured research papers)
 ```
 
 ### Management
 ```
-scripts/manage_kb.py    (validation tool)
+scripts/
+├── manage_kb.py        (validation tool)
+├── codex_gate.py       (quality gate)
+└── fetch_external_repos.sh
 ```
 
 ---
 
 ## 🚀 Common Commands
 
-### Neurogenomics-KB
+### Neuro-Omics-KB
 
 ```bash
-# Navigate to KB
-cd /Users/allison/.cursor/worktrees/neurogenomics-kb/2wmpo
-
 # Serve documentation
 mkdocs serve
 
@@ -63,6 +74,12 @@ python scripts/manage_kb.py validate models
 
 # Validate dataset cards
 python scripts/manage_kb.py validate datasets
+
+# Query embedding strategies
+python scripts/manage_kb.py ops strategy smri_free_surfer_pca512_v1
+
+# Query harmonization methods
+python scripts/manage_kb.py ops harmonization murd_t1_t2
 
 # Check YAML syntax
 python -c "import yaml; from pathlib import Path; \
@@ -74,53 +91,25 @@ python scripts/codex_gate.py --mode fast --label cycle1 --since origin/main
 python scripts/codex_gate.py --mode full --label cycle2 --since HEAD~1
 ```
 
-### PDF Converter
-
-```bash
-# Navigate to PDF repo
-cd ~/Projects/pdf\<-\>md\;ai-summaries
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Convert PDF to Markdown
-python pdf_to_markdown.py paper.pdf output.md
-
-# Generate AI summary
-python summary_generator.py paper.md summary.md
-
-# Convert to aesthetic PDF
-python markdown_to_pdf.py summary.md output.pdf
-
-# Full pipeline
-python pdf_to_markdown.py paper.pdf paper.md && \
-python summary_generator.py paper.md summary.md && \
-python markdown_to_pdf.py summary.md summary.pdf
-```
-
 ---
 
 ## 📊 Repository Stats
 
-### Neurogenomics-KB (Updated Nov 18, 2025)
-- **Code Walkthroughs**: 9 complete guides (with KB reference links)
+### Neuro-Omics-KB (Updated Nov 19, 2025)
+- **Code Walkthroughs**: 15 complete guides (brain + genetics + multimodal)
 - **Model Cards**: 9 validated YAML files
-- **Paper Cards**: 12 structured cards (NEW ✨)
-- **Dataset Cards**: 11 specifications + UKB manifest stub (NEW ✨)
-- **Integration Cards**: 2 multimodal strategies
-- **Experiment Configs**: 3 ready-to-run templates (NEW ✨)
-- **External Repos**: 7 reference implementations
-
-### PDF Converter
-- **Scripts**: 3 Python tools
-- **Features**: PDF↔MD conversion, AI summarization, aesthetic PDFs
-- **Theme**: Baby blue, lavender, wine red
+- **Paper Cards**: 14 structured cards
+- **Dataset Cards**: 13 specifications + UKB manifest stub
+- **Integration Cards**: 2 multimodal strategies + embedding/harmonization registries
+- **Experiment Configs**: 3 ready-to-run templates
+- **External Repos**: 15 reference implementations
 
 ---
 
 ## 🤖 Using Parallel Agents in Cursor
 
 - **What parallel agents do**: Cursor runs multiple isolated agents in parallel from **one prompt**, each restricted to different parts of the repo according to `.cursor/agent-manifest.json`.
+
 - **Your agents**:
   - **Brain agent**: brain models, brain walkthroughs, brain datasets, brain paper/model cards, `external_repos/brain*`, `swift`.
   - **Genetics agent**: genetics models, genetics walkthroughs, DNA/benchmark datasets, genetics paper/model cards, `external_repos/caduceus|dnabert2|evo2|generator`.
@@ -132,22 +121,16 @@ python markdown_to_pdf.py summary.md summary.pdf
 
 - **Cross-domain update example** (brain + genetics + integration):
 
-  > “You are part of a team of domain agents (brain, genetics, integration, scripts, master).  
+  > "You are part of a team of domain agents (brain, genetics, integration, scripts, master).  
   > In **your own domain slice**, update any relevant docs and KB cards so that the description and usage of the UKB fMRI and genetics datasets are consistent across model cards, dataset cards, and walkthroughs.  
-  > Do not edit files that are clearly outside your domain. At the end, summarize exactly which files you changed and why.”
+  > Do not edit files that are clearly outside your domain. At the end, summarize exactly which files you changed and why."
 
 - **Master coherence pass example**:
 
-  > “Act as the **Global master / coherence agent**.  
+  > "Act as the **Global master / coherence agent**.  
   > Read across the project to check naming and conceptual consistency between brain and genetics sections.  
   > You may only edit: README, ORGANIZATION_SUMMARY, QUICK_REFERENCE, TREE_VIEW, docs index/integration docs, KB section READMEs, and the integration cards for genetics embeddings and UKB alignment.  
-  > Propose and apply small edits to those meta files so they accurately describe the current structure and relationships in the KB.”
-
-- **Domain-specific update example (brain only)**:
-
-  > “Consider only **brain-related** docs, walkthroughs, model cards, and datasets.  
-  > Bring BrainMT and BrainLM docs + cards into alignment with the `hcp_fmri_tensor` and `ukb_fmri_tensor` dataset cards, updating only brain files.  
-  > Do not modify genetics or non-brain content.”
+  > Propose and apply small edits to those meta files so they accurately describe the current structure and relationships in the KB."
 
 ---
 
@@ -155,70 +138,49 @@ python markdown_to_pdf.py summary.md summary.pdf
 
 - ✅ No implementation scripts in KB repo
 - ✅ All YAML cards parse successfully
-- ✅ Generator walkthrough fixed (was empty)
+- ✅ All walkthroughs complete with KB reference links
 - ✅ README clarified (KB-only purpose)
 - ✅ PDF tools moved to separate repo
-- ✅ All walkthroughs complete
-
----
-
-## 🎨 PDF Converter Features
-
-**Color Scheme:**
-- Baby Blue (#89CFF0) - Main headers
-- Lavender (#B695C0) - Subheaders
-- Wine Red (#722F37) - Accents
-- Times New Roman - Body font
-
-**Capabilities:**
-- PDF → Markdown with structure detection
-- Markdown → PDF with professional styling
-- AI-powered summary extraction (key points, methods, results, limitations)
+- ✅ Coherent structure across all model documentation
 
 ---
 
 ## 📝 Next Steps
 
-### For Neurogenomics-KB:
+### For Neuro-Omics-KB:
 1. Continue documenting models and integration strategies
-2. Add paper cards to `kb/paper_cards/`
+2. Keep YAML cards updated with new checkpoints
 3. Expand integration playbooks in `docs/integration/`
-4. Keep YAML cards updated with new checkpoints
+4. Fill in dataset manifests after data inventory meetings
 
-### For PDF Converter:
-1. Push to GitHub: `cd ~/Projects/pdf<->md;ai-summaries && git push`
-2. Test with your research papers
-3. Customize colors if desired (edit `markdown_to_pdf.py`)
+### For Contributors:
+1. Review [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
+2. Use templates in `kb/*/template.yaml` for new cards
+3. Validate changes with `python scripts/manage_kb.py`
 
 ---
 
-## 🔗 Quick Links
+## 🔗 Quick Navigation
 
 ### Documentation
-- **Main KB Index**: `docs/index.md`
-- **Code Walkthroughs**: `docs/code_walkthroughs/`
-- **Integration Strategy**: `docs/integration/integration_strategy.md`
-- **Analysis Recipes**: `docs/integration/analysis_recipes/`
-- **Integration Plan**: `docs/decisions/2025-11-integration-plan.md`
+- **Main KB Index**: [docs/index.md](https://allison-eunse.github.io/neuro-omics-kb/)
+- **Code Walkthroughs**: [docs/code_walkthroughs/](https://allison-eunse.github.io/neuro-omics-kb/code_walkthroughs/)
+- **Integration Strategy**: [docs/integration/integration_strategy.md](https://allison-eunse.github.io/neuro-omics-kb/integration/integration_strategy/)
+- **Analysis Recipes**: [docs/integration/analysis_recipes/](https://allison-eunse.github.io/neuro-omics-kb/integration/analysis_recipes/)
+- **Integration Plan**: [docs/decisions/2025-11-integration-plan.md](https://allison-eunse.github.io/neuro-omics-kb/decisions/2025-11-integration-plan/)
 
 ### Cards
 - **Model Cards**: `kb/model_cards/`
-- **Paper Cards**: `kb/paper_cards/` (NEW ✨)
+- **Paper Cards**: `kb/paper_cards/`
 - **Dataset Cards**: `kb/datasets/`
 - **Integration Cards**: `kb/integration_cards/`
 
 ### Configs & Tools
-- **Experiment Configs**: `configs/experiments/` (NEW ✨)
+- **Experiment Configs**: `configs/experiments/`
 - **KB Script**: `scripts/manage_kb.py`
-- **PDF Tools**: `~/Projects/pdf<->md;ai-summaries/`
-
-### Summaries
-- **KB Completion**: `KB_COMPLETION_SUMMARY.md` (NEW ✨)
-- **Organization**: `ORGANIZATION_SUMMARY.md`
 
 ---
 
-**Last Updated**: November 17, 2025  
+**Last Updated**: November 19, 2025  
 **Organized by**: Allison Eun Se You  
-**Status**: ✅ Nov 21 KB Complete — Ready for Nov 26 baselines
-
+**Status**: ✅ Documentation Complete — Ready for Multimodal Integration (once datasets are loaded: i.e., UK biobank & genetic embeddings)

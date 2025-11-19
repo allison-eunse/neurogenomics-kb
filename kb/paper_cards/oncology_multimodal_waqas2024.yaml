@@ -1,7 +1,7 @@
 title: "Multimodal data integration in oncology: challenges and opportunities with deep neural networks"
 authors: ["Waqas, Ahmad", "et al."]
 year: 2024
-journal: "TBD"
+journal: "Frontiers in Artificial Intelligence"
 pdf_source: "https://pubmed.ncbi.nlm.nih.gov/39118787/"
 local_pdf_path: "docs/generated/kb_curated/papers-pdf/oncology_multimodal_waqas2024.pdf"
 summary_md_path: "docs/generated/kb_curated/papers-md/oncology_multimodal_waqas2024.md"

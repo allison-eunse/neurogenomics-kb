@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Utility CLI for Neurogenomics KB metadata, docs, and CI checks."""
+"""Utility CLI for Neuro-Omics KB metadata, docs, and CI checks."""
 
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ RAG_DIR = KB_ROOT / "rag"
 
 console = Console()
 app = typer.Typer(
-    help="Manage Neurogenomics KB metadata",
+    help="Manage Neuro-Omics KB metadata",
     rich_markup_mode="markdown",
 )
 catalog_app = typer.Typer(

@@ -1,79 +1,157 @@
-Neurogenomics KB
+# 🧬🧠 Neuro-Omics Knowledge Base
 
-## Purpose
+[![Documentation](https://img.shields.io/badge/docs-mkdocs-blue)](https://allison-eunse.github.io/neuro-omics-kb/)
+[![Models](https://img.shields.io/badge/models-9-green)](#foundation-models)
+[![Paper Cards](https://img.shields.io/badge/papers-14-orange)](#research-papers)
+[![License](https://img.shields.io/badge/license-MIT-purple)]()
 
-A **documentation-focused knowledge base** for genetics and brain foundation models and their multimodal integration, now extended to **gene–brain–behaviour foundation models** across both **adult** and **developmental / neurodevelopmental** cohorts. This repository contains structured documentation, YAML metadata cards, code walkthroughs, and integration strategies that span **genetic FMs**, **brain FMs** (MRI/fMRI), **EPhys/EEG FMs**, and downstream behavioural/clinical phenotypes.
+> **A comprehensive documentation hub for genetics and brain foundation models and their multimodal integration.**
 
-This KB **originated** as an **adult UK Biobank–centric gene–brain FM alignment** effort (genetics FM + MRI-derived phenotypes) and has since been broadened to cover **longitudinal, multimodal gene–brain–behaviour FMs**, including MRI, EEG, genetics, and developmental / behavioural trajectories over time.
+[📖 Read the Docs](https://allison-eunse.github.io/neuro-omics-kb/) | [🚀 Quick Start](#quick-start) | [💡 Use Cases](#use-cases) | [🤝 Contributing](CONTRIBUTING.md)
 
-Within an ARPA-H–style ecosystem, neurogenomics-kb treats:
-- **Brain FM** as MRI/fMRI foundation models,
-- **EPhys/EEG FM** as electrophysiology/EEG foundation models,
-- **Multi-Omics FM** as genomics + other omics FMs, and
-- a large-scale **Brain-Omics Model (BOM)** as the integrated brain–omics–LLM FM where an **LLM acts as a semantic bridge / common hub** tying together brain signals, omics, behaviour, and language.
+---
 
-**Note:** This is a **knowledge base only** - no implementation code. For actual model training/inference, refer to the `external_repos/` directories or the original model repositories (run `./scripts/fetch_external_repos.sh` to clone them locally).
+## What is this?
 
-## What's Inside
+A **documentation-first knowledge base** for researchers working with:
+- 🧬 **Genetic foundation models** (Caduceus, DNABERT-2, Evo2, GENERator)
+- 🧠 **Brain imaging models** (BrainLM, Brain-JEPA, BrainMT, Brain Harmony, SwiFT)
+- 🔗 **Multimodal integration** strategies for gene-brain-behaviour analysis
 
-### 📚 Documentation (`docs/`)
-- **Code Walkthroughs**: In-depth guides for 9 foundation models
-  - Genomics (4): Caduceus, DNABERT-2, GENERator, Evo 2
-  - Brain (5): BrainLM, Brain-JEPA, Brain Harmony, BrainMT, SwiFT
-- **Integration Playbooks**: Strategies for multimodal fusion, from late fusion baselines to ARPA-H–style Brain-Omics Model (BOM) integration.
-- **Data Schemas**: UK Biobank, HCP, and other datasets, with an expanding scope toward **developmental / neurodevelopmental** cohorts and longitudinal designs.
-- **Decision Logs**: Architectural and research choices, including when to escalate from standalone neurogenomics analyses to larger brain–omics–LLM FMs.
-- **Curated Paper Sources**: Every PDF pulled via `pdf<->md;ai-summaries` is stored under `docs/generated/kb_curated/papers-pdf/` with its Markdown counterpart in `docs/generated/kb_curated/papers-md/`. Keep both in sync—they are the citation backbone for the YAML paper/model cards.
+**Scope:** Documentation, metadata cards, and integration strategies — **not** model implementation code.
 
-### 🏷️ Metadata (`kb/`)
-- **Model Cards** (`model_cards/*.yaml`): Structured metadata for each FM (genetic FMs, brain FMs, and future EEG / multi-omics FMs).
-- **Dataset Cards** (`datasets/*.yaml`): Specs with counts, subset breakdowns, access/licensing notes, modality-specific column maps, longitudinal structure, and base-pair stats; each links to `external_repos/` + relevant walkthroughs for reproducible extraction.
-- **Integration Cards** (`integration_cards/*.yaml`): Multimodal fusion strategies and pipelines, including **gene–brain**, **gene–brain–behaviour**, and future **gene–brain–EEG** recipes.
-- **Embedding Strategy Registry** (`integration_cards/embedding_strategies.yaml`): Canonical per-modality recipes (segment/run hierarchy, preprocessing, projector, `sources`) for genetics, MRI/fMRI, and—going forward—EEG/EPhys and behavioural latents.
-- **Harmonization Catalog** (`integration_cards/harmonization_methods.yaml`): `none` vs. ComBat vs. MURD vs. unlearning, with references and intended project usage.
-- **rs-fMRI Preprocessing Pipelines** (`integration_cards/rsfmri_preprocessing_pipelines.yaml`): Named stacks such as `hcp_like_minimal` that experiments can cite.
-- **Paper Cards** (`paper_cards/*.yaml`): Research paper references and integration principles.
+**Key cohorts:** UK Biobank, HCP, developmental/neurodevelopmental populations
 
-In addition to these, neurogenomics-kb is growing a set of **standard schemas** for:
-- **EEG / EPhys features** (segment definitions, channel layouts, frequency bands, task paradigms),
-- **developmental and behavioural scores** (e.g., ASD/ADHD scales, cognitive tests, developmental milestones),
-- **clinical labels and longitudinal visit structure** (diagnostic trajectories, comorbidities, visit windows, and wave IDs).
+---
 
-It also aims to store **semantic alignment recipes** (as integration / embedding strategy cards) for:
-- aligning **gene / brain / EEG embeddings to language** via LLMs as a semantic hub, and
-- aligning **images or video to text** via vision–language models (VLMs),
-so that future LLM/VLM alignment work has clear, documented precedents.
-
-### 🔗 External Repos (`external_repos/`)
-- Git-ignored working copies synced via `./scripts/fetch_external_repos.sh`
-- Table of upstream links documented in `external_repos/README.md`
-
-### 🔧 KB Management (`scripts/`)
-- `manage_kb.py`: Validation and catalog generation tools
-- No implementation scripts (moved to separate repos)
-
-## Build & Serve Locally
+## 🚀 Quick Start
 
 ```bash
-# Install dependencies
+# 1. Clone and setup
+git clone https://github.com/allison-eunse/neuro-omics-kb.git
+cd neuro-omics-kb
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# (Optional) fetch upstream model repos for reference
-./scripts/fetch_external_repos.sh
-
-# Serve documentation site
+# 2. View documentation locally
 mkdocs serve
+# Visit http://localhost:8000
 
-# Validate YAML cards
+# 3. Validate metadata cards
 python scripts/manage_kb.py validate models
-python scripts/manage_kb.py validate datasets
 ```
 
-### Trace embedding/harmonization IDs
+**New to foundation models?** Start with:
+1. 📖 [KB Overview](https://allison-eunse.github.io/neuro-omics-kb/guide/kb_overview/) - Understand the structure
+2. 🧬 [Genetics Models Overview](https://allison-eunse.github.io/neuro-omics-kb/models/genetics/) - DNA sequence models
+3. 🧠 [Brain Models Overview](https://allison-eunse.github.io/neuro-omics-kb/models/brain/) - Neuroimaging models
+4. 🔗 [Integration Strategy](https://allison-eunse.github.io/neuro-omics-kb/integration/integration_strategy/) - How to combine modalities
 
-Every experiment config references embedding and harmonization IDs. Use the helper commands to print the latest recipe before running extraction:
+---
 
+## 💡 Use Cases
+
+**This KB helps you:**
+
+✅ **Understand foundation models** - Detailed walkthroughs for 9+ models with integration hooks  
+✅ **Design multimodal studies** - CCA, late fusion, contrastive learning recipes  
+✅ **Reproduce analyses** - Versioned embedding strategies, harmonization methods, experiment configs  
+✅ **Navigate datasets** - Structured cards for UK Biobank, HCP, developmental cohorts  
+✅ **Track decisions** - Decision logs documenting why certain approaches were chosen  
+
+**Example workflows:**
+- Gene-brain association discovery using WES + sMRI
+- fMRI embedding extraction with BrainLM for MDD prediction
+- Leave-one-gene-out (LOGO) attribution for gene importance
+
+---
+
+## 📦 What's Inside
+
+<details open>
+<summary><b>📚 Documentation (docs/)</b></summary>
+
+- **Code Walkthroughs** - Step-by-step guides for 15 foundation models
+  - 🧬 Genomics: Caduceus, DNABERT-2, GENERator, Evo 2
+  - 🧠 Brain: BrainLM, Brain-JEPA, Brain Harmony, BrainMT, SwiFT
+  - 🏥 Multimodal/Clinical: M3FM, Me-LLaMA, TITAN, BAGEL, MoT, FMS-Medical catalog
+- **Integration Playbooks** - Multimodal fusion strategies (late fusion → contrastive → TAPE)
+- **Data Schemas** - UK Biobank, HCP, developmental cohorts
+- **Decision Logs** - Architectural choices and research rationale
+- **Curated Papers** - PDFs + Markdown summaries in `docs/generated/kb_curated/`
+
+</details>
+
+<details>
+<summary><b>🏷️ Metadata Cards (kb/)</b></summary>
+
+- **Model Cards** (`model_cards/*.yaml`) - 9 FMs with architecture specs, embedding recipes, integration hooks
+- **Dataset Cards** (`datasets/*.yaml`) - Sample sizes, QC thresholds, access requirements
+- **Paper Cards** (`paper_cards/*.yaml`) - 14 research papers with structured takeaways
+- **Integration Cards** (`integration_cards/*.yaml`) - Embedding strategies, harmonization methods, preprocessing pipelines
+
+[Browse all cards →](./kb/)
+
+</details>
+
+<details>
+<summary><b>🔧 Tools & Scripts</b></summary>
+
+- `scripts/manage_kb.py` - Validate YAML cards, query embedding strategies
+- `scripts/codex_gate.py` - Quality gate for automated workflows
+- `scripts/fetch_external_repos.sh` - Sync upstream model repositories
+
+</details>
+
+<details>
+<summary><b>⚙️ Experiment Configs</b></summary>
+
+Ready-to-run YAML templates in `configs/experiments/`:
+- `01_cca_gene_smri.yaml` - CCA + permutation baseline
+- `02_prediction_baselines.yaml` - Gene vs Brain vs Fusion
+- `03_logo_gene_attribution.yaml` - Gene attribution protocol
+
+</details>
+
+---
+
+## 🎯 Foundation Models
+
+### Genetics Models
+| Model | Best for | Context | Documentation |
+|-------|----------|---------|---------------|
+| 🧬 [Caduceus](https://allison-eunse.github.io/neuro-omics-kb/models/genetics/caduceus/) | RC-equivariant gene embeddings | DNA sequences | [Walkthrough](https://allison-eunse.github.io/neuro-omics-kb/code_walkthroughs/caduceus_walkthrough/) |
+| 🧬 [DNABERT-2](https://allison-eunse.github.io/neuro-omics-kb/models/genetics/dnabert2/) | Cross-species transfer | BPE tokenization | [Walkthrough](https://allison-eunse.github.io/neuro-omics-kb/code_walkthroughs/dnabert2_walkthrough/) |
+| 🧬 [Evo 2](https://allison-eunse.github.io/neuro-omics-kb/models/genetics/evo2/) | Ultra-long regulatory regions | 1M context | [Walkthrough](https://allison-eunse.github.io/neuro-omics-kb/code_walkthroughs/evo2_walkthrough/) |
+| 🧬 [GENERator](https://allison-eunse.github.io/neuro-omics-kb/models/genetics/generator/) | Generative modeling | 6-mer LM | [Walkthrough](https://allison-eunse.github.io/neuro-omics-kb/code_walkthroughs/generator_walkthrough/) |
+
+### Brain Models
+| Model | Modality | Best for | Documentation |
+|-------|----------|----------|---------------|
+| 🧠 [BrainLM](https://allison-eunse.github.io/neuro-omics-kb/models/brain/brainlm/) | fMRI | Site-robust embeddings | [Walkthrough](https://allison-eunse.github.io/neuro-omics-kb/code_walkthroughs/brainlm_walkthrough/) |
+| 🧠 [Brain-JEPA](https://allison-eunse.github.io/neuro-omics-kb/models/brain/brainjepa/) | fMRI | Lower-latency option | [Walkthrough](https://allison-eunse.github.io/neuro-omics-kb/code_walkthroughs/brainjepa_walkthrough/) |
+| 🧠 [Brain Harmony](https://allison-eunse.github.io/neuro-omics-kb/models/brain/brainharmony/) | sMRI + fMRI | Multi-modal fusion | [Walkthrough](https://allison-eunse.github.io/neuro-omics-kb/code_walkthroughs/brainharmony_walkthrough/) |
+| 🧠 [BrainMT](https://allison-eunse.github.io/neuro-omics-kb/models/brain/brainmt/) | sMRI/fMRI | Mamba efficiency | [Walkthrough](https://allison-eunse.github.io/neuro-omics-kb/code_walkthroughs/brainmt_walkthrough/) |
+| 🧠 [SwiFT](https://allison-eunse.github.io/neuro-omics-kb/models/brain/swift/) | fMRI | Hierarchical spatiotemporal | [Walkthrough](https://allison-eunse.github.io/neuro-omics-kb/code_walkthroughs/swift_walkthrough/) |
+
+---
+
+## 📋 Research Papers
+
+**14 structured paper cards** documenting:
+
+- 🔗 **Integration principles** (5): Late fusion, multimodal oncology, MDD genes, PRS, GWAS
+- 🧬 **Genetics FMs** (3): Caduceus, Evo2, GENERator
+- 🧠 **Brain FMs** (4): BrainLM, Brain-JEPA, Brain Harmony, BrainMT
+- 🏥 **Multimodal architectures** (2): BAGEL, MoT
+
+[View all paper cards →](./kb/paper_cards/)
+
+---
+
+## 🔗 Reference Commands
+
+### Trace Embedding Strategies
 ```bash
 # Show the full sMRI baseline recipe
 python scripts/manage_kb.py ops strategy smri_free_surfer_pca512_v1
@@ -82,18 +160,14 @@ python scripts/manage_kb.py ops strategy smri_free_surfer_pca512_v1
 python scripts/manage_kb.py ops harmonization murd_t1_t2
 ```
 
-Log these IDs (and the preprocessing pipeline, e.g., `rsfmri_preprocessing_pipelines.hcp_like_minimal`) with any downstream run so results remain reproducible.
-
-### Generated assets stay in-repo
-
-- `docs/generated/kb_curated/` contains the Markdown + PDF artifacts produced by the companion `pdf-md-ai-summaries` project; reference these instead of embedding snippets directly into YAML.
-- `docs/generated/templates/` keeps scaffold files for future cards/recipes—copy, do not edit in place.
-
-## Codex Quality Gate (2-Cycle Workflow)
-
-Use `scripts/codex_gate.py` to enforce an automatic pass/fail gate whenever you run Codex in two consecutive cycles. The gate bundles domain tests (`manage_kb` validators + MkDocs), Python linting (`ruff`), and static type checks (`mypy`), then records the outcome so Cycle 2 can compare itself to Cycle 1.
-
+### Validate YAML Cards
+```bash
+python scripts/manage_kb.py validate models
+python scripts/manage_kb.py validate datasets
 ```
+
+### Codex Quality Gate
+```bash
 # Cycle 1 – quick sanity before giving Codex control
 python scripts/codex_gate.py --mode fast --label cycle1 --since origin/main
 
@@ -101,79 +175,28 @@ python scripts/codex_gate.py --mode fast --label cycle1 --since origin/main
 python scripts/codex_gate.py --mode full --label cycle2 --since HEAD~1
 ```
 
-- `--mode fast` skips the MkDocs build for a faster signal; `--mode full` runs everything.
-- `--since` scopes checks to paths that changed versus the provided git ref (fallback: run all).
-- Results are stored under `~/.cache/codex_gate/neurogenomics-kb` (override via `--state-dir`).
-- `--fail-fast` stops on the first failure, and `--list-checks` shows the exact commands.
+---
 
-If Cycle 2 introduces a regression, the gate exits with a non-zero status so the automation can halt before launching the next Codex pass.
+## 🌍 Role in Larger Ecosystems
 
-## Usage
+In addition to standalone neurogenomics analyses, **neuro-omics-kb** serves as the **neurogenomics documentation layer** inside larger multimodal brain–omics–LLM FM efforts (e.g., ARPA-H–style **Brain-Omics Model (BOM)**). It documents models, datasets, and integration recipes so that **gene–brain–behaviour FMs**—spanning adult and developmental cohorts, MRI/fMRI, EEG/EPhys, genetics, behavioural/developmental assessments, and language—can be scaled, compared, and reproduced across cohorts and projects.
 
-### Explore Model Cards
-```bash
-# List all models
-ls kb/model_cards/*.yaml
+---
 
-# View a specific model
-cat kb/model_cards/caduceus.yaml
-```
-
-### Read Code Walkthroughs
-```bash
-# Open in browser after serving
-mkdocs serve
-# Visit: http://localhost:8000/code_walkthroughs/caduceus_walkthrough/
-```
-
-### Reference External Code
-```bash
-# External repos are for reference only
-cd external_repos/caduceus
-# Follow original repo instructions for training/inference
-```
-
-## Contribution Guidelines
-
-This is a **documentation repository**. Contributions should focus on:
-
-✅ **Do:**
-- Add/update model cards with accurate metadata
-- Write comprehensive code walkthroughs
-- Document integration strategies
-- Add decision logs for architectural choices
-- Improve data schemas and benchmarks
-
-❌ **Don't:**
-- Add implementation code (training scripts, inference pipelines)
-- Include custom model variants
-- Create helper scripts for embeddings extraction
-- Add experimental code
-
-### YAML Card Guidelines
-- Keep `verified: false` until human review
-- Include all required fields (see `kb/*/template.yaml`)
-- Reference external repos for implementation details
-- Use links for code examples, not inline code
-
-### Documentation Style
-- Concise with citations
-- Link to original papers and repos
-- Include practical integration examples
-- Focus on "how to use" not "how to implement"
-
-## Role in larger Brain–Omics–LLM FM efforts
-
-In addition to standalone neurogenomics analyses, **neurogenomics-kb** serves as the **neurogenomics documentation layer / sub-KB** inside larger multimodal brain–omics–LLM FM efforts (e.g., ARPA-H–style **Brain-Omics Model (BOM)**). It documents models, datasets, and integration recipes so that **gene–brain–behaviour FMs**—spanning adult and developmental cohorts, MRI/fMRI, EEG/EPhys, genetics, behavioural/developmental assessments, and language—can be scaled, compared, and reproduced across cohorts and projects.
-
-## Related Repositories
+## 🔗 Related Repositories
 
 - **PDF/Markdown Converter**: [pdf-md-ai-summaries](https://github.com/allison-eunse/pdf-md-ai-summaries)
 - **Model Implementations**: See links in individual model cards
 - **Datasets**: UK Biobank (restricted), HCP, OpenGenome2
 
-## Contact
+---
+
+## 📧 Contact
 
 **Maintainer**: Allison Eun Se You  
-**Purpose**: Knowledge base for neurogenomics foundation model research  
+**Purpose**: Knowledge base for neuro-omics foundation model research  
 **Scope**: Documentation, metadata, integration strategies (no implementation)
+
+---
+
+**Note:** This is a **knowledge base only** - no implementation code. For actual model training/inference, refer to the `external_repos/` directories or the original model repositories.

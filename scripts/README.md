@@ -1,6 +1,6 @@
 # scripts/
 
-This folder contains automation used by the Neurogenomics KB:
+This folder contains automation used by the Neuro-Omics KB:
 
 - `manage_kb.py` – Typer-based CLI for metadata catalogs, validation, CI checks,
   walkthrough drafting, and RAG index generation. Example commands:

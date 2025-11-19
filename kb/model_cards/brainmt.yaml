@@ -15,6 +15,7 @@ arch:
     - Bidirectional Mamba blocks handle temporal scans efficiently
     - Hydra configs under configs/ gate dataset/task choices
     - Distributed training ready via torchrun + NCCL toggles
+context_length: 180000000
 tokenizer:
   type: 4D conv patches
   notes: PatchEmbed + conv downsamplers convert NIfTI volumes into token grids.
