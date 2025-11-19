@@ -71,6 +71,14 @@ nav:
           - Brain Harmony: models/brain/brainharmony.md
           - BrainMT: models/brain/brainmt.md
           - SwiFT: models/brain/swift.md
+      - Multimodal & Clinical:
+          - Overview: models/multimodal/index.md
+          - BAGEL: models/multimodal/bagel.md
+          - MoT: models/multimodal/mot.md
+          - M3FM: models/multimodal/m3fm.md
+          - Me-LLaMA: models/multimodal/me_llama.md
+          - TITAN: models/multimodal/titan.md
+          - FMS-Medical Catalog: models/multimodal/fms_medical.md
   - Integration:
       - Overview: integration/index.md
       - Strategy: integration/integration_strategy.md
