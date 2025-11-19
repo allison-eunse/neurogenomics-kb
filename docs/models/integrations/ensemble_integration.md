@@ -309,7 +309,7 @@ top_features = np.argsort(all_importance)[::-1][:20]
 ## Reference Materials
 
 **Primary paper:**
-- [Ensemble Integration (Li 2022)](../papers-md/ensemble_integration_li2022/) — Full paper summary
+- [Ensemble Integration (Li 2022)](../../generated/kb_curated/papers-md/ensemble_integration_li2022/) — Full paper summary
 
 **Related KB resources:**
 - [Integration Strategy](../../integration/integration_strategy/) — Overall fusion approach
@@ -318,7 +318,7 @@ top_features = np.argsort(all_importance)[::-1][:20]
 - [Prediction Baselines](../../integration/analysis_recipes/prediction_baselines/) — Comparison protocol
 
 **Integration cards:**
-- [Oncology Multimodal Review](../oncology_multimodal_review/) — Broader fusion taxonomy
+- [Oncology Multimodal Review](oncology_multimodal_review/) — Broader fusion taxonomy
 
 **Model documentation:**
 - [Genetics Models](../../models/genetics/) — Gene embedding extraction

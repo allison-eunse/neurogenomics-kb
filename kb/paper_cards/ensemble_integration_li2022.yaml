@@ -37,7 +37,7 @@ implications_for_project:
 related_to:
   - "docs/decisions/2025-11-integration-plan.md"
   - "docs/integration/integration_strategy.md"
-  - "docs/generated/kb_curated/integration_cards/ensemble_integration.md"
+  - "docs/models/integrations/ensemble_integration.md"
 
 verification_status: "needs_human_review"
 notes: "Core paper justifying late integration strategy; read for stacking implementation details if baselines show fusion gains"

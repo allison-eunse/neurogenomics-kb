@@ -38,7 +38,7 @@ implications_for_project:
 related_to:
   - "docs/decisions/2025-11-integration-plan.md"
   - "docs/integration/integration_strategy.md"
-  - "docs/generated/kb_curated/integration_cards/oncology_multimodal_review.md"
+  - "docs/models/integrations/oncology_multimodal_review.md"
 
 verification_status: "needs_human_review"
 notes: "Core principles paper; extract confound checklist and evaluation protocol for our pipeline"

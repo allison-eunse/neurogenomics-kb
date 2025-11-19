@@ -364,10 +364,10 @@ Q3: Are modalities strongly coupled?
 ## Reference Materials
 
 **Primary paper:**
-- [Oncology Multimodal Review (Waqas 2024)](../papers-md/oncology_multimodal_waqas2024/) — Full paper summary
+- [Oncology Multimodal Review (Waqas 2024)](../../generated/kb_curated/papers-md/oncology_multimodal_waqas2024/) — Full paper summary
 
 **Related integration cards:**
-- [Ensemble Integration (EI)](../ensemble_integration/) — Late fusion implementation details
+- [Ensemble Integration (EI)](ensemble_integration/) — Late fusion implementation details
 
 **KB integration guides:**
 - [Integration Strategy](../../integration/integration_strategy/) — Overall fusion approach

@@ -154,11 +154,11 @@ tags: [integration, {{TAGS}}]
 ## Reference Materials
 
 **Primary paper:**
-- [Paper Title (Authors Year)](../papers-md/{{PAPER_SLUG}}/) — Full paper summary
+- [Paper Title (Authors Year)](../../generated/kb_curated/papers-md/{{PAPER_SLUG}}/) — Full paper summary
 
 **Related integration cards:**
-- [Related Card 1](../{{RELATED_CARD_1}}/) — Brief description
-- [Related Card 2](../{{RELATED_CARD_2}}/) — Brief description
+- [Related Card 1]({{RELATED_CARD_1}}/) — Brief description
+- [Related Card 2]({{RELATED_CARD_2}}/) — Brief description
 
 **KB integration guides:**
 - [Integration Strategy](../../integration/integration_strategy/) — Overall fusion approach

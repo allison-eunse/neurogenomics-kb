@@ -92,8 +92,8 @@ nav:
           - sMRI: integration/modality_features/smri.md
           - fMRI: integration/modality_features/fmri.md
       - Integration cards:
-          - Ensemble integration: generated/kb_curated/integration_cards/ensemble_integration.md
-          - Oncology multimodal review: generated/kb_curated/integration_cards/oncology_multimodal_review.md
+          - Ensemble integration: models/integrations/ensemble_integration.md
+          - Oncology multimodal review: models/integrations/oncology_multimodal_review.md
       - Design patterns: integration/design_patterns.md
       - Multimodal architectures: integration/multimodal_architectures.md
       - Benchmarks: integration/benchmarks.md
@@ -171,6 +171,6 @@ nav:
           - Method family card: kb/templates/method_family_card.md
           - Model card: kb/templates/model_card_template.md
       - Paper & Integration Card Templates:
-          - Integration card template: generated/kb_curated/integration_cards/template.md
+          - Integration card template: models/integrations/template.md
           - Paper summary template: generated/kb_curated/papers-md/template.md
 
