@@ -554,6 +554,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-is-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is this?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#use-cases" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -565,10 +587,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#whats-inside" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🚀 Getting Started
+        📦 What's Inside
       
     </span>
   </a>
@@ -679,7 +701,7 @@
   <a href="#research-papers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📚 Research Papers
+        📋 Research Papers
       
     </span>
   </a>
@@ -5306,26 +5328,44 @@
 
 
 <h1 id="neuro-omics-knowledge-base">🧬🧠 Neuro-Omics Knowledge Base<a class="headerlink" href="#neuro-omics-knowledge-base" title="Permanent link">&para;</a></h1>
-<p align="center">
-  <strong>A comprehensive documentation hub for genetics and brain foundation models and their multimodal integration</strong>
-</p>
-
-<p align="center">
-  <a href="guide/kb_overview/">📖 KB Overview</a> •
-  <a href="models/genetics/">🧬 Genetics Models</a> •
-  <a href="models/brain/">🧠 Brain Models</a> •
-  <a href="integration/integration_strategy/">🔗 Integration Guide</a> •
-  <a href="https://github.com/allison-eunse/neuro-omics-kb">💻 GitHub</a>
-</p>
-
-<hr />
-<div class="admonition success">
-<p class="admonition-title">Welcome!</p>
-<p>This knowledge base connects <strong>genomics, brain imaging, and behavioral data</strong> through foundation models and multimodal integration strategies. Whether you're analyzing UK Biobank data, implementing gene-brain fusion pipelines, or exploring developmental cohorts, you'll find structured documentation, ready-to-use recipes, and reproducible workflows here.</p>
-</div>
+<p><a href="https://allison-eunse.github.io/neuro-omics-kb/"><img alt="Documentation" src="https://img.shields.io/badge/docs-mkdocs-blue" /></a>
+<a href="#foundation-models"><img alt="Models" src="https://img.shields.io/badge/models-13%20FMs-green" /></a>
+<a href="#research-papers"><img alt="Paper Cards" src="https://img.shields.io/badge/papers-20-orange" /></a>
+<a href="#integration-strategies"><img alt="Integration Cards" src="https://img.shields.io/badge/integration_cards-3-purple" /></a></p>
 <blockquote>
-<p><strong>Maintained by</strong> Allison Eun Se You | <strong>Last updated</strong> November 19, 2025 | <strong>Status:</strong> ✅ Documentation Complete</p>
+<p><strong>A comprehensive documentation hub for genetics and brain foundation models and their multimodal integration.</strong></p>
 </blockquote>
+<p><a href="guide/kb_overview/">📖 KB Overview</a> | <a href="models/genetics/">🧬 Genetics Models</a> | <a href="models/brain/">🧠 Brain Models</a> | <a href="integration/integration_strategy/">🔗 Integration Guide</a> | <a href="https://github.com/allison-eunse/neuro-omics-kb">💻 GitHub</a></p>
+<hr />
+<h2 id="what-is-this">What is this?<a class="headerlink" href="#what-is-this" title="Permanent link">&para;</a></h2>
+<p>A <strong>documentation-first knowledge base</strong> for researchers working with:
+- 🧬 <strong>Genetic foundation models</strong> (Caduceus, DNABERT-2, Evo2, GENERator)
+- 🧠 <strong>Brain imaging models</strong> (BrainLM, Brain-JEPA, BrainMT, Brain Harmony, SwiFT)
+- 🏥 <strong>Multimodal/Clinical models</strong> (BAGEL, MoT, M3FM, Me-LLaMA, TITAN, FMS-Medical)
+- 🔗 <strong>Integration strategies</strong> for gene-brain-behavior-language analysis</p>
+<p><strong>Scope:</strong> Documentation, metadata cards, and integration patterns — <strong>not</strong> model implementation code.</p>
+<hr />
+<h2 id="quick-start">🚀 Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. Clone and setup</span>
+</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/allison-eunse/neuro-omics-kb.git
+</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">cd</span><span class="w"> </span>neuro-omics-kb
+</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># 2. View documentation locally</span>
+</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>mkdocs<span class="w"> </span>serve
+</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Visit http://localhost:8000</span>
+</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># 3. Validate metadata cards</span>
+</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>python<span class="w"> </span>scripts/manage_kb.py<span class="w"> </span>validate<span class="w"> </span>models
+</span></code></pre></div>
+<p><strong>New to foundation models?</strong> Start with:</p>
+<ol>
+<li>📖 <a href="guide/kb_overview/">KB Overview</a> - Understand the structure</li>
+<li>🧬 <a href="models/genetics/">Genetics Models Overview</a> - DNA sequence models</li>
+<li>🧠 <a href="models/brain/">Brain Models Overview</a> - Neuroimaging models</li>
+<li>🔗 <a href="integration/integration_strategy/">Integration Strategy</a> - How to combine modalities</li>
+</ol>
 <hr />
 <h2 id="use-cases">💡 Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h2>
 <div class="grid cards" markdown>
@@ -5393,34 +5433,60 @@
 
 </div>
 
+<p><strong>Example workflows:</strong></p>
+<ul>
+<li>Gene-brain association discovery using WES + sMRI with CCA</li>
+<li>fMRI embedding extraction with BrainLM for MDD prediction</li>
+<li>Leave-one-gene-out (LOGO) attribution for gene importance</li>
+<li>Multimodal fusion for clinical decision support</li>
+</ul>
 <hr />
-<h2 id="getting-started">🚀 Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">🆕 New to this KB</label><label for="__tabbed_1_2">🔬 Planning an analysis</label><label for="__tabbed_1_3">📚 Looking for papers</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<ol>
-<li>Start with the <a href="guide/kb_overview/">KB overview</a> to understand the structure</li>
-<li>Explore <a href="models/genetics/">Genetics Models</a> or <a href="models/brain/">Brain Models</a></li>
-<li>Check out a <a href="code_walkthroughs/">code walkthrough</a> for hands-on examples</li>
-</ol>
-</div>
-<div class="tabbed-block">
-<ol>
-<li>Review <a href="integration/integration_strategy/">Integration Strategy</a></li>
-<li>Pick an <a href="integration/analysis_recipes/cca_permutation/">analysis recipe</a></li>
-<li>Clone an <a href="https://github.com/allison-eunse/neuro-omics-kb/tree/main/configs/experiments">experiment config</a></li>
-<li>Validate with <code>python scripts/manage_kb.py</code></li>
-</ol>
-</div>
-<div class="tabbed-block">
-<ol>
-<li>Browse <a href="https://github.com/allison-eunse/neuro-omics-kb/tree/main/kb/paper_cards">paper cards</a></li>
-<li>Check <a href="decisions/2025-11-integration-plan/">decision logs</a></li>
-<li>Review <a href="integration/integration_strategy/">integration strategy</a></li>
-</ol>
-</div>
-</div>
-</div>
+<h2 id="whats-inside">📦 What's Inside<a class="headerlink" href="#whats-inside" title="Permanent link">&para;</a></h2>
+<details open>
+<summary><b>📚 Documentation (docs/)</b></summary>
+
+- **Code Walkthroughs** - Step-by-step guides for 15 foundation models with consistent formatting
+  - 🧬 **Genetics** (4): Caduceus, DNABERT-2, GENERator, Evo 2
+  - 🧠 **Brain** (5): BrainLM, Brain-JEPA, Brain Harmony, BrainMT, SwiFT
+  - 🏥 **Multimodal/Clinical** (6): BAGEL, MoT, M3FM, Me-LLaMA, TITAN, FMS-Medical catalog
+- **Integration Playbooks** - Multimodal fusion strategies (late fusion → contrastive → TAPE)
+- **Data Schemas** - UK Biobank, HCP, developmental cohorts
+- **Decision Logs** - Architectural choices and research rationale
+- **Curated Papers** - PDFs + Markdown summaries in `docs/generated/kb_curated/`
+
+</details>
+
+<details>
+<summary><b>🏷️ Metadata Cards (kb/)</b></summary>
+
+- **Model Cards** (`model_cards/*.yaml`) - 15 model cards (13 FMs + 2 ARPA-H planning cards) with architecture specs, embedding recipes, integration hooks
+- **Dataset Cards** (`datasets/*.yaml`) - Sample sizes, QC thresholds, access requirements
+- **Paper Cards** (`paper_cards/*.yaml`) - 20 research papers with structured takeaways
+- **Integration Cards** (`integration_cards/*.yaml`) - Embedding strategies, harmonization methods, preprocessing pipelines
+
+[Browse all cards →](https://github.com/allison-eunse/neuro-omics-kb/tree/main/kb)
+
+</details>
+
+<details>
+<summary><b>🔧 Tools & Scripts</b></summary>
+
+- `scripts/manage_kb.py` - Validate YAML cards, query embedding strategies
+- `scripts/codex_gate.py` - Quality gate for automated workflows
+- `scripts/fetch_external_repos.sh` - Sync upstream model repositories
+
+</details>
+
+<details>
+<summary><b>⚙️ Experiment Configs</b></summary>
+
+Ready-to-run YAML templates in `configs/experiments/`:
+- `01_cca_gene_smri.yaml` - CCA + permutation baseline
+- `02_prediction_baselines.yaml` - Gene vs Brain vs Fusion
+- `03_logo_gene_attribution.yaml` - Gene attribution protocol
+
+</details>
+
 <hr />
 <h2 id="foundation-model-registry">🎯 Foundation Model Registry<a class="headerlink" href="#foundation-model-registry" title="Permanent link">&para;</a></h2>
 <h3 id="genetics-models">Genetics Models<a class="headerlink" href="#genetics-models" title="Permanent link">&para;</a></h3>
@@ -5585,9 +5651,18 @@
 <p>📖 <strong>Explore more:</strong><br />
 <a href="models/multimodal/">Multimodal Models Overview</a> • <a href="integration/multimodal_architectures/">Multimodal Architectures Guide</a> • <a href="integration/design_patterns/">Design Patterns</a></p>
 <hr />
-<h2 id="research-papers">📚 Research Papers<a class="headerlink" href="#research-papers" title="Permanent link">&para;</a></h2>
+<h2 id="research-papers">📋 Research Papers<a class="headerlink" href="#research-papers" title="Permanent link">&para;</a></h2>
+<p><strong>20 structured paper cards</strong> documenting:</p>
+<ul>
+<li>🧬 <strong>Genetics FMs</strong> (4): Caduceus, DNABERT-2, Evo2, GENERator</li>
+<li>🧠 <strong>Brain FMs</strong> (5): BrainLM, Brain-JEPA, Brain Harmony, BrainMT, SwiFT</li>
+<li>🏥 <strong>Multimodal/Clinical FMs</strong> (5): BAGEL, MoT, M3FM, Me-LLaMA, TITAN</li>
+<li>🔗 <strong>Integration &amp; Methods</strong> (5): Ensemble integration, Multimodal FMs survey, MM-LLM imaging, Oncology review, Yoon BioKDD</li>
+<li>🧬 <strong>Genomics &amp; Population</strong> (2): GWAS diverse populations, PRS guide</li>
+</ul>
+<p><a href="https://github.com/allison-eunse/neuro-omics-kb/tree/main/kb/paper_cards">Browse all papers →</a> | <a href="https://github.com/allison-eunse/neuro-omics-kb/tree/main/docs/generated/kb_curated/papers-md">View paper summaries →</a></p>
 <details>
-<summary><strong>20 Structured Paper Summaries</strong> — Click to expand</summary>
+<summary><strong>Detailed paper list</strong> — Click to expand</summary>
 
 ### 🧬 Genetics Foundation Models
 | Paper | Year | Key Contribution |
@@ -5764,13 +5839,13 @@
 - Batch effects</p>
 </div>
 <h3 id="integration-roadmap">Integration Roadmap<a class="headerlink" href="#integration-roadmap" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Late Fusion (baseline)
-</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    ↓ If fusion wins significantly
-</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Two-Tower Contrastive
-</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    ↓ If gains plateau
-</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>EI Stacking / Hub Tokens
-</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ↓ Last resort
-</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Full Early Fusion (TAPE-style)
+<div class="language-text highlight"><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Late Fusion (baseline)
+</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    ↓ If fusion wins significantly
+</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Two-Tower Contrastive
+</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    ↓ If gains plateau
+</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>EI Stacking / Hub Tokens
+</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    ↓ Last resort
+</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Full Early Fusion (TAPE-style)
 </span></code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Start with CCA + Permutation</p>
