@@ -20,21 +20,25 @@ Context in integration plan
 
 Protocol
 
-1) Fold discipline
-- Use K stratified folds (group/site-aware if needed).
-- Within each train fold:
-  - Fit CCA on X_gene_train, X_brain_train.
-  - Transform train and test to canonical scores.
-2) Permutation
-- For b in 1..B (B = 1,000):
-  - Permute subject alignment in one modality within the train fold.
-  - Fit CCA on permuted pairs.
-  - Record ρ1_null.
-- p = (count(ρ1_null ≥ ρ1_obs) + 1) / (B + 1).
-3) Reporting
-- ρ1–ρ3 with permutation p-values.
-- Optional: bootstrap CIs on ρ1.
-- Loadings/feature contributions for interpretation.
+### 1. Fold discipline
+- Use **K stratified folds** (make them site-/scanner-aware when possible).
+- For each train fold:
+  1. Fit CCA on `(X_gene_train, X_brain_train)`.
+  2. Transform the train **and** held-out fold to canonical scores so downstream metrics share the same projection space.
+
+### 2. Permutation test
+- Set `B = 1,000` (or at least 500 for quick scans).
+- For each `b ∈ {1 … B}` inside the *training* split:
+  1. Permute subject IDs in one modality (genes or brain) while keeping covariates fixed.
+  2. Refit CCA on the permuted pair.
+  3. Store the first canonical correlation `ρ1^(b)` to build a null.
+- Compute the empirical p-value  
+  `p = ( # {ρ1^(b) ≥ ρ1_obs} + 1 ) / (B + 1 )`.
+
+### 3. Reporting & interpretation
+- Report `ρ1–ρ3` with their permutation p-values (per fold and averaged).
+- Optionally bootstrap the canonical correlations for 95 % CIs.
+- Surface top loadings / feature contributions for both modalities to explain shared signal.
 
 Why pair CCA with permutations?
 

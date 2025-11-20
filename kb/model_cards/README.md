@@ -61,3 +61,11 @@ notes: Optional paragraph
 | `brainharmony` | Brain / sMRI+fMRI | `docs/models/brain/brainharmony.md` | `docs/code_walkthroughs/brainharmony_walkthrough.md` | `kb/model_cards/brainharmony.yaml` |
 | `brainmt` | Brain / fMRI | `docs/models/brain/brainmt.md` | `docs/code_walkthroughs/brainmt_walkthrough.md` | `kb/model_cards/brainmt.yaml` |
 | `swift` | Brain / fMRI | `docs/models/brain/swift.md` | `docs/code_walkthroughs/swift_walkthrough.md` | `kb/model_cards/swift.yaml` |
+| `m3fm` | Multimodal / vision-language | `docs/models/multimodal/m3fm.md` | `docs/code_walkthroughs/m3fm_walkthrough.md` | `kb/model_cards/m3fm.yaml` |
+| `me_llama` | Multimodal / medical LLM | `docs/models/multimodal/me_llama.md` | `docs/code_walkthroughs/melamma_walkthrough.md` | `kb/model_cards/me_llama.yaml` |
+| `titan` | Multimodal / pathology | `docs/models/multimodal/titan.md` | `docs/code_walkthroughs/titan_walkthrough.md` | `kb/model_cards/titan.yaml` |
+| `llm_semantic_bridge` | Integration / LLM hub | — | — | `kb/model_cards/llm_semantic_bridge.yaml` |
+| `tabpfn` | Tabular baseline | — | — | `kb/model_cards/tabpfn.yaml` |
+| `vlm_dev_clinical` | Clinical VLM concept | — | — | `kb/model_cards/vlm_dev_clinical.yaml` |
+
+Rows with `—` indicate cards that exist in YAML form but do not yet have a rendered doc or walkthrough.

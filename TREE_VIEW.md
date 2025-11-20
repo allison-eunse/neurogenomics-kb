@@ -1,22 +1,25 @@
 # Neuro-Omics-KB Tree View
-**Last Updated**: 2025-11-17
+**Last Updated**: 2025-11-20
 
 ## Quick Navigation
 
 ```
 neuro-omics-kb/
 │
-├── 📖 README.md                     ← Repository overview
-├── 📝 KB_COMPLETION_SUMMARY.md      ← Nov 21 completion report (NEW ✨)
-├── 📋 QUICK_REFERENCE.md            ← Commands and stats
-├── 📋 ORGANIZATION_SUMMARY.md       ← Historical cleanup log
+├── 📖 README.md                          ← Repository overview
+├── 📋 QUICK_REFERENCE.md                 ← Commands and stats
+├── 📄 ARPA-H 인지_연구계획서 (250619).pdf  ← ARPA-H proposal (local reference)
 │
-├── docs/                            ← Documentation root
-│   ├── index.md                     ← MAIN KB INDEX (start here)
+├── docs/                                 ← Documentation root (MkDocs)
+│   ├── index.md                          ← MAIN KB INDEX (start here)
 │   │
-│   ├── code_walkthroughs/           ← 9 FM implementation guides
-│   │   ├── index.md                 ← Walkthrough hub
+│   ├── guide/
+│   │   └── kb_overview.md                ← KB architecture & navigation
+│   │
+│   ├── code_walkthroughs/                ← 15 FM & multimodal walkthroughs
+│   │   ├── index.md                      ← Walkthrough hub
 │   │   ├── caduceus_walkthrough.md
+│   │   ├── dnabert2_walkthrough.md
 │   │   ├── evo2_walkthrough.md
 │   │   ├── generator_walkthrough.md
 │   │   ├── brainlm_walkthrough.md
@@ -24,36 +27,53 @@ neuro-omics-kb/
 │   │   ├── brainharmony_walkthrough.md
 │   │   ├── brainmt_walkthrough.md
 │   │   ├── swift_walkthrough.md
-│   │   └── dnabert2_walkthrough.md
+│   │   ├── bagel_walkthrough.md
+│   │   ├── mot_walkthrough.md
+│   │   ├── titan_walkthrough.md
+│   │   ├── m3fm_walkthrough.md
+│   │   ├── melamma_walkthrough.md
+│   │   └── fms_medical_walkthrough.md
 │   │
-│   ├── decisions/                   ← Design rationale
-│   │   └── 2025-11-integration-plan.md  ← Paper→plan mapping
+│   ├── decisions/                        ← Design rationale
+│   │   ├── 2025-11-integration-plan.md   ← Integration baseline plan
+│   │   └── dev_validation_plan.md        ← CHA developmental validation
 │   │
-│   ├── integration/                 ← How to integrate modalities
-│   │   ├── integration_strategy.md  ← Late fusion first
+│   ├── integration/                      ← How to integrate modalities
+│   │   ├── index.md
+│   │   ├── integration_strategy.md       ← Late fusion first
+│   │   ├── embedding_policies.md
+│   │   ├── multimodal_architectures.md
+│   │   ├── design_patterns.md
+│   │   ├── benchmarks.md
 │   │   ├── analysis_recipes/
 │   │   │   ├── cca_permutation.md
 │   │   │   ├── prediction_baselines.md
 │   │   │   └── partial_correlations.md
 │   │   └── modality_features/
-│   │       ├── genomics.md          ← RC-averaging, LOGO
+│   │       ├── genomics.md               ← RC-averaging, LOGO
 │   │       ├── smri.md
 │   │       └── fmri.md
 │   │
-│   ├── models/                      ← Light model cards (markdown)
+│   ├── models/                           ← Light model guides (markdown)
 │   │   ├── brain/
+│   │   │   ├── index.md
 │   │   │   ├── brainlm.md
 │   │   │   ├── brainjepa.md
 │   │   │   ├── brainharmony.md
 │   │   │   ├── brainmt.md
 │   │   │   └── swift.md
-│   │   └── genetics/
-│   │       ├── caduceus.md
-│   │       ├── evo2.md
-│   │       ├── generator.md
-│   │       └── dnabert2.md
+│   │   ├── genetics/
+│   │   │   ├── index.md
+│   │   │   ├── caduceus.md
+│   │   │   ├── dnabert2.md
+│   │   │   ├── evo2.md
+│   │   │   └── generator.md
+│   │   ├── integrations/
+│   │   │   └── [integration example docs...]
+│   │   └── multimodal/
+│   │       └── [multimodal FM docs...]
 │   │
-│   ├── kb/                          ← KB card templates
+│   ├── kb/                               ← KB card templates
 │   │   ├── README.md
 │   │   └── templates/
 │   │       ├── model_card_template.md
@@ -64,14 +84,22 @@ neuro-omics-kb/
 │   │       ├── dataset_card.md
 │   │       └── experiment_config_stub.md
 │   │
-│   └── generated/                   ← Exported from pdf<->md repo
-│       └── kb_curated/
-│           ├── README.md
-│           ├── integration_cards/   ← EI, oncology review
-│           └── datasets/
+│   ├── data/
+│   │   ├── governance_qc.md
+│   │   ├── ukb_data_map.md
+│   │   ├── schemas.md
+│   │   └── subject_keys.md
+│   │
+│   ├── generated/
+│   │   ├── kb_curated/                   ← PDFs + MD from pdf<->md;ai-summaries
+│   │   └── templates/                    ← Markdown templates for new cards
+│   │
+│   └── assets/
+│       └── css/
+│           └── code-citations.css
 │
-├── kb/                              ← Structured YAML metadata
-│   ├── model_cards/                 ← 9 FM metadata cards
+├── kb/                                   ← Structured YAML metadata
+│   ├── model_cards/                      ← 15 FM and hub metadata cards
 │   │   ├── README.md
 │   │   ├── caduceus.yaml
 │   │   ├── dnabert2.yaml
@@ -82,62 +110,107 @@ neuro-omics-kb/
 │   │   ├── brainlm.yaml
 │   │   ├── brainmt.yaml
 │   │   ├── swift.yaml
+│   │   ├── m3fm.yaml
+│   │   ├── me_llama.yaml
+│   │   ├── tabpfn.yaml
+│   │   ├── llm_semantic_bridge.yaml
+│   │   ├── titan.yaml
+│   │   ├── vlm_dev_clinical.yaml
 │   │   └── template.yaml
 │   │
-│   ├── paper_cards/                 ← 12 paper summaries (NEW ✨)
-│   │   ├── README.md                ← Index + usage
-│   │   ├── ensemble_integration_li2022.yaml
-│   │   ├── oncology_multimodal_waqas2024.yaml
-│   │   ├── caduceus_2024.yaml
-│   │   ├── evo2_2024.yaml
-│   │   ├── generator_2024.yaml
-│   │   ├── brainlm_2024.yaml
-│   │   ├── brainjepa_2024.yaml
-│   │   ├── brainharmony_2025.yaml
-│   │   ├── brainmt_2025.yaml
-│   │   ├── yoon_biokdd2025.yaml
-│   │   ├── prs_guide.yaml
-│   │   ├── gwas_diverse_populations.yaml
-│   │   └── template.yaml
+│   ├── paper_cards/                      ← 20 paper summaries
+│   │   ├── README.md                     ← Index + usage
+│   │   └── [21 paper card YAML files...]
 │   │
-│   ├── datasets/                    ← 13 dataset specs + manifest
+│   ├── datasets/                         ← 17 dataset specs + manifest
 │   │   ├── README.md
-│   │   ├── ukb_manifest_stub.yaml   ← Fill after data inventory (NEW ✨)
-│   │   ├── ukb_fmri_tensor.yaml
+│   │   ├── cha_dev_longitudinal.yaml
+│   │   ├── fms_medical_catalog.yaml
+│   │   ├── fms_medical_cursor.yaml
+│   │   ├── gener_tasks.yaml
+│   │   ├── genomic_benchmarks.yaml
+│   │   ├── gue_benchmark.yaml
+│   │   ├── hcp_fmri_tensor.yaml
 │   │   ├── hg38_reference.yaml
-│   │   └── [8 more dataset cards...]
+│   │   ├── multi_species_corpus.yaml
+│   │   ├── nucleotide_transformer_tasks.yaml
+│   │   ├── opengenome2.yaml
+│   │   ├── refseq_generator.yaml
+│   │   ├── ukb_fmri_tensor.yaml
+│   │   ├── ukb_genetics_pgs.yaml
+│   │   ├── ukb_manifest_stub.yaml       ← Fill after data inventory
+│   │   ├── ukb_smri_freesurfer.yaml
+│   │   ├── ukb_wes.yaml
+│   │   └── template.yaml
 │   │
-│   └── integration_cards/           ← 2 multimodal strategies
-│       ├── genetics_embeddings_pipeline.yaml
-│       └── ukb_genetics_brain_alignment.yaml
+│   ├── integration_cards/                ← Embedding, alignment, harmonization
+│   │   ├── README.md
+│   │   ├── alignment_strategies.yaml
+│   │   ├── embedding_strategies.yaml
+│   │   ├── genetics_embeddings_pipeline.yaml
+│   │   ├── harmonization_methods.yaml
+│   │   ├── rsfmri_preprocessing_pipelines.yaml
+│   │   ├── ukb_genetics_brain_alignment.yaml
+│   │   └── template.yaml
+│   │
+│   ├── papers_fulltext/
+│   ├── results/
+│   │   └── README.md
+│   ├── rag/
+│   └── scripts/
 │
-├── configs/                         ← Experiment templates (NEW ✨)
+├── configs/                              ← Experiment templates
 │   └── experiments/
-│       ├── README.md                ← Usage guide
+│       ├── README.md                     ← Usage guide
 │       ├── 01_cca_gene_smri.yaml
+│       ├── 01_cca_ukb_joo_smri_template.yaml
+│       ├── 02_harmonization_ablation_smri.yaml
 │       ├── 02_prediction_baselines.yaml
-│       └── 03_logo_gene_attribution.yaml
+│       ├── 03_logo_gene_attribution.yaml
+│       ├── 03_prediction_baselines_tabular.yaml
+│       ├── cha_dev_smri_pca_dimsearch_template.yaml
+│       ├── dev_01_brain_only_baseline.yaml
+│       ├── dev_02_gene_brain_behaviour.yaml
+│       └── ukb_smri_pca_dimsearch_template.yaml
 │
-├── scripts/                         ← KB management tools
-│   ├── manage_kb.py                 ← Validate cards
-│   ├── codex_gate.py                ← Quality gate
-│   ├── fetch_external_repos.sh      ← Clone FM repos
-│   └── README.md
+├── scripts/                              ← KB management tools
+│   ├── README.md
+│   ├── manage_kb.py                      ← Validate cards, CI, ops
+│   ├── codex_gate.py                     ← Quality gate
+│   └── fetch_external_repos.sh           ← Clone FM repos
 │
-├── external_repos/                  ← Reference implementations (git-ignored)
-│   ├── caduceus/
-│   ├── evo2/
-│   ├── generator/
-│   ├── brainlm/
-│   ├── brainjepa/
+├── external_repos/                       ← Reference implementations (mix of tracked snapshots + fetch-on-demand placeholders)
+│   ├── README.md
+│   ├── bagel/
 │   ├── brainharmony/
+│   ├── brainjepa/
+│   ├── brainlm/
 │   ├── brainmt/
-│   └── swift/
+│   ├── caduceus/
+│   ├── dnabert2/
+│   ├── evo2/
+│   ├── fms-medical/
+│   ├── generator/
+│   ├── M3FM/
+│   ├── me-lamma/
+│   ├── MoT/
+│   ├── swift/
+│   └── titan/
 │
-├── rag/                             ← For RAG (defer to Dec)
+├── rag/
 │   └── vectordb/
 │
-└── site/                            ← MkDocs build output
+├── mkdocs_plugins/                       ← Local MkDocs extensions
+│   ├── __init__.py
+│   └── code_citations.py
+│
+├── neuro_omics_kb_plugins.egg-info/
+├── mkdocs.yml                            ← MkDocs site config
+├── pyproject.toml
+├── requirements.txt
+├── setup.py
+├── verify_kb.sh
+└── TREE_VIEW.md                          ← This file
 ```
 
 ## Key Entry Points
@@ -161,13 +234,12 @@ neuro-omics-kb/
 
 ---
 
-**Total Files**:
-- 9 code walkthroughs
-- 9 model cards (YAML)
-- 12 paper cards (YAML) ← NEW
-- 13 dataset cards (YAML)
-- 3 experiment configs (YAML) ← NEW
-- 99 YAML files total across kb/ and configs/
+**Total Files (approx.)**:
+- 15 code walkthroughs (`docs/code_walkthroughs/*.md` excluding index)
+- 15 model cards (YAML)
+- 20 paper cards (YAML)
+- 17 dataset cards (YAML)
+- 10 experiment configs (YAML)
 
-**Status**: ✅ Nov 21 KB Complete
+**Status**: ✅ KB updated with multimodal, dev, and ARPA-H assets (as of Nov 20, 2025)
 

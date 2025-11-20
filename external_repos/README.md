@@ -1,16 +1,23 @@
 # External Research Repositories
 
-This knowledge base intentionally **does not vendor third-party model code**. Instead, please fetch the original repositories on demand so our git history stays lightweight and avoids licensing ambiguity.
+This directory centralizes the upstream model code referenced throughout the KB. Two repos (BAGEL and MoT) are vendored snapshots so we can cite concrete file paths in walkthroughs. Every other entry starts life as a lightweight placeholder; run the fetch script whenever you need the full upstream sources.
 
-## How to fetch everything
+## Tracked snapshots
+
+| Directory | Upstream project |
+| --- | --- |
+| `bagel/` | https://github.com/bytedance-seed/BAGEL |
+| `MoT/` | https://github.com/facebookresearch/Mixture-of-Transformers |
+
+These directories are versioned with the KB for reproducibility. Pull upstream changes manually if you want a fresher snapshot.
+
+## Fetch-on-demand placeholders
 
 ```bash
 ./scripts/fetch_external_repos.sh
 ```
 
-The script clones (or fast-forwards) each repo into `external_repos/<name>` without disturbing any local modifications. Remove a directory first if you need to reclone from scratch.
-
-## Repository map
+The script replaces each placeholder with the upstream repo inside `external_repos/<name>`. Remove the directory first if you want to reclone from scratch.
 
 | Directory | Upstream project |
 | --- | --- |

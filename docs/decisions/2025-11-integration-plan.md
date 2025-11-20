@@ -8,7 +8,7 @@ updated: 2025-11-19
 
 This document defines the **phased escalation strategy** for gene-brain-behavior integration, informed by foundation model research, oncology multimodal reviews, and ARPA-H Brain-Omics Model (BOM) vision.
 
-## Phase 1: Late Fusion Baselines (Current)
+## 🔵 Phase 1: Late Fusion Baselines (Current)
 
 **Principle**: Prefer late integration first under heterogeneous semantics.
 
@@ -42,7 +42,7 @@ This document defines the **phased escalation strategy** for gene-brain-behavior
 - **Deterministic tokenization**: Use consistent k-mer/BPE strategies (DNABERT-2, GENERator)
 - **Gene attribution**: LOGO (leave-one-gene-out) ΔAUC with Wilcoxon + FDR (Yoon BioKDD'25)
 
-## Phase 2: Two-Tower Contrastive (Near-term)
+## 🟢 Phase 2: Two-Tower Contrastive (Near-term)
 
 **Trigger**: Late fusion shows consistent gene-brain signal (CCA p<0.001, prediction improvement >5% AUROC)
 
@@ -65,7 +65,7 @@ This document defines the **phased escalation strategy** for gene-brain-behavior
 - Need for cross-modal reasoning (e.g., "which genes explain this brain pattern?")
 - Multi-site/TR heterogeneity requires joint harmonization
 
-## Phase 3: Unified Multimodal Architectures (Long-term)
+## 🔴 Phase 3: Unified Multimodal Architectures (Long-term)
 
 **Vision**: ARPA-H-style Brain-Omics Model (BOM) — unified transformer processing gene-brain-behavior-language tokens
 

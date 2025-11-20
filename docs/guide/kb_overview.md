@@ -1,7 +1,7 @@
 ---
 title: KB Overview
 status: active
-updated: 2025-11-19
+updated: 2025-11-20
 ---
 
 # 📖 Navigating the Neuro-Omics KB
@@ -17,8 +17,8 @@ This page orients new readers to the structure of the knowledge base, how the YA
 The KB began with **adult UK Biobank–centric gene–brain FM alignment** (genetics FM + MRI Brain FM outputs) and has expanded to include:
 
 - ✅ **15 Model Cards**: 13 foundation models (4 genetics + 5 brain + 4 multimodal/clinical) + 2 ARPA-H planning cards
-- ✅ **18 Research Papers**: Curated summaries with structured takeaways
-- ✅ **3 Integration Cards**: Comprehensive multimodal fusion guidance
+- ✅ **20 Research Papers**: Curated summaries with structured takeaways
+- ✅ **Integration Guidance**: 6 YAML registries (embedding strategies, harmonization, preprocessing, alignment) + 3 narrative integration cards (ensemble integration, oncology review, multimodal FM patterns)
 - ✅ **Developmental/Neurodevelopmental Support**: Longitudinal multimodal FMs spanning MRI/fMRI, EEG/EPhys, genetics, behavioral phenotypes
 - ✅ **ARPA-H BOM Alignment**: Documentation for escalating from late fusion → contrastive → unified architectures
 

@@ -235,8 +235,8 @@ This KB provides the **foundation for escalating from late fusion → contrastiv
 
 **Maintainer**: Allison Eun Se You  
 **Purpose**: Knowledge base for neuro-omics foundation model research  
-**Scope**: Documentation, metadata, integration strategies (no implementation)
+**Scope**: Documentation, metadata, integration strategies, and references to upstream implementations
 
 ---
 
-**Note:** This is a **knowledge base only** - no implementation code. For actual model training/inference, refer to the `external_repos/` directories or the original model repositories.
+**Note:** This is a documentation-first KB. Implementation code lives in the upstream repositories referenced throughout `external_repos/` (a mix of tracked snapshots and fetch-on-demand placeholders).

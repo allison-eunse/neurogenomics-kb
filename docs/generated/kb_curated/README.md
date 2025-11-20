@@ -1,7 +1,7 @@
 ---
 title: AI Summaries and KB
 status: draft
-updated: 2025-11-16
+updated: 2025-11-20
 ---
 
 # AI Summaries → KB Cards
@@ -12,16 +12,16 @@ Use the PDF⇄MD repo (`~/Projects/pdf<->md;ai-summaries/`) for extraction + sum
 
 ```
 docs/generated/kb_curated/
-├── integration_cards/        # short actionable guidance (already in use)
-├── papers-pdf/               # Layer 2 source PDFs copied in for reference
-├── papers-md/                # Layer 2 technical notebooks (medium MD)
-└── templates/                # helper templates (shared)
+├── datasets/                 ← dataset summary templates / intermediate assets
+├── papers-pdf/               ← Layer 2 source PDFs copied in for reference
+├── papers-md/                ← Layer 2 technical notebooks (medium MD)
+└── templates/                ← helper templates (shared)
 ```
 
 - **Layer 1 (Citation & context, short)** → `kb/paper_cards/<slug>_YYYY.yaml`
 - **Layer 2 (Technical notebook, medium)** → `docs/generated/kb_curated/papers-md/<slug>.md`
 - **Layer 2 assets (PDFs)** → `docs/generated/kb_curated/papers-pdf/<slug>.pdf`
-- **Layer 3 (Hooks into KB)** → bottom section of each Layer 2 MD + existing `integration_cards/*.md`
+- **Layer 3 (Hooks into KB)** → bottom section of each Layer 2 MD + YAML registries in `kb/integration_cards/*.yaml` or narrative integration cards in `docs/models/integrations/*.md`
 
 ## Workflow
 
@@ -36,7 +36,7 @@ docs/generated/kb_curated/
 4. **Update the Layer 1 YAML card**
    - Keep summaries to 3–5 sentences, set `summary_md_path` and `local_pdf_path`, and list every KB doc/config the paper informs.
 5. **Regenerate/extend guidance cards if needed**
-   - For integration principles (e.g., Li 2022, Waqas 2024) update `integration_cards/*.md` with any new practices captured in the Layer 2 notes.
+   - For integration principles (e.g., Li 2022, Waqas 2024) update the YAML registries in `kb/integration_cards/*.yaml` and narrative cards under `docs/models/integrations/`.
 
 ## Why this matters
 

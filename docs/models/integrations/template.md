@@ -154,25 +154,25 @@ tags: [integration, {{TAGS}}]
 ## Reference Materials
 
 **Primary paper:**
-- [Paper Title (Authors Year)](../../generated/kb_curated/papers-md/{{PAPER_SLUG}}/) — Full paper summary
+- Paper Title (Authors Year) — see `../../generated/kb_curated/papers-md/{{PAPER_SLUG}}.md`
 
 **Related integration cards:**
-- [Related Card 1]({{RELATED_CARD_1}}/) — Brief description
-- [Related Card 2]({{RELATED_CARD_2}}/) — Brief description
+- {{RELATED_CARD_1}} — Brief description (link once created)
+- {{RELATED_CARD_2}} — Brief description (link once created)
 
 **KB integration guides:**
-- [Integration Strategy](../../integration/integration_strategy/) — Overall fusion approach
-- [Design Patterns](../../integration/design_patterns/) — Pattern taxonomy
-- [Multimodal Architectures](../../integration/multimodal_architectures/) — Model examples
+- [Integration Strategy](../../integration/integration_strategy.md) — Overall fusion approach
+- [Design Patterns](../../integration/design_patterns.md) — Pattern taxonomy
+- [Multimodal Architectures](../../integration/multimodal_architectures.md) — Model examples
 
 **Analysis recipes:**
-- [Relevant Recipe 1](../../integration/analysis_recipes/{{RECIPE}}/)
-- [Relevant Recipe 2](../../integration/analysis_recipes/{{RECIPE}}/)
+- Reference recipe: `../../integration/analysis_recipes/{{RECIPE}}.md`
+- Optional second recipe: `../../integration/analysis_recipes/{{RECIPE}}.md`
 
 **Model documentation:**
-- [Genetics Models](../../models/genetics/) — Gene embedding extraction
-- [Brain Models](../../models/brain/) — Brain embedding extraction
-- [Multimodal Models](../../models/multimodal/) — Fusion architectures
+- [Genetics Models](../../models/genetics/index.md) — Gene embedding extraction
+- [Brain Models](../../models/brain/index.md) — Brain embedding extraction
+- [Multimodal Models](../../models/multimodal/index.md) — Fusion architectures
 
 ---
 

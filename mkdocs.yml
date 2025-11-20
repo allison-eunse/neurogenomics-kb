@@ -119,6 +119,7 @@ nav:
       - Schemas: data/schemas.md
       - Subject keys: data/subject_keys.md
       - Governance & QC: data/governance_qc.md
+  - Experiment Configs: configs/experiments.md
   - Code walkthroughs:
       - Index: code_walkthroughs/index.md
       - Genetics:

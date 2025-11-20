@@ -95,14 +95,14 @@ python scripts/codex_gate.py --mode full --label cycle2 --since HEAD~1
 
 ## 📊 Repository Stats
 
-### Neuro-Omics-KB (Updated Nov 19, 2025)
+### Neuro-Omics-KB (Updated Nov 20, 2025)
 - **Code Walkthroughs**: 15 complete guides (brain + genetics + multimodal)
 - **Model Cards**: 15 YAML files (13 FMs + 2 ARPA-H planning cards)
-- **Paper Cards**: 14 structured cards
-- **Dataset Cards**: 13 specifications + UKB manifest stub
-- **Integration Cards**: 2 multimodal strategies + embedding/harmonization registries
-- **Experiment Configs**: 3 ready-to-run templates
-- **External Repos**: 15 reference implementations
+- **Paper Cards**: 20 structured cards
+- **Dataset Cards**: 17 specifications + UKB manifest stub
+- **Integration Guidance**: 6 YAML registries + 3 narrative integration cards
+- **Experiment Configs**: 10 YAMLs (3 production templates + 7 dev/ablation stubs)
+- **External Repos**: 15 reference implementations (mix of tracked snapshots + fetch-on-demand)
 
 ---
 
@@ -136,7 +136,7 @@ python scripts/codex_gate.py --mode full --label cycle2 --since HEAD~1
 
 ## ✅ What's Clean
 
-- ✅ No implementation scripts in KB repo
+- ✅ Implementation repos live under `external_repos/` (bagel, MoT snapshots) with the remainder fetched on demand
 - ✅ All YAML cards parse successfully
 - ✅ All walkthroughs complete with KB reference links
 - ✅ README clarified (KB-only purpose)
@@ -154,7 +154,7 @@ python scripts/codex_gate.py --mode full --label cycle2 --since HEAD~1
 4. Fill in dataset manifests after data inventory meetings
 
 ### For Contributors:
-1. Review [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
+1. Review `README.md` + KB overview for scope and contact the maintainer (README bottom) before large edits
 2. Use templates in `kb/*/template.yaml` for new cards
 3. Validate changes with `python scripts/manage_kb.py`
 
@@ -181,6 +181,6 @@ python scripts/codex_gate.py --mode full --label cycle2 --since HEAD~1
 
 ---
 
-**Last Updated**: November 19, 2025  
+**Last Updated**: November 20, 2025  
 **Organized by**: Allison Eun Se You  
 **Status**: ✅ Documentation Complete — Ready for Multimodal Integration (once datasets are loaded: i.e., UK biobank & genetic embeddings)
