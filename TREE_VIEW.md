@@ -8,7 +8,6 @@ neuro-omics-kb/
 │
 ├── 📖 README.md                          ← Repository overview
 ├── 📋 QUICK_REFERENCE.md                 ← Commands and stats
-├── 📄 ARPA-H 인지_연구계획서 (250619).pdf  ← ARPA-H proposal (local reference)
 │
 ├── docs/                                 ← Documentation root (MkDocs)
 │   ├── index.md                          ← MAIN KB INDEX (start here)
