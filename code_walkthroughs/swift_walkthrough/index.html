@@ -2972,10 +2972,32 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#patch-embedding-window-attention-swin4d_transformer_ver7py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Patch Embedding &amp; Window Attention (swin4d_transformer_ver7.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#swin4d-backbone-swin4d_transformer_ver7py" class="md-nav__link">
     <span class="md-ellipsis">
       
         Swin4D Backbone (swin4d_transformer_ver7.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lightning-module-projectmodulepl_classifierpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lightning Module (project/module/pl_classifier.py)
       
     </span>
   </a>
@@ -2995,6 +3017,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-hooks-brain-genetics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Hooks (Brain ↔ Genetics)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -5211,7 +5244,7 @@
 <p><strong>KB references:</strong> <a href="../../models/brain/swift/">Model card</a> · <a href="../../integration/modality_features/fmri/">fMRI feature spec</a> · <a href="../../integration/integration_strategy/">Integration strategy</a> · <a href="../../kb/templates/experiment_config_stub/">Experiment config stub</a></p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>SwiFT (Swin 4D fMRI Transformer) tokenizes 4D fMRI volumes with 3D convolutions, processes them with windowed 4D self-attention (spatial + temporal windows), and trains contrastive or supervised heads via PyTorch Lightning.^[<code>1:400:external_repos/swift/project/module/models/swin4d_transformer_ver7.py</code>][<code>1:188:external_repos/swift/project/main.py</code>]</p>
+<p>SwiFT (Swin 4D fMRI Transformer) tokenizes 4D fMRI volumes with 3D convolutions, processes them with windowed 4D self-attention (spatial + temporal windows), and trains contrastive or supervised heads via PyTorch Lightning.^[<code>text title="external_repos/swift/project/module/models/swin4d_transformer_ver7.py</code>][<code>1:188:external_repos/swift/project/main.py</code>] (lines 1-400)"</p>
 <h2 id="at-a-glance">At-a-Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -5226,7 +5259,7 @@
 </thead>
 <tbody>
 <tr>
-<td>Swin-inspired 4D transformer w/ window attention &amp; patch merging^[<code>21:400:external_repos/swift/project/module/models/swin4d_transformer_ver7.py</code>]</td>
+<td>Swin-inspired 4D transformer w/ window attention &amp; patch merging^[<code>text title="external_repos/swift/project/module/models/swin4d_transformer_ver7.py</code>]</td>
 <td>Configurable (e.g., embed_dim=96, depths from config)^[<code>402:565:external_repos/swift/project/module/models/swin4d_transformer_ver7.py</code>]</td>
 <td>96×96×96 voxels × 20 frames (default)^[<code>250:300:external_repos/swift/project/module/utils/data_module.py</code>]</td>
 <td>Preprocessed volumes from <code>fMRIDataModule</code> (UKB/HCP/etc.)^[<code>13:260:external_repos/swift/project/module/utils/data_module.py</code>]</td>
@@ -5237,121 +5270,112 @@
 </table>
 <h3 id="environment-hardware-notes">Environment &amp; Hardware Notes<a class="headerlink" href="#environment-hardware-notes" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Conda environment.</strong> The README tells you to run <code>conda env create -f envs/py39.yaml</code> followed by <code>conda activate py39</code> to pull in the exact PyTorch/Lightning versions used for the released checkpoints.^[<code>45:55:external_repos/swift/README.md</code>]</li>
-<li><strong>Gradient checkpoint knobs.</strong> Every Swin4D stage accepts <code>use_checkpoint</code> and executes <code>torch.utils.checkpoint.checkpoint(...)</code> when set, so add <code>use_checkpoint=True</code> in your model config to extend contexts without exceeding GPU memory.^[<code>224:312:external_repos/swift/project/module/models/swin4d_transformer_ver7.py</code>][<code>507:744:external_repos/swift/project/module/models/swin4d_transformer_ver7.py</code>]</li>
+<li><strong>Conda environment.</strong> The README tells you to run <code>conda env create -f envs/py39.yaml</code> followed by <code>conda activate py39</code> to pull in the exact PyTorch/Lightning versions used for the released checkpoints.^[<code>text title="external_repos/swift/README.md</code>] (lines 45-55)"</li>
+<li><strong>Gradient checkpoint knobs.</strong> Every Swin4D stage accepts <code>use_checkpoint</code> and executes <code>torch.utils.checkpoint.checkpoint(...)</code> when set, so add <code>use_checkpoint=True</code> in your model config to extend contexts without exceeding GPU memory.^[<code>text title="external_repos/swift/project/module/models/swin4d_transformer_ver7.py</code>][<code>507:744:external_repos/swift/project/module/models/swin4d_transformer_ver7.py</code>] (lines 224-312)"</li>
 </ul>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
 <h3 id="data-module-projectmoduleutilsdata_modulepy">Data Module (<code>project/module/utils/data_module.py</code>)<a class="headerlink" href="#data-module-projectmoduleutilsdata_modulepy" title="Permanent link">&para;</a></h3>
 <p><code>fMRIDataModule</code> loads datasets (UKB, HCP, etc.), splits subjects, and returns PyTorch <code>DataLoader</code>s. Augmentations (affine/noise) are applied in the Lightning module.</p>
 <p><strong>PyTorch Lightning data module:</strong></p>
-<p>```13:230:external_repos/swift/project/module/utils/data_module.py
-class fMRIDataModule(pl.LightningDataModule):
-    def get_dataset(self):
-        if self.hparams.dataset_name == "S1200": return S1200
-        ...
-    def setup(self, stage=None):
-        Dataset = self.get_dataset()
-        params = {"root": self.hparams.image_path, "sequence_length": self.hparams.sequence_length, ...}
-        self.train_dataset = Dataset(**params, subject_dict=train_dict, ...)
-        self.train_loader = DataLoader(self.train_dataset, batch_size=self.hparams.batch_size, ...)
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>### Patch Embedding &amp; Window Attention (`swin4d_transformer_ver7.py`)
-</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>`PatchEmbed` downsamples volumes with strided 3D convs, `WindowAttention4D` computes attention inside local 4D windows, and `SwinTransformerBlock4D` applies shifted windows for better coverage. `PatchMergingV2` reduces spatial resolution while keeping temporal size.
-</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>**4D windowed attention with patch embedding:**
-</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>```202:399:external_repos/swift/project/module/models/swin4d_transformer_ver7.py
-</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>class PatchEmbed(nn.Module):
-</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    self.proj = nn.Conv2d(in_chans, embed_dim, kernel_size=(1, patch_size), stride=(1, patch_size))
-</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>...
-</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>class WindowAttention4D(nn.Module):
-</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    def forward(self, x, mask):
-</span><span id="__span__-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        qkv = self.qkv(x).reshape(...)
-</span><span id="__span__-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        attn = self.softmax((q @ k.transpose(-2, -1)) * self.scale)
-</span><span id="__span__-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        x = (attn @ v)
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/swift/project/module/utils/data_module.py (lines 13-230)</span><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">fMRIDataModule</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">LightningDataModule</span><span class="p">):</span>
+</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">dataset_name</span> <span class="o">==</span> <span class="s2">&quot;S1200&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="n">S1200</span>
+</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="o">...</span>
+</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stage</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="n">Dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">()</span>
+</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;root&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">image_path</span><span class="p">,</span> <span class="s2">&quot;sequence_length&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span>
+</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">,</span> <span class="n">subject_dict</span><span class="o">=</span><span class="n">train_dict</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="patch-embedding-window-attention-swin4d_transformer_ver7py">Patch Embedding &amp; Window Attention (<code>swin4d_transformer_ver7.py</code>)<a class="headerlink" href="#patch-embedding-window-attention-swin4d_transformer_ver7py" title="Permanent link">&para;</a></h3>
+<p><code>PatchEmbed</code> downsamples volumes with strided 3D convs, <code>WindowAttention4D</code> computes attention inside local 4D windows, and <code>SwinTransformerBlock4D</code> applies shifted windows for better coverage. <code>PatchMergingV2</code> reduces spatial resolution while keeping temporal size.</p>
+<p><strong>4D windowed attention with patch embedding:</strong></p>
+<div class="language-python highlight"><span class="filename">external_repos/swift/project/module/models/swin4d_transformer_ver7.py (lines 202-399)</span><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">PatchEmbed</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">proj</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_chans</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">patch_size</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">patch_size</span><span class="p">))</span>
+</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="o">...</span>
+</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">WindowAttention4D</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="n">qkv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qkv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="n">attn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">softmax</span><span class="p">((</span><span class="n">q</span> <span class="o">@</span> <span class="n">k</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">attn</span> <span class="o">@</span> <span class="n">v</span><span class="p">)</span>
+</span></code></pre></div>
 <h3 id="swin4d-backbone-swin4d_transformer_ver7py">Swin4D Backbone (<code>swin4d_transformer_ver7.py</code>)<a class="headerlink" href="#swin4d-backbone-swin4d_transformer_ver7py" title="Permanent link">&para;</a></h3>
 <p><code>BasicLayer</code> stacks windowed blocks, handles padding, applies attention masks, and optionally downsamples. The main <code>SwinTransformer4D</code> builds multiple stages with positional embeddings, patch merging, and normalization.</p>
 <p><strong>Multi-stage Swin transformer with patch merging:</strong></p>
-<p>```400:796:external_repos/swift/project/module/models/swin4d_transformer_ver7.py
-class BasicLayer(nn.Module):
-    for blk in self.blocks:
-        x = blk(x, attn_mask)
-        x = x + self.drop_path(self.mlp(self.norm2(x)))
-    if self.downsample is not None:
-        x = self.downsample(x)
-...
-class SwinTransformer4D(nn.Module):
-    self.patch_embed = PatchEmbed(...)
-    self.layers = nn.ModuleList([...])
-    def forward(self, x):
-        x = self.patch_embed(x)
-        x = self.pos_drop(x)
-        for layer in self.layers:
-            x = self.pos_embeds[i] (x)
-            x = self.layers[i] (x.contiguous())
-        return x
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>### Lightning Module (`project/module/pl_classifier.py`)
-</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>`LitClassifier` wraps the encoder, applies augmentations if requested, and attaches task-specific heads (classification/regression/contrastive). `_calculate_loss` routes to BCE, MSE, or contrastive losses.
-</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>**Task-specific heads with loss routing:**
-</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>```32:205:external_repos/swift/project/module/pl_classifier.py
-</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>self.model = load_model(self.hparams.model, self.hparams)
-</span><span id="__span__-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>if self.hparams.downstream_task == &#39;sex&#39;:
-</span><span id="__span__-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    self.output_head = load_model(&quot;clf_mlp&quot;, self.hparams)
-</span><span id="__span__-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>elif self.hparams.downstream_task == &#39;age&#39;:
-</span><span id="__span__-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    self.output_head = load_model(&quot;reg_mlp&quot;, self.hparams)
-</span><span id="__span__-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>...
-</span><span id="__span__-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>def _calculate_loss(self, batch, mode):
-</span><span id="__span__-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    if self.hparams.pretraining:
-</span><span id="__span__-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        # contrastive losses (NT-Xent)
-</span><span id="__span__-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    else:
-</span><span id="__span__-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        subj, logits, target = self._compute_logits(batch)
-</span><span id="__span__-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        if classification:
-</span><span id="__span__-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>            loss = F.binary_cross_entropy_with_logits(logits, target)
-</span><span id="__span__-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        else:
-</span><span id="__span__-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>            loss = F.mse_loss(logits.squeeze(), target.squeeze())
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/swift/project/module/models/swin4d_transformer_ver7.py (lines 400-796)</span><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">BasicLayer</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">for</span> <span class="n">blk</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span><span class="p">:</span>
+</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">blk</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">attn_mask</span><span class="p">)</span>
+</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mlp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm2</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span__-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span__-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="o">...</span>
+</span><span id="__span__-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">SwinTransformer4D</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">patch_embed</span> <span class="o">=</span> <span class="n">PatchEmbed</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="o">...</span><span class="p">])</span>
+</span><span id="__span__-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span><span id="__span__-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">patch_embed</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span__-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_drop</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span__-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+</span><span id="__span__-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_embeds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span__-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">contiguous</span><span class="p">())</span>
+</span><span id="__span__-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="k">return</span> <span class="n">x</span>
+</span></code></pre></div>
+<h3 id="lightning-module-projectmodulepl_classifierpy">Lightning Module (<code>project/module/pl_classifier.py</code>)<a class="headerlink" href="#lightning-module-projectmodulepl_classifierpy" title="Permanent link">&para;</a></h3>
+<p><code>LitClassifier</code> wraps the encoder, applies augmentations if requested, and attaches task-specific heads (classification/regression/contrastive). <code>_calculate_loss</code> routes to BCE, MSE, or contrastive losses.</p>
+<p><strong>Task-specific heads with loss routing:</strong></p>
+<div class="language-python highlight"><span class="filename">external_repos/swift/project/module/pl_classifier.py (lines 32-205)</span><pre><span></span><code><span id="__span__-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="p">)</span>
+</span><span id="__span__-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">downstream_task</span> <span class="o">==</span> <span class="s1">&#39;sex&#39;</span><span class="p">:</span>
+</span><span id="__span__-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">output_head</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;clf_mlp&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="p">)</span>
+</span><span id="__span__-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">downstream_task</span> <span class="o">==</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span>
+</span><span id="__span__-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">output_head</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;reg_mlp&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="p">)</span>
+</span><span id="__span__-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="o">...</span>
+</span><span id="__span__-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">_calculate_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+</span><span id="__span__-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hparams</span><span class="o">.</span><span class="n">pretraining</span><span class="p">:</span>
+</span><span id="__span__-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="c1"># contrastive losses (NT-Xent)</span>
+</span><span id="__span__-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span__-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="n">subj</span><span class="p">,</span> <span class="n">logits</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_logits</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+</span><span id="__span__-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="k">if</span> <span class="n">classification</span><span class="p">:</span>
+</span><span id="__span__-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">binary_cross_entropy_with_logits</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span><span id="__span__-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span__-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">logits</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">target</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+</span></code></pre></div>
 <h3 id="training-entry-point-projectmainpy">Training Entry Point (<code>project/main.py</code>)<a class="headerlink" href="#training-entry-point-projectmainpy" title="Permanent link">&para;</a></h3>
 <p>CLI parses dataset/model/task args, instantiates the Lightning module + data module, and launches PyTorch Lightning <code>Trainer</code> with callbacks (checkpointing, LR monitor).</p>
 <p><strong>CLI entrypoint with Lightning trainer:</strong></p>
-<p><code>18:187:external_repos/swift/project/main.py
-parser = ArgumentParser(...)
-parser = Classifier.add_model_specific_args(parser)
-parser = Dataset.add_data_specific_args(parser)
-parser = pl.Trainer.add_argparse_args(parser)
-args = parser.parse_args()
-data_module = Dataset(**vars(args))
-model = Classifier(data_module=data_module, **vars(args))
-trainer = pl.Trainer.from_argparse_args(args, logger=logger, callbacks=callbacks)
-trainer.fit(model, datamodule=data_module)
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>## Integration Hooks (Brain ↔ Genetics)
-</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>- **Embedding shape.** Encoder outputs `[B, N_tokens, embed_dim]`. Downstream heads either global-average tokens (`mean(dim=[2,3,4])`) or use CLS-like features (depending on head). Use `_compute_logits` to capture the tensor before the head for multimodal projection.^[```108:205:external_repos/swift/project/module/pl_classifier.py```]
-</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>- **Pooling choices.** Mean pooling across spatial dimensions (`features.mean(dim=[2,3,4])`) produces `[B, embed_dim]`; temporal pooling can be added if you keep time as a separate axis prior to patch merging.
-</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>- **Projection to shared latent.** Apply a lightweight projector to map `[B, embed_dim]` into a 512-D shared space:
-</span><span id="__span__-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span__-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>```python
-</span><span id="__span__-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>import torch.nn as nn
-</span><span id="__span__-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-</span><span id="__span__-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>class SwiFTProjector(nn.Module):
-</span><span id="__span__-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    def __init__(self, input_dim=768, output_dim=512, dropout=0.1):
-</span><span id="__span__-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        super().__init__()
-</span><span id="__span__-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        self.layers = nn.Sequential(
-</span><span id="__span__-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>            nn.Linear(input_dim, 1024),
-</span><span id="__span__-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>            nn.GELU(),
-</span><span id="__span__-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>            nn.Dropout(dropout),
-</span><span id="__span__-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>            nn.Linear(1024, output_dim),
-</span><span id="__span__-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>            nn.LayerNorm(output_dim),
-</span><span id="__span__-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>        )
-</span><span id="__span__-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
-</span><span id="__span__-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    def forward(self, x):
-</span><span id="__span__-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        return self.layers(x)
+<div class="language-python highlight"><span class="filename">external_repos/swift/project/main.py (lines 18-187)</span><pre><span></span><code><span id="__span__-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">parser</span> <span class="o">=</span> <span class="n">Classifier</span><span class="o">.</span><span class="n">add_model_specific_args</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+</span><span id="__span__-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">parser</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">add_data_specific_args</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+</span><span id="__span__-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">parser</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="o">.</span><span class="n">add_argparse_args</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+</span><span id="__span__-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span><span id="__span__-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">data_module</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="o">**</span><span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+</span><span id="__span__-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Classifier</span><span class="p">(</span><span class="n">data_module</span><span class="o">=</span><span class="n">data_module</span><span class="p">,</span> <span class="o">**</span><span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+</span><span id="__span__-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="o">.</span><span class="n">from_argparse_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span>
+</span><span id="__span__-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">datamodule</span><span class="o">=</span><span class="n">data_module</span><span class="p">)</span>
 </span></code></pre></div>
-- **Augmentation awareness.** When extracting embeddings for alignment, disable augmentations (`augment_during_training=False`) to avoid random affine/noise perturbations that would misalign with genetic features.^[</code>108:205:external_repos/swift/project/module/pl_classifier.py<code>]
-- **Window constraints.** Ensure inference volumes match training window sizes (`img_size`, `window_size`)—`get_window_size` shrinks windows when needed, but you lose attention overlap if sizes are too small.^[</code>110:200:external_repos/swift/project/module/models/swin4d_transformer_ver7.py```]</p>
+<h2 id="integration-hooks-brain-genetics">Integration Hooks (Brain ↔ Genetics)<a class="headerlink" href="#integration-hooks-brain-genetics" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Embedding shape.</strong> Encoder outputs <code>[B, N_tokens, embed_dim]</code>. Downstream heads either global-average tokens (<code>mean(dim=[2,3,4])</code>) or use CLS-like features (depending on head). Use <code>_compute_logits</code> to capture the tensor before the head for multimodal projection.^[<code>text title="external_repos/swift/project/module/pl_classifier.py</code>] (lines 108-205)"</li>
+<li><strong>Pooling choices.</strong> Mean pooling across spatial dimensions (<code>features.mean(dim=[2,3,4])</code>) produces <code>[B, embed_dim]</code>; temporal pooling can be added if you keep time as a separate axis prior to patch merging.</li>
+<li><strong>Projection to shared latent.</strong> Apply a lightweight projector to map <code>[B, embed_dim]</code> into a 512-D shared space:</li>
+</ul>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span__-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+</span><span id="__span__-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span__-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">SwiFTProjector</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+</span><span id="__span__-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span__-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+</span><span id="__span__-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="mi">1024</span><span class="p">),</span>
+</span><span id="__span__-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">GELU</span><span class="p">(),</span>
+</span><span id="__span__-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">),</span>
+</span><span id="__span__-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">),</span>
+</span><span id="__span__-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">output_dim</span><span class="p">),</span>
+</span><span id="__span__-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="p">)</span>
+</span><span id="__span__-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+</span><span id="__span__-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span><span id="__span__-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></code></pre></div>
+- <strong>Augmentation awareness.</strong> When extracting embeddings for alignment, disable augmentations (<code>augment_during_training=False</code>) to avoid random affine/noise perturbations that would misalign with genetic features.^[<code>text title="external_repos/swift/project/module/pl_classifier.py</code>] (lines 108-205)"
+- <strong>Window constraints.</strong> Ensure inference volumes match training window sizes (<code>img_size</code>, <code>window_size</code>)—<code>get_window_size</code> shrinks windows when needed, but you lose attention overlap if sizes are too small.^[<code>text title="external_repos/swift/project/module/models/swin4d_transformer_ver7.py</code>] (lines 110-200)"</p>
 <p>After projection, SwiFT embeddings (global pooled or CLS) can be concatenated or contrastively aligned with Evo 2/GENERator/Caduceus projections for multimodal neurogenomics.</p>
 
 

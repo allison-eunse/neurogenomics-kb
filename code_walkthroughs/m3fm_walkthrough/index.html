@@ -5244,7 +5244,7 @@
 <p><strong>KB references:</strong> Model card (pending) · <a href="../../integration/integration_strategy/">Integration strategy</a> · <a href="../../kb/templates/experiment_config_stub/">Experiment config stub</a></p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>M3FM couples multilingual CLIP text embeddings with the original R2Gen relational-memory Transformer decoder to generate bilingual COVID-era chest X-ray reports. The entrypoint <code>M3FM.py</code> wires tokenization, dataset splits, optimizer/scheduler, and the trainer while <code>modules/text_extractor.py</code> handles medical text preprocessing and embedding, and <code>modules/encoder_decoder.py</code> implements the Transformer + RelationalMemory decoder that outputs report logits for teacher-forced training; inference routes beam/greedy decoding through English or Chinese heads via CLI flags.^[<code>1:72:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md</code>][<code>15:126:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/M3FM.py</code>][<code>16:53:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py</code>][<code>227:355:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/encoder_decoder.py</code>][<code>130:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py</code>]</p>
+<p>M3FM couples multilingual CLIP text embeddings with the original R2Gen relational-memory Transformer decoder to generate bilingual COVID-era chest X-ray reports. The entrypoint <code>M3FM.py</code> wires tokenization, dataset splits, optimizer/scheduler, and the trainer while <code>modules/text_extractor.py</code> handles medical text preprocessing and embedding, and <code>modules/encoder_decoder.py</code> implements the Transformer + RelationalMemory decoder that outputs report logits for teacher-forced training; inference routes beam/greedy decoding through English or Chinese heads via CLI flags.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md</code>][<code>15:126:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/M3FM.py</code>][<code>16:53:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py</code>][<code>227:355:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/encoder_decoder.py</code>][<code>130:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py</code>] (lines 1-72)"</p>
 <h2 id="at-a-glance">At-a-Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -5259,7 +5259,7 @@
 </thead>
 <tbody>
 <tr>
-<td>Multilingual CLIP text embeddings → relational-memory Transformer decoder (beam/greedy) for bilingual CXRs.^[<code>16:53:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py</code>][<code>227:355:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/encoder_decoder.py</code>][<code>130:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py</code>]</td>
+<td>Multilingual CLIP text embeddings → relational-memory Transformer decoder (beam/greedy) for bilingual CXRs.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py</code>][<code>227:355:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/encoder_decoder.py</code>][<code>130:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py</code>]</td>
 <td>Defaults: <code>d_model=512</code>, FFN 2048, 3 decoder layers, 8 heads, <code>rm_num_slots=3</code>, <code>beam_size=3</code>, <code>epochs=15</code>.^[<code>29:81:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/M3FM.py</code>][<code>34:76:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py</code>]</td>
 <td>224×224 CXRs with max 100 tokens; BOS token <code>1</code> (English) or <code>2</code> (Chinese) selects the generation language.^[<code>18:75:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/dataloaders.py</code>][<code>20:115:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/datasets.py</code>][<code>162:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py</code>]</td>
 <td><code>annotation.json</code> + image roots streamed by <code>R2DataLoader</code>, yielding <code>(reports_ids, reports_ids_use)</code> tensors for teacher forcing.^[<code>18:75:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/dataloaders.py</code>][<code>20:115:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/datasets.py</code>]</td>
@@ -5270,200 +5270,192 @@
 </table>
 <h3 id="environment-hardware-notes">Environment &amp; Hardware Notes<a class="headerlink" href="#environment-hardware-notes" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Conda + pip workflow.</strong> Create <code>conda create -n M3FM python==3.9</code>, activate, install CUDA 11.8-compatible PyTorch (<code>torch&gt;=1.10.1</code>, <code>torchvision&gt;=0.11.2</code>, <code>pytorch-cuda==11.8</code>) followed by <code>pip install -r requirements.txt</code>; repo validated on <code>torch==2.2.1</code>.^[<code>4:21:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md</code>]</li>
-<li><strong>Metric prerequisites.</strong> Java, <code>pycocoevalcap</code>, <code>pycocotools</code>, and Stanford CoreNLP jars are required for SPICE; README documents manual download/placement steps to avoid firewalls.^[<code>46:71:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md</code>]</li>
-<li><strong>Language evaluation assets.</strong> Place <code>stanford-corenlp-4.5.2</code> under <code>data/</code> and keep <code>corenlp_root</code> in <code>configs/__init__.py</code> synchronized when switching between English and Chinese inference.^[<code>61:71:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md</code>]</li>
+<li><strong>Conda + pip workflow.</strong> Create <code>conda create -n M3FM python==3.9</code>, activate, install CUDA 11.8-compatible PyTorch (<code>torch&gt;=1.10.1</code>, <code>torchvision&gt;=0.11.2</code>, <code>pytorch-cuda==11.8</code>) followed by <code>pip install -r requirements.txt</code>; repo validated on <code>torch==2.2.1</code>.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md</code>] (lines 4-21)"</li>
+<li><strong>Metric prerequisites.</strong> Java, <code>pycocoevalcap</code>, <code>pycocotools</code>, and Stanford CoreNLP jars are required for SPICE; README documents manual download/placement steps to avoid firewalls.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md</code>] (lines 46-71)"</li>
+<li><strong>Language evaluation assets.</strong> Place <code>stanford-corenlp-4.5.2</code> under <code>data/</code> and keep <code>corenlp_root</code> in <code>configs/__init__.py</code> synchronized when switching between English and Chinese inference.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/README.md</code>] (lines 61-71)"</li>
 </ul>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
 <h3 id="tokenizer-data-interface-modulesdataloaderspy-modulesdatasetspy">Tokenizer + Data Interface (<code>modules/dataloaders.py</code>, <code>modules/datasets.py</code>)<a class="headerlink" href="#tokenizer-data-interface-modulesdataloaderspy-modulesdatasetspy" title="Permanent link">&para;</a></h3>
 <p><code>R2DataLoader</code> centralizes resizing/normalization, dataset selection (IU X-Ray vs. MIMIC/COV), and a collate function that pads both the teacher-forced <code>reports_ids</code> (targets) and decoder inputs (<code>reports_ids_use</code>). The dataset class uses cleaned strings to build token IDs, tracks language label via the leading token, and emits both full targets and shifted inputs.</p>
 <p><strong>Data loader with transforms:</strong></p>
-<p>```8:45:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/dataloaders.py
-class R2DataLoader(DataLoader):
-    def <strong>init</strong>(self, args, tokenizer, split, shuffle):
-        self.args = args
-        self.dataset_name = args.dataset_name
-        self.batch_size = args.batch_size
-        self.shuffle = shuffle
-        self.num_workers = args.num_workers
-        self.tokenizer = tokenizer
-        self.split = split</p>
-<div class="language-text highlight"><pre><span></span><code>    if split == &#39;train&#39;:
-        self.transform = transforms.Compose([
-            transforms.Resize(256),
-            transforms.RandomCrop(224),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize((0.485, 0.456, 0.406),
-                                 (0.229, 0.224, 0.225))])
-    else:
-        self.transform = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-            transforms.Normalize((0.485, 0.456, 0.406),
-                                 (0.229, 0.224, 0.225))])
-
-    if self.dataset_name == &#39;iu_xray&#39;:
-        self.dataset = IuxrayMultiImageDataset(self.args, self.tokenizer, self.split, transform=self.transform)
-    else:
-        self.dataset = MimiccxrSingleImageDataset(self.args, self.tokenizer, self.split, transform=self.transform)
-</code></pre></div>
-<p><code>**Collate function with padding:**</code>48:74:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/dataloaders.py
-    @staticmethod
-    def collate_fn(data):
-        images_id, images, reports_ids, report, seq_lengths, seq_length1,image_path_all, reports_ids_use = zip(*data)
-
-        images = torch.stack(images, 0)
-        max_seq_length = max(seq_lengths)
-
-        targets = np.zeros((len(reports_ids), max_seq_length), dtype=int)
-        targets_masks = np.zeros((len(reports_ids), max_seq_length), dtype=int)
-
-        for i, report_ids in enumerate(reports_ids):
-            targets[i, :len(report_ids)] = report_ids
-
-        max_seq_length_us = max(seq_length1)
-        targets_us = np.zeros((len(reports_ids_use),  max_seq_length_us), dtype=int)
-        targets_masks1 = np.zeros((len(reports_ids_use), max_seq_length_us ), dtype=int)
-
-        for i,reports_ids_use1 in enumerate(reports_ids_use):
-            targets_us[i, :len(reports_ids_use1)] = reports_ids_use1
-
-        return images_id, images, torch.LongTensor(targets), report,image_path_all ,torch.LongTensor(targets_us)
-```</p>
+<div class="language-python highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/dataloaders.py (lines 8-45)</span><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">R2DataLoader</span><span class="p">(</span><span class="n">DataLoader</span><span class="p">):</span>
+</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">split</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">):</span>
+</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dataset_name</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">dataset_name</span>
+</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">batch_size</span>
+</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">shuffle</span> <span class="o">=</span> <span class="n">shuffle</span>
+</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">num_workers</span>
+</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">tokenizer</span>
+</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">split</span> <span class="o">=</span> <span class="n">split</span>
+</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="k">if</span> <span class="n">split</span> <span class="o">==</span> <span class="s1">&#39;train&#39;</span><span class="p">:</span>
+</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+</span><span id="__span__-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+</span><span id="__span__-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                <span class="n">transforms</span><span class="o">.</span><span class="n">RandomCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+</span><span id="__span__-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                <span class="n">transforms</span><span class="o">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(),</span>
+</span><span id="__span__-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+</span><span id="__span__-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">((</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">),</span>
+</span><span id="__span__-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>                                     <span class="p">(</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">))])</span>
+</span><span id="__span__-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span__-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+</span><span id="__span__-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>                <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">((</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)),</span>
+</span><span id="__span__-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>                <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+</span><span id="__span__-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>                <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">((</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">),</span>
+</span><span id="__span__-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>                                     <span class="p">(</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">))])</span>
+</span><span id="__span__-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+</span><span id="__span__-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_name</span> <span class="o">==</span> <span class="s1">&#39;iu_xray&#39;</span><span class="p">:</span>
+</span><span id="__span__-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">IuxrayMultiImageDataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
+</span><span id="__span__-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span__-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">MimiccxrSingleImageDataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>Collate function with padding:</strong></p>
+<div class="language-python highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/dataloaders.py (lines 48-74)</span><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    <span class="nd">@staticmethod</span>
+</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">collate_fn</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="n">images_id</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">reports_ids</span><span class="p">,</span> <span class="n">report</span><span class="p">,</span> <span class="n">seq_lengths</span><span class="p">,</span> <span class="n">seq_length1</span><span class="p">,</span><span class="n">image_path_all</span><span class="p">,</span> <span class="n">reports_ids_use</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">)</span>
+</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="n">images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="n">max_seq_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">seq_lengths</span><span class="p">)</span>
+</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">reports_ids</span><span class="p">),</span> <span class="n">max_seq_length</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+</span><span id="__span__-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">targets_masks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">reports_ids</span><span class="p">),</span> <span class="n">max_seq_length</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+</span><span id="__span__-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span__-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">report_ids</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reports_ids</span><span class="p">):</span>
+</span><span id="__span__-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>            <span class="n">targets</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">report_ids</span><span class="p">)]</span> <span class="o">=</span> <span class="n">report_ids</span>
+</span><span id="__span__-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+</span><span id="__span__-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="n">max_seq_length_us</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">seq_length1</span><span class="p">)</span>
+</span><span id="__span__-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="n">targets_us</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">reports_ids_use</span><span class="p">),</span>  <span class="n">max_seq_length_us</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+</span><span id="__span__-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="n">targets_masks1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">reports_ids_use</span><span class="p">),</span> <span class="n">max_seq_length_us</span> <span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+</span><span id="__span__-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+</span><span id="__span__-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">reports_ids_use1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reports_ids_use</span><span class="p">):</span>
+</span><span id="__span__-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>            <span class="n">targets_us</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">reports_ids_use1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">reports_ids_use1</span>
+</span><span id="__span__-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+</span><span id="__span__-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="k">return</span> <span class="n">images_id</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">targets</span><span class="p">),</span> <span class="n">report</span><span class="p">,</span><span class="n">image_path_all</span> <span class="p">,</span><span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">targets_us</span><span class="p">)</span>
+</span></code></pre></div>
 <h3 id="multilingual-textextractor-modulestext_extractorpy">Multilingual TextExtractor (<code>modules/text_extractor.py</code>)<a class="headerlink" href="#multilingual-textextractor-modulestext_extractorpy" title="Permanent link">&para;</a></h3>
 <p>The <code>TextExtractor</code> loads <code>M-CLIP/XLM-Roberta-Large-Vit-L-14</code>, averages contextual token embeddings with attention masking, projects them through CLIP's linear head, then applies a learnable affine + ReLU to map the 768-d output to the 512-d hidden size expected by the decoder. Reports are cleaned per language before tokenization, enabling bilingual support without retraining the encoder.</p>
 <p><strong>Multilingual CLIP text encoder:</strong></p>
-<p>```16:53:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py
-class TextExtractor(nn.Module):
-    def <strong>init</strong>(self, args):
-        super(TextExtractor, self).<strong>init</strong>()
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"</p>
-<div class="language-text highlight"><pre><span></span><code>    self.model_name = &#39;M-CLIP/XLM-Roberta-Large-Vit-L-14&#39;
-    self.model = pt_multilingual_clip.MultilingualCLIP.from_pretrained(self.model_name, device=self.device)
-    self.tokenizer = transformers.AutoTokenizer.from_pretrained(self.model_name, device=self.device)
-    self.clean_report = self.clean_report_cov
-
-    self.transformer = self.model.transformer
-    self.LinearTransformation = self.model.LinearTransformation
-
-    self.affine_aa = nn.Linear(768, 512).cuda()
-
-def forward(self, reports):
-    if isinstance(reports, tuple):
-        texts=[]
-        for example in reports:
-            example=self.clean_report(example)
-            texts.append(example)
-    else:
-        texts=self.clean_report(reports)
-
-
-    with torch.no_grad():
-        txt_tok = self.tokenizer(texts, padding=True, return_tensors=&#39;pt&#39;).to(self.device)
-        embs = self.transformer(**txt_tok)[0]
-        att = txt_tok[&#39;attention_mask&#39;]
-        embs = (embs * att.unsqueeze(2)).sum(dim=1) / att.sum(dim=1)[:, None]
-        embeddings = self.LinearTransformation(embs).cuda()
-
-
-
-
-    embeddings = F.relu(self.affine_aa(embeddings)).cuda() #batch*768--》batch*512
-    return embeddings #batch*512
-</code></pre></div>
-<p>```
-</p>
+<div class="language-python highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py (lines 16-53)</span><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">TextExtractor</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="nb">super</span><span class="p">(</span><span class="n">TextExtractor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
+</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span__-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model_name</span> <span class="o">=</span> <span class="s1">&#39;M-CLIP/XLM-Roberta-Large-Vit-L-14&#39;</span>
+</span><span id="__span__-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">pt_multilingual_clip</span><span class="o">.</span><span class="n">MultilingualCLIP</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span__-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">transformers</span><span class="o">.</span><span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span__-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">clean_report</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clean_report_cov</span>
+</span><span id="__span__-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        
+</span><span id="__span__-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">transformer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">transformer</span>
+</span><span id="__span__-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">LinearTransformation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">LinearTransformation</span>
+</span><span id="__span__-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        
+</span><span id="__span__-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">affine_aa</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">768</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+</span><span id="__span__-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        
+</span><span id="__span__-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reports</span><span class="p">):</span>
+</span><span id="__span__-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reports</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+</span><span id="__span__-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>            <span class="n">texts</span><span class="o">=</span><span class="p">[]</span>
+</span><span id="__span__-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>            <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">reports</span><span class="p">:</span>
+</span><span id="__span__-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>                <span class="n">example</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">clean_report</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
+</span><span id="__span__-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>                <span class="n">texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
+</span><span id="__span__-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span__-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>            <span class="n">texts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">clean_report</span><span class="p">(</span><span class="n">reports</span><span class="p">)</span>
+</span><span id="__span__-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+</span><span id="__span__-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+</span><span id="__span__-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span><span id="__span__-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>            <span class="n">txt_tok</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">&#39;pt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span__-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>            <span class="n">embs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer</span><span class="p">(</span><span class="o">**</span><span class="n">txt_tok</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span__-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>            <span class="n">att</span> <span class="o">=</span> <span class="n">txt_tok</span><span class="p">[</span><span class="s1">&#39;attention_mask&#39;</span><span class="p">]</span>
+</span><span id="__span__-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>            <span class="n">embs</span> <span class="o">=</span> <span class="p">(</span><span class="n">embs</span> <span class="o">*</span> <span class="n">att</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">att</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+</span><span id="__span__-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>            <span class="n">embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">LinearTransformation</span><span class="p">(</span><span class="n">embs</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+</span><span id="__span__-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>
+</span><span id="__span__-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>        
+</span><span id="__span__-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>
+</span><span id="__span__-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>
+</span><span id="__span__-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">affine_aa</span><span class="p">(</span><span class="n">embeddings</span><span class="p">))</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span> <span class="c1">#batch*768--》batch*512</span>
+</span><span id="__span__-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>        <span class="k">return</span> <span class="n">embeddings</span> <span class="c1">#batch*512</span>
+</span></code></pre></div>
 <h3 id="relational-memory-transformer-decoder-modulesencoder_decoderpy">Relational-Memory Transformer Decoder (<code>modules/encoder_decoder.py</code>)<a class="headerlink" href="#relational-memory-transformer-decoder-modulesencoder_decoderpy" title="Permanent link">&para;</a></h3>
-<p><code>Transformer</code> wraps a Decoder-only stack augmented with conditional layer norm controlled by a relational memory module. Before projection, the model reshapes logits to match token vocab (default 464). Memory slots capture long-range dependencies from the previous tokens, improving report fluency over vanilla Transformer decoders.
-
-<strong>Decoder with relational memory:</strong>
-
-<code>228:252:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/encoder_decoder.py
-class Transformer(nn.Module):
-    def __init__(self):
-        super(Transformer, self).__init__()
-        #self.encoder = Encoder().cuda()
-        self.decoder = Decoder().cuda()
-        self.projection = nn.Linear(d_model, tgt_vocab_size, bias=False).cuda()
-        self.rm=RelationalMemory()
-        self.tgt_emb = Embeddings().cuda()
-
-    def forward(self, enc_outputs, dec_inputs):
-        '''
-        enc_inputs: [batch_size, src_len]
-        dec_inputs: [batch_size, tgt_len]
-        '''
-        # tensor to store decoder outputs
-        dec_outputs = self.decode(dec_inputs,  enc_outputs)
-        dec_logits = self.projection(dec_outputs)  # dec_logits: [batch_size, tgt_len, tgt_vocab_size]
-
-        return dec_logits.reshape(-1, dec_logits.size(-1))
-
-    def decode(self,  dec_inputs, enc_outputs):
-        memory = self.rm.init_memory(enc_outputs.size(0)).to( enc_outputs)
-        memory = self.rm(self.tgt_emb(dec_inputs), memory)
-        return self.decoder(dec_inputs, enc_outputs, memory)</code></p>
+<p><code>Transformer</code> wraps a Decoder-only stack augmented with conditional layer norm controlled by a relational memory module. Before projection, the model reshapes logits to match token vocab (default 464). Memory slots capture long-range dependencies from the previous tokens, improving report fluency over vanilla Transformer decoders.</p>
+<p><strong>Decoder with relational memory:</strong></p>
+<div class="language-python highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/encoder_decoder.py (lines 228-252)</span><pre><span></span><code><span id="__span__-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Transformer</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span__-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        <span class="nb">super</span><span class="p">(</span><span class="n">Transformer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span__-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="c1">#self.encoder = Encoder().cuda()</span>
+</span><span id="__span__-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span> <span class="o">=</span> <span class="n">Decoder</span><span class="p">()</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+</span><span id="__span__-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">tgt_vocab_size</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+</span><span id="__span__-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">rm</span><span class="o">=</span><span class="n">RelationalMemory</span><span class="p">()</span>
+</span><span id="__span__-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tgt_emb</span> <span class="o">=</span> <span class="n">Embeddings</span><span class="p">()</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+</span><span id="__span__-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span__-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enc_outputs</span><span class="p">,</span> <span class="n">dec_inputs</span><span class="p">):</span>
+</span><span id="__span__-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+</span><span id="__span__-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="sd">        enc_inputs: [batch_size, src_len]</span>
+</span><span id="__span__-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="sd">        dec_inputs: [batch_size, tgt_len]</span>
+</span><span id="__span__-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="sd">        &#39;&#39;&#39;</span>
+</span><span id="__span__-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="c1"># tensor to store decoder outputs</span>
+</span><span id="__span__-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>        <span class="n">dec_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">dec_inputs</span><span class="p">,</span>  <span class="n">enc_outputs</span><span class="p">)</span>
+</span><span id="__span__-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>        <span class="n">dec_logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="p">(</span><span class="n">dec_outputs</span><span class="p">)</span>  <span class="c1"># dec_logits: [batch_size, tgt_len, tgt_vocab_size]</span>
+</span><span id="__span__-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>        
+</span><span id="__span__-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>        <span class="k">return</span> <span class="n">dec_logits</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dec_logits</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span><span id="__span__-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+</span><span id="__span__-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">dec_inputs</span><span class="p">,</span> <span class="n">enc_outputs</span><span class="p">):</span>
+</span><span id="__span__-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>        <span class="n">memory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rm</span><span class="o">.</span><span class="n">init_memory</span><span class="p">(</span><span class="n">enc_outputs</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span> <span class="n">enc_outputs</span><span class="p">)</span>
+</span><span id="__span__-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>        <span class="n">memory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tgt_emb</span><span class="p">(</span><span class="n">dec_inputs</span><span class="p">),</span> <span class="n">memory</span><span class="p">)</span>
+</span><span id="__span__-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span><span class="n">dec_inputs</span><span class="p">,</span> <span class="n">enc_outputs</span><span class="p">,</span> <span class="n">memory</span><span class="p">)</span>
+</span></code></pre></div>
 <h3 id="trainer-scheduler-modulestrainerpy">Trainer &amp; Scheduler (<code>modules/trainer.py</code>)<a class="headerlink" href="#trainer-scheduler-modulestrainerpy" title="Permanent link">&para;</a></h3>
 <p><code>Trainer._train_epoch</code> streams teacher-forced batches, clips gradients to <code>0.1</code>, steps SGD and the StepLR schedule every iteration, and records average loss per epoch. Mixed precision isn't enabled here, so plan GPU memory accordingly.</p>
 <p><strong>Training loop with gradient clipping:</strong></p>
-<p>```203:221:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/trainer.py
-    def _train_epoch(self, epoch):</p>
-<div class="language-text highlight"><pre><span></span><code>    train_loss = 0
-    self.model.cuda().train()
-    for batch_idx, (images_id, images, reports_ids, report,image_path_all,reports_ids_use) in enumerate(self.train_dataloader):
-        images, reports_ids,reports_ids_use= images.to(self.device), reports_ids.to(self.device),reports_ids_use.to(self.device)
-
-        output = self.model(report, reports_ids_use)
-
-        loss = self.criterion(output, reports_ids[:, 1:].reshape(-1))
-        train_loss += loss.item()
-        self.optimizer.zero_grad()
-        loss.backward()
-        torch.nn.utils.clip_grad_value_(self.model.parameters(), 0.1)
-        self.optimizer.step()
-    log = {&#39;train_loss&#39;: train_loss / len(self.train_dataloader)}
-
-    self.lr_scheduler.step()
-    return log
-</code></pre></div>
-<p>```
-</p>
+<div class="language-python highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/trainer.py (lines 203-221)</span><pre><span></span><code><span id="__span__-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_train_epoch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+</span><span id="__span__-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span__-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="n">train_loss</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span__-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="__span__-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">images_id</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">reports_ids</span><span class="p">,</span> <span class="n">report</span><span class="p">,</span><span class="n">image_path_all</span><span class="p">,</span><span class="n">reports_ids_use</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_dataloader</span><span class="p">):</span>
+</span><span id="__span__-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>            <span class="n">images</span><span class="p">,</span> <span class="n">reports_ids</span><span class="p">,</span><span class="n">reports_ids_use</span><span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="n">reports_ids</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span><span class="n">reports_ids_use</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span__-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span__-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">reports_ids_use</span><span class="p">)</span>
+</span><span id="__span__-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>            
+</span><span id="__span__-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">reports_ids</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span><span id="__span__-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>            <span class="n">train_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span><span id="__span__-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="__span__-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="__span__-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>            <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">clip_grad_value_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="mf">0.1</span><span class="p">)</span>
+</span><span id="__span__-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span><span id="__span__-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        <span class="n">log</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;train_loss&#39;</span><span class="p">:</span> <span class="n">train_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_dataloader</span><span class="p">)}</span>
+</span><span id="__span__-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+</span><span id="__span__-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span><span id="__span__-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>        <span class="k">return</span> <span class="n">log</span>
+</span></code></pre></div>
 <h3 id="bilingual-inference-script-inferencepy">Bilingual Inference Script (<code>inference.py</code>)<a class="headerlink" href="#bilingual-inference-script-inferencepy" title="Permanent link">&para;</a></h3>
-<p><code>inference.py</code> mirrors the training CLI, loads both English and Chinese <code>R2GenModel</code> variants, performs greedy decoding conditioned on the BOS token, and prints generated reports. Changing <code>--language</code> toggles which head runs and when the search halts.
-
-<strong>Language-specific greedy decoding:</strong>
-
-<code>162:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py
-if args.language=='English' or args.language=='All':
-    model_en.eval()
-    output = False
-    with torch.no_grad():
-        for batch_idx, (images_id, images, reports_ids, report, image_path_all, reports_ids_use) in enumerate(
-                test_dataloader):
-            images, reports_ids, reports_ids_use = images.to(device), reports_ids.to(
-                device), reports_ids_use.to(device)
-
-            for i in range(len(images_id)):
-                if reports_ids[i][0] == 1:
-                    greedy_dec_input = greedy_decoder(model_en, image_path_all[i], reports_ids[i], start_symbol=1)
-                    predict = model_en(image_path_all[i], greedy_dec_input)
-                    predict = predict.data.max(1, keepdim=True)[1]
-                    output = True
-                    predict = predict.squeeze()
-                    report = model_en.tokenizer.decode(predict.cpu().numpy())
-                    print("----------------------------------------------------------------------------------------")
-                    print("Generated English Report:")
-                    print(report)
-                    print("----------------------------------------------------------------------------------------")
-                    break
-            if output:
-                break</code></p>
+<p><code>inference.py</code> mirrors the training CLI, loads both English and Chinese <code>R2GenModel</code> variants, performs greedy decoding conditioned on the BOS token, and prints generated reports. Changing <code>--language</code> toggles which head runs and when the search halts.</p>
+<p><strong>Language-specific greedy decoding:</strong></p>
+<div class="language-python highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py (lines 162-210)</span><pre><span></span><code><span id="__span__-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">language</span><span class="o">==</span><span class="s1">&#39;English&#39;</span> <span class="ow">or</span> <span class="n">args</span><span class="o">.</span><span class="n">language</span><span class="o">==</span><span class="s1">&#39;All&#39;</span><span class="p">:</span>
+</span><span id="__span__-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">model_en</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="__span__-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">output</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="__span__-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span><span id="__span__-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">images_id</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">reports_ids</span><span class="p">,</span> <span class="n">report</span><span class="p">,</span> <span class="n">image_path_all</span><span class="p">,</span> <span class="n">reports_ids_use</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+</span><span id="__span__-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>                <span class="n">test_dataloader</span><span class="p">):</span>
+</span><span id="__span__-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>            <span class="n">images</span><span class="p">,</span> <span class="n">reports_ids</span><span class="p">,</span> <span class="n">reports_ids_use</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">reports_ids</span><span class="o">.</span><span class="n">to</span><span class="p">(</span>
+</span><span id="__span__-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>                <span class="n">device</span><span class="p">),</span> <span class="n">reports_ids_use</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span__-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span__-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images_id</span><span class="p">)):</span>
+</span><span id="__span__-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>                <span class="k">if</span> <span class="n">reports_ids</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span__-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>                    <span class="n">greedy_dec_input</span> <span class="o">=</span> <span class="n">greedy_decoder</span><span class="p">(</span><span class="n">model_en</span><span class="p">,</span> <span class="n">image_path_all</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">reports_ids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">start_symbol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span__-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>                    <span class="n">predict</span> <span class="o">=</span> <span class="n">model_en</span><span class="p">(</span><span class="n">image_path_all</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">greedy_dec_input</span><span class="p">)</span>
+</span><span id="__span__-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>                    <span class="n">predict</span> <span class="o">=</span> <span class="n">predict</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span__-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>                    <span class="n">output</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="__span__-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>                    <span class="n">predict</span> <span class="o">=</span> <span class="n">predict</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+</span><span id="__span__-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>                    <span class="n">report</span> <span class="o">=</span> <span class="n">model_en</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">predict</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</span><span id="__span__-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----------------------------------------------------------------------------------------&quot;</span><span class="p">)</span>
+</span><span id="__span__-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generated English Report:&quot;</span><span class="p">)</span>
+</span><span id="__span__-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>                    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</span><span id="__span__-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----------------------------------------------------------------------------------------&quot;</span><span class="p">)</span>
+</span><span id="__span__-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>                    <span class="k">break</span>
+</span><span id="__span__-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>            <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+</span><span id="__span__-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>                <span class="k">break</span>
+</span></code></pre></div>
 <h2 id="integration-hooks-vision-clinical-language">Integration Hooks (Vision ↔ Clinical Language)<a class="headerlink" href="#integration-hooks-vision-clinical-language" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Tap 512-d text embeddings.</strong> <code>TextExtractor</code> already outputs normalized 512-d vectors before relational memory; export them for multimodal alignment (e.g., with genetic embeddings) or to seed cross-modal contrastive losses.^[<code>16:53:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py</code>]</li>
-<li><strong>Language-aware batching.</strong> The dataset prefixes each sequence with <code>1</code> (English) or <code>2</code> (Chinese); filtering on the first token lets you run per-language evaluators or remap tokens to KB-friendly ontologies without retraining.^[<code>20:75:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/datasets.py</code>]</li>
-<li><strong>Reuse greedy decoder outputs.</strong> <code>greedy_decoder</code> yields raw token IDs before detokenization, making it straightforward to log intermediate logits or route them into KB experiment trackers for BLEU/SPICE comparisons across modalities.^[<code>130:210:/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py</code>]</li>
+<li><strong>Tap 512-d text embeddings.</strong> <code>TextExtractor</code> already outputs normalized 512-d vectors before relational memory; export them for multimodal alignment (e.g., with genetic embeddings) or to seed cross-modal contrastive losses.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/text_extractor.py</code>] (lines 16-53)"</li>
+<li><strong>Language-aware batching.</strong> The dataset prefixes each sequence with <code>1</code> (English) or <code>2</code> (Chinese); filtering on the first token lets you run per-language evaluators or remap tokens to KB-friendly ontologies without retraining.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/modules/datasets.py</code>] (lines 20-75)"</li>
+<li><strong>Reuse greedy decoder outputs.</strong> <code>greedy_decoder</code> yields raw token IDs before detokenization, making it straightforward to log intermediate logits or route them into KB experiment trackers for BLEU/SPICE comparisons across modalities.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/M3FM/inference.py</code>] (lines 130-210)"</li>
 </ul>
 
 

@@ -2944,6 +2944,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#patch-embed-conv-blocks-srcbrainmtmodelsbrain_mtpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Patch Embed &amp; Conv Blocks (src/brainmt/models/brain_mt.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#hybrid-mamba-transformer-backbone-srcbrainmtmodelsbrain_mtpy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2955,10 +2966,32 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#forward-head-srcbrainmtmodelsbrain_mtpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forward &amp; Head (src/brainmt/models/brain_mt.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#training-loop-srcbrainmttrainpy" class="md-nav__link">
     <span class="md-ellipsis">
       
         Training Loop (src/brainmt/train.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference-srcbrainmtinferencepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inference (src/brainmt/inference.py)
       
     </span>
   </a>
@@ -5222,7 +5255,7 @@
 <p><strong>KB references:</strong> <a href="../../models/brain/brainmt/">Model card</a> · <a href="../../integration/modality_features/fmri/">fMRI feature spec</a> · <a href="../../integration/integration_strategy/">Integration strategy</a> · <a href="../../kb/templates/experiment_config_stub/">Experiment config stub</a></p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>BrainMT pairs bidirectional Mamba mixers (temporal-first scanning) with MHSA transformer blocks to model long-range fMRI dynamics, delivering state-of-the-art regression/classification on UKB and HCP phenotypes.^[<code>3:170:external_repos/brainmt/README.md</code>][<code>294:462:external_repos/brainmt/src/brainmt/models/brain_mt.py</code>] The architecture is now described in an official conference paper (SpringerLink, Lecture Notes in Computer Science, pp. 150–160; first online 19 September 2025), so reference the proceedings PDF in <code>docs/generated/kb_curated/papers-pdf/brainmt_2025.pdf</code> when citing.</p>
+<p>BrainMT pairs bidirectional Mamba mixers (temporal-first scanning) with MHSA transformer blocks to model long-range fMRI dynamics, delivering state-of-the-art regression/classification on UKB and HCP phenotypes.^[<code>text title="external_repos/brainmt/README.md</code>][<code>294:462:external_repos/brainmt/src/brainmt/models/brain_mt.py</code>] The architecture is now described in an official conference paper (SpringerLink, Lecture Notes in Computer Science, pp. 150–160; first online 19 September 2025), so reference the proceedings PDF in <code>docs/generated/kb_curated/papers-pdf/brainmt_2025.pdf</code> when citing. (lines 3-170)"</p>
 <h2 id="at-a-glance">At-a-Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -5237,7 +5270,7 @@
 </thead>
 <tbody>
 <tr>
-<td>3D Conv patch embed → bidirectional Mamba blocks → Transformer attention blocks^[<code>202:462:external_repos/brainmt/src/brainmt/models/brain_mt.py</code>]</td>
+<td>3D Conv patch embed → bidirectional Mamba blocks → Transformer attention blocks^[<code>text title="external_repos/brainmt/src/brainmt/models/brain_mt.py</code>]</td>
 <td>Configurable (default hidden 512, depth <code>[12,8]</code>)^[<code>293:375:external_repos/brainmt/src/brainmt/models/brain_mt.py</code>]</td>
 <td>91×109×91 voxels × 200 frames (default)^[<code>294:339:external_repos/brainmt/src/brainmt/models/brain_mt.py</code>]</td>
 <td>Preprocessed <code>.pt</code> tensors from <code>data/datasets.py</code>^[<code>15:80:external_repos/brainmt/src/brainmt/data/datasets.py</code>]</td>
@@ -5248,122 +5281,110 @@
 </table>
 <h3 id="environment-hardware-notes">Environment &amp; Hardware Notes<a class="headerlink" href="#environment-hardware-notes" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Exact environment commands.</strong> The README targets Python 3.9.18 + PyTorch 2.6/CUDA 12.4, created via <code>python -m venv brainmt_env</code>, <code>source brainmt_env/bin/activate</code>, and <code>pip install -r requirements.txt</code>.^[<code>44:60:external_repos/brainmt/README.md</code>]</li>
-<li><strong>Gradient checkpoint flag.</strong> Every Mamba block accepts <code>use_checkpoint</code> and conditionally calls <code>checkpoint.checkpoint(...)</code>, so you can instantiate <code>BrainMT(..., use_checkpoint=True)</code> to reduce memory usage on long temporal contexts.^[<code>95:125:external_repos/brainmt/src/brainmt/models/brain_mt.py</code>][<code>293:334:external_repos/brainmt/src/brainmt/models/brain_mt.py</code>]</li>
+<li><strong>Exact environment commands.</strong> The README targets Python 3.9.18 + PyTorch 2.6/CUDA 12.4, created via <code>python -m venv brainmt_env</code>, <code>source brainmt_env/bin/activate</code>, and <code>pip install -r requirements.txt</code>.^[<code>text title="external_repos/brainmt/README.md</code>] (lines 44-60)"</li>
+<li><strong>Gradient checkpoint flag.</strong> Every Mamba block accepts <code>use_checkpoint</code> and conditionally calls <code>checkpoint.checkpoint(...)</code>, so you can instantiate <code>BrainMT(..., use_checkpoint=True)</code> to reduce memory usage on long temporal contexts.^[<code>text title="external_repos/brainmt/src/brainmt/models/brain_mt.py</code>][<code>293:334:external_repos/brainmt/src/brainmt/models/brain_mt.py</code>] (lines 95-125)"</li>
 </ul>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
 <h3 id="dataset-loader-srcbrainmtdatadatasetspy">Dataset Loader (<code>src/brainmt/data/datasets.py</code>)<a class="headerlink" href="#dataset-loader-srcbrainmtdatadatasetspy" title="Permanent link">&para;</a></h3>
 <p>The dataset stores fMRI volumes as fp16 tensors (<code>func_data_MNI_fp16.pt</code>), slices contiguous time segments, permutes them into <code>[frames, channel, depth, height, width]</code>, and returns <code>(tensor, target)</code> pairs.</p>
 <p><strong>fMRI dataset with temporal slicing:</strong></p>
-<p>```15:80:external_repos/brainmt/src/brainmt/data/datasets.py
-class fMRIDataset(Dataset):
-    def <strong>getitem</strong>(self, idx):
-        data = torch.load(img_file)
-        start_index = torch.randint(0, total_frames - num_frames + 1, (1,)).item()
-        data_sliced = data[:, :, :, start_index:end_index]
-        data_global = data_sliced.unsqueeze(0).permute(4, 0, 2, 1, 3)
-        target = self.target_dict[subject_dir]
-        return data_global, torch.tensor(target, dtype=torch.float16)
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>### Patch Embed &amp; Conv Blocks (`src/brainmt/models/brain_mt.py`)
-</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>`PatchEmbed` downsamples the 4D tensor with strided 3D convolutions before two ConvBlocks + Downsample layers reduce spatial resolution while keeping temporal length.
-</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>**3D convolution patch embedding:**
-</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>```202:263:external_repos/brainmt/src/brainmt/models/brain_mt.py
-</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>class PatchEmbed(nn.Module):
-</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    self.conv_down = nn.Sequential(
-</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        nn.Conv3d(in_chans, in_dim, 3, 2, 1, bias=False),
-</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        nn.ReLU(),
-</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        nn.Conv3d(in_dim, dim, 3, 2, 1, bias=False),
-</span><span id="__span__-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        nn.ReLU()
-</span><span id="__span__-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    )
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainmt/src/brainmt/data/datasets.py (lines 15-80)</span><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">fMRIDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">img_file</span><span class="p">)</span>
+</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="n">start_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_frames</span> <span class="o">-</span> <span class="n">num_frames</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="n">data_sliced</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">start_index</span><span class="p">:</span><span class="n">end_index</span><span class="p">]</span>
+</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="n">data_global</span> <span class="o">=</span> <span class="n">data_sliced</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_dict</span><span class="p">[</span><span class="n">subject_dir</span><span class="p">]</span>
+</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="k">return</span> <span class="n">data_global</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="patch-embed-conv-blocks-srcbrainmtmodelsbrain_mtpy">Patch Embed &amp; Conv Blocks (<code>src/brainmt/models/brain_mt.py</code>)<a class="headerlink" href="#patch-embed-conv-blocks-srcbrainmtmodelsbrain_mtpy" title="Permanent link">&para;</a></h3>
+<p><code>PatchEmbed</code> downsamples the 4D tensor with strided 3D convolutions before two ConvBlocks + Downsample layers reduce spatial resolution while keeping temporal length.</p>
+<p><strong>3D convolution patch embedding:</strong></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainmt/src/brainmt/models/brain_mt.py (lines 202-263)</span><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">PatchEmbed</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">conv_down</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="n">in_chans</span><span class="p">,</span> <span class="n">in_dim</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="p">)</span>
+</span></code></pre></div>
 <h3 id="hybrid-mamba-transformer-backbone-srcbrainmtmodelsbrain_mtpy">Hybrid Mamba + Transformer Backbone (<code>src/brainmt/models/brain_mt.py</code>)<a class="headerlink" href="#hybrid-mamba-transformer-backbone-srcbrainmtmodelsbrain_mtpy" title="Permanent link">&para;</a></h3>
 <p>Temporal-first processing reshapes tokens, feeds them through <code>create_block</code> (bidirectional Mamba) and then through transformer attention + MLP to capture residual spatial dependencies.</p>
 <p><strong>Bidirectional Mamba blocks followed by transformer attention:</strong></p>
-<p>```331:462:external_repos/brainmt/src/brainmt/models/brain_mt.py
-self.layers = nn.ModuleList([
-    create_block(embed_dim, ssm_cfg=ssm_cfg, ..., drop_path=inter_dpr[i], ...)
-    for i in range(depth[0])
-])
-self.blocks = nn.ModuleList([
-    Attention(embed_dim, num_heads=num_heads, ...)
-    for i in range(depth[1])
-])
-...
-def forward_features(self, x, ...):
-    x = self.patch_embed(x)
-    x = self.conv_block0(x); x = self.downsample0(x)
-    x = self.conv_block1(x); x = self.downsample1(x)
-    x = rearrange(x, '(b t) n m -&gt; (b n) t m', b=B, t=T)
-    x = x + self.temporal_pos_embedding
-    for layer in self.layers:
-        hidden_states, residual = layer(hidden_states, residual, ...)
-    for block in self.blocks:
-        hidden_states = hidden_states + drop_path_attn(block(self.norm(hidden_states)))
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>### Forward &amp; Head (`src/brainmt/models/brain_mt.py`)
-</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>CLS token is prepended before Mamba blocks; `forward` returns final MLP head output for regression/classification.
-</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>**CLS token prepending and final head:**
-</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>```400:461:external_repos/brainmt/src/brainmt/models/brain_mt.py
-</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>cls_token = self.cls_token.expand(x.shape[0], -1, -1)
-</span><span id="__span__-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>x = torch.cat((cls_token, x), dim=1)
-</span><span id="__span__-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>...
-</span><span id="__span__-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>return hidden_states[:, 0, :]
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainmt/src/brainmt/models/brain_mt.py (lines 331-462)</span><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span>
+</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">create_block</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">ssm_cfg</span><span class="o">=</span><span class="n">ssm_cfg</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">drop_path</span><span class="o">=</span><span class="n">inter_dpr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">])</span>
+</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span>
+</span><span id="__span__-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">Attention</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">num_heads</span><span class="o">=</span><span class="n">num_heads</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span id="__span__-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">])</span>
+</span><span id="__span__-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="o">...</span>
+</span><span id="__span__-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">forward_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+</span><span id="__span__-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">patch_embed</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span__-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_block0</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span__-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_block1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span__-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;(b t) n m -&gt; (b n) t m&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+</span><span id="__span__-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">temporal_pos_embedding</span>
+</span><span id="__span__-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+</span><span id="__span__-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="n">hidden_states</span><span class="p">,</span> <span class="n">residual</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">,</span> <span class="n">residual</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span><span class="p">:</span>
+</span><span id="__span__-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>        <span class="n">hidden_states</span> <span class="o">=</span> <span class="n">hidden_states</span> <span class="o">+</span> <span class="n">drop_path_attn</span><span class="p">(</span><span class="n">block</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)))</span>
+</span></code></pre></div>
+<h3 id="forward-head-srcbrainmtmodelsbrain_mtpy">Forward &amp; Head (<code>src/brainmt/models/brain_mt.py</code>)<a class="headerlink" href="#forward-head-srcbrainmtmodelsbrain_mtpy" title="Permanent link">&para;</a></h3>
+<p>CLS token is prepended before Mamba blocks; <code>forward</code> returns final MLP head output for regression/classification.</p>
+<p><strong>CLS token prepending and final head:</strong></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainmt/src/brainmt/models/brain_mt.py (lines 400-461)</span><pre><span></span><code><span id="__span__-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">cls_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cls_token</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span__-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">cls_token</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span__-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="o">...</span>
+</span><span id="__span__-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">return</span> <span class="n">hidden_states</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+</span></code></pre></div>
 <h3 id="training-loop-srcbrainmttrainpy">Training Loop (<code>src/brainmt/train.py</code>)<a class="headerlink" href="#training-loop-srcbrainmttrainpy" title="Permanent link">&para;</a></h3>
 <p>Hydra config builds datasets, wraps the model in DDP, selects loss (MSE or BCEWithLogits), constructs layer-wise LR decay groups, and trains with <code>GradScaler</code> + cosine warm restarts.</p>
 <p><strong>DDP training with mixed precision:</strong></p>
-<p>```132:234:external_repos/brainmt/src/brainmt/train.py
-model = BrainMT(**model_config).to(device)
-model = nn.parallel.DistributedDataParallel(model, device_ids=[device_id], ...)
-if cfg.task.loss_fn == "mse":
-    criteria = nn.MSELoss()
-...
-train_loss, train_outputs, train_targets = train_one_epoch(model, criteria, train_loader, optimizer, scaler, device, epoch, cfg)
-val_loss, val_outputs, val_targets = evaluate(model, criteria, val_loader, device)
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>### Inference (`src/brainmt/inference.py`)
-</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>The inference script mirrors dataset splits, loads checkpoints, and computes detailed metrics (accuracy/AUROC for classification, MSE/MAE/R²/Pearson for regression), plus optional plots.
-</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>**Checkpoint loading and metric computation:**
-</span><span id="__span__-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span__-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>```26:210:external_repos/brainmt/src/brainmt/inference.py
-</span><span id="__span__-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>model = BrainMT(**model_config).to(device)
-</span><span id="__span__-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>checkpoint = torch.load(checkpoint_path, map_location=device)
-</span><span id="__span__-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>model.load_state_dict(checkpoint[&#39;model_state_dict&#39;])
-</span><span id="__span__-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>if cfg.task.name == &#39;classification&#39;:
-</span><span id="__span__-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    metrics = calculate_classification_metrics(test_outputs, test_targets)
-</span><span id="__span__-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>else:
-</span><span id="__span__-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    metrics = calculate_regression_metrics(test_outputs, test_targets)
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainmt/src/brainmt/train.py (lines 132-234)</span><pre><span></span><code><span id="__span__-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">BrainMT</span><span class="p">(</span><span class="o">**</span><span class="n">model_config</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span__-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">parallel</span><span class="o">.</span><span class="n">DistributedDataParallel</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="n">device_id</span><span class="p">],</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">loss_fn</span> <span class="o">==</span> <span class="s2">&quot;mse&quot;</span><span class="p">:</span>
+</span><span id="__span__-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">criteria</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+</span><span id="__span__-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="o">...</span>
+</span><span id="__span__-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">train_loss</span><span class="p">,</span> <span class="n">train_outputs</span><span class="p">,</span> <span class="n">train_targets</span> <span class="o">=</span> <span class="n">train_one_epoch</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+</span><span id="__span__-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">val_loss</span><span class="p">,</span> <span class="n">val_outputs</span><span class="p">,</span> <span class="n">val_targets</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="inference-srcbrainmtinferencepy">Inference (<code>src/brainmt/inference.py</code>)<a class="headerlink" href="#inference-srcbrainmtinferencepy" title="Permanent link">&para;</a></h3>
+<p>The inference script mirrors dataset splits, loads checkpoints, and computes detailed metrics (accuracy/AUROC for classification, MSE/MAE/R²/Pearson for regression), plus optional plots.</p>
+<p><strong>Checkpoint loading and metric computation:</strong></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainmt/src/brainmt/inference.py (lines 26-210)</span><pre><span></span><code><span id="__span__-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">BrainMT</span><span class="p">(</span><span class="o">**</span><span class="n">model_config</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span__-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">checkpoint</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span__-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;model_state_dict&#39;</span><span class="p">])</span>
+</span><span id="__span__-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;classification&#39;</span><span class="p">:</span>
+</span><span id="__span__-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">metrics</span> <span class="o">=</span> <span class="n">calculate_classification_metrics</span><span class="p">(</span><span class="n">test_outputs</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+</span><span id="__span__-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">else</span><span class="p">:</span>
+</span><span id="__span__-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">metrics</span> <span class="o">=</span> <span class="n">calculate_regression_metrics</span><span class="p">(</span><span class="n">test_outputs</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+</span></code></pre></div>
 <h2 id="integration-hooks-brain-genetics">Integration Hooks (Brain ↔ Genetics)<a class="headerlink" href="#integration-hooks-brain-genetics" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Embedding shape.</strong> <code>forward_features</code> returns <code>[B, hidden]</code> CLS vectors (hidden default 512). To access intermediate token embeddings, tap <code>hidden_states[:, 1:, :]</code> before the final average/MLP.^[<code>400:462:external_repos/brainmt/src/brainmt/models/brain_mt.py</code>]</li>
+<li><strong>Embedding shape.</strong> <code>forward_features</code> returns <code>[B, hidden]</code> CLS vectors (hidden default 512). To access intermediate token embeddings, tap <code>hidden_states[:, 1:, :]</code> before the final average/MLP.^[<code>text title="external_repos/brainmt/src/brainmt/models/brain_mt.py</code>] (lines 400-462)"</li>
 <li><strong>Pooling choices.</strong> CLS token encodes temporal-first, globally attentive context. For voxel-conditioned embeddings, reshape post-Mamba tensor back to <code>[B, voxels, hidden]</code> prior to the transformer block and average along the voxel axis.</li>
 <li><strong>Projection to shared latent.</strong> Map <code>[B, 512]</code> BrainMT vectors into a 512-D multimodal space with a lightweight projector:</li>
 </ul>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span__-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
-</span><span id="__span__-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span__-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">BrainMTProjector</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-</span><span id="__span__-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
-</span><span id="__span__-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-</span><span id="__span__-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
-</span><span id="__span__-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="mi">1024</span><span class="p">),</span>
-</span><span id="__span__-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">GELU</span><span class="p">(),</span>
-</span><span id="__span__-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">),</span>
-</span><span id="__span__-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">),</span>
-</span><span id="__span__-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">output_dim</span><span class="p">),</span>
-</span><span id="__span__-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="p">)</span>
-</span><span id="__span__-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-</span><span id="__span__-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-</span><span id="__span__-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span__-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+</span><span id="__span__-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span__-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">BrainMTProjector</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+</span><span id="__span__-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span__-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+</span><span id="__span__-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="mi">1024</span><span class="p">),</span>
+</span><span id="__span__-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">GELU</span><span class="p">(),</span>
+</span><span id="__span__-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">),</span>
+</span><span id="__span__-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">),</span>
+</span><span id="__span__-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">output_dim</span><span class="p">),</span>
+</span><span id="__span__-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        <span class="p">)</span>
+</span><span id="__span__-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+</span><span id="__span__-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span><span id="__span__-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </span></code></pre></div>
 - <strong>Normalization.</strong> Because BrainMT ends with LayerNorm (<code>self.norm_f</code>), additional LayerNorm in the projector keeps the scale comparable to genetic embeddings.
-- <strong>Temporal handling.</strong> The temporal-first scan (<code>rearrange(..., b n) t m -&gt; b (n t) m</code>) is crucial for long-range modeling—preserve this ordering if you export intermediate features for contrastive alignment with DNA sequences.^[<code>421:444:external_repos/brainmt/src/brainmt/models/brain_mt.py</code>]</p>
+- <strong>Temporal handling.</strong> The temporal-first scan (<code>rearrange(..., b n) t m -&gt; b (n t) m</code>) is crucial for long-range modeling—preserve this ordering if you export intermediate features for contrastive alignment with DNA sequences.^[<code>text title="external_repos/brainmt/src/brainmt/models/brain_mt.py</code>] (lines 421-444)"</p>
 <p>Projected BrainMT features can then be concatenated or contrastively aligned with Evo 2/GENERator/Caduceus embeddings to study genetics↔fMRI correspondences.</p>
 
 

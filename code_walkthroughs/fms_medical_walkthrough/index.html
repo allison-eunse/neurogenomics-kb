@@ -3203,6 +3203,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#modality-method-registries-lfmvfmbfmmfm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modality Method Registries (LFM/VFM/BFM/MFM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dataset-catalogs" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3213,28 +3224,11 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#datasets" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Datasets
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Datasets">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
-  <a href="#lfm-datasets" class="md-nav__link">
+  <a href="#other-resources-lecturesblogsawesome-lists" class="md-nav__link">
     <span class="md-ellipsis">
       
-        LFM datasets
+        Other Resources (Lectures/Blogs/Awesome lists)
       
     </span>
   </a>
@@ -5239,7 +5233,7 @@
 <p><strong>KB references:</strong> Survey digest (pending) · <a href="../../integration/integration_strategy/">Integration strategy</a> · <a href="../../guide/kb_overview/">KB overview</a> · <a href="../../kb/templates/experiment_config_stub/">Experiment config stub</a></p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p><code>external_repos/fms-medical</code> is an “awesome list” style knowledge base that tracks foundation-model research across healthcare modalities—language (LFM), vision (VFM), bioinformatics (BFM), and multimodal (MFM)—plus dataset catalogs, tutorials, and bilingual survey PDFs. The maintainers keep the README current with publication news (e.g., IEEE Reviews acceptance) and provide both English and Chinese summaries (<code>files/HFM_Chinese.pdf</code>), making it a convenient seed for KB model/dataset cards.^[<code>1:38:/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md</code>]</p>
+<p><code>external_repos/fms-medical</code> is an “awesome list” style knowledge base that tracks foundation-model research across healthcare modalities—language (LFM), vision (VFM), bioinformatics (BFM), and multimodal (MFM)—plus dataset catalogs, tutorials, and bilingual survey PDFs. The maintainers keep the README current with publication news (e.g., IEEE Reviews acceptance) and provide both English and Chinese summaries (<code>files/HFM_Chinese.pdf</code>), making it a convenient seed for KB model/dataset cards.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md</code>] (lines 1-38)"</p>
 <h2 id="at-a-glance">At-a-Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -5254,7 +5248,7 @@
 </thead>
 <tbody>
 <tr>
-<td>Markdown knowledge graph: NEWS → Survey references → modality-specific method lists + dataset tables.^[<code>39:399:/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md</code>]</td>
+<td>Markdown knowledge graph: NEWS → Survey references → modality-specific method lists + dataset tables.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md</code>]</td>
 <td>Organized by year (2020–2024) and modality; each entry stores venue, short description, and code/paper links—ready for transformation into KB YAML cards.</td>
 <td>Highlights IEEE Reviews 2024 survey + arXiv companions; hosts bilingual PDF in <code>files/</code> for regional teams.^[<code>5:38:/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md</code>]</td>
 <td>Pure Markdown + embedded images; contributions occur via pull requests (no runtime code).</td>
@@ -5266,96 +5260,52 @@
 <h3 id="repository-notes">Repository Notes<a class="headerlink" href="#repository-notes" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Documentation-only.</strong> No Python modules or requirements—syncing the README (and optional PDF) is sufficient to integrate the content into KB templates.</li>
-<li><strong>Bilingual assets.</strong> <code>files/HFM_Chinese.pdf</code> mirrors the survey for Mandarin readers; cite it when translating KB summaries.^[<code>17:34:/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md</code>]</li>
+<li><strong>Bilingual assets.</strong> <code>files/HFM_Chinese.pdf</code> mirrors the survey for Mandarin readers; cite it when translating KB summaries.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md</code>] (lines 17-34)"</li>
 <li><strong>Citation-first.</strong> Each entry lists papers/code, so KB automation scripts can parse the tables to populate <code>kb/model_cards</code>, <code>kb/datasets</code>, or <code>docs/generated</code> references.</li>
 </ul>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
 <h3 id="survey-metadata-news-banner">Survey Metadata &amp; NEWS Banner<a class="headerlink" href="#survey-metadata-news-banner" title="Permanent link">&para;</a></h3>
 <p>Top-of-file announcements capture publication milestones, acceptance venues, and contact information. These lines can drive KB changelogs or curated timelines.</p>
 <p><strong>README header with news updates:</strong></p>
-<p>```5:34:/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md
-<a href="https://awesome.re"><img alt="Awesome" src="https://awesome.re/badge.svg" /></a></p>
-<p>[NEWS.20241115] <strong>Our survey <a href="https://ieeexplore.ieee.org/document/10750441">paper</a> has been accepted by IEEE Reviews in Biomedical Engineering (IF: 17.2).</strong></p>
-<p>[NEWS.20240405] <strong>The related survey <a href="https://arxiv.org/abs/2404.03264">paper</a> has been released.</strong></p>
-<p>[NOTE] <strong>If you have any questions, please don't hesitate to <a href="mailto:yuting.he4@case.edu">contact us</a>.</strong> 
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>### Modality Method Registries (LFM/VFM/BFM/MFM)
+<div class="language-markdown highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md (lines 5-34)</span><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[<span class="nt">![Awesome</span>](<span class="na">https://awesome.re/badge.svg</span>)](https://awesome.re)
 </span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Each section groups methods by year, venue, and modality. Capturing these rows lets the KB auto-generate candidate model cards or integration experiments.
+</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>[NEWS.20241115] <span class="gs">**Our survey [paper](https://ieeexplore.ieee.org/document/10750441) has been accepted by IEEE Reviews in Biomedical Engineering (IF: 17.2).**</span>
 </span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>**Method listings by modality:**
+</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>[NEWS.20240405] <span class="gs">**The related survey [paper](https://arxiv.org/abs/2404.03264) has been released.**</span>
 </span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>```82:210:/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md
-</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>## LFM methods
-</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>**2024**
-</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>- [AAAI] Zhongjing: Enhancing the chinese medical capabilities of large language model through expert feedback and realworld multi-turn dialogue. [[Paper]](https://ojs.aaai.org/index.php/AAAI/article/view/29907) [[Code]](https://github.com/SupritYoung/Zhongjing)
-</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>- [NeurIPS] MDAgents: An adaptive collaboration of LLMs for medical decision-making. [[Paper]](https://arxiv.org/abs/2404.15155) [[Code]](https://github.com/mitmedialab/MDAgents)
-</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>...
-</span><span id="__span__-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>## VFM methods
-</span><span id="__span__-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>**2024**
-</span><span id="__span__-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>- [arXiv] USFM: A universal ultrasound foundation model generalized to tasks and organs towards label efficient image analysis. [[paper]](https://arxiv.org/html/2401.00153v2) 
-</span></code></pre></div></p>
+</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>[NOTE] <span class="gs">**If you have any questions, please don&#39;t hesitate to [contact us](mailto:yuting.he4@case.edu).**</span> 
+</span></code></pre></div>
+<h3 id="modality-method-registries-lfmvfmbfmmfm">Modality Method Registries (LFM/VFM/BFM/MFM)<a class="headerlink" href="#modality-method-registries-lfmvfmbfmmfm" title="Permanent link">&para;</a></h3>
+<p>Each section groups methods by year, venue, and modality. Capturing these rows lets the KB auto-generate candidate model cards or integration experiments.</p>
+<p><strong>Method listings by modality:</strong></p>
+<div class="language-markdown highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md (lines 82-210)</span><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gu">## LFM methods</span>
+</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="gs">**2024**</span>
+</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">-</span><span class="w"> </span>[AAAI] Zhongjing: Enhancing the chinese medical capabilities of large language model through expert feedback and realworld multi-turn dialogue. [[Paper]](https://ojs.aaai.org/index.php/AAAI/article/view/29907) [[Code]](https://github.com/SupritYoung/Zhongjing)
+</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">-</span><span class="w"> </span>[NeurIPS] MDAgents: An adaptive collaboration of LLMs for medical decision-making. [[Paper]](https://arxiv.org/abs/2404.15155) [[Code]](https://github.com/mitmedialab/MDAgents)
+</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>...
+</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="gu">## VFM methods</span>
+</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="gs">**2024**</span>
+</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">-</span><span class="w"> </span>[arXiv] USFM: A universal ultrasound foundation model generalized to tasks and organs towards label efficient image analysis. [[paper]](https://arxiv.org/html/2401.00153v2) 
+</span></code></pre></div>
 <h3 id="dataset-catalogs">Dataset Catalogs<a class="headerlink" href="#dataset-catalogs" title="Permanent link">&para;</a></h3>
 <p>Separate tables detail datasets per modality (text, imaging, multimodal). These rows map neatly onto <code>kb/datasets/*.yaml</code> and help ensure coverage across integrative experiments.</p>
 <p><strong>Dataset tables by modality:</strong></p>
-<p>```339:399:/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md</p>
-<h2 id="datasets">Datasets<a class="headerlink" href="#datasets" title="Permanent link">&para;</a></h2>
-<h3 id="lfm-datasets">LFM datasets<a class="headerlink" href="#lfm-datasets" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: center;">Dataset  Name</th>
-<th style="text-align: center;">Text Types</th>
-<th style="text-align: center;">Scale</th>
-<th style="text-align: center;">Task</th>
-<th style="text-align: center;">Link</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;"><a href="https://pubmed.ncbi.nlm.nih.gov/download/">PubMed</a></td>
-<td style="text-align: center;">Literature</td>
-<td style="text-align: center;">18B tokens</td>
-<td style="text-align: center;">Language modeling</td>
-<td style="text-align: center;"><a href="https://pubmed.ncbi.nlm.nih.gov/download/">*</a></td>
-</tr>
-<tr>
-<td style="text-align: center;"><a href="https://arxiv.org/abs/2304.14454">MedC-I</a></td>
-<td style="text-align: center;">Literature</td>
-<td style="text-align: center;">79.2B tokens</td>
-<td style="text-align: center;">Dialogue</td>
-<td style="text-align: center;"><a href="https://huggingface.co/datasets/axiong/pmc_llama_instructions">*</a></td>
-</tr>
-<tr>
-<td style="text-align: center;">...</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"><a href="https://www.mdpi.com/2078-2489/11/4/186">CMeKG-8K</a></td>
-<td style="text-align: center;">Dialogue</td>
-<td style="text-align: center;">8K instances</td>
-<td style="text-align: center;">Dialogue</td>
-<td style="text-align: center;"><a href="https://github.com/WENGSYX/CMKG">*</a></td>
-</tr>
-<tr>
-<td style="text-align: center;"><div class="language-text highlight"><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>### Other Resources (Lectures/Blogs/Awesome lists)
-</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>The README also aggregates tutorials, blogs, and related awesome repositories under “Other Resources,” which can seed KB “Further reading” sections or onboarding material.
-</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>```53:74:/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md
-</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>- [Other Resources](#other-resources)
-</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  - [Lectures and tutorials](#lectures-and-tutorials)
-</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  - [Blogs](#blogs)
-</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  - [Related awesome repositories](#related-awesome-repositories)
-</span></code></pre></div></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
+<div class="language-markdown highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md (lines 339-399)</span><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gu">## Datasets</span>
+</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="gu">### LFM datasets</span>
+</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>|                           Dataset  Name                               | Text Types  |            Scale           |    Task    |                       Link                             |
+</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>| :-------------------------------------------------------------------: | :-------: | :------------------------: | :--------: | :----------------------------------------------------: |
+</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>|[PubMed](https://pubmed.ncbi.nlm.nih.gov/download/) | Literature | 18B tokens |  Language modeling |[*](https://pubmed.ncbi.nlm.nih.gov/download/)|
+</span><span id="__span__-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>|[MedC-I](https://arxiv.org/abs/2304.14454)| Literature | 79.2B tokens |  Dialogue |[*](https://huggingface.co/datasets/axiong/pmc_llama_instructions)|
+</span><span id="__span__-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>...
+</span><span id="__span__-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>|[CMeKG-8K](https://www.mdpi.com/2078-2489/11/4/186)| Dialogue | 8K instances |  Dialogue |[*](https://github.com/WENGSYX/CMKG)|
+</span></code></pre></div>
+<h3 id="other-resources-lecturesblogsawesome-lists">Other Resources (Lectures/Blogs/Awesome lists)<a class="headerlink" href="#other-resources-lecturesblogsawesome-lists" title="Permanent link">&para;</a></h3>
+<p>The README also aggregates tutorials, blogs, and related awesome repositories under “Other Resources,” which can seed KB “Further reading” sections or onboarding material.</p>
+<div class="language-markdown highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/fms-medical/README.md (lines 53-74)</span><pre><span></span><code><span id="__span__-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">-</span><span class="w"> </span>[<span class="nt">Other Resources</span>](<span class="na">#other-resources</span>)
+</span><span id="__span__-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>[<span class="nt">Lectures and tutorials</span>](<span class="na">#lectures-and-tutorials</span>)
+</span><span id="__span__-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>[<span class="nt">Blogs</span>](<span class="na">#blogs</span>)
+</span><span id="__span__-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>[<span class="nt">Related awesome repositories</span>](<span class="na">#related-awesome-repositories</span>)
+</span></code></pre></div>
 <h2 id="integration-hooks-curation-kb">Integration Hooks (Curation ↔ KB)<a class="headerlink" href="#integration-hooks-curation-kb" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Automate card creation.</strong> Parse the Markdown tables (e.g., via pandoc or custom scripts) to prefill <code>kb/model_cards</code> with metadata (venue, year, links), ensuring coverage parity across modalities.</li>

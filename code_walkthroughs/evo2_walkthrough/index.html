@@ -2752,10 +2752,43 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#backbone-loader-evo2evo2modelspy-evo2evo2configsevo2-7b-1myml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backbone Loader (evo2/evo2/models.py, evo2/evo2/configs/evo2-7b-1m.yml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objective-diagnostics-evo2evo2testtest_evo2py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objective &amp; Diagnostics (evo2/evo2/test/test_evo2.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#inference-helpers-evo2evo2modelspy" class="md-nav__link">
     <span class="md-ellipsis">
       
         Inference Helpers (evo2/evo2/models.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedding-extraction-hooks-evo2evo2modelspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding Extraction Hooks (evo2/evo2/models.py)
       
     </span>
   </a>
@@ -2775,6 +2808,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-hooks-genetics-brain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Hooks (Genetics ↔ Brain)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -5222,7 +5266,7 @@
 <p><strong>KB references:</strong> <a href="../../models/genetics/evo2/">Model card</a> · <a href="../../integration/modality_features/genomics/">Genomics feature spec</a> · <a href="../../integration/integration_strategy/">Integration strategy</a> · <a href="../../kb/templates/experiment_config_stub/">Experiment config stub</a></p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Evo 2 packages StripedHyena 2 checkpoints behind a lightweight Python API so you can run 1 Mbp autoregressive DNA modeling, scoring, and generation without touching the underlying Vortex stack. The repo exposes the 1B/7B/40B parameter checkpoints described in the bioRxiv preprint and HuggingFace collection, all of which share the same tokenizer (single‐nucleotide CharLevelTokenizer with a 512-symbol vocab) and reverse-complement aware inference utilities.^[<code>5:118:external_repos/evo2/README.md</code>]</p>
+<p>Evo 2 packages StripedHyena 2 checkpoints behind a lightweight Python API so you can run 1 Mbp autoregressive DNA modeling, scoring, and generation without touching the underlying Vortex stack. The repo exposes the 1B/7B/40B parameter checkpoints described in the bioRxiv preprint and HuggingFace collection, all of which share the same tokenizer (single‐nucleotide CharLevelTokenizer with a 512-symbol vocab) and reverse-complement aware inference utilities.^[<code>text title="external_repos/evo2/README.md</code>] (lines 5-118)"</p>
 <h2 id="at-a-glance">At-a-Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -5237,7 +5281,7 @@
 </thead>
 <tbody>
 <tr>
-<td>StripedHyena 2 mixer loaded via Vortex (<code>StripedHyena</code> backbone)^[<code>171:258:external_repos/evo2/evo2/models.py</code>]</td>
+<td>StripedHyena 2 mixer loaded via Vortex (<code>StripedHyena</code> backbone)^[<code>text title="external_repos/evo2/evo2/models.py</code>]</td>
 <td>1B / 7B / 40B checkpoints (<code>MODEL_NAMES</code>)^[<code>1:33:external_repos/evo2/evo2/utils.py</code>]</td>
 <td><code>max_seqlen: 1048576</code> (≈1 Mbp)^[<code>3:60:external_repos/evo2/evo2/configs/evo2-7b-1m.yml</code>]</td>
 <td>Char-level tokenizer with 512 symbols; padding handled in <code>prepare_batch</code>^[<code>19:51:external_repos/evo2/evo2/models.py</code>][<code>10:34:external_repos/evo2/evo2/scoring.py</code>]</td>
@@ -5251,143 +5295,132 @@
 <li><strong>Exact pip/conda setup for FP8 + long context.</strong> The README prescribes installing Transformer Engine and FlashAttention before running million-token inference:<br />
 <code>conda install -c nvidia cuda-nvcc cuda-cudart-dev</code><br />
 <code>conda install -c conda-forge transformer-engine-torch=2.3.0</code><br />
-<code>pip install flash-attn==2.8.0.post2 --no-build-isolation</code>^[<code>54:58:external_repos/evo2/README.md</code>]</li>
-<li><strong>Hardware guidance.</strong> Official instructions call for Linux/WSL2 with CUDA 12.1+, FP8-capable GPUs (compute capability ≥8.9) and note that the 40 B checkpoints require multi-GPU partitioning via Vortex; Python 3.12 is required for the packaged binaries.^[<code>34:52:external_repos/evo2/README.md</code>]</li>
+<code>pip install flash-attn==2.8.0.post2 --no-build-isolation</code>^[<code>text title="external_repos/evo2/README.md</code>] (lines 54-58)"</li>
+<li><strong>Hardware guidance.</strong> Official instructions call for Linux/WSL2 with CUDA 12.1+, FP8-capable GPUs (compute capability ≥8.9) and note that the 40 B checkpoints require multi-GPU partitioning via Vortex; Python 3.12 is required for the packaged binaries.^[<code>text title="external_repos/evo2/README.md</code>] (lines 34-52)"</li>
 </ul>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
 <h3 id="tokenizer-preprocessing-evo2evo2modelspy-evo2evo2scoringpy">Tokenizer &amp; Preprocessing (<code>evo2/evo2/models.py</code>, <code>evo2/evo2/scoring.py</code>)<a class="headerlink" href="#tokenizer-preprocessing-evo2evo2modelspy-evo2evo2scoringpy" title="Permanent link">&para;</a></h3>
 <p>The API always instantiates a Vortex <code>CharLevelTokenizer(512)</code> and pairs it with pad/BOS conventions inside <code>prepare_batch</code>, which right-pads sequences to the longest length in the batch while optionally prepending an EOD token for language modeling reductions.</p>
 <p><strong>Character-level tokenizer initialization:</strong></p>
-<p>```19:34:external_repos/evo2/evo2/models.py
-class Evo2:
-    def <strong>init</strong>(self, model_name: str = MODEL_NAMES[1], local_path: str = None):
-        ...
-        self.tokenizer = CharLevelTokenizer(512)
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>**Batch preparation with padding and BOS:**
-</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>```10:34:external_repos/evo2/evo2/scoring.py
-</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>def prepare_batch(
-</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        seqs: List[str],
-</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        tokenizer: object,
-</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        prepend_bos: bool = False,
-</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        device: str = &#39;cuda:0&#39;
-</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>) -&gt; Tuple[torch.Tensor, List[int]]:
-</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    ...
-</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    padding = [tokenizer.pad_id] * (max_seq_length - len(seq))
-</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    input_ids.append(
-</span><span id="__span__-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        torch.tensor(
-</span><span id="__span__-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>            ([tokenizer.eod_id] * int(prepend_bos)) + tokenizer.tokenize(seq) + padding,
-</span><span id="__span__-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>            dtype=torch.long,
-</span><span id="__span__-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        ).to(device).unsqueeze(0)
-</span><span id="__span__-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    )
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/evo2/evo2/models.py (lines 19-34)</span><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Evo2</span><span class="p">:</span>
+</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">MODEL_NAMES</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">local_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="o">...</span>
+</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">CharLevelTokenizer</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>Batch preparation with padding and BOS:</strong></p>
+<div class="language-python highlight"><span class="filename">external_repos/evo2/evo2/scoring.py (lines 10-34)</span><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">prepare_batch</span><span class="p">(</span>
+</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>        <span class="n">seqs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="n">tokenizer</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="n">prepend_bos</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;cuda:0&#39;</span>
+</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="o">...</span>
+</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">padding</span> <span class="o">=</span> <span class="p">[</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_id</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_seq_length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>
+</span><span id="__span__-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">input_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span><span id="__span__-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+</span><span id="__span__-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>            <span class="p">([</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">eod_id</span><span class="p">]</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">prepend_bos</span><span class="p">))</span> <span class="o">+</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span> <span class="o">+</span> <span class="n">padding</span><span class="p">,</span>
+</span><span id="__span__-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>            <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span>
+</span><span id="__span__-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span__-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="p">)</span>
+</span></code></pre></div>
 <h3 id="positional-reverse-complement-handling-evo2evo2scoringpy">Positional &amp; Reverse-Complement Handling (<code>evo2/evo2/scoring.py</code>)<a class="headerlink" href="#positional-reverse-complement-handling-evo2evo2scoringpy" title="Permanent link">&para;</a></h3>
 <p>Reverse-complement scoring duplicates the batch, flips it via Biopython, and averages the two likelihood traces so downstream metrics remain strand invariant.</p>
 <p><strong>RC-aware scoring with averaging:</strong></p>
-<p>```127:170:external_repos/evo2/evo2/scoring.py
-def score_sequences_rc(...):
-    batch_seqs_rc = [ str(Seq(seq).reverse_complement()) for seq in batch_seqs ]
-    ...
-    batch_scores = _score_sequences(...)
-    batch_scores_rc = _score_sequences(...)
-    batch_scores = (np.array(batch_scores) + np.array(batch_scores_rc)) * 0.5
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>### Backbone Loader (`evo2/evo2/models.py`, `evo2/evo2/configs/evo2-7b-1m.yml`)
-</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>`load_evo2_model` resolves the YAML config, instantiates `StripedHyena` with the Hyena/Mamba layer schedule, and merges HF shards (removing them afterward) before loading the `.pt` checkpoint.
-</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>**Model loading with config resolution:**
-</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>```171:258:external_repos/evo2/evo2/models.py
-</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>def load_evo2_model(...):
-</span><span id="__span__-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    config = dotdict(yaml.load(open(config_path), Loader=yaml.FullLoader))
-</span><span id="__span__-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    model = StripedHyena(config)
-</span><span id="__span__-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    load_checkpoint(model, weights_path)
-</span><span id="__span__-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    return model
-</span></code></pre></div></p>
-<p>```3:65:external_repos/evo2/evo2/configs/evo2-7b-1m.yml
-hidden_size: 4096
-num_layers: 32
-max_seqlen: 1048576
-tokenizer_type: CharLevelTokenizer
-use_flash_attn: True
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>### Objective &amp; Diagnostics (`evo2/evo2/test/test_evo2.py`)
-</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>The supplied test harness tokenizes CSV prompts, runs a forward pass, and reports cross-entropy plus next-token accuracy so you can validate checkpoints against the published numbers.
-</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>```34:124:external_repos/evo2/evo2/test/test_evo2.py
-</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>with torch.inference_mode():
-</span><span id="__span__-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    logits, _ = model.model.forward(input_ids.unsqueeze(0))
-</span><span id="__span__-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    loss = F.cross_entropy(pred_logits, target_ids.long())
-</span><span id="__span__-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    accuracy = (target_ids == pred_tokens).float().mean().item()
-</span><span id="__span__-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>...
-</span><span id="__span__-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>expected_metrics = {
-</span><span id="__span__-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    &#39;evo2_40b&#39;: {&#39;loss&#39;: 0.2159424, &#39;acc&#39;: 91.673},
-</span><span id="__span__-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    ...
-</span><span id="__span__-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>}
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/evo2/evo2/scoring.py (lines 127-170)</span><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">score_sequences_rc</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">batch_seqs_rc</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">str</span><span class="p">(</span><span class="n">Seq</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span><span class="o">.</span><span class="n">reverse_complement</span><span class="p">())</span> <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">batch_seqs</span> <span class="p">]</span>
+</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="o">...</span>
+</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">batch_scores</span> <span class="o">=</span> <span class="n">_score_sequences</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">batch_scores_rc</span> <span class="o">=</span> <span class="n">_score_sequences</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">batch_scores</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">batch_scores</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">batch_scores_rc</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.5</span>
+</span></code></pre></div>
+<h3 id="backbone-loader-evo2evo2modelspy-evo2evo2configsevo2-7b-1myml">Backbone Loader (<code>evo2/evo2/models.py</code>, <code>evo2/evo2/configs/evo2-7b-1m.yml</code>)<a class="headerlink" href="#backbone-loader-evo2evo2modelspy-evo2evo2configsevo2-7b-1myml" title="Permanent link">&para;</a></h3>
+<p><code>load_evo2_model</code> resolves the YAML config, instantiates <code>StripedHyena</code> with the Hyena/Mamba layer schedule, and merges HF shards (removing them afterward) before loading the <code>.pt</code> checkpoint.</p>
+<p><strong>Model loading with config resolution:</strong></p>
+<div class="language-python highlight"><span class="filename">external_repos/evo2/evo2/models.py (lines 171-258)</span><pre><span></span><code><span id="__span__-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">load_evo2_model</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+</span><span id="__span__-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">config</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">FullLoader</span><span class="p">))</span>
+</span><span id="__span__-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">StripedHyena</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</span><span id="__span__-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">load_checkpoint</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">weights_path</span><span class="p">)</span>
+</span><span id="__span__-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="k">return</span> <span class="n">model</span>
+</span></code></pre></div>
+<div class="language-yaml highlight"><span class="filename">external_repos/evo2/evo2/configs/evo2-7b-1m.yml (lines 3-65)</span><pre><span></span><code><span id="__span__-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">hidden_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4096</span>
+</span><span id="__span__-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+</span><span id="__span__-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nt">max_seqlen</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1048576</span>
+</span><span id="__span__-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nt">tokenizer_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CharLevelTokenizer</span>
+</span><span id="__span__-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nt">use_flash_attn</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+</span></code></pre></div>
+<h3 id="objective-diagnostics-evo2evo2testtest_evo2py">Objective &amp; Diagnostics (<code>evo2/evo2/test/test_evo2.py</code>)<a class="headerlink" href="#objective-diagnostics-evo2evo2testtest_evo2py" title="Permanent link">&para;</a></h3>
+<p>The supplied test harness tokenizes CSV prompts, runs a forward pass, and reports cross-entropy plus next-token accuracy so you can validate checkpoints against the published numbers.</p>
+<div class="language-python highlight"><span class="filename">external_repos/evo2/evo2/test/test_evo2.py (lines 34-124)</span><pre><span></span><code><span id="__span__-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
+</span><span id="__span__-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">logits</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">input_ids</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</span><span id="__span__-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">pred_logits</span><span class="p">,</span> <span class="n">target_ids</span><span class="o">.</span><span class="n">long</span><span class="p">())</span>
+</span><span id="__span__-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">target_ids</span> <span class="o">==</span> <span class="n">pred_tokens</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span><span id="__span__-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="o">...</span>
+</span><span id="__span__-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">expected_metrics</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span__-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="s1">&#39;evo2_40b&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="mf">0.2159424</span><span class="p">,</span> <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="mf">91.673</span><span class="p">},</span>
+</span><span id="__span__-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="o">...</span>
+</span><span id="__span__-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">}</span>
+</span></code></pre></div>
 <h3 id="inference-helpers-evo2evo2modelspy">Inference Helpers (<code>evo2/evo2/models.py</code>)<a class="headerlink" href="#inference-helpers-evo2evo2modelspy" title="Permanent link">&para;</a></h3>
 <p><code>score_sequences</code> and <code>generate</code> wrap the Hyena forward pass with batching, tokenizer reuse, and memory-aware knobs such as cached generation and <code>force_prompt_threshold</code> so you can guard against OOMs on long prompts.</p>
-<p>```109:169:external_repos/evo2/evo2/models.py
-def score_sequences(...):
-    scoring_func = partial(score_sequences_rc if average_reverse_complement else score_sequences, ...)
-    with torch.no_grad():
-        scores = scoring_func(seqs)
-...
-def generate(...):
-    output = vortex_generate(
-        prompt_seqs=prompt_seqs,
-        model=self.model,
-        tokenizer=self.tokenizer,
-        n_tokens=n_tokens,
-        temperature=temperature,
-        top_k=top_k,
-        cached_generation=cached_generation,
-        force_prompt_threshold=force_prompt_threshold,
-    )
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>### Embedding Extraction Hooks (`evo2/evo2/models.py`)
-</span><span id="__span__-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Forward hooks can be registered on any named submodule (e.g., `blocks.28.mlp`) so you can capture intermediate representations without modifying Vortex internals.
-</span><span id="__span__-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span__-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>```52:105:external_repos/evo2/evo2/models.py
-</span><span id="__span__-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>def forward(..., return_embeddings: bool = False, layer_names=None):
-</span><span id="__span__-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    if return_embeddings:
-</span><span id="__span__-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        layer = self.model.get_submodule(name)
-</span><span id="__span__-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        handles.append(layer.register_forward_hook(hook_fn(name)))
-</span><span id="__span__-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    logits = self.model.forward(input_ids)
-</span><span id="__span__-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    if return_embeddings:
-</span><span id="__span__-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        return logits, embeddings
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/evo2/evo2/models.py (lines 109-169)</span><pre><span></span><code><span id="__span__-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">score_sequences</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+</span><span id="__span__-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">scoring_func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">score_sequences_rc</span> <span class="k">if</span> <span class="n">average_reverse_complement</span> <span class="k">else</span> <span class="n">score_sequences</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span><span id="__span__-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        <span class="n">scores</span> <span class="o">=</span> <span class="n">scoring_func</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+</span><span id="__span__-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="o">...</span>
+</span><span id="__span__-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+</span><span id="__span__-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">output</span> <span class="o">=</span> <span class="n">vortex_generate</span><span class="p">(</span>
+</span><span id="__span__-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        <span class="n">prompt_seqs</span><span class="o">=</span><span class="n">prompt_seqs</span><span class="p">,</span>
+</span><span id="__span__-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+</span><span id="__span__-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        <span class="n">tokenizer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">,</span>
+</span><span id="__span__-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        <span class="n">n_tokens</span><span class="o">=</span><span class="n">n_tokens</span><span class="p">,</span>
+</span><span id="__span__-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        <span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">,</span>
+</span><span id="__span__-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="n">top_k</span><span class="o">=</span><span class="n">top_k</span><span class="p">,</span>
+</span><span id="__span__-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="n">cached_generation</span><span class="o">=</span><span class="n">cached_generation</span><span class="p">,</span>
+</span><span id="__span__-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="n">force_prompt_threshold</span><span class="o">=</span><span class="n">force_prompt_threshold</span><span class="p">,</span>
+</span><span id="__span__-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<h3 id="embedding-extraction-hooks-evo2evo2modelspy">Embedding Extraction Hooks (<code>evo2/evo2/models.py</code>)<a class="headerlink" href="#embedding-extraction-hooks-evo2evo2modelspy" title="Permanent link">&para;</a></h3>
+<p>Forward hooks can be registered on any named submodule (e.g., <code>blocks.28.mlp</code>) so you can capture intermediate representations without modifying Vortex internals.</p>
+<div class="language-python highlight"><span class="filename">external_repos/evo2/evo2/models.py (lines 52-105)</span><pre><span></span><code><span id="__span__-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">return_embeddings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">layer_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span__-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="k">if</span> <span class="n">return_embeddings</span><span class="p">:</span>
+</span><span id="__span__-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_submodule</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span id="__span__-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        <span class="n">handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span><span class="n">hook_fn</span><span class="p">(</span><span class="n">name</span><span class="p">)))</span>
+</span><span id="__span__-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">input_ids</span><span class="p">)</span>
+</span><span id="__span__-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="k">if</span> <span class="n">return_embeddings</span><span class="p">:</span>
+</span><span id="__span__-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        <span class="k">return</span> <span class="n">logits</span><span class="p">,</span> <span class="n">embeddings</span>
+</span></code></pre></div>
 <h3 id="sequence-constraints-evo2evo2configsevo2-7b-1myml-evo2evo2scoringpy">Sequence Constraints (<code>evo2/evo2/configs/evo2-7b-1m.yml</code>, <code>evo2/evo2/scoring.py</code>)<a class="headerlink" href="#sequence-constraints-evo2evo2configsevo2-7b-1myml-evo2evo2scoringpy" title="Permanent link">&para;</a></h3>
 <p>Hyena checkpoints assume 1 M tokens and the char tokenizer emits IDs per nucleotide, so batching must pad or truncate to keep tensors rectangular; the scorer enforces this padding and strips BOS tokens before computing positional log-likelihoods.</p>
-<p>```52:88:external_repos/evo2/evo2/scoring.py
-softmax_logprobs = torch.log_softmax(logits, dim=-1)
-softmax_logprobs = softmax_logprobs[:, :-1]
-input_ids = input_ids[:, 1:]
-logprobs = torch.gather(softmax_logprobs, 2, input_ids.unsqueeze(-1)).squeeze(-1)
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>## Integration Hooks (Genetics ↔ Brain)
-</span><span id="__span__-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span__-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>- **Embedding shape.** The Hyena forward returns logits shaped `[B, L, vocab]` and any hooked layer keeps `[B, L, hidden]`, matching the token dimension used in `_score_sequences`. Mean pooling along the token axis reproduces the default `reduce_method=&#39;mean&#39;` used for log-likelihoods.^[```70:89:external_repos/evo2/evo2/scoring.py```]
-</span><span id="__span__-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>- **Pooling choices.** Use mean pooling for global sequence summaries, max pooling to emphasize motifs, or last-token pooling when you want autoregressive state; all three are equivalent to selecting how you reduce `logprobs[idx][:seq_len]` inside the scorer.^[```79:88:external_repos/evo2/evo2/scoring.py```]
-</span><span id="__span__-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>- **Reverse-complement normalization.** For strand-agnostic features, reuse `score_sequences_rc` logic: tokenize both strands, run the same hook set, and average activations before pooling so the resulting `[B, H]` encodes orientation-invariant context.^[```127:170:external_repos/evo2/evo2/scoring.py```]
-</span><span id="__span__-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>- **Projection to shared space.** Once you have pooled `[B, H]` embeddings (H≈4096 for the 7B model), feed them through a lightweight projector to align with fMRI representations. A drop-in block that mirrors common multimodal heads is:
-</span><span id="__span__-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-</span><span id="__span__-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>```python
-</span><span id="__span__-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>import torch.nn as nn
-</span><span id="__span__-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
-</span><span id="__span__-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>class MultimodalProjector(nn.Module):
-</span><span id="__span__-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    def __init__(self, input_dim=4096, output_dim=512, dropout=0.1):
-</span><span id="__span__-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        super().__init__()
-</span><span id="__span__-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        self.proj = nn.Sequential(
-</span><span id="__span__-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>            nn.Linear(input_dim, 1024),
-</span><span id="__span__-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>            nn.GELU(),
-</span><span id="__span__-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>            nn.Dropout(dropout),
-</span><span id="__span__-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>            nn.Linear(1024, output_dim),
-</span><span id="__span__-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>            nn.LayerNorm(output_dim),
-</span><span id="__span__-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>        )
-</span><span id="__span__-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
-</span><span id="__span__-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>    def forward(self, x):
-</span><span id="__span__-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>        return self.proj(x)
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/evo2/evo2/scoring.py (lines 52-88)</span><pre><span></span><code><span id="__span__-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">softmax_logprobs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span__-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">softmax_logprobs</span> <span class="o">=</span> <span class="n">softmax_logprobs</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span__-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">input_ids</span> <span class="o">=</span> <span class="n">input_ids</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+</span><span id="__span__-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">logprobs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">softmax_logprobs</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">input_ids</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="integration-hooks-genetics-brain">Integration Hooks (Genetics ↔ Brain)<a class="headerlink" href="#integration-hooks-genetics-brain" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Batch &amp; memory tips.</strong> Long prompts can trigger Hyena’s FFT prefill path; set <code>force_prompt_threshold</code> or <code>cached_generation=False</code> when working on 24 GB GPUs, and ensure you shard batches via the <code>batch_size</code> argument in <code>score_sequences</code> to keep <code>prepare_batch</code> from materializing multi-megabase tensors at once.^[<code>109:169:external_repos/evo2/evo2/models.py</code>][<code>10:34:external_repos/evo2/evo2/scoring.py</code>]</li>
+<li><strong>Embedding shape.</strong> The Hyena forward returns logits shaped <code>[B, L, vocab]</code> and any hooked layer keeps <code>[B, L, hidden]</code>, matching the token dimension used in <code>_score_sequences</code>. Mean pooling along the token axis reproduces the default <code>reduce_method='mean'</code> used for log-likelihoods.^[<code>text title="external_repos/evo2/evo2/scoring.py</code>] (lines 70-89)"</li>
+<li><strong>Pooling choices.</strong> Use mean pooling for global sequence summaries, max pooling to emphasize motifs, or last-token pooling when you want autoregressive state; all three are equivalent to selecting how you reduce <code>logprobs[idx][:seq_len]</code> inside the scorer.^[<code>text title="external_repos/evo2/evo2/scoring.py</code>] (lines 79-88)"</li>
+<li><strong>Reverse-complement normalization.</strong> For strand-agnostic features, reuse <code>score_sequences_rc</code> logic: tokenize both strands, run the same hook set, and average activations before pooling so the resulting <code>[B, H]</code> encodes orientation-invariant context.^[<code>text title="external_repos/evo2/evo2/scoring.py</code>] (lines 127-170)"</li>
+<li><strong>Projection to shared space.</strong> Once you have pooled <code>[B, H]</code> embeddings (H≈4096 for the 7B model), feed them through a lightweight projector to align with fMRI representations. A drop-in block that mirrors common multimodal heads is:</li>
+</ul>
+<div class="language-python highlight"><pre><span></span><code><span id="__span__-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+</span><span id="__span__-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span__-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MultimodalProjector</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+</span><span id="__span__-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span__-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">proj</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+</span><span id="__span__-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="mi">1024</span><span class="p">),</span>
+</span><span id="__span__-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">GELU</span><span class="p">(),</span>
+</span><span id="__span__-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">),</span>
+</span><span id="__span__-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">),</span>
+</span><span id="__span__-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">output_dim</span><span class="p">),</span>
+</span><span id="__span__-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        <span class="p">)</span>
+</span><span id="__span__-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+</span><span id="__span__-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span><span id="__span__-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Batch &amp; memory tips.</strong> Long prompts can trigger Hyena’s FFT prefill path; set <code>force_prompt_threshold</code> or <code>cached_generation=False</code> when working on 24 GB GPUs, and ensure you shard batches via the <code>batch_size</code> argument in <code>score_sequences</code> to keep <code>prepare_batch</code> from materializing multi-megabase tensors at once.^[<code>text title="external_repos/evo2/evo2/models.py</code>][<code>10:34:external_repos/evo2/evo2/scoring.py</code>] (lines 109-169)"</li>
 </ul>
 <p>With these hooks, Evo 2 embeddings (<code>[B, H]</code> after pooling) can be projected into the same 512-D latent space used by your fMRI encoder, normalized (LayerNorm) for stability, and concatenated or contrastively aligned with brain-derived features.</p>
 

@@ -1,0 +1,65 @@
+/* Custom styling for code citation blocks with file paths */
+/* Format: ```startLine:endLine:filepath */
+/* Processed by code_citations plugin to use pymdownx.superfences title attribute */
+
+/* Style code blocks with superfences title header */
+.md-typeset .superfences-content > .highlight {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0.3rem;
+  overflow: hidden;
+  margin: 0;
+}
+
+.md-typeset .superfences-content {
+  border-radius: 0.3rem;
+  overflow: hidden;
+  margin: 1em 0;
+}
+
+/* Style the title header created by pymdownx.superfences */
+.md-typeset .highlight .codehilite::before,
+.md-typeset .superfences-content > .highlight::before {
+  content: attr(data-title);
+  display: block;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.5em 1em;
+  font-size: 0.85em;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  color: #666;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+
+/* Alternative: target superfences wrapper with title */
+.md-typeset div[class*="superfences"]:has(> .highlight) {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0.3rem;
+  overflow: hidden;
+  margin: 1em 0;
+}
+
+/* Enhanced code block styling */
+.md-typeset pre > code {
+  border-radius: 0.3rem;
+  padding: 1em;
+}
+
+/* Style code blocks with title wrapper */
+.md-typeset .superfences-content > .highlight pre {
+  margin: 0;
+  border-radius: 0 0 0.3rem 0.3rem;
+}
+
+/* Dark mode support */
+[data-md-color-scheme="slate"] .md-typeset .highlight .codehilite::before,
+[data-md-color-scheme="slate"] .md-typeset .superfences-content > .highlight::before {
+  background: rgba(255, 255, 255, 0.05);
+  color: #aaa;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .superfences-content > .highlight,
+[data-md-color-scheme="slate"] .md-typeset div[class*="superfences"]:has(> .highlight) {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+

@@ -3175,6 +3175,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#training-loop-scheduler-titanfinetunepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Loop &amp; Scheduler (titan/finetune.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#linear-probe-evaluation-titaneval_linear_probepy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3196,8 +3207,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tcga-ot-configuration-prompts-datasetsconfig_tcga-otyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TCGA-OT Configuration &amp; Prompts (datasets/config_tcga-ot.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-hooks-pathology-multimodal-kb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Hooks (Pathology ↔ Multimodal KB)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -5211,7 +5244,7 @@
 <p><strong>KB references:</strong> Model card (pending) · <a href="../../integration/integration_strategy/">Integration strategy</a> · <a href="../../kb/templates/experiment_config_stub/">Experiment config stub</a></p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>TITAN (Transformer-based pathology Image and Text Alignment Network) aggregates CONCH v1.5 patch embeddings into slide-level representations using a Transformer encoder aligned with pathology-report text via a CoCa-style captioning loss. The public release focuses on the slide &amp; text encoders (decoder weights removed) and ships Hugging Face <code>trust_remote_code</code> modules for <code>encode_slide_from_patch_features</code>, plus fine-tuning and evaluation scaffolding for tasks like TCGA-OT linear probes and zero-shot slide retrieval.^[<code>1:110:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>][<code>25:111:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/finetune.py</code>]</p>
+<p>TITAN (Transformer-based pathology Image and Text Alignment Network) aggregates CONCH v1.5 patch embeddings into slide-level representations using a Transformer encoder aligned with pathology-report text via a CoCa-style captioning loss. The public release focuses on the slide &amp; text encoders (decoder weights removed) and ships Hugging Face <code>trust_remote_code</code> modules for <code>encode_slide_from_patch_features</code>, plus fine-tuning and evaluation scaffolding for tasks like TCGA-OT linear probes and zero-shot slide retrieval.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>][<code>25:111:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/finetune.py</code>] (lines 1-110)"</p>
 <h2 id="at-a-glance">At-a-Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -5226,7 +5259,7 @@
 </thead>
 <tbody>
 <tr>
-<td>CONCH v1.5 patch encoder → TITAN slide Transformer with learned spatial grids + vision-language alignment (CoCa-inspired).^[<code>9:110:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>]</td>
+<td>CONCH v1.5 patch encoder → TITAN slide Transformer with learned spatial grids + vision-language alignment (CoCa-inspired).^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>]</td>
 <td>Hugging Face <code>MahmoodLab/TITAN</code> exposes 768-d slide embeddings; fine-tuning head typically 768→num_classes MLP; training loop enables FP16/bfloat16 autocast + cosine sched.^[<code>25:50:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/finetune.py</code>][<code>137:199:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/finetune.py</code>]</td>
 <td>Pretrained on 335,645 WSIs + 182K real reports + 423K synthetic captions; patch grids derived from Level-0 coordinates with <code>patch_size_lv0</code> (512 @20×, 1024 @40×).^[<code>14:99:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>]</td>
 <td><code>.h5</code> files containing <code>features</code> (N×768) and <code>coords</code> (N×2) arrays, plus <code>patch_size_level0</code> attribute; sample downloads provided via Hugging Face hub.^[<code>82:99:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>]</td>
@@ -5237,192 +5270,185 @@
 </table>
 <h3 id="environment-hardware-notes">Environment &amp; Hardware Notes<a class="headerlink" href="#environment-hardware-notes" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Install &amp; deps.</strong> Clone the repo, <code>conda create -n titan python=3.9</code>, activate, upgrade pip, then <code>pip install -e .</code> (installs PyTorch 2.0.1, timm 1.0.3, h5py, sklearn, transformers 4.46).^[<code>25:42:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>][<code>5:18:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/setup.py</code>]</li>
-<li><strong>Model access.</strong> Run <code>huggingface_hub.login()</code> before calling <code>AutoModel.from_pretrained("MahmoodLab/TITAN", trust_remote_code=True)</code>; this downloads slide + text encoders as well as CONCH v1.5 patch encoder helpers.^[<code>43:59:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>]</li>
-<li><strong>Feature extraction options.</strong> Either (a) use TRIDENT/CLAM pipelines for CONCH features or (b) load shared <code>.h5</code> demo files and call <code>model.encode_slide_from_patch_features(features, coords, patch_size_lv0)</code> directly; set <code>patch_size_lv0</code> to 1024 (40×) or 512 (20×) per slide metadata.^[<code>63:98:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>]</li>
+<li><strong>Install &amp; deps.</strong> Clone the repo, <code>conda create -n titan python=3.9</code>, activate, upgrade pip, then <code>pip install -e .</code> (installs PyTorch 2.0.1, timm 1.0.3, h5py, sklearn, transformers 4.46).^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>][<code>5:18:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/setup.py</code>] (lines 25-42)"</li>
+<li><strong>Model access.</strong> Run <code>huggingface_hub.login()</code> before calling <code>AutoModel.from_pretrained("MahmoodLab/TITAN", trust_remote_code=True)</code>; this downloads slide + text encoders as well as CONCH v1.5 patch encoder helpers.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>] (lines 43-59)"</li>
+<li><strong>Feature extraction options.</strong> Either (a) use TRIDENT/CLAM pipelines for CONCH features or (b) load shared <code>.h5</code> demo files and call <code>model.encode_slide_from_patch_features(features, coords, patch_size_lv0)</code> directly; set <code>patch_size_lv0</code> to 1024 (40×) or 512 (20×) per slide metadata.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/titan/README.md</code>] (lines 63-98)"</li>
 </ul>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
 <h3 id="custom-sequential-wrapper-titanfinetunepy">Custom Sequential Wrapper (<code>titan/finetune.py</code>)<a class="headerlink" href="#custom-sequential-wrapper-titanfinetunepy" title="Permanent link">&para;</a></h3>
 <p>Fine-tuning wraps the frozen TITAN backbone with a lightweight MLP head. <code>CustomSequential</code> simply forwards tensor tuples into <code>encode_slide_from_patch_features</code>, then feeds slide embeddings into the classification head. <code>create_mlp</code> helps instantiate arbitrary hidden stacks.</p>
 <p><strong>Sequential wrapper with MLP head:</strong></p>
-<p>```25:50:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/finetune.py
-class CustomSequential(nn.Module):
-    def <strong>init</strong>(self, model, mlp):
-        super(CustomSequential, self).<strong>init</strong>()
-        self.model = model
-        self.mlp = mlp</p>
-<div class="language-text highlight"><pre><span></span><code>def forward(self, *args, **kwargs):
-    x = self.model.encode_slide_from_patch_features(*args, **kwargs)
-    x = self.mlp(x)
-    return x
-</code></pre></div>
-<p>def create_mlp(in_dim=None, hid_dims=[], act=nn.ReLU(), dropout=0.0, out_dim=None, end_with_fc=True):
-    layers = []
-    if len(hid_dims) &gt; 0:
-        for hid_dim in hid_dims:
-            layers.append(nn.Linear(in_dim, hid_dim))
-            layers.append(act)
-            layers.append(nn.Dropout(dropout))
-            in_dim = hid_dim
-    layers.append(nn.Linear(in_dim, out_dim))
-    if not end_with_fc:
-        layers.append(act)
-        layers.append(nn.Dropout(dropout))
-    mlp = nn.Sequential(*layers)
-    return mlp
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>### Training Loop &amp; Scheduler (`titan/finetune.py`)
-</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>`train` constructs two optimizer parameter groups (bias/LayerNorm vs. rest), applies cosine LR with warmup, leverages `torch.cuda.amp.GradScaler`, and evaluates on a validation loader with early stopping that tracks the best weights.
-</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>**Mixed precision training with early stopping:**
+<div class="language-python highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/finetune.py (lines 25-50)</span><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">CustomSequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">mlp</span><span class="p">):</span>
+</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="nb">super</span><span class="p">(</span><span class="n">CustomSequential</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">mlp</span> <span class="o">=</span> <span class="n">mlp</span>
 </span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>```137:199:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/finetune.py
-</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    model.train()
-</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    fp16_scaler = torch.cuda.amp.GradScaler()
-</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    step = 0
-</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    early_stopping = EarlyStopping(patience=2, verbose=True)
-</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    for epoch in tqdm(range(num_epochs)):
-</span><span id="__span__-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        model.train()
-</span><span id="__span__-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        preds_all = []
-</span><span id="__span__-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        targets_all = []
-</span><span id="__span__-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        total_train_loss = 0
-</span><span id="__span__-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        for features, coords, patch_size_lv0, label in tqdm(train_loader):
-</span><span id="__span__-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>            lr_scheduler(step)
-</span><span id="__span__-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>            features = features.to(device)
-</span><span id="__span__-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>            coords = coords.to(device)
-</span><span id="__span__-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>            with torch.cuda.amp.autocast(dtype=torch.bfloat16):
-</span><span id="__span__-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>                logits = model(features, coords, patch_size_lv0.to(device), **kwargs)
-</span><span id="__span__-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>                loss = loss_fn(logits, label.to(device))
-</span><span id="__span__-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>            fp16_scaler.scale(loss).backward()
-</span><span id="__span__-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>            fp16_scaler.step(optimizer)
-</span><span id="__span__-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>            fp16_scaler.update()
-</span><span id="__span__-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>            optimizer.zero_grad()
-</span><span id="__span__-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
-</span><span id="__span__-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>            preds_all.append(logits.argmax(1).cpu().numpy())
-</span><span id="__span__-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>            targets_all.append(label.numpy())
-</span><span id="__span__-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>            step += 1
-</span><span id="__span__-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>            total_train_loss += loss.item()
-</span><span id="__span__-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
-</span><span id="__span__-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>        avg_train_loss = total_train_loss / len(train_loader)
-</span><span id="__span__-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>        ...
-</span><span id="__span__-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>            tqdm.write(f&quot;epoch {epoch}, bacc: {np.round(bacc, 4):.4f}, bacc_val: {np.round(bacc_val, 4):.4f}, loss: {avg_train_loss:.4f}, val_loss: {avg_val_loss:.4f}&quot;)
-</span><span id="__span__-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>            early_stopping(avg_val_loss, model)
-</span><span id="__span__-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>            if early_stopping.early_stop:
-</span><span id="__span__-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>                print(&quot;Early stopping&quot;)
-</span><span id="__span__-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>                break
-</span></code></pre></div></p>
+</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">encode_slide_from_patch_features</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mlp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="k">return</span> <span class="n">x</span>
+</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+</span><span id="__span__-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">create_mlp</span><span class="p">(</span><span class="n">in_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hid_dims</span><span class="o">=</span><span class="p">[],</span> <span class="n">act</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">out_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_with_fc</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span><span id="__span__-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span__-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">hid_dims</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span__-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="k">for</span> <span class="n">hid_dim</span> <span class="ow">in</span> <span class="n">hid_dims</span><span class="p">:</span>
+</span><span id="__span__-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">hid_dim</span><span class="p">))</span>
+</span><span id="__span__-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">act</span><span class="p">)</span>
+</span><span id="__span__-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
+</span><span id="__span__-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>            <span class="n">in_dim</span> <span class="o">=</span> <span class="n">hid_dim</span>
+</span><span id="__span__-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">))</span>
+</span><span id="__span__-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">end_with_fc</span><span class="p">:</span>
+</span><span id="__span__-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">act</span><span class="p">)</span>
+</span><span id="__span__-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
+</span><span id="__span__-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    <span class="n">mlp</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
+</span><span id="__span__-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    <span class="k">return</span> <span class="n">mlp</span>
+</span></code></pre></div>
+<h3 id="training-loop-scheduler-titanfinetunepy">Training Loop &amp; Scheduler (<code>titan/finetune.py</code>)<a class="headerlink" href="#training-loop-scheduler-titanfinetunepy" title="Permanent link">&para;</a></h3>
+<p><code>train</code> constructs two optimizer parameter groups (bias/LayerNorm vs. rest), applies cosine LR with warmup, leverages <code>torch.cuda.amp.GradScaler</code>, and evaluates on a validation loader with early stopping that tracks the best weights.</p>
+<p><strong>Mixed precision training with early stopping:</strong></p>
+<div class="language-python highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/finetune.py (lines 137-199)</span><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">fp16_scaler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">GradScaler</span><span class="p">()</span>
+</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">early_stopping</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">patience</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)):</span>
+</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="n">preds_all</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="n">targets_all</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span__-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">total_train_loss</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span__-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="k">for</span> <span class="n">features</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">patch_size_lv0</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">train_loader</span><span class="p">):</span>
+</span><span id="__span__-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>            <span class="n">lr_scheduler</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
+</span><span id="__span__-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>            <span class="n">features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span__-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            <span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="__span__-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">autocast</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">):</span>
+</span><span id="__span__-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">patch_size_lv0</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="__span__-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>                <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">label</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+</span><span id="__span__-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>            <span class="n">fp16_scaler</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="__span__-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>            <span class="n">fp16_scaler</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span>
+</span><span id="__span__-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>            <span class="n">fp16_scaler</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</span><span id="__span__-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="__span__-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+</span><span id="__span__-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>            <span class="n">preds_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logits</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</span><span id="__span__-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>            <span class="n">targets_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</span><span id="__span__-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>            <span class="n">step</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span id="__span__-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>            <span class="n">total_train_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</span><span id="__span__-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+</span><span id="__span__-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>        <span class="n">avg_train_loss</span> <span class="o">=</span> <span class="n">total_train_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span>
+</span><span id="__span__-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>        <span class="o">...</span>
+</span><span id="__span__-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>            <span class="n">tqdm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">, bacc: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">bacc</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, bacc_val: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">bacc_val</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, loss: </span><span class="si">{</span><span class="n">avg_train_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, val_loss: </span><span class="si">{</span><span class="n">avg_val_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span__-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>            <span class="n">early_stopping</span><span class="p">(</span><span class="n">avg_val_loss</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</span><span id="__span__-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>            <span class="k">if</span> <span class="n">early_stopping</span><span class="o">.</span><span class="n">early_stop</span><span class="p">:</span>
+</span><span id="__span__-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Early stopping&quot;</span><span class="p">)</span>
+</span><span id="__span__-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>                <span class="k">break</span>
+</span></code></pre></div>
 <h3 id="linear-probe-evaluation-titaneval_linear_probepy">Linear Probe Evaluation (<code>titan/eval_linear_probe.py</code>)<a class="headerlink" href="#linear-probe-evaluation-titaneval_linear_probepy" title="Permanent link">&para;</a></h3>
 <p>For frozen-feature experiments, <code>train_and_evaluate_logistic_regression_with_val</code> sweeps log-spaced <code>C</code>, fits <code>LogisticRegression</code>, and reports metrics (balanced accuracy, Cohen's κ, AUROC) via shared utilities.</p>
 <p><strong>Logistic regression with hyperparameter sweep:</strong></p>
-<p>```2:75:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/eval_linear_probe.py
-def train_and_evaluate_logistic_regression_with_val(train_data, train_labels, val_data, val_labels, test_data, test_labels, log_spaced_values=None, max_iter=500):
-    seed_torch(torch.device('cpu'), 0)</p>
-<div class="language-text highlight"><pre><span></span><code>metric_dict = {
-    &#39;bacc&#39;: &#39;balanced_accuracy&#39;,
-    &#39;kappa&#39;: &#39;cohen_kappa_score&#39;,
-    &#39;auroc&#39;: &#39;roc_auc_score&#39;,
-}
-
-if log_spaced_values is None:
-    log_spaced_values = np.logspace(np.log10(10e-6), np.log10(10e5), num=45)
-
-best_score = -float(&#39;inf&#39;)
-best_C = None
-logistic_reg_final = None
-for log2_coeff in tqdm(log_spaced_values, desc=&quot;Finding best C&quot;):
-    ...
-    logistic_reg = LogisticRegression(
-        C=1/log2_coeff,
-        fit_intercept=True,
-        max_iter=max_iter,
-        random_state=0,
-        solver=&quot;lbfgs&quot;,
-    )
-    logistic_reg.fit(train_data, train_labels)
-    ...
-eval_metrics = get_eval_metrics(test_labels, test_preds, test_probs, roc_kwargs=roc_kwargs)
-</code></pre></div>
-<p>```
-</p>
+<div class="language-python highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/eval_linear_probe.py (lines 2-75)</span><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">train_and_evaluate_logistic_regression_with_val</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">val_data</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">,</span> <span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">,</span> <span class="n">log_spaced_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">seed_torch</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    
+</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">metric_dict</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="s1">&#39;bacc&#39;</span><span class="p">:</span> <span class="s1">&#39;balanced_accuracy&#39;</span><span class="p">,</span>
+</span><span id="__span__-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="s1">&#39;kappa&#39;</span><span class="p">:</span> <span class="s1">&#39;cohen_kappa_score&#39;</span><span class="p">,</span>
+</span><span id="__span__-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="s1">&#39;auroc&#39;</span><span class="p">:</span> <span class="s1">&#39;roc_auc_score&#39;</span><span class="p">,</span>
+</span><span id="__span__-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="p">}</span>
+</span><span id="__span__-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    
+</span><span id="__span__-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="k">if</span> <span class="n">log_spaced_values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span__-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="n">log_spaced_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">10e-6</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">10e5</span><span class="p">),</span> <span class="n">num</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+</span><span id="__span__-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    
+</span><span id="__span__-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">best_score</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+</span><span id="__span__-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">best_C</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span__-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="n">logistic_reg_final</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span__-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="k">for</span> <span class="n">log2_coeff</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">log_spaced_values</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Finding best C&quot;</span><span class="p">):</span>
+</span><span id="__span__-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="o">...</span>
+</span><span id="__span__-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="n">logistic_reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span>
+</span><span id="__span__-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>            <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">log2_coeff</span><span class="p">,</span>
+</span><span id="__span__-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>            <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span__-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span>
+</span><span id="__span__-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>            <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span__-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>            <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;lbfgs&quot;</span><span class="p">,</span>
+</span><span id="__span__-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>        <span class="p">)</span>
+</span><span id="__span__-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>        <span class="n">logistic_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
+</span><span id="__span__-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>        <span class="o">...</span>
+</span><span id="__span__-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    <span class="n">eval_metrics</span> <span class="o">=</span> <span class="n">get_eval_metrics</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">test_preds</span><span class="p">,</span> <span class="n">test_probs</span><span class="p">,</span> <span class="n">roc_kwargs</span><span class="o">=</span><span class="n">roc_kwargs</span><span class="p">)</span>
+</span></code></pre></div>
 <h3 id="metrics-bootstrap-zero-shot-templates-titanutilspy">Metrics, Bootstrap &amp; Zero-Shot Templates (<code>titan/utils.py</code>)<a class="headerlink" href="#metrics-bootstrap-zero-shot-templates-titanutilspy" title="Permanent link">&para;</a></h3>
-<p><code>get_eval_metrics</code> reports accuracy/balanced accuracy/kappa/weighted F1 (+ AUROC/log-loss when probs are provided). The module also seeds reproducibility, merges dictionaries, and defines zero-shot text templates for class prompts.
-
-<strong>Evaluation metrics and zero-shot templates:</strong>
-
-```13:89:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/utils.py</p>
-<h1 id="zeroshot-prompt-templates">zeroshot prompt templates<a class="headerlink" href="#zeroshot-prompt-templates" title="Permanent link">&para;</a></h1>
-<p>TEMPLATES = [
-    "CLASSNAME.",
-    "an image of CLASSNAME.",
-    ...
-    "CLASSNAME is identified.",
-]
-
-def get_eval_metrics(
-    targets_all: Union[List[int], np.ndarray],
-    preds_all: Union[List[int], np.ndarray],
-    probs_all: Optional[Union[List[float], np.ndarray]] = None,
-    unique_classes: Optional[List[int]] = None,
-    get_report: bool = True,
-    prefix: str = "",
-    roc_kwargs: Dict[str, Any] = {},
-) -&gt; Dict[str, Any]:
-    unique_classes = unique_classes if unique_classes is not None else np.unique(targets_all)
-    bacc = balanced_accuracy_score(targets_all, preds_all) if len(targets_all) &gt; 1 else 0
-    kappa = cohen_kappa_score(targets_all, preds_all, weights="quadratic")
-    nw_kappa = cohen_kappa_score(targets_all, preds_all, weights="linear")
-    acc = accuracy_score(targets_all, preds_all)
-    cls_rep = classification_report(targets_all, preds_all, output_dict=True, zero_division=0, labels=unique_classes)
-
-    eval_metrics = {
-        f"{prefix}/acc": acc,
-        f"{prefix}/bacc": bacc,
-        f"{prefix}/kappa": kappa,
-        f"{prefix}/nw_kappa": nw_kappa,
-        f"{prefix}/weighted_f1": cls_rep["weighted avg"]["f1-score"],
-    }
-```</p>
+<p><code>get_eval_metrics</code> reports accuracy/balanced accuracy/kappa/weighted F1 (+ AUROC/log-loss when probs are provided). The module also seeds reproducibility, merges dictionaries, and defines zero-shot text templates for class prompts.</p>
+<p><strong>Evaluation metrics and zero-shot templates:</strong></p>
+<div class="language-python highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/utils.py (lines 13-89)</span><pre><span></span><code><span id="__span__-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># zeroshot prompt templates</span>
+</span><span id="__span__-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">TEMPLATES</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span__-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="s2">&quot;CLASSNAME.&quot;</span><span class="p">,</span>
+</span><span id="__span__-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="s2">&quot;an image of CLASSNAME.&quot;</span><span class="p">,</span>
+</span><span id="__span__-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="o">...</span>
+</span><span id="__span__-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="s2">&quot;CLASSNAME is identified.&quot;</span><span class="p">,</span>
+</span><span id="__span__-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">]</span>
+</span><span id="__span__-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span__-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_eval_metrics</span><span class="p">(</span>
+</span><span id="__span__-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">targets_all</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+</span><span id="__span__-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">preds_all</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+</span><span id="__span__-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">probs_all</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span__-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">unique_classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span__-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">get_report</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span id="__span__-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span id="__span__-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="n">roc_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+</span><span id="__span__-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="__span__-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="n">unique_classes</span> <span class="o">=</span> <span class="n">unique_classes</span> <span class="k">if</span> <span class="n">unique_classes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">targets_all</span><span class="p">)</span>
+</span><span id="__span__-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="n">bacc</span> <span class="o">=</span> <span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">targets_all</span><span class="p">,</span> <span class="n">preds_all</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">targets_all</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span>
+</span><span id="__span__-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    <span class="n">kappa</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">targets_all</span><span class="p">,</span> <span class="n">preds_all</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;quadratic&quot;</span><span class="p">)</span>
+</span><span id="__span__-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="n">nw_kappa</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">targets_all</span><span class="p">,</span> <span class="n">preds_all</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+</span><span id="__span__-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">targets_all</span><span class="p">,</span> <span class="n">preds_all</span><span class="p">)</span>
+</span><span id="__span__-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    <span class="n">cls_rep</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">targets_all</span><span class="p">,</span> <span class="n">preds_all</span><span class="p">,</span> <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">unique_classes</span><span class="p">)</span>
+</span><span id="__span__-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+</span><span id="__span__-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    <span class="n">eval_metrics</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span__-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">/acc&quot;</span><span class="p">:</span> <span class="n">acc</span><span class="p">,</span>
+</span><span id="__span__-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">/bacc&quot;</span><span class="p">:</span> <span class="n">bacc</span><span class="p">,</span>
+</span><span id="__span__-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">/kappa&quot;</span><span class="p">:</span> <span class="n">kappa</span><span class="p">,</span>
+</span><span id="__span__-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">/nw_kappa&quot;</span><span class="p">:</span> <span class="n">nw_kappa</span><span class="p">,</span>
+</span><span id="__span__-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">/weighted_f1&quot;</span><span class="p">:</span> <span class="n">cls_rep</span><span class="p">[</span><span class="s2">&quot;weighted avg&quot;</span><span class="p">][</span><span class="s2">&quot;f1-score&quot;</span><span class="p">],</span>
+</span><span id="__span__-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>    <span class="p">}</span>
+</span></code></pre></div>
 <h3 id="tcga-ot-configuration-prompts-datasetsconfig_tcga-otyaml">TCGA-OT Configuration &amp; Prompts (<code>datasets/config_tcga-ot.yaml</code>)<a class="headerlink" href="#tcga-ot-configuration-prompts-datasetsconfig_tcga-otyaml" title="Permanent link">&para;</a></h3>
 <p>The YAML describes label counts, OncoTree codes, class-specific textual prompts (supporting zero-shot CLIP-like scoring), and dataset metadata. Integrate these prompts with TITAN's text encoder or other VLMs for retrieval tasks.</p>
 <p><strong>Dataset configuration with class prompts:</strong></p>
-<p><code>1:60:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/datasets/config_tcga-ot.yaml
-aggregation: slide
-cohorts:
-- TCGA
-ext_cohorts: []
-folds: 1
-label_dict:
-  AASTR: 0
-  ACC: 1
-  AOAST: 2
-  ASTR: 3
-  BLCA: 4
-  CCRCC: 5
-  CESC: 6
-  CHRCC: 7
-  COAD: 8
-  DDLS: 9
-  DSTAD: 10
-  ESCA: 11
-  ESCC: 12
-  GBM: 13
-...
-prompts:
-  AASTR:
-  - anaplastic astrocytoma
-  - astrocytoma, anaplastic
-  - grade III astrocytoma
-  - AASTR
-  ACC:
-  - adrenocortical carcinoma
-  - adrenal cortical carcinoma
-  - adrenal cortex carcinoma
-  - ACC</code></p>
+<div class="language-yaml highlight"><span class="filename">/Users/allison/Projects/neuro-omics-kb/external_repos/titan/datasets/config_tcga-ot.yaml (lines 1-60)</span><pre><span></span><code><span id="__span__-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">aggregation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slide</span>
+</span><span id="__span__-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">cohorts</span><span class="p">:</span>
+</span><span id="__span__-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCGA</span>
+</span><span id="__span__-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nt">ext_cohorts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+</span><span id="__span__-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nt">folds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span__-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nt">label_dict</span><span class="p">:</span>
+</span><span id="__span__-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">AASTR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</span><span id="__span__-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nt">ACC</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span__-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="nt">AOAST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</span><span id="__span__-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span><span class="nt">ASTR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+</span><span id="__span__-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">  </span><span class="nt">BLCA</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+</span><span id="__span__-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span><span class="nt">CCRCC</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</span><span id="__span__-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">  </span><span class="nt">CESC</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+</span><span id="__span__-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">  </span><span class="nt">CHRCC</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+</span><span id="__span__-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">  </span><span class="nt">COAD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+</span><span id="__span__-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">  </span><span class="nt">DDLS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9</span>
+</span><span id="__span__-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">  </span><span class="nt">DSTAD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+</span><span id="__span__-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">  </span><span class="nt">ESCA</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11</span>
+</span><span id="__span__-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">  </span><span class="nt">ESCC</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+</span><span id="__span__-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">  </span><span class="nt">GBM</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">13</span>
+</span><span id="__span__-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="nn">...</span>
+</span><span id="__span__-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="nt">prompts</span><span class="p">:</span>
+</span><span id="__span__-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">  </span><span class="nt">AASTR</span><span class="p">:</span>
+</span><span id="__span__-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anaplastic astrocytoma</span>
+</span><span id="__span__-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">astrocytoma, anaplastic</span>
+</span><span id="__span__-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grade III astrocytoma</span>
+</span><span id="__span__-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AASTR</span>
+</span><span id="__span__-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">  </span><span class="nt">ACC</span><span class="p">:</span>
+</span><span id="__span__-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrenocortical carcinoma</span>
+</span><span id="__span__-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrenal cortical carcinoma</span>
+</span><span id="__span__-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adrenal cortex carcinoma</span>
+</span><span id="__span__-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ACC</span>
+</span></code></pre></div>
 <h2 id="integration-hooks-pathology-multimodal-kb">Integration Hooks (Pathology ↔ Multimodal KB)<a class="headerlink" href="#integration-hooks-pathology-multimodal-kb" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Slide embeddings as shared latent vectors.</strong> <code>encode_slide_from_patch_features</code> returns 768-d tensors suitable for concatenation with genetic or clinical embeddings before populating KB integration cards; store patch grids alongside metadata for reproducibility.^[<code>25:99:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/finetune.py</code>]</li>
-<li><strong>Prompt templates for zero-shot mapping.</strong> The <code>TEMPLATES</code> list and TCGA label prompts can seed cross-modal retrieval experiments or provide natural-language anchors for other models (e.g., LLaVA-Med) to align with TITAN outputs.^[<code>13:39:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/utils.py</code>][<code>1:120:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/datasets/config_tcga-ot.yaml</code>]</li>
-<li><strong>Metrics + bootstrap interoperability.</strong> Use <code>get_eval_metrics</code> / <code>bootstrap</code> outputs to populate KB evaluation summaries, ensuring consistent confidence intervals across modalities when comparing TITAN features against alternative encoders.^[<code>13:154:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/utils.py</code>]</li>
+<li><strong>Slide embeddings as shared latent vectors.</strong> <code>encode_slide_from_patch_features</code> returns 768-d tensors suitable for concatenation with genetic or clinical embeddings before populating KB integration cards; store patch grids alongside metadata for reproducibility.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/finetune.py</code>] (lines 25-99)"</li>
+<li><strong>Prompt templates for zero-shot mapping.</strong> The <code>TEMPLATES</code> list and TCGA label prompts can seed cross-modal retrieval experiments or provide natural-language anchors for other models (e.g., LLaVA-Med) to align with TITAN outputs.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/utils.py</code>][<code>1:120:/Users/allison/Projects/neuro-omics-kb/external_repos/titan/datasets/config_tcga-ot.yaml</code>] (lines 13-39)"</li>
+<li><strong>Metrics + bootstrap interoperability.</strong> Use <code>get_eval_metrics</code> / <code>bootstrap</code> outputs to populate KB evaluation summaries, ensuring consistent confidence intervals across modalities when comparing TITAN features against alternative encoders.^[<code>text title="/Users/allison/Projects/neuro-omics-kb/external_repos/titan/titan/utils.py</code>] (lines 13-154)"</li>
 </ul>
 
 

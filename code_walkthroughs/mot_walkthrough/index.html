@@ -5233,7 +5233,7 @@
 <p><strong>KB references:</strong> <a href="../../generated/kb_curated/papers-md/mot_2025/">MoT paper note</a></p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Mixture-of-Transformers (MoT) introduces modality-aware sparsity to every non-embedding block so that each modality owns its feed-forward, attention, and normalization routes while still sharing global self-attention. In practice this lets a 7B-text+image MoT hit dense-model quality with only 55.8 % of the FLOPs, extend to speech with 37.2 % of the dense compute, and run multi-branch generation faster on commodity A100s.^[<code>6:30:external_repos/MoT/README.md</code>]</p>
+<p>Mixture-of-Transformers (MoT) introduces modality-aware sparsity to every non-embedding block so that each modality owns its feed-forward, attention, and normalization routes while still sharing global self-attention. In practice this lets a 7B-text+image MoT hit dense-model quality with only 55.8 % of the FLOPs, extend to speech with 37.2 % of the dense compute, and run multi-branch generation faster on commodity A100s.^[<code>text title="external_repos/MoT/README.md</code>] (lines 6-30)"</p>
 <h2 id="at-a-glance">At-a-Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -5248,7 +5248,7 @@
 </thead>
 <tbody>
 <tr>
-<td>Attach modality-untied feed-forward + attention experts to an existing transformer, using binary <code>modality_masks</code> to route tokens yet keeping shared global attention.^[<code>75:151:external_repos/MoT/README.md</code>][<code>16:151:external_repos/MoT/src/simple_ModalityUntiedAttention.py</code>]</td>
+<td>Attach modality-untied feed-forward + attention experts to an existing transformer, using binary <code>modality_masks</code> to route tokens yet keeping shared global attention.^[<code>text title="external_repos/MoT/README.md</code>][<code>16:151:external_repos/MoT/src/simple_ModalityUntiedAttention.py</code>]</td>
 <td>7B MoT (text+image) matches dense baselines at 55.8 % FLOPs; 443 M MoT (text+image+speech) hits dense speech quality at 37.2 % FLOPs.^[<code>15:23:external_repos/MoT/README.md</code>]</td>
 <td>Chameleon (autoregressive text + raster image), Transfusion (text autoregressive + image diffusion), and broader “native multimodal” projects.^[<code>15:30:external_repos/MoT/README.md</code>]</td>
 <td>Any packed token sequence as long as each token is tagged in <code>modality_masks</code>; examples show text/image/speech masks and detoured normalization rules.^[<code>129:137:external_repos/MoT/README.md</code>][<code>87:137:external_repos/MoT/src/simple_ModalityUntiedAttention.py</code>]</td>
@@ -5259,74 +5259,71 @@
 </table>
 <h3 id="environment-integration-notes">Environment &amp; Integration Notes<a class="headerlink" href="#environment-integration-notes" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Designed as a playbook on top of <em>your</em> transformer—start from any stack that exposes attention/FFN modules and thread through MoT’s modality-specific replacements.^[<code>40:71:external_repos/MoT/README.md</code>]</li>
-<li>Efficient gains hinge on accurate routing masks; the README demonstrates simple boolean lists and emphasises deterministic routing per modality.^[<code>129:137:external_repos/MoT/README.md</code>]</li>
-<li>Norm placement matters: either keep residual norms inside the expert modules (preferred) or refactor your <code>TransformerBlock</code> to avoid double-normalizing.^[<code>307:330:external_repos/MoT/README.md</code>]</li>
+<li>Designed as a playbook on top of <em>your</em> transformer—start from any stack that exposes attention/FFN modules and thread through MoT’s modality-specific replacements.^[<code>text title="external_repos/MoT/README.md</code>] (lines 40-71)"</li>
+<li>Efficient gains hinge on accurate routing masks; the README demonstrates simple boolean lists and emphasises deterministic routing per modality.^[<code>text title="external_repos/MoT/README.md</code>] (lines 129-137)"</li>
+<li>Norm placement matters: either keep residual norms inside the expert modules (preferred) or refactor your <code>TransformerBlock</code> to avoid double-normalizing.^[<code>text title="external_repos/MoT/README.md</code>] (lines 307-330)"</li>
 </ul>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
 <h3 id="modality-untied-feed-forward-srcsimple_modalityuntiedfeedforwardpy">Modality-Untied Feed-Forward (<code>src/simple_ModalityUntiedFeedForward.py</code>)<a class="headerlink" href="#modality-untied-feed-forward-srcsimple_modalityuntiedfeedforwardpy" title="Permanent link">&para;</a></h3>
-<p><code>SimpleModalityUntiedFeedForward</code> replicates a SiLU-gated MLP per modality, normalizes each expert’s output, then stitches results back into the original token order via <code>merge_modalities</code>. Swapping only this block already covers ≈67 % of non-embedding parameters, so most FLOP savings arrive after this step.^[<code>75:119:external_repos/MoT/README.md</code>]</p>
-<p>```17:60:external_repos/MoT/src/simple_ModalityUntiedFeedForward.py
-class SimpleModalityUntiedFeedForward(torch.nn.Module):
-    def <strong>init</strong>(..., n_modalities: int = 2):
-        ...
-        self.local_experts = torch.nn.ModuleList([
-            SimpleFeedForward(...)
-            for _ in range(self.n_modalities)
-        ])
-        self.local_experts_ffn_norm = torch.nn.ModuleList(
-            [SimpleRMSNorm(dim, eps=1e-5) for _ in range(self.n_modalities)]
-        )</p>
-<div class="language-text highlight"><pre><span></span><code>def forward(self, x, modality_masks):
-    expert_outputs = []
-    for i in range(self.n_modalities):
-        expert_input = x[modality_masks[i]]
-        expert_output = self.local_experts[i](expert_input)
-        expert_output = self.local_experts_ffn_norm[i](expert_output)
-        expert_outputs.append(expert_output)
-    return merge_modalities(expert_outputs, modality_masks)
-</code></pre></div>
-<p><code>Because experts only see their modality tokens, you can scale specialization (e.g., text-heavy vs. image-heavy hidden sizes) without perturbing other branches. `SimpleFeedForward` itself is the Lingua-style gated MLP that preserves tensor-parallel friendliness.^[</code>64:107:external_repos/MoT/src/simple_ModalityUntiedFeedForward.py```]
-</p>
+<p><code>SimpleModalityUntiedFeedForward</code> replicates a SiLU-gated MLP per modality, normalizes each expert’s output, then stitches results back into the original token order via <code>merge_modalities</code>. Swapping only this block already covers ≈67 % of non-embedding parameters, so most FLOP savings arrive after this step.^[<code>text title="external_repos/MoT/README.md</code>] (lines 75-119)"</p>
+<div class="language-python highlight"><span class="filename">external_repos/MoT/src/simple_ModalityUntiedFeedForward.py (lines 17-60)</span><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SimpleModalityUntiedFeedForward</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">n_modalities</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
+</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="o">...</span>
+</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">local_experts</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span>
+</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>            <span class="n">SimpleFeedForward</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_modalities</span><span class="p">)</span>
+</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="p">])</span>
+</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">local_experts_ffn_norm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">(</span>
+</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            <span class="p">[</span><span class="n">SimpleRMSNorm</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_modalities</span><span class="p">)]</span>
+</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="p">)</span>
+</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">modality_masks</span><span class="p">):</span>
+</span><span id="__span__-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="n">expert_outputs</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span__-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_modalities</span><span class="p">):</span>
+</span><span id="__span__-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>            <span class="n">expert_input</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">modality_masks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+</span><span id="__span__-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>            <span class="n">expert_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_experts</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="n">expert_input</span><span class="p">)</span>
+</span><span id="__span__-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>            <span class="n">expert_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_experts_ffn_norm</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="n">expert_output</span><span class="p">)</span>
+</span><span id="__span__-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>            <span class="n">expert_outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expert_output</span><span class="p">)</span>
+</span><span id="__span__-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        <span class="k">return</span> <span class="n">merge_modalities</span><span class="p">(</span><span class="n">expert_outputs</span><span class="p">,</span> <span class="n">modality_masks</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Because experts only see their modality tokens, you can scale specialization (e.g., text-heavy vs. image-heavy hidden sizes) without perturbing other branches. <code>SimpleFeedForward</code> itself is the Lingua-style gated MLP that preserves tensor-parallel friendliness.^[<code>text title="external_repos/MoT/src/simple_ModalityUntiedFeedForward.py</code>] (lines 64-107)"</p>
 <h3 id="modality-untied-attention-srcsimple_modalityuntiedattentionpy">Modality-Untied Attention (<code>src/simple_ModalityUntiedAttention.py</code>)<a class="headerlink" href="#modality-untied-attention-srcsimple_modalityuntiedattentionpy" title="Permanent link">&para;</a></h3>
-<p>The attention module mirrors the FFN pattern: per-modality projections and RMSNorms for Q/K/V/outputs, shared global attention via <code>torch.nn.MultiheadAttention</code>, and a final per-modality projection back to the model dimension.^[<code>141:301:external_repos/MoT/README.md</code>][<code>16:151:external_repos/MoT/src/simple_ModalityUntiedAttention.py</code>]
-
-<strong>Per-modality Q/K/V projections with shared attention:</strong>
-
-<code>16:151:external_repos/MoT/src/simple_ModalityUntiedAttention.py
-class SimpleModalityUntiedAttention(torch.nn.Module):
-    def __init__(...):
-        self.local_experts_wq = self._create_experts(dim, n_heads * head_dim)
-        self.local_experts_wk = self._create_experts(dim, n_heads * head_dim)
-        self.local_experts_wv = self._create_experts(dim, n_heads * head_dim)
-        self.local_experts_wo = self._create_experts(n_heads * head_dim, dim)
-        ...
-        self.attention_comp = torch.nn.MultiheadAttention(
-            head_dim=head_dim,
-            n_heads=n_heads,
-            dropout=dropout,
-        )</code></p>
-<p>During <code>forward</code>, tokens are first split by mask, projected/normed per modality, concatenated back for standard attention, and finally projected/normed per modality again.^[<code>86:151:external_repos/MoT/src/simple_ModalityUntiedAttention.py</code>] Optional QK normalization reshapes tensors to <code>[*, num_heads, head_dim]</code> before applying <code>SimpleRMSNorm</code>, which keeps the rotary-scaled statistics stable.^[<code>112:174:external_repos/MoT/src/simple_ModalityUntiedAttention.py</code>]</p>
+<p>The attention module mirrors the FFN pattern: per-modality projections and RMSNorms for Q/K/V/outputs, shared global attention via <code>torch.nn.MultiheadAttention</code>, and a final per-modality projection back to the model dimension.^[<code>text title="external_repos/MoT/README.md</code>][<code>16:151:external_repos/MoT/src/simple_ModalityUntiedAttention.py</code>] (lines 141-301)"</p>
+<p><strong>Per-modality Q/K/V projections with shared attention:</strong></p>
+<div class="language-python highlight"><span class="filename">external_repos/MoT/src/simple_ModalityUntiedAttention.py (lines 16-151)</span><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SimpleModalityUntiedAttention</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">local_experts_wq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_experts</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">n_heads</span> <span class="o">*</span> <span class="n">head_dim</span><span class="p">)</span>
+</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">local_experts_wk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_experts</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">n_heads</span> <span class="o">*</span> <span class="n">head_dim</span><span class="p">)</span>
+</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">local_experts_wv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_experts</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">n_heads</span> <span class="o">*</span> <span class="n">head_dim</span><span class="p">)</span>
+</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">local_experts_wo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_experts</span><span class="p">(</span><span class="n">n_heads</span> <span class="o">*</span> <span class="n">head_dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="o">...</span>
+</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">attention_comp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">MultiheadAttention</span><span class="p">(</span>
+</span><span id="__span__-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>            <span class="n">head_dim</span><span class="o">=</span><span class="n">head_dim</span><span class="p">,</span>
+</span><span id="__span__-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>            <span class="n">n_heads</span><span class="o">=</span><span class="n">n_heads</span><span class="p">,</span>
+</span><span id="__span__-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>            <span class="n">dropout</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span>
+</span><span id="__span__-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="p">)</span>
+</span></code></pre></div>
+<p>During <code>forward</code>, tokens are first split by mask, projected/normed per modality, concatenated back for standard attention, and finally projected/normed per modality again.^[<code>text title="external_repos/MoT/src/simple_ModalityUntiedAttention.py</code>] Optional QK normalization reshapes tensors to <code>[*, num_heads, head_dim]</code> before applying <code>SimpleRMSNorm</code>, which keeps the rotary-scaled statistics stable.^[<code>112:174:external_repos/MoT/src/simple_ModalityUntiedAttention.py</code>] (lines 86-151)"</p>
 <h3 id="utility-primitives-srcutilspy">Utility Primitives (<code>src/utils.py</code>)<a class="headerlink" href="#utility-primitives-srcutilspy" title="Permanent link">&para;</a></h3>
-<p><code>merge_modalities</code> reconstructs the packed sequence according to mask order, so expert outputs can be arbitrarily sharded while still producing a contiguous tensor for the residual path. <code>SimpleRMSNorm</code> is the Lingua-derived RMSNorm variant used consistently across experts.^[<code>14:66:external_repos/MoT/src/utils.py</code>]</p>
+<p><code>merge_modalities</code> reconstructs the packed sequence according to mask order, so expert outputs can be arbitrarily sharded while still producing a contiguous tensor for the residual path. <code>SimpleRMSNorm</code> is the Lingua-derived RMSNorm variant used consistently across experts.^[<code>text title="external_repos/MoT/src/utils.py</code>] (lines 14-66)"</p>
 <p><strong>Modality merging utility:</strong></p>
-<p><code>14:34:external_repos/MoT/src/utils.py
-def merge_modalities(expert_outputs, modality_masks):
-    merged = torch.empty_like(expert_outputs[0])
-    for i in range(len(expert_outputs) - 1, -1, -1):
-        merged[modality_masks[i]] = expert_outputs[i]
-    return merged</code></p>
+<div class="language-python highlight"><span class="filename">external_repos/MoT/src/utils.py (lines 14-34)</span><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">merge_modalities</span><span class="p">(</span><span class="n">expert_outputs</span><span class="p">,</span> <span class="n">modality_masks</span><span class="p">):</span>
+</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">merged</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">expert_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">expert_outputs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="n">merged</span><span class="p">[</span><span class="n">modality_masks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">expert_outputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">return</span> <span class="n">merged</span>
+</span></code></pre></div>
 <h3 id="implementation-checklist">Implementation Checklist<a class="headerlink" href="#implementation-checklist" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Start from your baseline <code>TransformerBlock</code>, then replace FFN/attention classes with the modality-untied versions, ensuring the residual structure still performs <code>x + module(x)</code> as shown in the README.^[<code>307:330:external_repos/MoT/README.md</code>]</li>
-<li>Provide <code>modality_masks</code> for every forward pass. The README’s three-modality example demonstrates boolean masks; in production you can precompute these from tokenizer metadata or image/video region plans.^[<code>129:137:external_repos/MoT/README.md</code>]</li>
-<li>Keep norm layers inside the modality-specific modules to avoid double-scaling outputs; only keep block-level norms if your baseline requires them.^[<code>307:330:external_repos/MoT/README.md</code>]</li>
+<li>Start from your baseline <code>TransformerBlock</code>, then replace FFN/attention classes with the modality-untied versions, ensuring the residual structure still performs <code>x + module(x)</code> as shown in the README.^[<code>text title="external_repos/MoT/README.md</code>] (lines 307-330)"</li>
+<li>Provide <code>modality_masks</code> for every forward pass. The README’s three-modality example demonstrates boolean masks; in production you can precompute these from tokenizer metadata or image/video region plans.^[<code>text title="external_repos/MoT/README.md</code>] (lines 129-137)"</li>
+<li>Keep norm layers inside the modality-specific modules to avoid double-scaling outputs; only keep block-level norms if your baseline requires them.^[<code>text title="external_repos/MoT/README.md</code>] (lines 307-330)"</li>
 </ul>
 <h2 id="integration-hooks">Integration Hooks<a class="headerlink" href="#integration-hooks" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Routing data from KB assets.</strong> When generating multimodal batches (e.g., fMRI tokens + gene tokens) build boolean masks once per modality and pass them into MoT blocks—only the masks need awareness of modality boundaries.</li>
 <li><strong>Progressive specialization.</strong> Because experts are independent <code>nn.ModuleList</code> entries, you can freeze or reinitialize select modalities while fine-tuning others (useful when only one KB modality changes).</li>
-<li><strong>FLOP budgeting.</strong> The FLOP savings callouts (55.8 % / 37.2 % / one-third) provide targets for profiling when adapting MoT to new neuro-omics settings.^[<code>15:30:external_repos/MoT/README.md</code>]</li>
+<li><strong>FLOP budgeting.</strong> The FLOP savings callouts (55.8 % / 37.2 % / one-third) provide targets for profiling when adapting MoT to new neuro-omics settings.^[<code>text title="external_repos/MoT/README.md</code>] (lines 15-30)"</li>
 </ul>
 
 

@@ -2860,6 +2860,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#embeddings-masking-brainlm_maemodeling_brainlmpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embeddings &amp; Masking (brainlm_mae/modeling_brainlm.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#encoder-decoder-brainlm_maemodeling_brainlmpy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2875,6 +2886,17 @@
     <span class="md-ellipsis">
       
         Loss (brainlm_mae/modeling_brainlm.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-driver-brainlmtrainpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Driver (brainlm/train.py)
       
     </span>
   </a>
@@ -5222,7 +5244,7 @@
 <p><strong>KB references:</strong> <a href="../../models/brain/brainlm/">Model card</a> · <a href="../../integration/modality_features/fmri/">fMRI feature spec</a> · <a href="../../integration/integration_strategy/">Integration strategy</a> · <a href="../../kb/templates/experiment_config_stub/">Experiment config stub</a></p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>BrainLM is a ViT-MAE–style masked autoencoder: it slices each voxel’s time course into short windows, randomly masks most of them, and reconstructs the missing segments with Nystromformer encoder layers and a lightweight decoder trained on UK Biobank fMRI.^[<code>1:48:external_repos/brainlm/README.md</code>][<code>63:205:external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>]</p>
+<p>BrainLM is a ViT-MAE–style masked autoencoder: it slices each voxel’s time course into short windows, randomly masks most of them, and reconstructs the missing segments with Nystromformer encoder layers and a lightweight decoder trained on UK Biobank fMRI.^[<code>text title="external_repos/brainlm/README.md</code>][<code>63:205:external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>] (lines 1-48)"</p>
 <h2 id="at-a-glance">At-a-Glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -5237,7 +5259,7 @@
 </thead>
 <tbody>
 <tr>
-<td>ViT-MAE encoder (Nystromformer) + MAE decoder^[<code>227:515:external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>]</td>
+<td>ViT-MAE encoder (Nystromformer) + MAE decoder^[<code>text title="external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>]</td>
 <td>111 M / 650 M checkpoints^[<code>39:48:external_repos/brainlm/README.md</code>]</td>
 <td>424 parcels × 490 timepoints patched into windows^[<code>63:200:external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>]</td>
 <td>Arrow datasets of <code>[B, voxels, time]</code> tensors + XYZ coordinates^[<code>43:205:external_repos/brainlm/train.py</code>]</td>
@@ -5248,106 +5270,98 @@
 </table>
 <h3 id="environment-hardware-notes">Environment &amp; Hardware Notes<a class="headerlink" href="#environment-hardware-notes" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Setup script.</strong> The README directs users to run <code>sh setup.sh</code> to create the conda environment (with FlashAttention for the 111 M/650 M checkpoints) and verify PyTorch/HuggingFace installs via the provided sanity commands.^[<code>16:26:external_repos/brainlm/README.md</code>][<code>50:52:external_repos/brainlm/README.md</code>]</li>
-<li><strong>Gradient checkpointing toggle.</strong> Both the encoder and decoder wrap their Nystromformer layers with <code>if self.gradient_checkpointing and self.training: torch.utils.checkpoint.checkpoint(...)</code>, so you can enable <code>model.gradient_checkpointing_enable()</code> before large runs to keep memory in check.^[<code>245:269:external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>][<code>453:500:external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>]</li>
+<li><strong>Setup script.</strong> The README directs users to run <code>sh setup.sh</code> to create the conda environment (with FlashAttention for the 111 M/650 M checkpoints) and verify PyTorch/HuggingFace installs via the provided sanity commands.^[<code>text title="external_repos/brainlm/README.md</code>][<code>50:52:external_repos/brainlm/README.md</code>] (lines 16-26)"</li>
+<li><strong>Gradient checkpointing toggle.</strong> Both the encoder and decoder wrap their Nystromformer layers with <code>if self.gradient_checkpointing and self.training: torch.utils.checkpoint.checkpoint(...)</code>, so you can enable <code>model.gradient_checkpointing_enable()</code> before large runs to keep memory in check.^[<code>text title="external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>][<code>453:500:external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>] (lines 245-269)"</li>
 </ul>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
 <h3 id="data-collation-brainlmtrainpy">Data &amp; Collation (<code>brainlm/train.py</code>)<a class="headerlink" href="#data-collation-brainlmtrainpy" title="Permanent link">&para;</a></h3>
 <p>Hydra dataclasses declare dataset paths, voxel/time dimensions, and labels; <code>collate_fn</code> stacks tensors into the format expected by the MAE model.</p>
 <p><strong>Dataset configuration and collation:</strong></p>
-<p>```43:210:external_repos/brainlm/train.py
-@dataclass
-class DataTrainingArguments:
-    train_dataset_path: str
-    val_dataset_path: str
-    coords_dataset_path: str
-    num_timepoints_per_voxel: int = 490
-    timepoint_patching_size: int = 49
-...
-def collate_fn(examples):
-    signal_vectors = torch.stack([example["signal_vectors"] for example in examples], dim=0)
-    xyz_vectors = torch.stack([example["xyz_vectors"] for example in examples])
-    labels = torch.stack([example["label"] for example in examples])
-    return {"signal_vectors": signal_vectors, "xyz_vectors": xyz_vectors, "input_ids": signal_vectors, "labels": labels}
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>### Embeddings &amp; Masking (`brainlm_mae/modeling_brainlm.py`)
-</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>`BrainLMEmbeddings` reshapes time signals into patches, projects signals and spatial coordinates, injects positional encoding, and randomly masks patches before appending a CLS token.
-</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>**Signal embedding and masking logic:**
-</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>```63:160:external_repos/brainlm/brainlm_mae/modeling_brainlm.py
-</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>reshaped_signal_vectors = torch.reshape(signal_vectors, (batch, num_voxels, -1, self.timepoint_patching_size))
-</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>signal_projection = self.signal_embedding_projection(reshaped_signal_vectors)
-</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>xyz_projection = self.xyz_embedding_projection(xyz_vectors).unsqueeze(2).repeat(1, 1, num_patch_tokens, 1)
-</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>x = self.pos_embedding(signal_projection + xyz_projection)
-</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>embeddings, mask, ids_restore = self.random_masking(x, noise=noise)
-</span><span id="__span__-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>cls_tokens = self.cls_token.expand(embeddings.shape[0], -1, -1)
-</span><span id="__span__-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>embeddings = torch.cat((cls_tokens, embeddings), dim=1)
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainlm/train.py (lines 43-210)</span><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">@dataclass</span>
+</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">DataTrainingArguments</span><span class="p">:</span>
+</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">train_dataset_path</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">val_dataset_path</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">coords_dataset_path</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">num_timepoints_per_voxel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">490</span>
+</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">timepoint_patching_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">49</span>
+</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="o">...</span>
+</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">collate_fn</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+</span><span id="__span__-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">signal_vectors</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">example</span><span class="p">[</span><span class="s2">&quot;signal_vectors&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span__-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">xyz_vectors</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">example</span><span class="p">[</span><span class="s2">&quot;xyz_vectors&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">])</span>
+</span><span id="__span__-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">example</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">])</span>
+</span><span id="__span__-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;signal_vectors&quot;</span><span class="p">:</span> <span class="n">signal_vectors</span><span class="p">,</span> <span class="s2">&quot;xyz_vectors&quot;</span><span class="p">:</span> <span class="n">xyz_vectors</span><span class="p">,</span> <span class="s2">&quot;input_ids&quot;</span><span class="p">:</span> <span class="n">signal_vectors</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">:</span> <span class="n">labels</span><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="embeddings-masking-brainlm_maemodeling_brainlmpy">Embeddings &amp; Masking (<code>brainlm_mae/modeling_brainlm.py</code>)<a class="headerlink" href="#embeddings-masking-brainlm_maemodeling_brainlmpy" title="Permanent link">&para;</a></h3>
+<p><code>BrainLMEmbeddings</code> reshapes time signals into patches, projects signals and spatial coordinates, injects positional encoding, and randomly masks patches before appending a CLS token.</p>
+<p><strong>Signal embedding and masking logic:</strong></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainlm/brainlm_mae/modeling_brainlm.py (lines 63-160)</span><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">reshaped_signal_vectors</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">signal_vectors</span><span class="p">,</span> <span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">num_voxels</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">timepoint_patching_size</span><span class="p">))</span>
+</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">signal_projection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">signal_embedding_projection</span><span class="p">(</span><span class="n">reshaped_signal_vectors</span><span class="p">)</span>
+</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">xyz_projection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xyz_embedding_projection</span><span class="p">(</span><span class="n">xyz_vectors</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_patch_tokens</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_embedding</span><span class="p">(</span><span class="n">signal_projection</span> <span class="o">+</span> <span class="n">xyz_projection</span><span class="p">)</span>
+</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">embeddings</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">ids_restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_masking</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
+</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">cls_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cls_token</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">cls_tokens</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></div>
 <h3 id="encoder-decoder-brainlm_maemodeling_brainlmpy">Encoder &amp; Decoder (<code>brainlm_mae/modeling_brainlm.py</code>)<a class="headerlink" href="#encoder-decoder-brainlm_maemodeling_brainlmpy" title="Permanent link">&para;</a></h3>
 <p>The encoder stacks Nystromformer layers, while the decoder reintroduces mask tokens, adds spatial/time encodings again, and predicts the missing time windows.</p>
 <p><strong>MAE encoder structure:</strong></p>
-<p>```227:340:external_repos/brainlm/brainlm_mae/modeling_brainlm.py
-class BrainLMModel(ViTMAEModel):
-    self.embeddings = BrainLMEmbeddings(config)
-    self.encoder = BrainLMEncoder(config)
-    encoder_outputs = self.encoder(embedding_output, ...)
-    sequence_output = self.layernorm(encoder_outputs[0])
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>**Decoder with mask token reconstruction:**
-</span><span id="__span__-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span__-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>```355:515:external_repos/brainlm/brainlm_mae/modeling_brainlm.py
-</span><span id="__span__-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>mask_tokens = self.mask_token.repeat(batch_size, num_mask_tokens, 1)
-</span><span id="__span__-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>x_ = torch.reshape(x_, (batch_size, self.num_brain_voxels, num_patch_tokens, hidden_dim))
-</span><span id="__span__-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>x_ = x_ + self.decoder_xyz_projection(xyz_vectors)
-</span><span id="__span__-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>x_ = self.pos_embedding(x_)
-</span><span id="__span__-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>logits = self.decoder_pred2(self.decoder_pred_nonlinearity(self.decoder_pred1(hidden_states)))
-</span><span id="__span__-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>logits = torch.reshape(logits, (batch_size, self.num_brain_voxels, ..., self.timepoint_patching_size))
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainlm/brainlm_mae/modeling_brainlm.py (lines 227-340)</span><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">BrainLMModel</span><span class="p">(</span><span class="n">ViTMAEModel</span><span class="p">):</span>
+</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">BrainLMEmbeddings</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">BrainLMEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">encoder_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="n">embedding_output</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">sequence_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layernorm</span><span class="p">(</span><span class="n">encoder_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></code></pre></div>
+<p><strong>Decoder with mask token reconstruction:</strong></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainlm/brainlm_mae/modeling_brainlm.py (lines 355-515)</span><pre><span></span><code><span id="__span__-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">mask_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_token</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">num_mask_tokens</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span__-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">x_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_brain_voxels</span><span class="p">,</span> <span class="n">num_patch_tokens</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">))</span>
+</span><span id="__span__-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">x_</span> <span class="o">=</span> <span class="n">x_</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_xyz_projection</span><span class="p">(</span><span class="n">xyz_vectors</span><span class="p">)</span>
+</span><span id="__span__-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">x_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_embedding</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span>
+</span><span id="__span__-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_pred2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decoder_pred_nonlinearity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decoder_pred1</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)))</span>
+</span><span id="__span__-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_brain_voxels</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">timepoint_patching_size</span><span class="p">))</span>
+</span></code></pre></div>
 <h3 id="loss-brainlm_maemodeling_brainlmpy">Loss (<code>brainlm_mae/modeling_brainlm.py</code>)<a class="headerlink" href="#loss-brainlm_maemodeling_brainlmpy" title="Permanent link">&para;</a></h3>
 <p>Masked reconstruction loss is computed only on the masked tokens (MSE or MAE).</p>
 <p><strong>Masked reconstruction loss computation:</strong></p>
-<p>```562:584:external_repos/brainlm/brainlm_mae/modeling_brainlm.py
-mask = mask.unsqueeze(-1).repeat(1, 1, 1, pred_values.shape[-1])
-if self.config.loss_fn == "mse":
-    loss = (((pred_values - signal_values) ** 2) * mask).sum() / mask.sum()
-elif self.config.loss_fn == "mae":
-    loss = abs((pred_values - signal_values) * mask).sum() / mask.sum()
-<div class="language-text highlight"><pre><span></span><code><span id="__span__-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>### Training Driver (`brainlm/train.py`)
-</span><span id="__span__-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>`BrainLMTrainer` glues everything together—optimizer, scheduler, metrics, evaluation.
-</span><span id="__span__-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span__-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>```351:470:external_repos/brainlm/train.py
-</span><span id="__span__-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>trainer = BrainLMTrainer(
-</span><span id="__span__-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    model=model,
-</span><span id="__span__-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    args=training_args,
-</span><span id="__span__-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    train_dataset=train_dataset,
-</span><span id="__span__-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    eval_dataset=val_dataset,
-</span><span id="__span__-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    tokenizer=None,
-</span><span id="__span__-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    data_collator=collate_fn,
-</span><span id="__span__-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    compute_metrics=metrics.compute_metrics,
-</span><span id="__span__-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>)
-</span><span id="__span__-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>trainer.train()
-</span></code></pre></div></p>
+<div class="language-python highlight"><span class="filename">external_repos/brainlm/brainlm_mae/modeling_brainlm.py (lines 562-584)</span><pre><span></span><code><span id="__span__-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pred_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span><span id="__span__-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">loss_fn</span> <span class="o">==</span> <span class="s2">&quot;mse&quot;</span><span class="p">:</span>
+</span><span id="__span__-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">loss</span> <span class="o">=</span> <span class="p">(((</span><span class="n">pred_values</span> <span class="o">-</span> <span class="n">signal_values</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</span><span id="__span__-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">loss_fn</span> <span class="o">==</span> <span class="s2">&quot;mae&quot;</span><span class="p">:</span>
+</span><span id="__span__-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">loss</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">pred_values</span> <span class="o">-</span> <span class="n">signal_values</span><span class="p">)</span> <span class="o">*</span> <span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</span></code></pre></div>
+<h3 id="training-driver-brainlmtrainpy">Training Driver (<code>brainlm/train.py</code>)<a class="headerlink" href="#training-driver-brainlmtrainpy" title="Permanent link">&para;</a></h3>
+<p><code>BrainLMTrainer</code> glues everything together—optimizer, scheduler, metrics, evaluation.</p>
+<div class="language-python highlight"><span class="filename">external_repos/brainlm/train.py (lines 351-470)</span><pre><span></span><code><span id="__span__-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">BrainLMTrainer</span><span class="p">(</span>
+</span><span id="__span__-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+</span><span id="__span__-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">args</span><span class="o">=</span><span class="n">training_args</span><span class="p">,</span>
+</span><span id="__span__-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span>
+</span><span id="__span__-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">eval_dataset</span><span class="o">=</span><span class="n">val_dataset</span><span class="p">,</span>
+</span><span id="__span__-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">tokenizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span__-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">data_collator</span><span class="o">=</span><span class="n">collate_fn</span><span class="p">,</span>
+</span><span id="__span__-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">compute_metrics</span><span class="o">=</span><span class="n">metrics</span><span class="o">.</span><span class="n">compute_metrics</span><span class="p">,</span>
+</span><span id="__span__-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">)</span>
+</span><span id="__span__-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span></code></pre></div>
 <h2 id="integration-hooks-brain-genetics">Integration Hooks (Brain ↔ Genetics)<a class="headerlink" href="#integration-hooks-brain-genetics" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Embedding shape.</strong> Encoder outputs <code>[B, (num_voxels * kept_tokens) + 1, hidden]</code>. Index 0 is CLS; the rest represent unmasked voxel windows sorted deterministically.^[<code>329:350:external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>]</li>
+<li><strong>Embedding shape.</strong> Encoder outputs <code>[B, (num_voxels * kept_tokens) + 1, hidden]</code>. Index 0 is CLS; the rest represent unmasked voxel windows sorted deterministically.^[<code>text title="external_repos/brainlm/brainlm_mae/modeling_brainlm.py</code>] (lines 329-350)"</li>
 <li><strong>Pooling choices.</strong> CLS pooling mirrors the MAE training objective; mean pooling across tokens smooths noise; reshaping tokens back to <code>[B, voxels, windows, hidden]</code> lets you average over time first, then voxels.</li>
 <li><strong>Projection to shared latent.</strong> Map pooled <code>[B, hidden]</code> vectors (hidden≈768 on the 111 M model) into a 512-D shared space:</li>
 </ul>
-<div class="language-python highlight"><pre><span></span><code><span id="__span__-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
-</span><span id="__span__-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span__-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">BrainLMProjector</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-</span><span id="__span__-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
-</span><span id="__span__-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-</span><span id="__span__-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
-</span><span id="__span__-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="mi">1024</span><span class="p">),</span>
-</span><span id="__span__-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">GELU</span><span class="p">(),</span>
-</span><span id="__span__-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">),</span>
-</span><span id="__span__-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">),</span>
-</span><span id="__span__-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">output_dim</span><span class="p">),</span>
-</span><span id="__span__-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="p">)</span>
-</span><span id="__span__-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-</span><span id="__span__-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-</span><span id="__span__-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span__-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+</span><span id="__span__-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span__-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">BrainLMProjector</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span__-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+</span><span id="__span__-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span__-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+</span><span id="__span__-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="mi">1024</span><span class="p">),</span>
+</span><span id="__span__-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">GELU</span><span class="p">(),</span>
+</span><span id="__span__-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">),</span>
+</span><span id="__span__-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">),</span>
+</span><span id="__span__-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">output_dim</span><span class="p">),</span>
+</span><span id="__span__-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        <span class="p">)</span>
+</span><span id="__span__-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+</span><span id="__span__-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span><span id="__span__-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </span></code></pre></div>
 <ul>
 <li><strong>Masking control.</strong> When extracting embeddings, set <code>mask_ratio=0.0</code> so every patch contributes; enable masking only for pretraining/augmentation.</li>
