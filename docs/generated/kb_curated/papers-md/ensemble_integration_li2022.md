@@ -1,3 +1,10 @@
+---
+title: "Integrating Multimodal Data Through Interpretable Heterogeneous Ensembles"
+authors: "Yan Chak Li, Linhua Wang, Jeffrey N. Law, T. M. Murali, Gaurav Pandey"
+year: 2022
+venue: "Bioinformatics Advances"
+---
+
 # Integrating Multimodal Data Through Interpretable Heterogeneous Ensembles
 
 **Authors:** Yan Chak Li, Linhua Wang, Jeffrey N. Law, T. M. Murali, Gaurav Pandey  

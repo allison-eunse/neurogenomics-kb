@@ -1,0 +1,64 @@
+title: "HyenaDNA: Long-Range Genomic Sequence Modeling at Single Nucleotide Resolution"
+short_name: "HyenaDNA"
+authors:
+  - Eric Nguyen
+  - Michael Poli
+  - Marjan Faizi
+  - Armin W. Thomas
+  - Callum Birch Sykes
+  - Michael Wornow
+  - Aman Patel
+  - Clayton Rabideau
+  - Stefano Massaroli
+  - Yoshua Bengio
+  - Stefano Ermon
+  - Stephen A. Baccus
+  - Christopher Ré
+year: 2023
+venue: "NeurIPS 2023"
+pdf_source: "https://arxiv.org/abs/2306.15794"
+local_pdf_path: "docs/generated/kb_curated/papers-pdf/hyenadna_2023.pdf"
+summary_md_path: "docs/generated/kb_curated/papers-md/hyenadna_2023.md"
+
+summary: |
+  HyenaDNA adapts Hyena implicit-convolution operators to genomic sequences, achieving up to 1M
+  token context at single-nucleotide resolution while remaining computationally feasible.
+  Pretrained as a decoder-only next-token model on the human reference genome with a sequence-length
+  warm-up schedule, HyenaDNA attains state-of-the-art performance on Nucleotide Transformer and
+  GenomicBenchmarks tasks using orders of magnitude fewer parameters and pretraining data than
+  prior DNA foundation models.^[See arXiv:2306.15794](https://arxiv.org/abs/2306.15794)
+
+key_contributions:
+  - "Demonstrates 1M-token context genomic modeling with character-level tokens using Hyena operators."
+  - "Introduces sequence-length warm-up to stabilize and speed up ultralong-context training."
+  - "Shows strong downstream performance with ~1.6M parameters and a single human genome of pretraining data."
+  - "Provides soft-prompt adaptation recipes for downstream tasks without full fine-tuning."
+
+architecture:
+  backbone: "Decoder-only Hyena blocks (implicit long convolutions with data-controlled gating)"
+  context_length: "1,000,000 tokens"
+  tokenization: "Character-level (A/C/G/T/N + specials)"
+  params: "≈1.6M (reported in the NeurIPS paper)"
+
+implications_for_project:
+  - "Establishes Hyena-style operators as a viable alternative to attention for ultra-long genomic contexts."
+  - "Provides a discriminative complement to Evo 2’s generative StripedHyena-2 models in the KB."
+  - "Suggests sequence-length warm-up and soft prompting as design patterns for future neuro-omics FMs (e.g., long-range EEG or fMRI)."
+
+related_to:
+  - "docs/code_walkthroughs/hyena_walkthrough.md"
+  - "docs/models/genetics/index.md"
+  - "docs/generated/kb_curated/papers-md/evo2_2024.md"
+
+verification_status: "needs_human_review"
+notes: "Code is maintained upstream by the Hyena/HyenaDNA authors; verify current checkpoints and configs before reproducing results."
+
+tags:
+  - genomics
+  - foundation_model
+  - hyena
+  - long_context
+  - single_nucleotide
+
+
+

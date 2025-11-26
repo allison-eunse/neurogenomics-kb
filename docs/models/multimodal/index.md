@@ -14,6 +14,7 @@ This section covers multimodal and clinical foundation models that integrate mul
 
 | Model | Architecture | Key Innovation | Parameters | Documentation |
 |-------|--------------|----------------|------------|---------------|
+| 🔗 [**Flamingo**](flamingo.md) | Perceiver + gated cross-attention | Few-shot multimodal VLM via frozen encoders | 3B / 4B / 9B / 80B | [Walkthrough](../../code_walkthroughs/flamingo_walkthrough.md) |
 | 🔗 [**BAGEL**](bagel.md) | MoT decoder + SigLIP + VAE | Unified understanding + generation | 7B active / 14B total | [Walkthrough](../../code_walkthroughs/bagel_walkthrough.md) |
 | 🔗 [**MoT**](mot.md) | Sparse transformer | Modality-aware FFNs (~55% FLOPs) | Scales to 7B+ | [Walkthrough](../../code_walkthroughs/mot_walkthrough.md) |
 

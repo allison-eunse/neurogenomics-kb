@@ -1,0 +1,45 @@
+title: "Reverse–Complement Consistency for DNA Language Models"
+short_name: "RC Consistency (RCCR)"
+authors:
+  - Mingqian Ma
+year: 2025
+venue: "arXiv preprint"
+pdf_source: "https://arxiv.org/abs/2509.18529"
+local_pdf_path: "docs/generated/kb_curated/papers-pdf/reverse-complement-consistency_2025.pdf"
+summary_md_path: "docs/generated/kb_curated/papers-md/reverse-complement-consistency_2025.md"
+
+summary: |
+  Introduces Reverse-Complement Consistency Regularization (RCCR), a model-agnostic fine-tuning
+  objective that penalizes disagreement between a DNA language model’s predictions on a sequence
+  and its reverse complement. RCCR improves RC robustness (lower flip rates, higher RC correlation)
+  across diverse backbones (Nucleotide Transformer v2, DNABERT-2, HyenaDNA) while maintaining or
+  improving task performance on classification and regression tasks.^[See arXiv:2509.18529](https://arxiv.org/abs/2509.18529)
+
+key_contributions:
+  - "Defines RCCR, a simple consistency term between predictions on x and RC(x) with task-aware alignment."
+  - "Provides theoretical guarantees that symmetrization is risk non-increasing and global minimizers are RC-consistent under symmetric labels."
+  - "Demonstrates backbone-agnostic gains in RC robustness across multiple DNA LMs and task types."
+  - "Introduces standardized RC metrics (sequence flip rate, RC-Corr) for evaluating DNA LMs."
+
+implications_for_project:
+  - "Supplies a drop-in recipe to retrofit RC robustness onto non-equivariant backbones in the KB (e.g., Evo 2, HyenaDNA)."
+  - "Motivates tracking RC-specific metrics alongside AUROC/AUPRC in genetics experiments."
+  - "Suggests consistency-regularization patterns that can generalize to other biological symmetries (e.g., anatomical flips in imaging)."
+
+related_to:
+  - "docs/generated/kb_curated/papers-md/reverse-complement-equivariant_2021.md"
+  - "docs/models/genetics/dnabert2.md"
+  - "docs/models/genetics/evo2.md"
+  - "docs/integration/modality_features/genomics.md"
+
+verification_status: "needs_human_review"
+notes: "RCCR is intended for RC-symmetric/equivariant tasks only; strand-specific tasks require disabling or modifying the regularizer."
+
+tags:
+  - genomics
+  - reverse_complement
+  - consistency_regularization
+  - dna_language_models
+
+
+

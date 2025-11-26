@@ -79,6 +79,7 @@ nav:
           - DNABERT-2: models/genetics/dnabert2.md
           - Evo 2: models/genetics/evo2.md
           - GENERator: models/genetics/generator.md
+          - HyenaDNA: models/genetics/hyenadna.md
       - Brain:
           - Overview: models/brain/index.md
           - BrainLM: models/brain/brainlm.md
@@ -88,6 +89,7 @@ nav:
           - SwiFT: models/brain/swift.md
       - Multimodal & Clinical:
           - Overview: models/multimodal/index.md
+          - Flamingo: models/multimodal/flamingo.md
           - BAGEL: models/multimodal/bagel.md
           - MoT: models/multimodal/mot.md
           - M3FM: models/multimodal/m3fm.md
@@ -157,16 +159,21 @@ nav:
           - M3FM (2025): generated/kb_curated/papers-md/m3fm_2025.md
           - Me-LLaMA (2024): generated/kb_curated/papers-md/me_llama_2024.md
           - TITAN (2025): generated/kb_curated/papers-md/titan_2025.md
+          - Flamingo (2022): generated/kb_curated/papers-md/flamingo_2022.md
       - Integration & Methods:
           - Ensemble integration (Li 2022): generated/kb_curated/papers-md/ensemble_integration_li2022.md
           - Multimodal FMs (2025): generated/kb_curated/papers-md/mmfm_2025.md
           - MM-LLM imaging (2025): generated/kb_curated/papers-md/mm_llm_imaging_2025.md
           - Oncology multimodal (Waqas 2024): generated/kb_curated/papers-md/oncology_multimodal_waqas2024.md
           - Yoon BioKDD (2025): generated/kb_curated/papers-md/yoon_biokdd2025.md
+          - RC-equivariant networks (2021): generated/kb_curated/papers-md/reverse-complement-equivariant_2021.md
+          - RC consistency for DNA LMs (2025): generated/kb_curated/papers-md/reverse-complement-consistency_2025.md
+          - Systems & algorithms for multi-hybrid LMs (2025): generated/kb_curated/papers-md/systems-algorithms-multihybrid_2025.md
       - Genomics & Population:
           - GWAS diverse populations: generated/kb_curated/papers-md/gwas_diverse_populations.md
           - PRS guide: generated/kb_curated/papers-md/prs_guide.md
       - General:
+          - Representation learning (2012): generated/kb_curated/papers-md/representation-learning_2012.md
           - Foundation models overview (2024): generated/kb_curated/papers-md/fm_general_2024.md
   - Decisions:
       - Integration plan (Nov 2025): decisions/2025-11-integration-plan.md

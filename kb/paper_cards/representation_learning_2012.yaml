@@ -1,0 +1,46 @@
+title: "Representation Learning: A Review and New Perspectives"
+short_name: "Representation Learning 2012"
+authors:
+  - Yoshua Bengio
+  - Aaron Courville
+  - Pascal Vincent
+year: 2012
+venue: "arXiv preprint"
+pdf_source: "https://arxiv.org/abs/1206.5538"
+local_pdf_path: "docs/generated/kb_curated/papers-pdf/representation-learning_2012.pdf"
+summary_md_path: "docs/generated/kb_curated/papers-md/representation-learning_2012.md"
+
+summary: |
+  Foundational survey of representation learning and deep learning that formalizes why learned
+  representations—especially distributed, hierarchical ones—are critical for generalization,
+  transfer, and sample efficiency across modalities. Reviews probabilistic models, autoencoders,
+  manifold learning, and deep architectures, and articulates design principles (distributed
+  codes, depth, sparsity, temporal/spatial coherence) that underpin modern foundation models.^[See arXiv:1206.5538](https://arxiv.org/abs/1206.5538)
+
+key_contributions:
+  - "Clarifies the role of distributed, sparse, and hierarchical representations in overcoming the curse of dimensionality."
+  - "Connects autoencoders, RBMs/DBNs, manifold learning, and deep neural networks under a unified representation-learning lens."
+  - "Defines desiderata for good representations (disentangling factors of variation, invariance/equivariance, smoothness)."
+  - "Highlights unsupervised and self-supervised pretraining as key to transfer and semi-supervised learning."
+
+implications_for_project:
+  - "Provides the conceptual backbone for why neuro-omics foundation models should prioritize shared latent spaces across genes, brain, and behaviour."
+  - "Motivates the KB’s emphasis on disentangled, hierarchical embeddings and late fusion before escalating to unified generative models."
+  - "Frames evaluation beyond task accuracy—e.g., probing for factor disentanglement, invariances (RC, anatomical), and transfer."
+
+related_to:
+  - "docs/generated/kb_curated/papers-md/fm_general_2024.md"
+  - "docs/integration/integration_strategy.md"
+  - "docs/integration/design_patterns.md"
+
+verification_status: "needs_human_review"
+notes: "Use as a theoretical reference when designing new integration cards or model cards; no direct code artifacts."
+
+tags:
+  - theory
+  - representation_learning
+  - deep_learning
+  - survey
+
+
+

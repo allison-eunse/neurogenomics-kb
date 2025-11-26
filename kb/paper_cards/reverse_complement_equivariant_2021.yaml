@@ -1,0 +1,46 @@
+title: "Reverse-Complement Equivariant Networks for DNA Sequences"
+short_name: "RC-Equivariant CNNs"
+authors:
+  - Vincent Mallet
+  - Jean-Philippe Vert
+year: 2021
+venue: "NeurIPS 2021"
+pdf_source: "https://papers.nips.cc/paper/2021/hash/706608cfdbcc1886bb7eea5513f90133-Abstract.html"
+local_pdf_path: "docs/generated/kb_curated/papers-pdf/reverse-complement-equivariant_2021.pdf"
+summary_md_path: "docs/generated/kb_curated/papers-md/reverse-complement-equivariant_2021.md"
+
+summary: |
+  This paper characterizes the full space of reverse-complement (RC) equivariant convolutional
+  layers for DNA sequences using group representation theory, going beyond earlier RC parameter
+  sharing (RCPS) designs. It introduces irrep-based feature spaces, RC-equivariant nonlinearities,
+  k-mer embeddings, and batch normalization, and shows that new architectures can surpass RCPS on
+  transcription factor binding tasks, especially in low-data regimes.
+
+key_contributions:
+  - "Complete characterization of translation- and RC-equivariant linear layers for 1D DNA sequences."
+  - "Irreducible-representation (irrep) feature spaces with +1/−1 channels and compatible nonlinearities."
+  - "RC-equivariant k-mer embeddings and batch normalization schemes."
+  - "Empirical demonstration that exploring the broader equivariant design space improves TF binding prediction."
+
+implications_for_project:
+  - "Provides the theoretical underpinning for RC-equivariant DNA FMs like Caduceus in the KB."
+  - "Motivates encoding biological symmetries (RC, anatomical flips) architecturally rather than relying only on augmentation."
+  - "Informs future RC-aware embedding recipes and attribution methods for genetics modules."
+
+related_to:
+  - "docs/models/genetics/caduceus.md"
+  - "docs/generated/kb_curated/papers-md/reverse-complement-consistency_2025.md"
+  - "docs/integration/modality_features/genomics.md"
+
+verification_status: "needs_human_review"
+notes: "Canonical reference for RC-equivariant CNN design; useful background when extending RC priors to Transformers, Mamba, or HyenaDNA."
+
+tags:
+  - genomics
+  - reverse_complement
+  - equivariance
+  - cnn
+  - theory
+
+
+

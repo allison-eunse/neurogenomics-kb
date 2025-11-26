@@ -1,4 +1,9 @@
+title: "Multimodal Large Language Models in Medical Imaging: Current State and Future Directions"
+authors: "Yoojin Nam, Dong Yeong Kim, Sunggu Kyung, Jinyoung Seo, Jeong Min Song, Jimin Kwon, Jihyun Kim, Wooyoung Jo, Hyungbin Park, Jimin Sung, Sangah Park, Heeyeon Kwon, Taehee Kwon, Kanghyun Kim, Namkug Kim"
+year: 2025
+venue: "Korean Journal of Radiology"
 ---
+
 # Multimodal Large Language Models in Medical Imaging: Current State and Future Directions
 
 **Authors:** Yoojin Nam, Dong Yeong Kim, Sunggu Kyung, Jinyoung Seo, Jeong Min Song, Jimin Kwon, Jihyun Kim, Wooyoung Jo, Hyungbin Park, Jimin Sung, Sangah Park, Heeyeon Kwon, Taehee Kwon, Kanghyun Kim, Namkug Kim  

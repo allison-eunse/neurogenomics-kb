@@ -49,7 +49,7 @@ python scripts/manage_kb.py ops strategy <id>
 **Available strategies:**
 - **sMRI (`smri_free_surfer_pca512_v1`).** FreeSurfer ROI table (~176 features) → fold-wise z-score → residualize age/sex/site/ICV → PCA→512. Future variants: FM encoders, diffusion MRI. Sources: `docs/integration/modality_features/smri.md`, FreeSurfer refs.
 - **rs-fMRI baseline (`rsfmri_swift_segments_v1`).** SwiFT exports per 20-frame segment → mean pool tokens → run mean → subject mean → residualize age/sex/site/motion → PCA→512. Variants exist for BrainLM (`rsfmri_brainlm_segments_v1`), Brain-JEPA (`rsfmri_brainjepa_roi_v1`), and BrainMT (`rsfmri_brainmt_segments_v1`); each references the corresponding walkthrough/code.
-- **Genetics (`genetics_gene_fm_pca512_v1`).** RC-averaged gene FMs (Caduceus/Evo2/GENERaTOR) → exon → gene pooling → concatenate curated gene set → residualize age/sex/ancestry PCs/batch → PCA→512.
+- **Genetics (`genetics_gene_fm_pca512_v1`).** RC-averaged gene FMs (Caduceus/DNABERT-2/Evo2/HyenaDNA/GENERaTOR) → exon → gene pooling → concatenate curated gene set → residualize age/sex/ancestry PCs/batch → PCA→512. For non–RC-equivariant encoders, follow RCCR/RC-averaging guidance in the genomics modality spec.
 - **Fusion (`fusion_concat_gene_brain_1024_v1`).** Concatenate the 512-D genetics vector with the chosen 512-D brain vector; z-score each block independently before concatenation.
 
 **Experiments now reference these IDs** (see `configs/experiments/*.yaml`) to keep per-subject embeddings traceable.

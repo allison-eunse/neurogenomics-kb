@@ -8,6 +8,8 @@ This directory centralizes the upstream model code referenced throughout the KB.
 | --- | --- |
 | `bagel/` | https://github.com/bytedance-seed/BAGEL |
 | `MoT/` | https://github.com/facebookresearch/Mixture-of-Transformers |
+| `flamingo/` | https://github.com/mlfoundations/open_flamingo |
+| `hyena/` | https://github.com/togethercomputer/stripedhyena |
 
 These directories are versioned with the KB for reproducibility. Pull upstream changes manually if you want a fresher snapshot.
 

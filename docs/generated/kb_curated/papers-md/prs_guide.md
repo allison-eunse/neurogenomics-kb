@@ -1,5 +1,7 @@
----
-title: PRS Guide — Choi & O'Reilly 2019
+title: "A guide to performing polygenic risk score analyses"
+authors: "Shing Wan Choi, Timothy Shin Heng Mak, Paul F. O'Reilly"
+year: 2019
+venue: "Tutorial / primer"
 status: draft
 updated: 2025-11-18
 tags: [paper-notes, genetics, prs]

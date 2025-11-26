@@ -25,6 +25,7 @@ All genetics FMs documented here:
 | 🧬 [**DNABERT-2**](dnabert2.md) | BERT (multi-species) | BPE tokenization, cross-species transfer | Alternative gene encoder; comparison baseline | [Walkthrough](../../code_walkthroughs/dnabert2_walkthrough.md) |
 | 🧬 [**Evo 2**](evo2.md) | StripedHyena (1M context) | Ultra-long-range dependencies | Exploratory; regulatory region capture | [Walkthrough](../../code_walkthroughs/evo2_walkthrough.md) |
 | 🧬 [**GENERator**](generator.md) | Generative 6-mer LM | Generative modeling, sequence design | Reference for generative vs discriminative | [Walkthrough](../../code_walkthroughs/generator_walkthrough.md) |
+| 🧬 [**HyenaDNA**](hyenadna.md) | Hyena implicit convolutions (1M context) | Single-nucleotide, ultra-long genomic modeling | Conceptual long-context genomics reference | [Architecture walkthrough](../../code_walkthroughs/hyena_walkthrough.md) |
 
 ---
 

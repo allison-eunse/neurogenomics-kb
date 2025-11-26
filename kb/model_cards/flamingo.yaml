@@ -1,0 +1,76 @@
+id: flamingo
+name: Flamingo
+modality: multimodal
+domain: vision_language
+summary: |
+  Visual language model that bridges pretrained vision encoders and language models via a Perceiver
+  Resampler and gated cross-attention layers, enabling few-shot image and video understanding from
+  in-context examples alone. Implemented in the OpenFlamingo codebase as a flexible framework for
+  training and evaluating Flamingo-style VLMs.
+arch:
+  type: "Perceiver-augmented VLM (vision encoder + LM + gated cross-attention)"
+  backbone: external_repos/flamingo/open_flamingo/src/flamingo.py
+  parameters: "3B / 4B / 9B checkpoints (OpenFlamingo variants)"
+  context_length: 2048
+  special_features:
+    - "Perceiver Resampler converts variable-size visual features into a fixed set of visual tokens."
+    - "Gated cross-attention (Flamingo layers) interleave with frozen LM blocks to condition on vision."
+    - "Supports interleaved sequences of images/videos and text with `<image>` and `<|endofchunk|>` markers."
+tokenizer:
+  type: "LM-native tokenizer (e.g., MPT, RedPajama, LLaMA)"
+  notes: "Additional special tokens `<image>` and `<|endofchunk|>` are appended by the factory."
+context_length: 2048
+checkpoints:
+  - name: OpenFlamingo-3B-vitl-mpt1b
+    path: https://huggingface.co/openflamingo/OpenFlamingo-3B-vitl-mpt1b
+  - name: OpenFlamingo-4B-vitl-rpj3b
+    path: https://huggingface.co/openflamingo/OpenFlamingo-4B-vitl-rpj3b
+  - name: OpenFlamingo-9B-vitl-mpt7b
+    path: https://huggingface.co/openflamingo/OpenFlamingo-9B-vitl-mpt7b
+repo: https://github.com/mlfoundations/open_flamingo
+weights:
+  huggingface:
+    - https://huggingface.co/openflamingo
+license:
+  code: Apache-2.0
+  weights: Apache-2.0
+  data: "Web-scale multimodal corpora (ALIGN, LTIP, M3W, VTP); see original paper for licensing."
+datasets: []
+tasks:
+  - visual_question_answering
+  - image_captioning
+  - video_question_answering
+  - multimodal_few_shot_learning
+how_to_infer:
+  python_api: |
+    from open_flamingo import create_model_and_transforms
+    import torch
+
+    model, image_processor, tokenizer = create_model_and_transforms(
+        clip_vision_encoder_path="ViT-L-14",
+        clip_vision_encoder_pretrained="openai",
+        lang_encoder_path="anas-awadalla/mpt-1b-redpajama-200b",
+        tokenizer_path="anas-awadalla/mpt-1b-redpajama-200b",
+        cross_attn_every_n_layers=1,
+    )
+    # See docs/code_walkthroughs/flamingo_walkthrough.md for end-to-end example.
+inference_api:
+  provider: none
+  endpoint: ""
+integrations:
+  - multimodal_architectures
+  - alignment_strategies
+tags:
+  - vlm
+  - multimodal
+  - few_shot
+  - perceiver
+  - cross_attention
+verified: false
+last_updated: 2025-11-26
+notes: |
+  This card treats OpenFlamingo as the canonical open implementation of Flamingo-style VLMs.
+  It is primarily a design reference for neuro-omics multimodal architectures (e.g., brain+text
+  report generation) rather than a model directly used in current KB experiments.
+
+

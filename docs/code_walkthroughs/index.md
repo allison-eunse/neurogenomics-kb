@@ -35,8 +35,14 @@ Each walkthrough now surfaces the KB scaffolding you need to turn narrative note
 | Walkthrough | KB Model Card | Modality Spec |
 | --- | --- | --- |
 | [BAGEL](bagel_walkthrough.md) | [BAGEL card](../models/multimodal/bagel.md) | — |
+| [Flamingo](flamingo_walkthrough.md) | [Flamingo card](../models/multimodal/flamingo.md) | — |
 | [MoT](mot_walkthrough.md) | [MoT card](../models/multimodal/mot.md) | — |
 | [M3FM](m3fm_walkthrough.md) | [M3FM card](../models/multimodal/m3fm.md) | — |
 | [Me-LLaMA](melamma_walkthrough.md) | [Me-LLaMA card](../models/multimodal/me_llama.md) | — |
 | [TITAN](titan_walkthrough.md) | [TITAN card](../models/multimodal/titan.md) | — |
 | [FMS-Medical](fms_medical_walkthrough.md) | [FMS-Medical card](../models/multimodal/fms_medical.md) | — |
+
+### 🏗️ Architectures & components
+| Walkthrough | KB Model Card | Modality Spec |
+| --- | --- | --- |
+| [StripedHyena](hyena_walkthrough.md) | — | — |

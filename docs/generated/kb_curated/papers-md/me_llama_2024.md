@@ -1,4 +1,9 @@
+title: "Me-LLaMA: Medical Foundation Large Language Models for Comprehensive Text Analysis and Clinical Reasoning"
+authors: "Qianqian Xie, Qingyu Chen, Aokun Chen, Cheng Peng, Yan Hu, Fongci Lin, Xueqing Peng, Jimin Huang, Jeffrey Zhang, Vipina Keloth, Xinyu Zhou, Lingfei Qian, Huan He, Dennis Shung, Lucila Ohno‑Machado, Yonghui Wu, Hua Xu, Jiang Bian"
+year: 2024
+venue: "Preprint (medical AI / biomedical informatics)"
 ---
+
 # Me-LLaMA: Medical Foundation Large Language Models for Comprehensive Text Analysis and Clinical Reasoning
 
 **Authors:** Qianqian Xie, Qingyu Chen, Aokun Chen, Cheng Peng, Yan Hu, Fongci Lin, Xueqing Peng, Jimin Huang, Jeffrey Zhang, Vipina Keloth, Xinyu Zhou, Lingfei Qian, Huan He, Dennis Shung, Lucila Ohno‑Machado, Yonghui Wu, Hua Xu, Jiang Bian  

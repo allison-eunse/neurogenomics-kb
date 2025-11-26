@@ -216,8 +216,9 @@ Downstream tasks:
 
 ### Examples
 - **BAGEL:** Unified text+image+video+web model ([walkthrough](../code_walkthroughs/bagel_walkthrough.md))
-- **GPT-4o:** Unified multimodal reasoning (proprietary)
-- **Chameleon:** Text-image unified autoregressive model
+- **Flamingo:** Few-shot visual language model with Perceiver + gated cross-attention ([paper](../generated/kb_curated/papers-md/flamingo_2022.md))
+- **GPT-4o:** Unified multimodal reasoning (proprietary; included here as a conceptual example, not a KB-tracked model)
+- **Chameleon:** Text-image unified autoregressive model (dense unified baseline described in the MoT paper/card; used here as a reference pattern)^[See MoT summary: `docs/generated/kb_curated/papers-md/mot_2025.md`]
 
 ### Implementation Strategy (Long-term Vision)
 

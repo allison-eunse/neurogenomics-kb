@@ -1,0 +1,59 @@
+title: "Medical Multimodal Foundation Models in Clinical Diagnosis and Treatment: Applications, Challenges, and Future Directions"
+short_name: "Medical MMFMs"
+authors:
+  - Kai Sun
+  - Siyan Xue
+  - Fuchun Sun
+  - Haoran Sun
+  - Yu Luo
+  - Ling Wang
+  - Siyuan Wang
+  - Na Guo
+  - Lei Liu
+  - Tian Zhao
+  - Xinzhou Wang
+  - Lei Yang
+  - Shuo Jin
+  - Jun Yan
+  - Jiahong Dong
+year: 2025
+venue: "Artificial Intelligence in Medicine"
+pdf_source: "docs/generated/kb_curated/papers-pdf/mmfm_2025.pdf"
+local_pdf_path: "docs/generated/kb_curated/papers-pdf/mmfm_2025.pdf"
+summary_md_path: "docs/generated/kb_curated/papers-md/mmfm_2025.md"
+
+summary: |
+  Broad survey of medical multimodal foundation models (MMFMs) that integrate images, text, and
+  other clinical data for diagnosis and treatment. Organizes MMFMs into vision-only and
+  vision–language families, catalogs datasets and proxy tasks, and analyzes opportunities and
+  challenges for clinical deployment.
+
+key_contributions:
+  - "Taxonomy of medical multimodal vision and vision–language foundation models."
+  - "Survey of datasets, proxy tasks, and downstream applications across diagnosis, treatment, and robotics."
+  - "Discussion of data quality, compute, fairness, interpretability, and regulatory challenges."
+  - "Identification of future research directions for generalized medical AI."
+
+implications_for_project:
+  - "Contextualizes neuro-omics multimodal model design within the broader MMFM landscape."
+  - "Highlights clinical use-cases and risks relevant when extending gene–brain models to diagnosis and treatment support."
+  - "Provides vocabulary and taxonomy for documenting multimodal architectures in the KB."
+
+related_to:
+  - "docs/generated/kb_curated/papers-md/mm_llm_imaging_2025.md"
+  - "docs/models/multimodal/index.md"
+  - "docs/integration/multimodal_architectures.md"
+  - "docs/integration/design_patterns.md"
+
+verification_status: "needs_human_review"
+notes: "High-level survey; no direct code artifacts. Use as a conceptual anchor when adding new medical MMFMs to the KB."
+
+tags:
+  - survey
+  - medical
+  - multimodal
+  - foundation_model
+  - clinical
+
+
+

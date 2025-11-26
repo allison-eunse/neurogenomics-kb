@@ -1,0 +1,66 @@
+id: hyenadna
+name: HyenaDNA
+modality: genetics
+domain: dna
+summary: |
+  Genomic foundation model that uses Hyena implicit-convolution operators to model DNA sequences at
+  single-nucleotide resolution with context lengths up to 1M tokens. Pretrained as a decoder-only
+  language model on the human reference genome, HyenaDNA achieves strong performance on regulatory
+  element benchmarks while using far fewer parameters and less data than attention-based DNA LMs.
+arch:
+  type: "Decoder-only Hyena operator stack (implicit long convolutions)"
+  backbone: "Hyena-style 1D sequence model adapted for genomics (see hyenadna_2023 paper)"
+  parameters: "≈1.6M (reported baseline configuration)"
+  context_length: 1000000
+  special_features:
+    - "Sub-quadratic Hyena operators enabling 1M-token context at single-nucleotide resolution."
+    - "Sequence-length warm-up schedule for stable ultralong-context training."
+    - "Soft-prompt adaptation for downstream tasks without full fine-tuning."
+tokenizer:
+  type: character
+  vocab_size: 4
+  notes: "A/C/G/T plus special symbols for padding/unknown; no k-mer aggregation."
+context_length: 1000000
+checkpoints: []
+repo: "TBD (see HyenaDNA / Hyena project links in the original paper)"
+weights:
+  huggingface: []
+license:
+  code: "TBD"
+  weights: "TBD"
+  data: "Human reference genome (HG38/GRCh38) and downstream benchmarks; follow original licenses."
+datasets:
+  - nucleotide_transformer_benchmark
+  - genomic_benchmarks
+tasks:
+  - causal_language_modeling
+  - regulatory_element_prediction
+  - species_classification
+  - chromatin_profile_prediction
+how_to_infer:
+  tutorial: |
+    # HyenaDNA is not directly vendored in this KB. Use the paper and upstream repo as reference:
+    # - Tokenize sequences at single-nucleotide resolution.
+    # - Load pretrained HyenaDNA checkpoint.
+    # - Run autoregressive forward pass to obtain logits or hidden states.
+inference_api:
+  provider: none
+  endpoint: ""
+integrations:
+  - genetics_gene_fm_pca512_v1
+  - long_context_genomics
+tags:
+  - genomics
+  - foundation_model
+  - hyena
+  - long_context
+  - single_nucleotide
+verified: false
+last_updated: 2025-11-26
+notes: |
+  This card records HyenaDNA as a conceptual and architectural reference for long-context genomics.
+  The KB currently uses Evo 2 as the primary StripedHyena-2 implementation with 1M context; HyenaDNA
+  provides complementary evidence that Hyena operators work well for discriminative DNA tasks and
+  motivates future long-context genetics embeddings.
+
+

@@ -1,0 +1,58 @@
+title: "Multimodal Large Language Models in Medical Imaging: Current State and Future Directions"
+short_name: "MM-LLM Imaging"
+authors:
+  - Yoojin Nam
+  - Dong Yeong Kim
+  - Sunggu Kyung
+  - Jinyoung Seo
+  - Jeong Min Song
+  - Jimin Kwon
+  - Jihyun Kim
+  - Wooyoung Jo
+  - Hyungbin Park
+  - Jimin Sung
+  - Sangah Park
+  - Heeyeon Kwon
+  - Taehee Kwon
+  - Kanghyun Kim
+  - Namkug Kim
+year: 2025
+venue: "Korean Journal of Radiology"
+pdf_source: "docs/generated/kb_curated/papers-pdf/mm_llm_imaging_2025.pdf"
+local_pdf_path: "docs/generated/kb_curated/papers-pdf/mm_llm_imaging_2025.pdf"
+summary_md_path: "docs/generated/kb_curated/papers-md/mm_llm_imaging_2025.md"
+
+summary: |
+  Survey of multimodal large language models (MLLMs) for medical imaging, with emphasis on radiology.
+  Reviews architectures that pair vision encoders with LLMs via multimodal connectors, catalogs existing
+  datasets and systems, and discusses clinical applications, limitations (e.g., hallucination, grounding),
+  and future research directions.
+
+key_contributions:
+  - "Systematic taxonomy of medical MLLM architectures and training strategies for imaging + text."
+  - "Comprehensive review of datasets and benchmarks for radiology-focused multimodal models."
+  - "Analysis of current capabilities and safety/robustness gaps in clinical deployment."
+  - "Roadmap highlighting grounded reasoning, data curation, and evaluation as key open problems."
+
+implications_for_project:
+  - "Provides context for positioning neuro-omics multimodal FMs relative to broader medical MLLMs."
+  - "Informs design of brain-image + text report generation pipelines and evaluation protocols."
+  - "Highlights common failure modes (hallucination, poor grounding) to monitor when adapting VLMs to neuro-omics."
+
+related_to:
+  - "docs/generated/kb_curated/papers-md/mmfm_2025.md"
+  - "docs/models/multimodal/m3fm.md"
+  - "docs/integration/multimodal_architectures.md"
+
+verification_status: "needs_human_review"
+notes: "Treat as a high-level survey reference for medical imaging MLLMs; not directly used for embeddings."
+
+tags:
+  - survey
+  - medical_imaging
+  - multimodal
+  - llm
+  - vision_language
+
+
+

@@ -1,0 +1,77 @@
+title: "Flamingo: a Visual Language Model for Few-Shot Learning"
+short_name: "Flamingo"
+authors:
+  - Jean-Baptiste Alayrac
+  - Jeff Donahue
+  - Pauline Luc
+  - Antoine Miech
+  - Iain Barr
+  - Yana Hasson
+  - Karel Lenc
+  - Arthur Mensch
+  - Katie Millican
+  - Malcolm Reynolds
+  - Roman Ring
+  - Eliza Rutherford
+  - Serkan Cabi
+  - Tengda Han
+  - Zhitao Gong
+  - Sina Samangooei
+  - Marianne Monteiro
+  - Jacob Menick
+  - Sebastian Borgeaud
+  - Andrew Brock
+  - Aida Nematzadeh
+  - Sahand Sharifzadeh
+  - Mikolaj Binkowski
+  - Ricardo Barreira
+  - Oriol Vinyals
+  - Andrew Zisserman
+  - Karen Simonyan
+year: 2022
+venue: "NeurIPS 2022"
+pdf_source: "https://arxiv.org/abs/2204.14198"
+local_pdf_path: "docs/generated/kb_curated/papers-pdf/flamingo_2022.pdf"
+summary_md_path: "docs/generated/kb_curated/papers-md/flamingo_2022.md"
+
+summary: |
+  Flamingo is a family of visual language models that bridge pretrained vision encoders and language
+  models via a Perceiver Resampler and gated cross-attention (GATED XATTN-DENSE) layers, enabling
+  few-shot image and video understanding purely through in-context examples. Trained on billions of
+  interleaved image–text and video–text pairs, Flamingo achieves strong few-shot and zero-shot
+  performance across captioning, VQA, and video QA benchmarks, demonstrating that GPT-3–style
+  prompting extends naturally to multimodal settings.^[See arXiv:2204.14198](https://arxiv.org/abs/2204.14198)
+
+key_contributions:
+  - "Introduces Perceiver Resampler to turn variable-sized visual features into a fixed number of visual tokens."
+  - "Adds gated cross-attention layers between frozen LM blocks, allowing gradual, stable visual conditioning."
+  - "Supports arbitrarily interleaved image/video and text sequences with image-causal masking."
+  - "Shows that large-scale web multimodal pretraining yields strong few-shot VLM performance without task-specific fine-tuning."
+
+architecture:
+  backbone: "Frozen vision encoder (e.g., NFNet-F6) + frozen LM (Chinchilla) with interleaved GATED XATTN-DENSE layers"
+  perceiver_tokens: 64
+  context: "Interleaved image/video + text sequences; model sizes 3B, 9B, 80B"
+
+implications_for_project:
+  - "Provides a reference design for connecting brain encoders and genetics encoders to LLMs via Perceiver-style resampling and gated cross-attention."
+  - "Informs multimodal architectures that treat neuroimaging ‘tokens’ analogously to visual tokens, supporting scan-conditioned report generation."
+  - "Motivates storing interleaved multimodal sequences (image/text) in the KB for future few-shot neuro-omics experiments."
+
+related_to:
+  - "docs/code_walkthroughs/flamingo_walkthrough.md"
+  - "docs/models/multimodal/index.md"
+  - "docs/integration/multimodal_architectures.md"
+
+verification_status: "needs_human_review"
+notes: "Aligns with the OpenFlamingo implementation vendored under external_repos/flamingo; cross-check hyperparameters and dataset mixes before reusing."
+
+tags:
+  - vision-language
+  - multimodal
+  - few_shot
+  - perceiver
+  - cross_attention
+
+
+
