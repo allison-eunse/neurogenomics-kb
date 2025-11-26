@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://allison-eunse.github.io/neuro-omics-kb/models/genetics/caduceus/">
+        <link rel="canonical" href="https://allison-eunse.github.io/neuro-omics-kb/generated/kb_curated/papers-md/tabpfn_2024/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../prs_guide/">
       
       
-        <link rel="next" href="../dnabert2/">
+        <link rel="next" href="../representation-learning_2012/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
       
-        <title>Caduceus — Model Card - Neuro-Omics KB</title>
+        <title>TabPFN: A Transformer That Solves Small Tabular Classification Problems in a Second - Neuro-Omics KB</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.618322db.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +53,7 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#caduceus" class="md-skip">
+        <a href="#tabpfn-a-transformer-that-solves-small-tabular-classification-problems-in-a-second" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Neuro-Omics KB" class="md-header__button md-logo" aria-label="Neuro-Omics KB" data-md-component="logo">
+    <a href="../../../.." title="Neuro-Omics KB" class="md-header__button md-logo" aria-label="Neuro-Omics KB" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Caduceus — Model Card
+              TabPFN: A Transformer That Solves Small Tabular Classification Problems in a Second
             
           </span>
         </div>
@@ -223,7 +223,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../../../.." class="md-tabs__link">
         
   
   
@@ -244,11 +244,120 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../guide/kb_overview/" class="md-tabs__link">
+        <a href="../../../../guide/kb_overview/" class="md-tabs__link">
           
   
   
   Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../models/genetics/" class="md-tabs__link">
+          
+  
+  
+  Models
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../integration/" class="md-tabs__link">
+          
+  
+  
+  Integration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../data/ukb_data_map/" class="md-tabs__link">
+          
+  
+  
+  Data
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../configs/experiments/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Experiment Configs
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../code_walkthroughs/" class="md-tabs__link">
+          
+  
+  
+  Code walkthroughs
 
         </a>
       </li>
@@ -275,116 +384,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
-          
-  
-  
-  Models
-
-        </a>
-      </li>
-    
-  
-
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../integration/" class="md-tabs__link">
-          
-  
-  
-  Integration
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../data/ukb_data_map/" class="md-tabs__link">
-          
-  
-  
-  Data
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../../configs/experiments/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Experiment Configs
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../code_walkthroughs/" class="md-tabs__link">
-          
-  
-  
-  Code walkthroughs
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../generated/kb_curated/papers-md/brainlm_2024/" class="md-tabs__link">
+        <a href="../brainlm_2024/" class="md-tabs__link">
           
   
   
@@ -407,7 +407,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../decisions/2025-11-integration-plan/" class="md-tabs__link">
+        <a href="../../../../decisions/2025-11-integration-plan/" class="md-tabs__link">
           
   
   
@@ -434,7 +434,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../generated/templates/analysis_recipe_cca/" class="md-tabs__link">
+        <a href="../../../templates/analysis_recipe_cca/" class="md-tabs__link">
           
   
   
@@ -473,7 +473,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Neuro-Omics KB" class="md-nav__button md-logo" aria-label="Neuro-Omics KB" data-md-component="logo">
+    <a href="../../../.." title="Neuro-Omics KB" class="md-nav__button md-logo" aria-label="Neuro-Omics KB" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -503,7 +503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   
@@ -589,7 +589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/kb_overview/" class="md-nav__link">
+      <a href="../../../../guide/kb_overview/" class="md-nav__link">
         
   
   
@@ -628,31 +628,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -670,7 +665,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -685,31 +680,26 @@
                 
   
   
-    
   
   
-  
     
     
     
     
       
       
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
         
           
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
             
   
   
@@ -727,7 +717,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -745,7 +735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../../../models/genetics/" class="md-nav__link">
         
   
   
@@ -770,44 +760,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Caduceus
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--active"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../../models/genetics/caduceus/" class="md-nav__link">
         
   
   
@@ -830,220 +786,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#purpose-design-philosophy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Purpose &amp; Design Philosophy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#architecture-highlights" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Architecture Highlights
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#integration-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Integration Strategy
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Integration Strategy">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#for-neuro-omics-kb" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For Neuro-Omics KB
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#for-arpa-h-brain-omics-models" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For ARPA-H Brain-Omics Models
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#embedding-extraction-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Embedding Extraction Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#strengths-limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Strengths &amp; Limitations
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Strengths &amp; Limitations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#strengths" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Strengths
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Limitations
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-to-use-caduceus" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use Caduceus
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reference-materials" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Materials
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Reference Materials">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#knowledge-base-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Knowledge Base Resources
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#original-sources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Original Sources
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps-in-our-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Steps in Our Pipeline
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#engineering-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Engineering Notes
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1056,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dnabert2/" class="md-nav__link">
+      <a href="../../../../models/genetics/dnabert2/" class="md-nav__link">
         
   
   
@@ -1091,7 +833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../evo2/" class="md-nav__link">
+      <a href="../../../../models/genetics/evo2/" class="md-nav__link">
         
   
   
@@ -1126,7 +868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../generator/" class="md-nav__link">
+      <a href="../../../../models/genetics/generator/" class="md-nav__link">
         
   
   
@@ -1161,7 +903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hyenadna/" class="md-nav__link">
+      <a href="../../../../models/genetics/hyenadna/" class="md-nav__link">
         
   
   
@@ -1210,20 +952,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
             
   
   
@@ -1259,7 +998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../brain/" class="md-nav__link">
+      <a href="../../../../models/brain/" class="md-nav__link">
         
   
   
@@ -1287,7 +1026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../brain/brainlm/" class="md-nav__link">
+      <a href="../../../../models/brain/brainlm/" class="md-nav__link">
         
   
   
@@ -1322,7 +1061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../brain/brainjepa/" class="md-nav__link">
+      <a href="../../../../models/brain/brainjepa/" class="md-nav__link">
         
   
   
@@ -1357,7 +1096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../brain/brainharmony/" class="md-nav__link">
+      <a href="../../../../models/brain/brainharmony/" class="md-nav__link">
         
   
   
@@ -1392,7 +1131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../brain/brainmt/" class="md-nav__link">
+      <a href="../../../../models/brain/brainmt/" class="md-nav__link">
         
   
   
@@ -1427,7 +1166,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../brain/swift/" class="md-nav__link">
+      <a href="../../../../models/brain/swift/" class="md-nav__link">
         
   
   
@@ -1476,20 +1215,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
         
           
-          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
             
   
   
@@ -1525,7 +1261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multimodal/" class="md-nav__link">
+      <a href="../../../../models/multimodal/" class="md-nav__link">
         
   
   
@@ -1553,7 +1289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multimodal/flamingo/" class="md-nav__link">
+      <a href="../../../../models/multimodal/flamingo/" class="md-nav__link">
         
   
   
@@ -1588,7 +1324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multimodal/bagel/" class="md-nav__link">
+      <a href="../../../../models/multimodal/bagel/" class="md-nav__link">
         
   
   
@@ -1623,7 +1359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multimodal/mot/" class="md-nav__link">
+      <a href="../../../../models/multimodal/mot/" class="md-nav__link">
         
   
   
@@ -1658,7 +1394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multimodal/m3fm/" class="md-nav__link">
+      <a href="../../../../models/multimodal/m3fm/" class="md-nav__link">
         
   
   
@@ -1693,7 +1429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multimodal/me_llama/" class="md-nav__link">
+      <a href="../../../../models/multimodal/me_llama/" class="md-nav__link">
         
   
   
@@ -1728,7 +1464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multimodal/titan/" class="md-nav__link">
+      <a href="../../../../models/multimodal/titan/" class="md-nav__link">
         
   
   
@@ -1763,7 +1499,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multimodal/fms_medical/" class="md-nav__link">
+      <a href="../../../../models/multimodal/fms_medical/" class="md-nav__link">
         
   
   
@@ -1865,7 +1601,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/" class="md-nav__link">
+      <a href="../../../../integration/" class="md-nav__link">
         
   
   
@@ -1893,7 +1629,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/integration_strategy/" class="md-nav__link">
+      <a href="../../../../integration/integration_strategy/" class="md-nav__link">
         
   
   
@@ -1980,7 +1716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/analysis_recipes/cca_permutation/" class="md-nav__link">
+      <a href="../../../../integration/analysis_recipes/cca_permutation/" class="md-nav__link">
         
   
   
@@ -2015,7 +1751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/analysis_recipes/prediction_baselines/" class="md-nav__link">
+      <a href="../../../../integration/analysis_recipes/prediction_baselines/" class="md-nav__link">
         
   
   
@@ -2050,7 +1786,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/analysis_recipes/partial_correlations/" class="md-nav__link">
+      <a href="../../../../integration/analysis_recipes/partial_correlations/" class="md-nav__link">
         
   
   
@@ -2145,7 +1881,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/modality_features/genomics/" class="md-nav__link">
+      <a href="../../../../integration/modality_features/genomics/" class="md-nav__link">
         
   
   
@@ -2180,7 +1916,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/modality_features/smri/" class="md-nav__link">
+      <a href="../../../../integration/modality_features/smri/" class="md-nav__link">
         
   
   
@@ -2215,7 +1951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/modality_features/fmri/" class="md-nav__link">
+      <a href="../../../../integration/modality_features/fmri/" class="md-nav__link">
         
   
   
@@ -2258,7 +1994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/embedding_policies/" class="md-nav__link">
+      <a href="../../../../integration/embedding_policies/" class="md-nav__link">
         
   
   
@@ -2345,7 +2081,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/ensemble_integration/" class="md-nav__link">
+      <a href="../../../../models/integrations/ensemble_integration/" class="md-nav__link">
         
   
   
@@ -2380,7 +2116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/oncology_multimodal_review/" class="md-nav__link">
+      <a href="../../../../models/integrations/oncology_multimodal_review/" class="md-nav__link">
         
   
   
@@ -2415,7 +2151,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/multimodal_fm_patterns/" class="md-nav__link">
+      <a href="../../../../models/integrations/multimodal_fm_patterns/" class="md-nav__link">
         
   
   
@@ -2458,7 +2194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/design_patterns/" class="md-nav__link">
+      <a href="../../../../integration/design_patterns/" class="md-nav__link">
         
   
   
@@ -2493,7 +2229,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/multimodal_architectures/" class="md-nav__link">
+      <a href="../../../../integration/multimodal_architectures/" class="md-nav__link">
         
   
   
@@ -2528,7 +2264,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../integration/benchmarks/" class="md-nav__link">
+      <a href="../../../../integration/benchmarks/" class="md-nav__link">
         
   
   
@@ -2615,7 +2351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../data/ukb_data_map/" class="md-nav__link">
+      <a href="../../../../data/ukb_data_map/" class="md-nav__link">
         
   
   
@@ -2643,7 +2379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../data/schemas/" class="md-nav__link">
+      <a href="../../../../data/schemas/" class="md-nav__link">
         
   
   
@@ -2671,7 +2407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../data/subject_keys/" class="md-nav__link">
+      <a href="../../../../data/subject_keys/" class="md-nav__link">
         
   
   
@@ -2706,7 +2442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../data/governance_qc/" class="md-nav__link">
+      <a href="../../../../data/governance_qc/" class="md-nav__link">
         
   
   
@@ -2741,7 +2477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configs/experiments/" class="md-nav__link">
+      <a href="../../../../configs/experiments/" class="md-nav__link">
         
   
   
@@ -2827,7 +2563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/" class="md-nav__link">
         
   
   
@@ -2907,7 +2643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/caduceus_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/caduceus_walkthrough/" class="md-nav__link">
         
   
   
@@ -2935,7 +2671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/dnabert2_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/dnabert2_walkthrough/" class="md-nav__link">
         
   
   
@@ -2963,7 +2699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/evo2_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/evo2_walkthrough/" class="md-nav__link">
         
   
   
@@ -2991,7 +2727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/generator_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/generator_walkthrough/" class="md-nav__link">
         
   
   
@@ -3019,7 +2755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/hyena_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/hyena_walkthrough/" class="md-nav__link">
         
   
   
@@ -3107,7 +2843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/brainlm_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/brainlm_walkthrough/" class="md-nav__link">
         
   
   
@@ -3135,7 +2871,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/brainjepa_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/brainjepa_walkthrough/" class="md-nav__link">
         
   
   
@@ -3163,7 +2899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/brainharmony_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/brainharmony_walkthrough/" class="md-nav__link">
         
   
   
@@ -3191,7 +2927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/brainmt_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/brainmt_walkthrough/" class="md-nav__link">
         
   
   
@@ -3219,7 +2955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/swift_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/swift_walkthrough/" class="md-nav__link">
         
   
   
@@ -3307,7 +3043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/bagel_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/bagel_walkthrough/" class="md-nav__link">
         
   
   
@@ -3335,7 +3071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/flamingo_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/flamingo_walkthrough/" class="md-nav__link">
         
   
   
@@ -3363,7 +3099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/mot_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/mot_walkthrough/" class="md-nav__link">
         
   
   
@@ -3391,7 +3127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/m3fm_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/m3fm_walkthrough/" class="md-nav__link">
         
   
   
@@ -3419,7 +3155,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/melamma_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/melamma_walkthrough/" class="md-nav__link">
         
   
   
@@ -3447,7 +3183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/titan_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/titan_walkthrough/" class="md-nav__link">
         
   
   
@@ -3475,7 +3211,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../code_walkthroughs/fms_medical_walkthrough/" class="md-nav__link">
+      <a href="../../../../code_walkthroughs/fms_medical_walkthrough/" class="md-nav__link">
         
   
   
@@ -3515,26 +3251,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
             
   
   
@@ -3552,7 +3293,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3576,17 +3317,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_1" >
         
           
-          <label class="md-nav__link" for="__nav_8_1" id="__nav_8_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_1" id="__nav_8_1_label" tabindex="">
             
   
   
@@ -3622,7 +3366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/brainlm_2024/" class="md-nav__link">
+      <a href="../brainlm_2024/" class="md-nav__link">
         
   
   
@@ -3650,7 +3394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/brainjepa_2024/" class="md-nav__link">
+      <a href="../brainjepa_2024/" class="md-nav__link">
         
   
   
@@ -3678,7 +3422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/brainharmony_2025/" class="md-nav__link">
+      <a href="../brainharmony_2025/" class="md-nav__link">
         
   
   
@@ -3706,7 +3450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/brainmt_2025/" class="md-nav__link">
+      <a href="../brainmt_2025/" class="md-nav__link">
         
   
   
@@ -3734,7 +3478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/swift_2023/" class="md-nav__link">
+      <a href="../swift_2023/" class="md-nav__link">
         
   
   
@@ -3776,17 +3520,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2" >
         
           
-          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="">
             
   
   
@@ -3822,7 +3569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/caduceus_2024/" class="md-nav__link">
+      <a href="../caduceus_2024/" class="md-nav__link">
         
   
   
@@ -3850,7 +3597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/dnabert2_2024/" class="md-nav__link">
+      <a href="../dnabert2_2024/" class="md-nav__link">
         
   
   
@@ -3878,7 +3625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/evo2_2024/" class="md-nav__link">
+      <a href="../evo2_2024/" class="md-nav__link">
         
   
   
@@ -3906,7 +3653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/generator_2024/" class="md-nav__link">
+      <a href="../generator_2024/" class="md-nav__link">
         
   
   
@@ -3934,7 +3681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/hyenadna_2023/" class="md-nav__link">
+      <a href="../hyenadna_2023/" class="md-nav__link">
         
   
   
@@ -3976,17 +3723,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_3" >
         
           
-          <label class="md-nav__link" for="__nav_8_3" id="__nav_8_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_3" id="__nav_8_3_label" tabindex="">
             
   
   
@@ -4022,7 +3772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/bagel_2025/" class="md-nav__link">
+      <a href="../bagel_2025/" class="md-nav__link">
         
   
   
@@ -4050,7 +3800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/mot_2025/" class="md-nav__link">
+      <a href="../mot_2025/" class="md-nav__link">
         
   
   
@@ -4078,7 +3828,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/m3fm_2025/" class="md-nav__link">
+      <a href="../m3fm_2025/" class="md-nav__link">
         
   
   
@@ -4106,7 +3856,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/me_llama_2024/" class="md-nav__link">
+      <a href="../me_llama_2024/" class="md-nav__link">
         
   
   
@@ -4134,7 +3884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/titan_2025/" class="md-nav__link">
+      <a href="../titan_2025/" class="md-nav__link">
         
   
   
@@ -4162,7 +3912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/flamingo_2022/" class="md-nav__link">
+      <a href="../flamingo_2022/" class="md-nav__link">
         
   
   
@@ -4204,17 +3954,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4" >
         
           
-          <label class="md-nav__link" for="__nav_8_4" id="__nav_8_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_4" id="__nav_8_4_label" tabindex="">
             
   
   
@@ -4250,7 +4003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/ensemble_integration_li2022/" class="md-nav__link">
+      <a href="../ensemble_integration_li2022/" class="md-nav__link">
         
   
   
@@ -4278,7 +4031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/mmfm_2025/" class="md-nav__link">
+      <a href="../mmfm_2025/" class="md-nav__link">
         
   
   
@@ -4306,7 +4059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/mm_llm_imaging_2025/" class="md-nav__link">
+      <a href="../mm_llm_imaging_2025/" class="md-nav__link">
         
   
   
@@ -4334,7 +4087,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/oncology_multimodal_waqas2024/" class="md-nav__link">
+      <a href="../oncology_multimodal_waqas2024/" class="md-nav__link">
         
   
   
@@ -4362,7 +4115,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/yoon_biokdd2025/" class="md-nav__link">
+      <a href="../yoon_biokdd2025/" class="md-nav__link">
         
   
   
@@ -4390,7 +4143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/reverse-complement-equivariant_2021/" class="md-nav__link">
+      <a href="../reverse-complement-equivariant_2021/" class="md-nav__link">
         
   
   
@@ -4418,7 +4171,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/reverse-complement-consistency_2025/" class="md-nav__link">
+      <a href="../reverse-complement-consistency_2025/" class="md-nav__link">
         
   
   
@@ -4446,7 +4199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/systems-algorithms-multihybrid_2025/" class="md-nav__link">
+      <a href="../systems-algorithms-multihybrid_2025/" class="md-nav__link">
         
   
   
@@ -4474,7 +4227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/brain-mri-bias-unlearning_2021/" class="md-nav__link">
+      <a href="../brain-mri-bias-unlearning_2021/" class="md-nav__link">
         
   
   
@@ -4502,7 +4255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/brain-multisite-harmonization_2024/" class="md-nav__link">
+      <a href="../brain-multisite-harmonization_2024/" class="md-nav__link">
         
   
   
@@ -4530,7 +4283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/dinsdale_site_unlearning_2021/" class="md-nav__link">
+      <a href="../dinsdale_site_unlearning_2021/" class="md-nav__link">
         
   
   
@@ -4572,17 +4325,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5" >
         
           
-          <label class="md-nav__link" for="__nav_8_5" id="__nav_8_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_5" id="__nav_8_5_label" tabindex="">
             
   
   
@@ -4618,7 +4374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/gwas_diverse_populations/" class="md-nav__link">
+      <a href="../gwas_diverse_populations/" class="md-nav__link">
         
   
   
@@ -4653,7 +4409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/prs_guide/" class="md-nav__link">
+      <a href="../prs_guide/" class="md-nav__link">
         
   
   
@@ -4693,26 +4449,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_6" >
         
           
-          <label class="md-nav__link" for="__nav_8_6" id="__nav_8_6_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8_6" id="__nav_8_6_label" tabindex="">
             
   
   
@@ -4730,7 +4491,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_8_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4745,10 +4506,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/tabpfn_2024/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TabPFN (2024)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -4764,6 +4552,353 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Classification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-problem-setup-and-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Problem Setup and Motivation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-method-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Method / Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Method / Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-innovation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Innovation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-technical-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Technical Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-key-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Key Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Key Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benchmarks-and-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmarks and Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speed-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Speed Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-implications-for-this-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Implications for This Project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Implications for This Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direct Applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-project-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with Project Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations-for-this-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations for This Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-related-work-and-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Related Work and Context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Related Work and Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tabular-foundation-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabular Foundation Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-context-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In-Context Learning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synthetic-data-for-pretraining" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthetic Data for Pretraining
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Key Takeaways
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Key Takeaways">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-doesnt-work-or-is-limited" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Doesn't Work (or is Limited)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-this-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices for This Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-links-and-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Links and Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-verification-and-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Verification and Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4790,17 +4925,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_7" >
         
           
-          <label class="md-nav__link" for="__nav_8_7" id="__nav_8_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_7" id="__nav_8_7_label" tabindex="">
             
   
   
@@ -4836,7 +4974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/representation-learning_2012/" class="md-nav__link">
+      <a href="../representation-learning_2012/" class="md-nav__link">
         
   
   
@@ -4864,7 +5002,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/fm_general_2024/" class="md-nav__link">
+      <a href="../fm_general_2024/" class="md-nav__link">
         
   
   
@@ -4959,7 +5097,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../decisions/2025-11-integration-plan/" class="md-nav__link">
+      <a href="../../../../decisions/2025-11-integration-plan/" class="md-nav__link">
         
   
   
@@ -4994,7 +5132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../decisions/dev_validation_plan/" class="md-nav__link">
+      <a href="../../../../decisions/dev_validation_plan/" class="md-nav__link">
         
   
   
@@ -5140,7 +5278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/templates/analysis_recipe_cca/" class="md-nav__link">
+      <a href="../../../templates/analysis_recipe_cca/" class="md-nav__link">
         
   
   
@@ -5168,7 +5306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/templates/analysis_recipe_prediction/" class="md-nav__link">
+      <a href="../../../templates/analysis_recipe_prediction/" class="md-nav__link">
         
   
   
@@ -5196,7 +5334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/templates/dataset_card/" class="md-nav__link">
+      <a href="../../../templates/dataset_card/" class="md-nav__link">
         
   
   
@@ -5224,7 +5362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/templates/integration_strategy/" class="md-nav__link">
+      <a href="../../../templates/integration_strategy/" class="md-nav__link">
         
   
   
@@ -5252,7 +5390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/templates/modality_features_fmri/" class="md-nav__link">
+      <a href="../../../templates/modality_features_fmri/" class="md-nav__link">
         
   
   
@@ -5280,7 +5418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/templates/modality_features_genomics/" class="md-nav__link">
+      <a href="../../../templates/modality_features_genomics/" class="md-nav__link">
         
   
   
@@ -5308,7 +5446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/templates/modality_features_smri/" class="md-nav__link">
+      <a href="../../../templates/modality_features_smri/" class="md-nav__link">
         
   
   
@@ -5336,7 +5474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/templates/model_card_template/" class="md-nav__link">
+      <a href="../../../templates/model_card_template/" class="md-nav__link">
         
   
   
@@ -5424,7 +5562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kb/templates/cross_domain_eval_card/" class="md-nav__link">
+      <a href="../../../../kb/templates/cross_domain_eval_card/" class="md-nav__link">
         
   
   
@@ -5452,7 +5590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kb/templates/dataset_card/" class="md-nav__link">
+      <a href="../../../../kb/templates/dataset_card/" class="md-nav__link">
         
   
   
@@ -5480,7 +5618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kb/templates/experiment_config_stub/" class="md-nav__link">
+      <a href="../../../../kb/templates/experiment_config_stub/" class="md-nav__link">
         
   
   
@@ -5508,7 +5646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kb/templates/external_model_pattern_card/" class="md-nav__link">
+      <a href="../../../../kb/templates/external_model_pattern_card/" class="md-nav__link">
         
   
   
@@ -5536,7 +5674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kb/templates/integration_principles_card/" class="md-nav__link">
+      <a href="../../../../kb/templates/integration_principles_card/" class="md-nav__link">
         
   
   
@@ -5564,7 +5702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kb/templates/method_family_card/" class="md-nav__link">
+      <a href="../../../../kb/templates/method_family_card/" class="md-nav__link">
         
   
   
@@ -5592,7 +5730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kb/templates/model_card_template/" class="md-nav__link">
+      <a href="../../../../kb/templates/model_card_template/" class="md-nav__link">
         
   
   
@@ -5680,7 +5818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/template/" class="md-nav__link">
+      <a href="../../../../models/integrations/template/" class="md-nav__link">
         
   
   
@@ -5708,7 +5846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../generated/kb_curated/papers-md/template/" class="md-nav__link">
+      <a href="../template/" class="md-nav__link">
         
   
   
@@ -5768,7 +5906,7 @@
 
 
   
-    <a href="https://github.com/allison-eunse/neuro-omics-kb/edit/master/docs/models/genetics/caduceus.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/allison-eunse/neuro-omics-kb/edit/master/docs/generated/kb_curated/papers-md/tabpfn_2024.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5776,117 +5914,277 @@
   
 
 
-<h1 id="caduceus">Caduceus<a class="headerlink" href="#caduceus" title="Permanent link">&para;</a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p><strong>Type:</strong> RC-equivariant DNA foundation model<br />
-<strong>Architecture:</strong> BiMamba (bidirectional Mamba) + Hyena<br />
-<strong>Modality:</strong> Nucleotide sequences (DNA/RNA)<br />
-<strong>Primary use:</strong> Strand-robust gene-level embeddings for multimodal fusion</p>
-<h2 id="purpose-design-philosophy">Purpose &amp; Design Philosophy<a class="headerlink" href="#purpose-design-philosophy" title="Permanent link">&para;</a></h2>
-<p>Caduceus enforces <strong>reverse-complement (RC) equivariance</strong> through bidirectional Mamba/Hyena layers, ensuring embeddings are invariant to DNA strand orientation. This addresses a fundamental biological constraint: DNA has no inherent directionality, yet many language model architectures introduce strand bias. Caduceus learns sequence grammar while respecting this symmetry.</p>
-<p><strong>Key innovation:</strong> RC-equivariance as architectural constraint (not post-hoc averaging) → more parameter-efficient and biologically principled.</p>
-<h2 id="architecture-highlights">Architecture Highlights<a class="headerlink" href="#architecture-highlights" title="Permanent link">&para;</a></h2>
+<h1 id="tabpfn-a-transformer-that-solves-small-tabular-classification-problems-in-a-second">TabPFN: A Transformer That Solves Small Tabular Classification Problems in a Second<a class="headerlink" href="#tabpfn-a-transformer-that-solves-small-tabular-classification-problems-in-a-second" title="Permanent link">&para;</a></h1>
+<p><strong>Authors:</strong> Noah Hollmann, Samuel Müller, Katharina Eggensperger, Frank Hutter<br />
+<strong>Year:</strong> 2024<br />
+<strong>Venue:</strong> Nature 2024</p>
+<h2 id="1-classification">1. Classification<a class="headerlink" href="#1-classification" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Backbone:</strong> BiMamba (Mamba blocks with bidirectional RC scanning) or RC-augmented Hyena</li>
-<li><strong>RC enforcement:</strong> Built into attention/convolution layers</li>
-<li><strong>Input:</strong> Raw nucleotide sequences (A, C, G, T) with k-mer or single-base tokenization</li>
-<li><strong>Pretraining:</strong> Masked language modeling on large genomic corpora (human + multi-species)</li>
-<li><strong>Output:</strong> Per-position embeddings → gene-level via mean pooling</li>
+<li><strong>Domain Category:</strong>  </li>
+<li>
+<p><strong>Tabular / Foundation Model.</strong> TabPFN is a foundation model for tabular data that uses in-context learning to solve small and medium-sized classification problems without gradient updates.</p>
+</li>
+<li>
+<p><strong>FM Usage Type:</strong>  </p>
+</li>
+<li>
+<p><strong>Core FM development.</strong> TabPFN introduces a novel approach to tabular learning by training on synthetic datasets to emulate Bayesian inference.</p>
+</li>
+<li>
+<p><strong>Key Modalities:</strong>  </p>
+</li>
+<li><strong>Tabular data:</strong> Supports both categorical and continuous features with missing value handling.</li>
 </ul>
-<h2 id="integration-strategy">Integration Strategy<a class="headerlink" href="#integration-strategy" title="Permanent link">&para;</a></h2>
-<h3 id="for-neuro-omics-kb">For Neuro-Omics KB<a class="headerlink" href="#for-neuro-omics-kb" title="Permanent link">&para;</a></h3>
-<p><strong>Embedding recipe:</strong> <code>genetics_gene_fm_pca512_v1</code> (Caduceus variant)
-- Extract gene sequences from reference genome (hg38)
-- Tokenize with Caduceus vocabulary (typically 4-mer or 6-mer)
-- Forward pass → per-nucleotide embeddings
-- <strong>RC hygiene:</strong> Caduceus natively RC-equivariant, but verify with sanity check (forward == RC)
-- Mean pool over gene length → gene-level vector
-- Concatenate target gene set (e.g., 38 MDD genes from Yoon et al.)
-- Project to 512-D via PCA
-- Residualize: age, sex, ancestry PCs (1-10), batch</p>
-<p><strong>Fusion targets:</strong>
-- <strong>Gene-brain CCA:</strong> Align with BrainLM/Brain-JEPA embeddings
-- <strong>LOGO attribution:</strong> Leave-one-gene-out ΔAUC for gene importance (Yoon et al. protocol)
-- <strong>Variant impact:</strong> Compare reference vs. subject-specific sequences (exploratory)</p>
-<h3 id="for-arpa-h-brain-omics-models">For ARPA-H Brain-Omics Models<a class="headerlink" href="#for-arpa-h-brain-omics-models" title="Permanent link">&para;</a></h3>
-<p>Caduceus provides <strong>strand-robust genetic representations</strong> for Brain-Omics systems:
-- RC-equivariance critical when sequences are sampled from forward or reverse strands
-- Gene embeddings can be projected into shared LLM/VLM spaces for cross-modal reasoning
-- Efficient Mamba architecture scales to whole-genome or regulatory region analysis
-- Natural encoder for "genetic modality" in unified multimodal Brain-Omics Model (BOM)</p>
-<h2 id="embedding-extraction-workflow">Embedding Extraction Workflow<a class="headerlink" href="#embedding-extraction-workflow" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span__-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. Extract gene sequences from hg38 reference (GENCODE annotations)</span>
-</span><span id="__span__-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># 2. Tokenize with Caduceus vocabulary (e.g., 6-mer overlapping)</span>
-</span><span id="__span__-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># 3. Load pretrained Caduceus checkpoint</span>
-</span><span id="__span__-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># 4. Forward pass → per-position embeddings</span>
-</span><span id="__span__-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># 5. Verify RC equivariance (optional but recommended):</span>
-</span><span id="__span__-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">#    embed(seq) ≈ embed(reverse_complement(seq))</span>
-</span><span id="__span__-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># 6. Mean pool over gene → gene-level vector</span>
-</span><span id="__span__-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># 7. Concatenate gene set → subject genotype embedding</span>
-</span><span id="__span__-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># 8. Log: gene_list, reference_version, embedding_strategy_id</span>
-</span></code></pre></div>
-<h2 id="strengths-limitations">Strengths &amp; Limitations<a class="headerlink" href="#strengths-limitations" title="Permanent link">&para;</a></h2>
-<h3 id="strengths">Strengths<a class="headerlink" href="#strengths" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="2-executive-summary">2. Executive Summary<a class="headerlink" href="#2-executive-summary" title="Permanent link">&para;</a></h2>
+<p>This paper introduces TabPFN, an 11M-parameter tabular foundation model that revolutionizes small-to-medium tabular classification by performing in-context learning. Unlike traditional machine learning approaches that require training on each new dataset, TabPFN learns patterns from 100 million synthetic datasets generated from structural causal models during its pretraining phase. At inference time, given a new tabular dataset (up to 10,000 samples with 500 features), TabPFN predicts labels for unlabeled rows in a single forward pass—taking approximately 1 second—without any gradient updates or hyperparameter tuning. This approach emulates Bayesian inference and achieves competitive or superior performance compared to gradient-boosted decision trees (GBDTs) and neural networks on standard tabular benchmarks. The model handles categorical and continuous features, supports missing values through mask tokens, and provides probabilistic predictions. TabPFN demonstrates that foundation models can be successfully applied to tabular data through synthetic data generation and in-context learning, offering a fast and effective alternative to traditional tabular ML pipelines for small and medium-sized datasets.</p>
+<hr />
+<h2 id="3-problem-setup-and-motivation">3. Problem Setup and Motivation<a class="headerlink" href="#3-problem-setup-and-motivation" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>RC-equivariant by design:</strong> No manual averaging needed</li>
-<li><strong>Parameter efficient:</strong> Mamba/Hyena scale better than full attention for long sequences</li>
-<li><strong>Strong benchmarks:</strong> Competitive performance on regulatory element prediction, variant effect</li>
-<li><strong>Interpretable:</strong> Attention/conv patterns respect biological constraints</li>
+<li><strong>Scientific / practical problem</strong></li>
+<li>Tabular data is ubiquitous across scientific and business domains, but traditional ML requires dataset-specific training, hyperparameter tuning, and feature engineering for each new problem.</li>
+<li>Gradient-boosted decision trees (GBDTs) and neural networks achieve strong performance but require minutes to hours of training time per dataset.</li>
+<li>There is no "pretrained model" paradigm for tabular data equivalent to what exists for vision (ViT, ResNet) and language (BERT, GPT).</li>
+<li>
+<p>The goal is to create a foundation model that can solve new tabular classification problems instantly through in-context learning.</p>
+</li>
+<li>
+<p><strong>Why this is hard</strong></p>
+</li>
+<li><strong>Diverse tabular structures:</strong><ul>
+<li>Unlike images or text, tabular datasets have varying numbers of features, different feature types (categorical vs. continuous), and no inherent ordering.</li>
+<li>Each dataset may have unique distributional properties and causal relationships.</li>
 </ul>
+</li>
+<li><strong>Lack of large-scale tabular data:</strong><ul>
+<li>No single large tabular dataset exists for pretraining (unlike ImageNet or web text).</li>
+<li>Real-world tabular datasets are often small (hundreds to thousands of samples) and heterogeneous.</li>
+</ul>
+</li>
+<li>
+<p><strong>In-context learning requirements:</strong></p>
+<ul>
+<li>The model must learn to adapt to entirely new tabular structures and distributions at inference time.</li>
+<li>Need to handle missing values, categorical variables, and varying sample sizes.</li>
+</ul>
+</li>
+<li>
+<p><strong>What's the gap / opportunity?</strong></p>
+</li>
+<li>Recent success of in-context learning in language models (GPT-3) suggests that Transformers can learn to perform inference on new tasks without gradient updates.</li>
+<li>Synthetic data generation from structural causal models can create diverse training distributions that cover the space of possible tabular problems.</li>
+<li>A model trained on synthetic data could learn general patterns that transfer to real-world tabular datasets.</li>
+</ul>
+<hr />
+<h2 id="4-method-architecture">4. Method / Architecture<a class="headerlink" href="#4-method-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="core-innovation">Core Innovation<a class="headerlink" href="#core-innovation" title="Permanent link">&para;</a></h3>
+<p>TabPFN uses a <strong>decoder-only Transformer</strong> trained on 100 million synthetic tabular datasets to perform <strong>in-context Bayesian inference</strong>. Instead of training on real data, the model learns from synthetic datasets generated by structural causal models (SCMs), which simulate diverse tabular distributions and causal relationships.</p>
+<h3 id="architecture-details">Architecture Details<a class="headerlink" href="#architecture-details" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Backbone:</strong> Decoder-only Transformer (11M parameters)</li>
+<li><strong>Input representation:</strong></li>
+<li>Each row in the tabular dataset is encoded as a sequence of tokens</li>
+<li>Categorical features: embedded via learned embeddings</li>
+<li>Continuous features: normalized and projected to token space</li>
+<li>Missing values: handled with special mask tokens</li>
+<li><strong>Sequence structure:</strong></li>
+<li>Input sequence: <code>[feature₁, feature₂, ..., featureₙ, label] × M samples</code></li>
+<li>The model sees labeled training examples followed by unlabeled test examples</li>
+<li>Prediction: autoregressive generation of labels for test samples</li>
+</ul>
+<h3 id="training-procedure">Training Procedure<a class="headerlink" href="#training-procedure" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Synthetic data generation:</strong></li>
+<li>Generate 100M datasets from structural causal models</li>
+<li>Each SCM defines:<ul>
+<li>Number of features (up to 500)</li>
+<li>Feature types (categorical or continuous)</li>
+<li>Causal relationships between features</li>
+<li>Label generation mechanism</li>
+</ul>
+</li>
+<li>
+<p>Sample datasets with varying sizes (up to 10,000 samples)</p>
+</li>
+<li>
+<p><strong>Pretraining objective:</strong></p>
+</li>
+<li>For each synthetic dataset:<ul>
+<li>Split into train/test sets</li>
+<li>Feed train examples into Transformer</li>
+<li>Predict labels for test examples via autoregressive generation</li>
+</ul>
+</li>
+<li>Loss: cross-entropy on predicted vs. true test labels</li>
+<li>
+<p>Model learns to emulate Bayesian posterior inference</p>
+</li>
+<li>
+<p><strong>Inference (in-context learning):</strong></p>
+</li>
+<li>Given new real-world tabular dataset:<ul>
+<li>Format as sequence of (features, label) pairs for train split</li>
+<li>Append test examples with unknown labels</li>
+<li>Run single forward pass to predict test labels</li>
+</ul>
+</li>
+<li>No gradient updates, no hyperparameter tuning</li>
+</ol>
+<h3 id="key-technical-components">Key Technical Components<a class="headerlink" href="#key-technical-components" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Positional encodings:</strong> Learned embeddings for sample position and feature position</li>
+<li><strong>Attention mechanism:</strong> Full self-attention over all train + test samples</li>
+<li><strong>Output layer:</strong> Softmax over class labels (for classification)</li>
+<li><strong>Probabilistic predictions:</strong> Model outputs class probabilities, enabling uncertainty quantification</li>
+</ul>
+<hr />
+<h2 id="5-key-results">5. Key Results<a class="headerlink" href="#5-key-results" title="Permanent link">&para;</a></h2>
+<h3 id="benchmarks-and-performance">Benchmarks and Performance<a class="headerlink" href="#benchmarks-and-performance" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Datasets:</strong> Evaluated on 30 public tabular classification benchmarks from OpenML and UCI</li>
+<li><strong>Baselines:</strong> Logistic regression, GBDTs (XGBoost, CatBoost), neural networks (MLP, ResNet)</li>
+<li><strong>Metric:</strong> Test accuracy, AUC-ROC</li>
+</ul>
+<p><strong>Performance highlights:</strong>
+- TabPFN matches or outperforms GBDTs and neural networks on ~70% of datasets with &lt;10,000 samples
+- Achieves competitive performance with <strong>zero hyperparameter tuning</strong>
+- On small datasets (&lt;1,000 samples), TabPFN often outperforms carefully tuned baselines</p>
+<h3 id="speed-comparison">Speed Comparison<a class="headerlink" href="#speed-comparison" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>TabPFN:</strong> ~1 second inference time for datasets up to 10k samples</li>
+<li><strong>GBDTs:</strong> Minutes to hours for training + hyperparameter search</li>
+<li><strong>Neural networks:</strong> Hours for training + hyperparameter search</li>
+</ul>
+<p><strong>Speedup:</strong> 100-1000× faster than traditional ML pipelines</p>
 <h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Requires RC-aware tokenization:</strong> Some vocabularies break RC symmetry (use carefully)</li>
-<li><strong>Limited to reference sequences:</strong> Variant handling requires re-embedding (computationally expensive)</li>
-<li><strong>Checkpoint availability:</strong> Fewer pretrained scales vs. DNABERT-2 or ESM-style models</li>
-<li><strong>K-mer choice matters:</strong> Different tokenizations yield different embedding quality</li>
+<li><strong>Sample size:</strong> Maximum 10,000 samples per forward pass</li>
+<li>Larger datasets (e.g., UK Biobank N~40k) require chunking or subsampling</li>
+<li><strong>Feature count:</strong> Maximum 500 features</li>
+<li><strong>Performance on large datasets:</strong> GBDTs and neural networks can outperform TabPFN when N&gt;10k and sufficient compute is available for training</li>
 </ul>
-<h2 id="when-to-use-caduceus">When to Use Caduceus<a class="headerlink" href="#when-to-use-caduceus" title="Permanent link">&para;</a></h2>
-<p>✅ <strong>Use when:</strong>
-- Need strand-robust gene embeddings for UKB/Cha Hospital genetics
-- Prioritizing parameter efficiency for long sequences (&gt;10kb genes)
-- Want architectural RC-equivariance (not post-hoc correction)
-- Implementing LOGO attribution (Yoon et al. protocol)</p>
-<p>⚠️ <strong>Consider alternatives:</strong>
-- <strong>DNABERT-2:</strong> BPE tokenization, more public checkpoints, cross-species pretraining
-- <strong>Evo2:</strong> Ultra-long context (1M tokens) for regulatory regions
-- <strong>GENERator:</strong> Generative modeling if sequence design is goal</p>
-<h2 id="reference-materials">Reference Materials<a class="headerlink" href="#reference-materials" title="Permanent link">&para;</a></h2>
-<h3 id="knowledge-base-resources">Knowledge Base Resources<a class="headerlink" href="#knowledge-base-resources" title="Permanent link">&para;</a></h3>
-<p><strong>Curated materials in this KB:</strong>
-- <strong>Paper summary &amp; notes (PDF):</strong> <a href="https://raw.githubusercontent.com/allison-eunse/neuro-omics-kb/main/docs/generated/kb_curated/papers-pdf/caduceus_2024.pdf">Caduceus (2024)</a>
-- <strong>Paper card (YAML):</strong> <code>kb/paper_cards/caduceus_2024.yaml</code>
-- <strong>Code walkthrough:</strong> <a href="../../../code_walkthroughs/caduceus_walkthrough/">Caduceus walkthrough</a>
-- <strong>Model card (YAML):</strong> <code>kb/model_cards/caduceus.yaml</code></p>
-<p><strong>Integration recipes:</strong>
-- <a href="../../../integration/modality_features/genomics/">Modality Features: Genomics</a>
-- <a href="../../../integration/integration_strategy/">Integration Strategy</a>
-- <a href="../../../integration/analysis_recipes/cca_permutation/">CCA + Permutation</a>
-- <a href="https://github.com/allison-eunse/neuro-omics-kb/blob/main/configs/experiments/03_logo_gene_attribution.yaml">LOGO Attribution</a> (experiment config)</p>
-<h3 id="original-sources">Original Sources<a class="headerlink" href="#original-sources" title="Permanent link">&para;</a></h3>
-<p><strong>Source code repositories:</strong>
-- <strong>Local copy:</strong> <code>external_repos/caduceus/</code>
-- <strong>Official GitHub:</strong> <a href="https://github.com/kuleshov-group/caduceus">kuleshov-group/caduceus</a></p>
-<p><strong>Original paper:</strong>
-- <strong>Title:</strong> "Caduceus: Bi-Directional Equivariant Long-Range DNA Sequence Modeling"
-- <strong>Authors:</strong> Schiff et al.
-- <strong>Published:</strong> arXiv preprint, March 2024
-- <strong>Link:</strong> <a href="https://arxiv.org/abs/2403.03234">arXiv:2403.03234</a>
-- <strong>PDF (local):</strong> <a href="https://raw.githubusercontent.com/allison-eunse/neuro-omics-kb/main/docs/generated/kb_curated/papers-pdf/caduceus_2024.pdf">caduceus_2024.pdf</a></p>
-<h2 id="next-steps-in-our-pipeline">Next Steps in Our Pipeline<a class="headerlink" href="#next-steps-in-our-pipeline" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="6-implications-for-this-project">6. Implications for This Project<a class="headerlink" href="#6-implications-for-this-project" title="Permanent link">&para;</a></h2>
+<h3 id="direct-applications">Direct Applications<a class="headerlink" href="#direct-applications" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>UKB WES extraction:</strong> Embed 38 MDD genes + cognition-related genes from UK Biobank</li>
-<li><strong>RC verification:</strong> Sanity check embed(seq) == embed(RC(seq)) on test genes</li>
-<li><strong>Gene-brain CCA:</strong> Align Caduceus embeddings with BrainLM fMRI vectors</li>
-<li><strong>LOGO protocol:</strong> Implement leave-one-gene-out ΔAUC (Yoon et al. BioKDD'25)</li>
-<li><strong>Variant exploration:</strong> Test impact of subject-specific SNPs on embeddings (pilot)</li>
+<li><strong>Baseline predictor for raw tabular features:</strong></li>
+<li><strong>sMRI ROI tables:</strong> <code>smri_free_surfer_raw_176</code> (176 FreeSurfer ROIs)</li>
+<li><strong>Genetics summary features:</strong> PGS scores, PCA projections</li>
+<li>
+<p>Use TabPFN as fast baseline before investing in GBDT/NN training</p>
+</li>
+<li>
+<p><strong>Late fusion baseline:</strong></p>
+</li>
+<li><strong>Gene + brain embeddings:</strong> <code>fusion_concat_gene_brain_1024_v1</code> (1024-dim concatenated embeddings)</li>
+<li><strong>Compare TabPFN vs. LR/GBDT</strong> on late fusion prediction tasks</li>
+<li>
+<p>Fast prototyping: test fusion hypotheses in seconds</p>
+</li>
+<li>
+<p><strong>Cross-validation efficiency:</strong></p>
+</li>
+<li>TabPFN eliminates hyperparameter tuning → faster CV loops</li>
+<li>Useful for sensitivity analyses and ablation studies</li>
 </ol>
-<h2 id="engineering-notes">Engineering Notes<a class="headerlink" href="#engineering-notes" title="Permanent link">&para;</a></h2>
+<h3 id="integration-with-project-pipelines">Integration with Project Pipelines<a class="headerlink" href="#integration-with-project-pipelines" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Always <strong>log k-mer size</strong> and <strong>tokenization strategy</strong> in metadata</li>
-<li>Verify RC-equivariance on held-out genes before scaling to full cohort</li>
-<li>When comparing to DNABERT-2, use same gene set and reference version</li>
-<li>For attribution: LOGO requires nested CV to avoid leakage (see Yoon et al. protocol)</li>
+<li><strong>Experiment config:</strong> <code>configs/experiments/03_prediction_baselines_tabular.yaml</code></li>
+<li>Add TabPFN as predictor option alongside LR/GBDT</li>
+<li>
+<p>Compare TabPFN vs. classical methods on:</p>
+<ul>
+<li>Gene-only prediction</li>
+<li>Brain-only prediction</li>
+<li>Late fusion (gene + brain)</li>
 </ul>
+</li>
+<li>
+<p><strong>Harmonization compatibility:</strong></p>
+</li>
+<li>TabPFN can handle raw features or harmonized embeddings</li>
+<li>Test whether harmonization (MURD, ComBat) improves TabPFN performance</li>
+</ul>
+<h3 id="limitations-for-this-project">Limitations for This Project<a class="headerlink" href="#limitations-for-this-project" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>UK Biobank scale:</strong> N~40k requires chunking into ≤10k folds</li>
+<li>Solution: stratified sampling or per-fold inference</li>
+<li><strong>Not a foundation model encoder:</strong></li>
+<li>TabPFN predicts labels, not embeddings</li>
+<li>Cannot replace gene/brain FMs for representation learning</li>
+</ul>
+<h3 id="recommended-workflow">Recommended Workflow<a class="headerlink" href="#recommended-workflow" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Sanity check:</strong> Run TabPFN on small pilot cohort (N&lt;1000)</li>
+<li><strong>Fast prototyping:</strong> Test gene-brain fusion hypotheses with TabPFN</li>
+<li><strong>Baseline comparison:</strong> Compare TabPFN vs. LR/GBDT on full UKB cohort</li>
+<li><strong>Report both:</strong> Include TabPFN and traditional methods in final results</li>
+</ol>
+<hr />
+<h2 id="7-related-work-and-context">7. Related Work and Context<a class="headerlink" href="#7-related-work-and-context" title="Permanent link">&para;</a></h2>
+<h3 id="tabular-foundation-models">Tabular Foundation Models<a class="headerlink" href="#tabular-foundation-models" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Prior work:</strong></li>
+<li>VIME (2020): Self-supervised pretraining for tabular data</li>
+<li>SAINT (2021): Self-attention for tabular data</li>
+<li>FT-Transformer (2021): Feature Tokenizer + Transformer for tabular data</li>
+<li><strong>TabPFN's novelty:</strong></li>
+<li>First to use synthetic data generation + in-context learning</li>
+<li>No gradient updates at inference time</li>
+<li>Emulates Bayesian inference rather than discriminative learning</li>
+</ul>
+<h3 id="in-context-learning">In-Context Learning<a class="headerlink" href="#in-context-learning" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>GPT-3 (2020):</strong> Demonstrated few-shot learning on text tasks</li>
+<li><strong>Flamingo (2022):</strong> In-context learning for vision-language tasks</li>
+<li><strong>TabPFN (2024):</strong> Extends in-context learning to tabular data</li>
+</ul>
+<h3 id="synthetic-data-for-pretraining">Synthetic Data for Pretraining<a class="headerlink" href="#synthetic-data-for-pretraining" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Structural causal models (SCMs):</strong> Simulate diverse causal relationships</li>
+<li><strong>TabPFN innovation:</strong> Train on SCM-generated datasets to learn general tabular patterns</li>
+</ul>
+<hr />
+<h2 id="8-key-takeaways">8. Key Takeaways<a class="headerlink" href="#8-key-takeaways" title="Permanent link">&para;</a></h2>
+<h3 id="what-works">What Works<a class="headerlink" href="#what-works" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>In-context learning for tabular data:</strong> TabPFN demonstrates that Transformers can learn to solve new tabular problems without gradient updates</li>
+<li><strong>Synthetic data generation:</strong> Training on 100M SCM-generated datasets enables transfer to real-world tabular data</li>
+<li><strong>Speed advantage:</strong> 1-second inference vs. hours of GBDT/NN training</li>
+</ul>
+<h3 id="what-doesnt-work-or-is-limited">What Doesn't Work (or is Limited)<a class="headerlink" href="#what-doesnt-work-or-is-limited" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Large datasets:</strong> Performance degrades on datasets with &gt;10k samples</li>
+<li><strong>Feature count:</strong> Limited to 500 features</li>
+<li><strong>Scalability:</strong> Cannot handle very large-scale problems (e.g., million-sample datasets)</li>
+</ul>
+<h3 id="best-practices-for-this-project">Best Practices for This Project<a class="headerlink" href="#best-practices-for-this-project" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Use TabPFN for rapid prototyping:</strong> Test fusion hypotheses before committing to full GBDT/NN pipelines</li>
+<li><strong>Keep sample counts ≤10k per fold:</strong> Chunk UK Biobank cohort if needed</li>
+<li><strong>Compare with traditional methods:</strong> Report both TabPFN and LR/GBDT results</li>
+<li><strong>Leverage speed for sensitivity analyses:</strong> Run multiple configurations quickly</li>
+</ul>
+<hr />
+<h2 id="9-links-and-resources">9. Links and Resources<a class="headerlink" href="#9-links-and-resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Paper:</strong> <a href="https://www.nature.com/articles/s41586-024-08328-6">Nature 2024</a></li>
+<li><strong>DOI:</strong> 10.1038/s41586-024-08328-6</li>
+<li><strong>Code:</strong> Check official TabPFN GitHub repository</li>
+<li><strong>Related documentation:</strong></li>
+<li><a href="../../../../integration/analysis_recipes/prediction_baselines/">Prediction baselines</a></li>
+<li><a href="../../../../integration/integration_strategy/">Integration strategy</a></li>
+</ul>
+<hr />
+<h2 id="10-verification-and-notes">10. Verification and Notes<a class="headerlink" href="#10-verification-and-notes" title="Permanent link">&para;</a></h2>
+<p><strong>Status:</strong> Needs human review</p>
+<p><strong>Notes:</strong>
+- TabPFN is highly relevant for fast late fusion prototyping
+- Treat as downstream predictor competing with LR/GBDT on embeddings
+- Keep per-fold sample counts ≤10k or batch inference
+- Consider TabPFN for ablation studies and sensitivity analyses
+- Not a replacement for gene/brain foundation models—purely a predictor</p>
+<p><strong>Tags:</strong> <code>tabular</code>, <code>foundation_model</code>, <code>in_context_learning</code>, <code>transformer</code>, <code>bayesian_inference</code>, <code>fast_inference</code>, <code>baseline_predictor</code></p>
 
 
 
@@ -5968,10 +6266,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.instant", "navigation.top", "content.code.copy", "content.tabs.link", "toc.integrate", "toc.follow", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.instant", "navigation.top", "content.code.copy", "content.tabs.link", "toc.integrate", "toc.follow", "content.action.edit"], "search": "../../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
       
     
   </body>
