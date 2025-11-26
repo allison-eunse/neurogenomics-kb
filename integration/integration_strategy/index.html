@@ -894,6 +894,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/genetics/hyenadna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HyenaDNA
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1237,6 +1272,41 @@
     
   </span>
   
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/multimodal/flamingo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flamingo
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
   
 
       </a>
@@ -3891,6 +3961,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated/kb_curated/papers-md/flamingo_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flamingo (2022)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4078,6 +4176,90 @@
     
   
     Yoon BioKDD (2025)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated/kb_curated/papers-md/reverse-complement-equivariant_2021/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RC-equivariant networks (2021)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated/kb_curated/papers-md/reverse-complement-consistency_2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RC consistency for DNA LMs (2025)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated/kb_curated/papers-md/systems-algorithms-multihybrid_2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems & algorithms for multi-hybrid LMs (2025)
   
 
     
@@ -4280,6 +4462,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated/kb_curated/papers-md/representation-learning_2012/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Representation learning (2012)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -5235,7 +5445,7 @@
 <p><strong>Available strategies:</strong>
 - <strong>sMRI (<code>smri_free_surfer_pca512_v1</code>).</strong> FreeSurfer ROI table (~176 features) → fold-wise z-score → residualize age/sex/site/ICV → PCA→512. Future variants: FM encoders, diffusion MRI. Sources: <code>docs/integration/modality_features/smri.md</code>, FreeSurfer refs.
 - <strong>rs-fMRI baseline (<code>rsfmri_swift_segments_v1</code>).</strong> SwiFT exports per 20-frame segment → mean pool tokens → run mean → subject mean → residualize age/sex/site/motion → PCA→512. Variants exist for BrainLM (<code>rsfmri_brainlm_segments_v1</code>), Brain-JEPA (<code>rsfmri_brainjepa_roi_v1</code>), and BrainMT (<code>rsfmri_brainmt_segments_v1</code>); each references the corresponding walkthrough/code.
-- <strong>Genetics (<code>genetics_gene_fm_pca512_v1</code>).</strong> RC-averaged gene FMs (Caduceus/Evo2/GENERaTOR) → exon → gene pooling → concatenate curated gene set → residualize age/sex/ancestry PCs/batch → PCA→512.
+- <strong>Genetics (<code>genetics_gene_fm_pca512_v1</code>).</strong> RC-averaged gene FMs (Caduceus/DNABERT-2/Evo2/HyenaDNA/GENERaTOR) → exon → gene pooling → concatenate curated gene set → residualize age/sex/ancestry PCs/batch → PCA→512. For non–RC-equivariant encoders, follow RCCR/RC-averaging guidance in the genomics modality spec.
 - <strong>Fusion (<code>fusion_concat_gene_brain_1024_v1</code>).</strong> Concatenate the 512-D genetics vector with the chosen 512-D brain vector; z-score each block independently before concatenation.</p>
 <p><strong>Experiments now reference these IDs</strong> (see <code>configs/experiments/*.yaml</code>) to keep per-subject embeddings traceable.</p>
 <hr />
