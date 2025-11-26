@@ -2,7 +2,7 @@
 
 [![Documentation](https://img.shields.io/badge/docs-mkdocs-blue)](https://allison-eunse.github.io/neuro-omics-kb/)
 [![Models](https://img.shields.io/badge/models-13%20FMs-green)](#foundation-models)
-[![Paper Cards](https://img.shields.io/badge/papers-20-orange)](#research-papers)
+[![Paper Cards](https://img.shields.io/badge/papers-33-orange)](#research-papers)
 [![Integration Cards](https://img.shields.io/badge/integration_cards-3-purple)](#integration-strategies)
 
 > **A comprehensive documentation hub for genetics and brain foundation models and their multimodal integration.**
@@ -148,14 +148,15 @@ Ready-to-run YAML templates in `configs/experiments/`:
 
 ## 📋 Research Papers
 
-**20 structured paper cards** documenting:
+**33 structured paper cards** documenting:
 
-- 🧬 **Genetics FMs** (4): Caduceus, DNABERT-2, Evo2, GENERator
+- 🧬 **Genetics FMs** (5): Caduceus, DNABERT-2, Evo2, GENERator, HyenaDNA
 - 🧠 **Brain FMs** (5): BrainLM, Brain-JEPA, Brain Harmony, BrainMT, SwiFT
-- 🏥 **Multimodal/Clinical FMs** (5): BAGEL, MoT, M3FM, Me-LLaMA, TITAN
-- 🔗 **Integration & Methods** (5): Ensemble integration, Multimodal FMs survey, MM-LLM imaging, Oncology review, Yoon BioKDD
+- 🏥 **Multimodal/Clinical FMs** (6): BAGEL, MoT, M3FM, Me-LLaMA, TITAN, Flamingo
+- 🔗 **Integration & Methods** (11): Ensemble integration, Multimodal FMs survey, MM-LLM imaging, Oncology review, Yoon BioKDD, RC-equivariant networks, RC consistency for DNA LMs, Systems & algorithms for multi-hybrid LMs, Brain MRI bias unlearning, Brain multisite harmonization (MURD), Site unlearning (Dinsdale)
 - 🧬 **Genomics & Population** (2): GWAS diverse populations, PRS guide
 - 📊 **Tabular Baseline** (1): TabPFN
+- 📚 **General** (2): Representation learning, Foundation models overview
 
 [View all paper cards →](./kb/paper_cards/) | [Browse summaries →](https://allison-eunse.github.io/neuro-omics-kb/generated/kb_curated/papers-md/)
 
