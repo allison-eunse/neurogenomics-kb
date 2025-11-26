@@ -1,15 +1,15 @@
 ---
 title: "TabPFN: A Transformer That Solves Small Tabular Classification Problems in a Second"
 authors: "Noah Hollmann, Samuel Müller, Katharina Eggensperger, Frank Hutter"
-year: 2024
-venue: "Nature 2024"
+year: 2023
+venue: "ICLR 2023"
 ---
 
 # TabPFN: A Transformer That Solves Small Tabular Classification Problems in a Second
 
 **Authors:** Noah Hollmann, Samuel Müller, Katharina Eggensperger, Frank Hutter  
-**Year:** 2024  
-**Venue:** Nature 2024
+**Year:** 2023  
+**Venue:** ICLR 2023
 
 ## 1. Classification
 
@@ -205,7 +205,7 @@ TabPFN uses a **decoder-only Transformer** trained on 100 million synthetic tabu
 
 - **GPT-3 (2020):** Demonstrated few-shot learning on text tasks
 - **Flamingo (2022):** In-context learning for vision-language tasks
-- **TabPFN (2024):** Extends in-context learning to tabular data
+- **TabPFN (2023):** Extends in-context learning to tabular data
 
 ### Synthetic Data for Pretraining
 
@@ -239,9 +239,9 @@ TabPFN uses a **decoder-only Transformer** trained on 100 million synthetic tabu
 
 ## 9. Links and Resources
 
-- **Paper:** [Nature 2024](https://www.nature.com/articles/s41586-024-08328-6)
-- **DOI:** 10.1038/s41586-024-08328-6
-- **Code:** Check official TabPFN GitHub repository
+- **Paper:** [ICLR 2023 (arXiv)](https://arxiv.org/pdf/2207.01848)
+- **DOI:** arXiv:2207.01848
+- **Code:** [Official TabPFN GitHub](https://github.com/automl/TabPFN)
 - **Related documentation:**
   - [Prediction baselines](../../../integration/analysis_recipes/prediction_baselines.md)
   - [Integration strategy](../../../integration/integration_strategy.md)

@@ -5,10 +5,10 @@ authors:
   - Samuel Müller
   - Katharina Eggensperger
   - Frank Hutter
-year: 2024
-venue: "Nature 2024"
-pdf_source: "https://www.nature.com/articles/s41586-024-08328-6"
-doi: "10.1038/s41586-024-08328-6"
+year: 2023
+venue: "ICLR 2023"
+pdf_source: "https://arxiv.org/pdf/2207.01848"
+doi: "arXiv:2207.01848"
 local_pdf_path: "docs/generated/kb_curated/papers-pdf/tabpfn_2024.pdf"
 summary_md_path: "docs/generated/kb_curated/papers-md/tabpfn_2024.md"
 

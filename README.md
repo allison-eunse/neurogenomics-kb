@@ -155,7 +155,7 @@ Ready-to-run YAML templates in `configs/experiments/`:
 - 🏥 **Multimodal/Clinical FMs** (6): BAGEL, MoT, M3FM, Me-LLaMA, TITAN, Flamingo
 - 🔗 **Integration & Methods** (11): Ensemble integration, Multimodal FMs survey, MM-LLM imaging, Oncology review, Yoon BioKDD, RC-equivariant networks, RC consistency for DNA LMs, Systems & algorithms for multi-hybrid LMs, Brain MRI bias unlearning, Brain multisite harmonization (MURD), Site unlearning (Dinsdale)
 - 🧬 **Genomics & Population** (2): GWAS diverse populations, PRS guide
-- 📊 **Tabular Baseline** (1): TabPFN
+- 📊 **Tabular Baseline** (1): TabPFN (2023)
 - 📚 **General** (2): Representation learning, Foundation models overview
 
 [View all paper cards →](./kb/paper_cards/) | [Browse summaries →](https://allison-eunse.github.io/neuro-omics-kb/generated/kb_curated/papers-md/)
