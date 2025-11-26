@@ -68,8 +68,8 @@ python scripts/manage_kb.py ops harmonization <id>
 **Available harmonization methods:**
 - **Default (`none_baseline`).** Feature-level z-score + covariate residualization; always record site/motion covariates.
 - **Statistical (`combat_smri`).** ROI-wise ComBat before PCA for sMRI (Fortin et al., 2018). Run the `02_harmonization_ablation_smri` config to benchmark vs. the baseline.
-- **Deep (`murd_t1_t2`).** Apply MURD (Liu & Yap 2024) to T1/T2 volumes before FreeSurfer extraction; compare vs. ComBat and baseline to judge if image-space harmonization improves CCA/prediction.
-- **Representation unlearning (`site_unlearning_module`).** Optional adversarial head that removes site labels from embedding space (Dinsdale et al., 2021); treat as experimental until harmonization ablations justify it.
+- **Deep (`murd_t1_t2`).** Apply MURD (Liu & Yap 2024) to T1/T2 volumes before FreeSurfer extraction; compare vs. ComBat and baseline to judge if image-space harmonization improves CCA/prediction.^[See MURD paper summary: `docs/generated/kb_curated/papers-md/murd_2024.md` and card `kb/paper_cards/murd_2024.yaml`.]
+- **Representation unlearning (`site_unlearning_module`).** Optional adversarial head that removes site labels from embedding space (Dinsdale et al., 2021); treat as experimental until harmonization ablations justify it.^[See site-unlearning paper summary: `docs/generated/kb_curated/papers-md/dinsdale_site_unlearning_2021.md` and card `kb/paper_cards/dinsdale_site_unlearning_2021.yaml`.]
 
 **Record harmonization IDs** (and preprocessing pipeline IDs such as `rsfmri_preprocessing_pipelines.hcp_like_minimal`) alongside embedding strategy IDs in every run.
 

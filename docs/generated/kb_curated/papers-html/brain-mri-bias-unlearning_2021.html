@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Deep learning-based unlearning of dataset bias for MRI harmonisation and confound removal</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../assets/summary_theme.css" />
+
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="summary-card">
+
+<header id="title-block-header">
+<h1 class="title">Deep learning-based unlearning of dataset bias for MRI
+harmonisation and confound removal</h1>
+</header>
+<div class="concept-diagram brain">
+<svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+<defs> <radialGradient id="brainGlow" cx="50%" cy="50%" r="65%">
+<stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.95"/>
+<stop offset="100%" stop-color="#312e81" stop-opacity="0.1"/>
+</radialGradient> </defs>
+<rect width="320" height="220" rx="20" fill="url(#brainGlow)" opacity="0.8"/>
+<g stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round">
+<path d="M80 80 C120 40, 200 40, 240 80"/>
+<path d="M80 140 C120 180, 200 180, 240 140"/>
+<path d="M110 60 C150 110, 170 110, 210 60"/>
+<path d="M110 160 C150 110, 170 110, 210 160"/> </g>
+<g fill="#f8fafc" stroke="#bfdbfe" stroke-width="2">
+<circle cx="80" cy="80" r="12"/> <circle cx="240" cy="80" r="12"/>
+<circle cx="80" cy="140" r="12"/> <circle cx="240" cy="140" r="12"/>
+<circle cx="160" cy="110" r="13"/> </g> <g fill="#f472b6">
+<circle cx="110" cy="60" r="8"/> <circle cx="210" cy="60" r="8"/>
+<circle cx="110" cy="160" r="8"/> <circle cx="210" cy="160" r="8"/> </g>
+</svg>
+<div class="diagram-text">
+<pre><code>&lt;h3&gt;Deep learning-based unlearning of dataset bias for MRI harmonisation and confound removal · Concept Sketch&lt;/h3&gt;
+&lt;p&gt;Neural dynamics lens highlighting connectivity vs. representation trade-offs.&lt;/p&gt;</code></pre>
+</div>
+</div>
+<h1
+id="deep-learning-based-unlearning-of-dataset-bias-for-mri-harmonisation-and-confound-removal">Deep
+learning-based unlearning of dataset bias for MRI harmonisation and
+confound removal</h1>
+<p><strong>Authors:</strong> Nicola K. Dinsdale, Mark Jenkinson, Ana
+I.L. Namburete<br />
+<strong>Year:</strong> 2021<br />
+<strong>Venue:</strong> NeuroImage</p>
+<hr />
+<h2 id="classification">1. Classification</h2>
+<ul>
+<li><strong>Domain Category:</strong>
+<ul>
+<li>Brain MRI harmonization and confound removal for multi-site
+neuroimaging studies.</li>
+</ul></li>
+<li><strong>FM Usage Type:</strong>
+<ul>
+<li>Not a foundation model; proposes a <strong>training framework for
+deep networks</strong> that removes scanner and other confound
+information from learned representations while preserving task
+performance, making it highly relevant as a pre-processing and modeling
+strategy in FM-era pipelines.</li>
+</ul></li>
+<li><strong>Key Modalities:</strong>
+<ul>
+<li>Structural and diffusion MRI (depending on experiment), with
+datasets spanning multiple scanners and acquisition protocols.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="executive-summary">2. Executive Summary</h2>
+<p>This paper tackles the problem of <strong>dataset bias in multi-site
+MRI</strong>, where scanner and protocol differences introduce
+non-biological variability that can both confound analyses and hurt
+model generalization. The authors propose a <strong>deep learning–based
+unlearning framework</strong> that treats harmonization as a form of
+<strong>joint domain adaptation</strong>: networks are trained to
+perform a main task (e.g., age regression, tissue segmentation) while
+actively “unlearning” information about the scanner or other nuisance
+variables. The approach extends adversarial domain adaptation ideas by
+alternating between (1) training a domain classifier to predict scanner
+from latent features and (2) updating the feature extractor to
+<strong>confuse</strong> the domain classifier so that its predictions
+become maximally uncertain. Across experiments with multiple scanners,
+biased datasets, limited labels, and additional confounds, the method
+reduces scanner predictability while maintaining or improving main-task
+performance. The framework is flexible, works with different
+architectures and tasks, and can be extended to remove non-scanner
+confounds such as sex or pathology labels when desired.</p>
+<hr />
+<h2 id="problem-setup-and-motivation">3. Problem Setup and
+Motivation</h2>
+<p><strong>Scientific / practical problem</strong></p>
+<ul>
+<li>Large multi-site neuroimaging datasets are essential for studying
+brain disorders and population variability, but combining data from
+different scanners introduces <strong>non-biological variance</strong>
+(scanner vendor, field strength, protocol differences).<br />
+</li>
+<li>Traditional harmonization methods (e.g., ComBat on derived measures)
+partially correct these effects but often cannot operate directly in
+image or feature space and are less suited to modern deep learning
+workflows.<br />
+</li>
+<li>Deep models trained naively on pooled multi-site data may
+inadvertently learn <strong>scanner-specific shortcuts</strong>, leading
+to biased predictions and poor generalization to new scanners or
+acquisition protocols.</li>
+</ul>
+<p><strong>Why this is hard</strong></p>
+<ul>
+<li><strong>Scanner as a strong confound:</strong> Scanner identity can
+be predicted very accurately from raw or preprocessed images, indicating
+strong domain shifts between sites.<br />
+</li>
+<li><strong>Trade-off between harmonization and performance:</strong>
+Removing all scanner information might also remove signal that is
+correlated with both scanner and the biological variable of interest,
+potentially harming the main task.<br />
+</li>
+<li><strong>Multi-scanner, multi-task reality:</strong> Real
+neuroimaging pipelines involve multiple scanners, heterogeneous labels,
+and sometimes missing annotations; harmonization must work in all of
+these regimes.<br />
+</li>
+<li><strong>Confounds beyond scanner:</strong> Other variables (e.g.,
+sex, site, cohort, disease status in control groups) can also become
+entangled with the representations unless explicitly addressed.</li>
+</ul>
+<hr />
+<h2 id="data-and-modalities">4. Data and Modalities</h2>
+<p>While the paper covers several experimental setups, the overall data
+settings share common themes.</p>
+<ul>
+<li><strong>Datasets and settings (high level)</strong>
+<ul>
+<li>Multi-site structural MRI datasets with images acquired on different
+scanners, possibly with different protocols and resolutions.<br />
+</li>
+<li>Experiments on tasks such as <strong>age regression</strong>,
+<strong>tissue segmentation</strong>, and other clinically relevant
+predictions, each involving subjects from multiple scanners.<br />
+</li>
+<li>Scenarios include: balanced vs biased scanner distributions, varying
+amounts of labeled data, and different numbers of scanners
+(domains).</li>
+</ul></li>
+<li><strong>Modalities</strong>
+<ul>
+<li>Primarily <strong>structural MRI</strong>, but the framework is
+general and applicable to any modality where scanner/domain labels are
+available.</li>
+</ul></li>
+<li><strong>Preprocessing / representation</strong>
+<ul>
+<li>Standard neuroimaging pipelines (intensity normalization,
+registration, possibly parcellation) produce images or feature maps fed
+into CNN-based architectures.<br />
+</li>
+<li>Input to the deep network is typically image patches or whole
+images, processed by a feature extractor followed by task-specific heads
+(e.g., regression head, segmentation decoder).</li>
+</ul></li>
+</ul>
+<p>When precise dataset details are needed (e.g., number of subjects,
+exact scanner models), they should be taken from the full paper and
+supplementary material.</p>
+<hr />
+<h2 id="model-foundation-model">5. Model / Foundation Model</h2>
+<p>The core contribution is a <strong>training framework</strong> rather
+than a single fixed architecture. It augments standard CNNs with a
+domain classifier and tailored losses to create scanner-invariant yet
+task-relevant representations.</p>
+<p><strong>Model type</strong></p>
+<ul>
+<li>Generic <strong>feedforward CNN (or similar) backbone</strong> for
+the main imaging task, augmented with:
+<ul>
+<li>A <strong>label predictor</strong> head for the primary task (e.g.,
+age, segmentation).<br />
+</li>
+<li>A <strong>domain classifier</strong> head that predicts scanner
+identity or other confounds from the learned features.</li>
+</ul></li>
+</ul>
+<p><strong>Key components and innovations</strong></p>
+<table>
+<colgroup>
+<col style="width: 20%;" />
+<col style="width: 80%;" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feature extractor</td>
+<td>Shared base network that maps MRI images to latent representations
+used by both the main task and domain classifier.</td>
+</tr>
+<tr>
+<td>Label predictor</td>
+<td>Head trained with a standard task loss (e.g., regression or
+segmentation loss) to ensure good performance on the clinical or
+scientific objective.</td>
+</tr>
+<tr>
+<td>Domain classifier</td>
+<td>Head trained to predict scanner (or other domain labels) from the
+same features, making explicit how much scanner information is
+retained.</td>
+</tr>
+<tr>
+<td>Domain loss</td>
+<td>Categorical cross-entropy loss measuring how well the domain
+classifier can predict scanner, used to train the domain head given a
+fixed feature extractor.</td>
+</tr>
+<tr>
+<td>Confusion loss</td>
+<td>Loss that encourages the domain classifier’s softmax outputs to be
+close to a <strong>uniform distribution</strong>, i.e., maximally
+uncertain about scanner, used to update the feature extractor while
+keeping the domain head fixed.</td>
+</tr>
+<tr>
+<td>Alternating training scheme</td>
+<td>Three-stage update in each batch: (1) optimize main task loss, (2)
+optimize domain classifier to best predict scanner, (3) optimize feature
+extractor to <strong>confuse</strong> the domain classifier using the
+confusion loss.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Training setup (conceptual)</strong></p>
+<ul>
+<li>The total loss combines main task loss, domain loss, and confusion
+loss with weighting coefficients (, ).<br />
+</li>
+<li>Data subsets used for main-task training and for unlearning can
+differ (e.g., more unlabeled data for domain unlearning).<br />
+</li>
+<li>The framework naturally extends from two domains to <strong>multiple
+scanners</strong>, and can incorporate additional confound labels (e.g.,
+sex) as extra domain dimensions to unlearn.</li>
+</ul>
+<hr />
+<h2 id="multimodal-integration-aspects-if-applicable">6. Multimodal /
+Integration Aspects (If Applicable)</h2>
+<ul>
+<li>The framework operates within a <strong>single imaging
+modality</strong> (MRI) but across multiple scanner domains.<br />
+</li>
+<li>It does not perform multimodal integration in the sense of combining
+fundamentally different biological modalities; instead, it aligns
+feature distributions across acquisition conditions.<br />
+</li>
+<li>This scanner-invariant representation can be a useful component
+inside broader multimodal or foundation-model pipelines that combine MRI
+with other data sources.</li>
+</ul>
+<hr />
+<h2 id="experiments-and-results">7. Experiments and Results</h2>
+<p><strong>Tasks / benchmarks</strong></p>
+<ul>
+<li><strong>Age regression:</strong> Predicting subject age from MRI
+across multiple scanners, assessing the impact of unlearning on
+regression accuracy and scanner invariance.<br />
+</li>
+<li><strong>Segmentation:</strong> Tissue or structure segmentation
+tasks where labels are available on subsets of scanners.<br />
+</li>
+<li><strong>Biased datasets and limited labels:</strong> Experiments
+that intentionally skew scanner distributions or reduce labeled data to
+test robustness of the unlearning framework.<br />
+</li>
+<li><strong>Additional confounds:</strong> Extension to removing other
+confounds (e.g., site, sex) in addition to scanner.</li>
+</ul>
+<p><strong>Baselines</strong></p>
+<ul>
+<li>Standard CNN-based models trained without any domain adaptation or
+unlearning (scanner information left intact).<br />
+</li>
+<li>Classical harmonization methods (e.g., ComBat) applied to derived
+measures, where relevant, as conceptual comparators.<br />
+</li>
+<li>Domain adaptation approaches such as <strong>Domain Adversarial
+Neural Networks (DANNs)</strong> relying on gradient reversal rather
+than confusion-based unlearning.</li>
+</ul>
+<p><strong>Key findings (trends)</strong></p>
+<ul>
+<li>The unlearning framework substantially <strong>reduces scanner
+predictability</strong> from latent features (the domain classifier
+becomes near-chance when confusion loss is applied), indicating
+successful scanner invariance.<br />
+</li>
+<li>Main-task performance (e.g., age prediction accuracy, segmentation
+quality) is <strong>maintained or improved</strong> compared to models
+trained without unlearning or with simpler domain adaptation
+schemes.<br />
+</li>
+<li>The method adapts well to <strong>biased datasets and low-label
+regimes</strong>, avoiding models that overfit to the dominant
+scanner.<br />
+</li>
+<li>Extending the framework to additional confounds shows that it can
+simultaneously reduce multiple unwanted biases while preserving the
+main-task signal.<br />
+</li>
+<li>Compared to DANN-style gradient reversal, the iterative
+confusion-based scheme often yields more balanced and stable unlearning
+across scanners.</li>
+</ul>
+<hr />
+<h2 id="strengths-limitations-and-open-questions">8. Strengths,
+Limitations, and Open Questions</h2>
+<p><strong>Strengths</strong></p>
+<ul>
+<li>Provides a clear, modular <strong>training recipe</strong> that can
+be plugged into many existing CNN architectures and tasks.<br />
+</li>
+<li>Focuses directly on <strong>feature-level scanner
+invariance</strong>, which is closer to where deep models operate than
+purely statistical harmonization of derived measures.<br />
+</li>
+<li>Demonstrates flexibility across multiple data scenarios
+(balanced/unbalanced, low labels, multiple scanners) and confound
+types.<br />
+</li>
+<li>Bridges the literatures on domain adaptation and MRI harmonization,
+making it easier for practitioners to adopt robust techniques.</li>
+</ul>
+<p><strong>Limitations</strong></p>
+<ul>
+<li>Requires explicit <strong>domain labels</strong> (e.g., scanner IDs)
+for the unlearning step; it does not handle unknown or latent
+domains.<br />
+</li>
+<li>May not fully remove all scanner-related information, especially
+when scanner and biological variables are heavily entangled.<br />
+</li>
+<li>If hyperparameters ((, ), learning rates) are poorly tuned, the
+method could over- or under-correct, either leaving residual bias or
+harming main-task performance.<br />
+</li>
+<li>Experiments, while diverse, focus on certain datasets and tasks;
+behavior on very large-scale heterogeneous cohorts or other modalities
+remains to be fully characterized.</li>
+</ul>
+<p><strong>Open questions / future directions</strong></p>
+<ol type="1">
+<li>How robust is the unlearning framework when scaling to
+<strong>dozens of scanners</strong> and complex acquisition
+protocols?<br />
+</li>
+<li>Can similar ideas be incorporated into <strong>large foundation
+models</strong> for MRI, where scanner invariance needs to be preserved
+across pretraining and fine-tuning?<br />
+</li>
+<li>How should one choose or adapt the weights on domain vs confusion
+losses ((, )) in a principled, data-driven way?<br />
+</li>
+<li>Can unlearning be extended to <strong>continuous confounds</strong>
+(e.g., head motion, SNR, age) rather than discrete scanner
+categories?<br />
+</li>
+<li>How do we best evaluate whether important biological variation has
+been inadvertently removed along with nuisance variance?</li>
+</ol>
+<hr />
+<h2 id="context-and-broader-impact">9. Context and Broader Impact</h2>
+<ul>
+<li><strong>Within MRI harmonization:</strong> This work reframes
+harmonization as a <strong>representation learning</strong> and domain
+adaptation problem, moving beyond purely statistical corrections to
+directly controlling what deep networks remember about scanner and
+confounds.<br />
+</li>
+<li><strong>Relation to foundation models:</strong> The unlearning
+framework can be viewed as a building block for <strong>scanner-robust
+feature extractors</strong>, which is crucial when training or adapting
+brain FMs across many sites and cohorts.<br />
+</li>
+<li><strong>Bias and fairness:</strong> By making it possible to
+explicitly remove known confounds from representations, the method
+contributes tools for reducing certain kinds of dataset bias, though
+careful evaluation is needed to avoid discarding meaningful
+variation.<br />
+</li>
+<li><strong>Practical impact:</strong> The approach is easy to implement
+in modern deep learning frameworks and can be retrofitted into existing
+models, making it attractive for real-world neuroimaging pipelines.</li>
+</ul>
+<hr />
+<h2 id="key-takeaways-bullet-summary">10. Key Takeaways (Bullet
+Summary)</h2>
+<ul>
+<li><strong>Problem:</strong> Multi-site MRI datasets contain strong
+scanner- and protocol-induced biases that can distort analyses and hurt
+generalization.<br />
+</li>
+<li><strong>Idea:</strong> Treat harmonization as <strong>joint domain
+adaptation</strong>, training networks to perform main tasks while
+actively unlearning scanner and confound information from their latent
+representations.<br />
+</li>
+<li><strong>Model / framework:</strong> Standard CNN backbone plus a
+domain classifier and a confusion-based adversarial training loop that
+alternates between learning to predict scanner and learning to confuse
+that prediction.<br />
+</li>
+<li><strong>Results:</strong> The method reduces scanner predictability
+to near chance while keeping or improving performance on tasks like age
+regression and segmentation, even under biased or low-label
+conditions.<br />
+</li>
+<li><strong>Impact:</strong> Offers a flexible, architecture-agnostic
+recipe for building scanner-invariant MRI models, with clear relevance
+for large-scale neuroimaging analyses and the training of future
+foundation models that must work robustly across scanners and
+cohorts.</li>
+</ul>
+<hr />
+  </div>
+  <footer>
+    Generated via custom pipeline · 2025-11-26
+  </footer>
+</div>
+
+</body>
+</html>

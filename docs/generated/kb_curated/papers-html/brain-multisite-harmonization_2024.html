@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Learning multi-site harmonization of magnetic resonance images without traveling human phantoms</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../assets/summary_theme.css" />
+
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="summary-card">
+
+<header id="title-block-header">
+<h1 class="title">Learning multi-site harmonization of magnetic
+resonance images without traveling human phantoms</h1>
+</header>
+<div class="concept-diagram brain">
+<svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+<defs> <radialGradient id="brainGlow" cx="50%" cy="50%" r="65%">
+<stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.95"/>
+<stop offset="100%" stop-color="#312e81" stop-opacity="0.1"/>
+</radialGradient> </defs>
+<rect width="320" height="220" rx="20" fill="url(#brainGlow)" opacity="0.8"/>
+<g stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round">
+<path d="M80 80 C120 40, 200 40, 240 80"/>
+<path d="M80 140 C120 180, 200 180, 240 140"/>
+<path d="M110 60 C150 110, 170 110, 210 60"/>
+<path d="M110 160 C150 110, 170 110, 210 160"/> </g>
+<g fill="#f8fafc" stroke="#bfdbfe" stroke-width="2">
+<circle cx="80" cy="80" r="12"/> <circle cx="240" cy="80" r="12"/>
+<circle cx="80" cy="140" r="12"/> <circle cx="240" cy="140" r="12"/>
+<circle cx="160" cy="110" r="13"/> </g> <g fill="#f472b6">
+<circle cx="110" cy="60" r="8"/> <circle cx="210" cy="60" r="8"/>
+<circle cx="110" cy="160" r="8"/> <circle cx="210" cy="160" r="8"/> </g>
+</svg>
+<div class="diagram-text">
+<pre><code>&lt;h3&gt;Learning multi-site harmonization of magnetic resonance images without traveling human phantoms · Concept Sketch&lt;/h3&gt;
+&lt;p&gt;Neural dynamics lens highlighting connectivity vs. representation trade-offs.&lt;/p&gt;</code></pre>
+</div>
+</div>
+<h1
+id="learning-multi-site-harmonization-of-magnetic-resonance-images-without-traveling-human-phantoms">Learning
+multi-site harmonization of magnetic resonance images without traveling
+human phantoms</h1>
+<p><strong>Authors:</strong> Siyuan Liu, Pew-Thian Yap<br />
+<strong>Year:</strong> 2024<br />
+<strong>Venue:</strong> Communications Engineering (Nature)</p>
+<hr />
+<h2 id="classification">1. Classification</h2>
+<ul>
+<li><strong>Domain Category:</strong>
+<ul>
+<li>Brain MRI harmonization for multi-site neuroimaging. The work
+focuses on structural brain MRI (T1/T2) and methods to remove
+site/scanner artifacts while preserving anatomy.</li>
+</ul></li>
+<li><strong>FM Usage Type:</strong>
+<ul>
+<li>Not a foundation model per se; instead, a specialized deep
+generative harmonization framework that can serve as front-end
+infrastructure for brain FMs and downstream predictive models.</li>
+</ul></li>
+<li><strong>Key Modalities:</strong>
+<ul>
+<li>Structural T1-weighted and T2-weighted brain MRI volumes from large
+multi-site cohorts (e.g., ABCD scanners from GE, Philips, Siemens).</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="executive-summary">2. Executive Summary</h2>
+<p>This paper introduces <strong>MURD (Multi-site Unsupervised
+Representation Disentangler)</strong>, a deep learning framework for
+harmonizing structural MRI images collected across many scanners and
+sites <strong>without</strong> requiring traveling human phantoms (the
+same subject scanned at multiple sites). Instead of learning a separate
+mapping for each site pair, MURD learns a single model that decomposes
+each image into <strong>site-invariant anatomical content</strong> and
+<strong>site-specific appearance style</strong> (contrast, intensity,
+scanner artifacts). By recombining content and style codes, the network
+can generate harmonized images for any target site, or retain appearance
+while testing identity mappings. Trained on more than 6,000 multi-site
+T1/T2 volumes from the ABCD study, MURD produces images that closely
+match target-site appearance while maintaining fine anatomical details.
+Quantitative comparisons against strong baselines (e.g., DRIT++,
+StarGAN-v2) show that MURD yields better FID/KID scores, improves
+segmentation consistency, reduces site differences in volumetric
+measurements, and even supports cross-resolution and continuous-style
+harmonization. Overall, the method offers a practical way to
+retrospectively harmonize large, existing multi-site MRI datasets for
+more reliable downstream analysis and model training.</p>
+<hr />
+<h2 id="problem-setup-and-motivation">3. Problem Setup and
+Motivation</h2>
+<p><strong>Scientific / practical problem</strong></p>
+<ul>
+<li>Modern MRI studies increasingly pool data from many scanners and
+sites (e.g., ABCD, ADNI, AIBL) to achieve the sample sizes needed for
+robust statistical analysis.<br />
+</li>
+<li>Multi-site acquisition introduces <strong>non-biological
+variability</strong> from scanner vendor, hardware, protocol
+differences, and resolution that can confound downstream analyses and
+machine learning models.<br />
+</li>
+<li>Prospective protocol harmonization helps but is expensive, needs to
+be designed before data collection, and cannot fix previously acquired
+datasets.</li>
+</ul>
+<p><strong>Why this is hard</strong></p>
+<ul>
+<li><strong>Scanner and protocol variation:</strong> Different vendors
+and sequence settings produce very different contrast and noise
+characteristics, even when nominal parameters are matched.<br />
+</li>
+<li><strong>Retrospective harmonization:</strong> Correcting
+already-collected data requires methods that can separate anatomical
+information from acquisition-induced appearance differences.<br />
+</li>
+<li><strong>Existing methods trade-offs:</strong>
+<ul>
+<li>Statistics-based approaches (intensity normalization, ComBat-style
+batch correction) usually operate on global intensity summaries and
+struggle with spatially varying artifacts.<br />
+</li>
+<li>Pairwise deep learning methods learn mappings between specific site
+pairs; for (N) sites, they may require (N(N-1)) mappings, which does not
+scale and wastes shared information.<br />
+</li>
+</ul></li>
+<li><strong>Risk of anatomical distortion:</strong> Any harmonization
+method must avoid hallucinating or altering subtle anatomical features
+that matter for clinical or research questions.</li>
+</ul>
+<hr />
+<h2 id="data-and-modalities">4. Data and Modalities</h2>
+<ul>
+<li><strong>Datasets used</strong>
+<ul>
+<li>Multi-site <strong>ABCD</strong> study: more than 6,000 T1-weighted
+and T2-weighted brain MRI volumes from children aged roughly 9–10 years,
+acquired on GE, Philips, and Siemens scanners.<br />
+</li>
+<li>Data are grouped into three “virtual sites” corresponding to vendor
+families, each with matched acquisition protocols but noticeable
+appearance differences.</li>
+</ul></li>
+<li><strong>Modalities</strong>
+<ul>
+<li>Structural MRI only:
+<ul>
+<li>T1-weighted images (anatomical structure, gray/white
+contrast).<br />
+</li>
+<li>T2-weighted images (complementary tissue contrast).</li>
+</ul></li>
+</ul></li>
+<li><strong>Preprocessing / representation</strong>
+<ul>
+<li>Volumes are aligned and preprocessed using standard neuroimaging
+tools (e.g., ANTs-based registration) to ensure anatomical
+correspondence across subjects and scanners.<br />
+</li>
+<li>Central axial slices or 2.5D slices (three adjacent slices stacked)
+are extracted and fed into the network for training and
+evaluation.<br />
+</li>
+<li>Images are grouped by nominal site and modality to define domains
+for harmonization (e.g., GE-T1, Philips-T1, Siemens-T1).</li>
+</ul></li>
+</ul>
+<p>If some dataset or preprocessing details are missing from the
+extracted text, they are likely described in more depth in the original
+paper’s methods and supplementary material.</p>
+<hr />
+<h2 id="model-foundation-model">5. Model / Foundation Model</h2>
+<p>Although not framed as a “foundation model”, MURD is a <strong>deep
+generative architecture</strong> designed for scalable, multi-site MRI
+harmonization via disentangled representations.</p>
+<p><strong>Model type</strong></p>
+<ul>
+<li>Multi-domain <strong>image-to-image translation</strong> framework
+with:
+<ul>
+<li>A <strong>site-shared content encoder</strong> capturing anatomical
+structure.<br />
+</li>
+<li><strong>Site-specific style encoders and generators</strong>
+capturing scanner-dependent appearance.<br />
+</li>
+<li>A <strong>site-shared decoder/generator</strong> that recombines
+content and style to synthesize harmonized images.<br />
+</li>
+<li>Site-specific discriminators for adversarial learning.</li>
+</ul></li>
+</ul>
+<p><strong>Key components and innovations</strong></p>
+<table>
+<colgroup>
+<col style="width: 20%;" />
+<col style="width: 80%;" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content encoder</td>
+<td>Maps input MR images into a <strong>site-invariant content
+representation</strong> encoding anatomy that should be preserved across
+scanners.</td>
+</tr>
+<tr>
+<td>Style encoder</td>
+<td>Extracts <strong>site-specific style codes</strong> capturing
+contrast, intensity distributions, and scanner/protocol artifacts.</td>
+</tr>
+<tr>
+<td>Generator / decoder</td>
+<td>Combines content and style codes to synthesize images for a chosen
+target site, enabling harmonization or identity mappings.</td>
+</tr>
+<tr>
+<td>Style generator</td>
+<td>For each site, generates randomized style codes so that multiple
+realistic appearances can be sampled for a given anatomical
+content.</td>
+</tr>
+<tr>
+<td>Discriminators</td>
+<td>Site-specific discriminators enforce realism of generated images and
+alignment with each site’s appearance distribution.</td>
+</tr>
+<tr>
+<td>Losses</td>
+<td>A combination of <strong>consistency (cycle, content,
+style)</strong> losses, <strong>adversarial loss</strong>,
+<strong>content alignment</strong>, <strong>style diversity</strong>,
+and <strong>identity</strong> losses ensures that anatomy is preserved
+while appearance is altered appropriately.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Training setup (high level)</strong></p>
+<ul>
+<li>MURD is trained separately for T1-weighted and T2-weighted
+volumes.<br />
+</li>
+<li>Training uses modest labeled data per site (e.g., 20 volumes/vendor
+for training, plus separate validation/generalization/human phantom test
+sets).<br />
+</li>
+<li>The network is optimized so that:
+<ul>
+<li>Harmonized images match the target site’s distribution (via
+adversarial and style losses).<br />
+</li>
+<li>Content representations remain consistent across harmonization and
+identity mappings.<br />
+</li>
+<li>Structural details are preserved, assessed via downstream
+segmentation and volumetry.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="multimodal-integration-aspects-if-applicable">6. Multimodal /
+Integration Aspects (If Applicable)</h2>
+<ul>
+<li>This paper focuses on <strong>single-modality structural MRI
+harmonization</strong> across many scanners and protocols.<br />
+</li>
+<li>It does not explicitly integrate multiple biological modalities
+(e.g., genetics, behavior, multimodal FMs).<br />
+</li>
+<li>However, by reducing non-biological site variance in T1/T2 images,
+MURD is complementary to multimodal integration pipelines and brain
+foundation models that consume harmonized MRI as input.</li>
+</ul>
+<hr />
+<h2 id="experiments-and-results">7. Experiments and Results</h2>
+<p><strong>Tasks / benchmarks</strong></p>
+<ul>
+<li><strong>Visual quality evaluation:</strong> qualitative assessment
+of harmonized T1/T2 images when mapping between GE, Philips, and Siemens
+sites, including identity mappings and reference-image-based
+harmonization.<br />
+</li>
+<li><strong>Image quality metrics:</strong> Frechét Inception Distance
+(FID) and Kernel Inception Distance (KID) comparing harmonized images to
+real images from target sites.<br />
+</li>
+<li><strong>Human phantom evaluation:</strong> traveling human phantom
+dataset with subjects scanned on multiple vendors to quantify structural
+preservation and harmonization quality.<br />
+</li>
+<li><strong>Segmentation consistency:</strong> brain extraction and
+tissue segmentation (e.g., BET + FAST) before and after harmonization,
+measuring Dice similarity coefficients.<br />
+</li>
+<li><strong>Volumetric measures:</strong> comparing distributions of
+GM/WM/CSF volumes across sites before and after harmonization, and
+examining preservation of biological effects such as gender
+differences.<br />
+</li>
+<li><strong>Resolution and continuous harmonization:</strong>
+cross-resolution harmonization (1.25 mm → 1 mm) and continuous
+interpolation of style codes between sites.</li>
+</ul>
+<p><strong>Baselines</strong></p>
+<ul>
+<li>Statistics-based harmonization approaches (e.g., intensity
+normalization, batch-effect correction) as conceptual background.<br />
+</li>
+<li>Deep learning baselines: <strong>DRIT++</strong> and
+<strong>StarGAN-v2</strong>, representing prior unsupervised dual-domain
+and multi-domain image-to-image translation methods for style transfer
+and domain adaptation.</li>
+</ul>
+<p><strong>Key findings (trends)</strong></p>
+<ul>
+<li>MURD produces harmonized images whose appearance closely matches
+target sites while preserving detailed anatomy, both qualitatively and
+quantitatively.<br />
+</li>
+<li>On FID and KID, MURD outperforms DRIT++ and StarGAN-v2, with scores
+much closer to “reference” values computed between real training and
+testing images from the same site.<br />
+</li>
+<li>In the traveling human phantom dataset, MURD yields lower mean
+absolute error, higher structural similarity (MS-SSIM), and better PSNR
+than baselines, indicating better structural fidelity.<br />
+</li>
+<li>Tissue segmentation consistency (Dice scores) improves substantially
+after harmonization, and identity mappings show that harmonization does
+not degrade segmentation when source and target sites are
+identical.<br />
+</li>
+<li>Volumetric distributions across sites (GM, WM, CSF) become better
+aligned after harmonization while preserving biologically meaningful
+gender differences.<br />
+</li>
+<li>Cross-resolution and continuous-style experiments show that MURD can
+recover fine details from lower-resolution images and support smooth
+transitions between site appearances without introducing artifacts.</li>
+</ul>
+<hr />
+<h2 id="strengths-limitations-and-open-questions">8. Strengths,
+Limitations, and Open Questions</h2>
+<p><strong>Strengths</strong></p>
+<ul>
+<li>Addresses a <strong>practical bottleneck</strong> in multi-site MRI
+research: harmonizing images without requiring traveling human phantoms
+or paired scans.<br />
+</li>
+<li>Scales beyond pairwise mappings to <strong>many sites within a
+single unified model</strong>, reducing the number of networks that must
+be trained and maintained.<br />
+</li>
+<li>Uses a principled <strong>content–style disentanglement</strong>
+design and rich loss functions to preserve anatomy while adjusting
+scanner-specific appearance.<br />
+</li>
+<li>Demonstrates effectiveness across multiple evaluation angles: visual
+quality, image similarity metrics, segmentation consistency, volumetric
+statistics, and cross-resolution harmonization.</li>
+</ul>
+<p><strong>Limitations</strong></p>
+<ul>
+<li>Focuses on structural MRI (T1/T2) and healthy/developmental cohorts;
+applicability to other modalities (e.g., diffusion, fMRI, clinical
+populations) is not fully explored.<br />
+</li>
+<li>Training and evaluation are centered on a specific set of vendors
+and protocols; performance on very different scanners or field strengths
+is uncertain.<br />
+</li>
+<li>As a generative model, MURD may still introduce subtle biases or
+artifacts that are hard to detect without extensive validation.<br />
+</li>
+<li>The framework requires reasonably good preprocessing and
+registration; failures there can propagate into harmonized outputs.</li>
+</ul>
+<p><strong>Open questions / future directions</strong></p>
+<ol type="1">
+<li>How well does MURD generalize to other anatomical regions, body
+parts, or imaging modalities (e.g., diffusion MRI, whole-body
+MRI)?<br />
+</li>
+<li>Can the learned content representations be repurposed as
+initializations or inputs for <strong>brain foundation models</strong>
+and multimodal FMs?<br />
+</li>
+<li>How robust is MURD to severe motion artifacts, rare scanner types,
+or out-of-distribution protocols?<br />
+</li>
+<li>What formal guarantees or additional validation strategies can be
+used to ensure that harmonization never alters disease-relevant
+anatomical signals?<br />
+</li>
+<li>Could lighter-weight or semi-supervised variants of MURD support
+harmonization in settings with fewer images per site?</li>
+</ol>
+<hr />
+<h2 id="context-and-broader-impact">9. Context and Broader Impact</h2>
+<ul>
+<li><strong>Within MRI harmonization:</strong> MURD extends the move
+from global intensity corrections and pairwise mappings to
+<strong>unified, multi-site deep harmonization</strong>, explicitly
+disentangling anatomy from scanner appearance.<br />
+</li>
+<li><strong>Relation to foundation models:</strong> By cleaning up
+non-biological variance in structural MRI, MURD can make inputs more
+homogeneous for <strong>brain FMs and multimodal models</strong>,
+potentially improving downstream generalization and fairness.<br />
+</li>
+<li><strong>Neuroimaging practice:</strong> The approach is particularly
+relevant for large-scale consortia (ABCD, ADNI, etc.) and retrospective
+harmonization of legacy datasets where re-acquisition is
+impossible.<br />
+</li>
+<li><strong>Ethical considerations:</strong> While harmonization can
+reduce site bias, it also risks masking systematic differences that
+relate to demographic or health disparities; careful auditing and
+transparent reporting are important.</li>
+</ul>
+<hr />
+<h2 id="key-takeaways-bullet-summary">10. Key Takeaways (Bullet
+Summary)</h2>
+<ul>
+<li><strong>Problem:</strong> Multi-site MRI studies suffer from
+scanner- and protocol-induced variability that can overwhelm biological
+signals and distort downstream analyses.<br />
+</li>
+<li><strong>Idea:</strong> Learn a unified deep model (MURD) that
+<strong>disentangles</strong> site-invariant anatomical content from
+site-specific appearance style and recombines them to generate
+harmonized images.<br />
+</li>
+<li><strong>Model:</strong> A content encoder, style
+encoders/generators, site-shared generator, and site-specific
+discriminators trained with a combination of cycle, content, style,
+adversarial, and identity losses.<br />
+</li>
+<li><strong>Data:</strong> Thousands of T1/T2 images from the ABCD study
+across GE, Philips, and Siemens scanners, plus a traveling human phantom
+dataset and large generalization sets.<br />
+</li>
+<li><strong>Results:</strong> MURD outperforms DRIT++ and StarGAN-v2 on
+FID/KID, improves segmentation consistency and volumetric agreement
+across sites, supports cross-resolution and continuous-style
+harmonization, and preserves anatomical details.<br />
+</li>
+<li><strong>Impact:</strong> Provides a scalable, retrospective
+harmonization tool that can clean multi-site MRI datasets for more
+robust statistical analysis and as input to future brain foundation
+models and multimodal integration pipelines.</li>
+</ul>
+<hr />
+  </div>
+  <footer>
+    Generated via custom pipeline · 2025-11-26
+  </footer>
+</div>
+
+</body>
+</html>

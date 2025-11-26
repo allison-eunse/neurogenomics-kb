@@ -1,0 +1,49 @@
+title: "Deep learning-based unlearning of dataset bias for MRI harmonisation and confound removal"
+short_name: "Site-unlearning (Dinsdale 2021)"
+authors:
+  - Natalie K. Dinsdale
+  - Seong Jae Hwang
+  - Stephen M. Smith
+  - Christian F. Beckmann
+  - Amalio Telenti
+  - Thomas E. Nichols
+  - Mark Jenkinson
+year: 2021
+venue: "NeuroImage"
+pdf_source: "https://www.sciencedirect.com/science/article/pii/S1053811920311745"
+local_pdf_path: "docs/generated/kb_curated/papers-pdf/dinsdale_site_unlearning_2021.pdf"
+summary_md_path: "docs/generated/kb_curated/papers-md/dinsdale_site_unlearning_2021.md"
+
+summary: |
+  Introduces an adversarial unlearning framework to remove dataset/scanner bias and other confounds
+  from MRI-based deep learning models. Uses gradient reversal layers and nuisance-prediction heads
+  to encourage site-invariant representations while maintaining performance on the main prediction
+  task.
+
+key_contributions:
+  - "Demonstrates that adversarial unlearning reduces dataset/site bias in MRI representations."
+  - "Supports multi-confound unlearning (site, scanner, other nuisance variables)."
+  - "Improves cross-dataset generalisation and confound control compared to standard training."
+
+implications_for_project:
+  - "Provides a template for `site_unlearning_module` in integration cards/strategies."
+  - "Can be applied to brain FM encoders (BrainLM, SwiFT, BrainMT) to produce site-robust embeddings."
+  - "Complements image-level harmonisation (e.g., MURD, ComBat) with representation-level debiasing."
+
+related_to:
+  - "docs/integration/integration_strategy.md"
+  - "docs/generated/kb_curated/papers-md/dinsdale_site_unlearning_2021.md"
+
+verification_status: "needs_human_review"
+notes: "Hyperparameter choice (gradient reversal scaling) is critical; over-unlearning can hurt main-task performance."
+
+tags:
+  - mri
+  - harmonisation
+  - confound_removal
+  - adversarial_learning
+  - domain_adaptation
+
+
+
+
