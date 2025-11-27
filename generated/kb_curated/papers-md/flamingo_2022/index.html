@@ -4048,94 +4048,16 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="7. Experiments and Results">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#main-findings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Main findings
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ablation-studies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ablation studies
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#key-insights" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key insights
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-strengths-and-limitations" class="md-nav__link">
+  <a href="#8-strengths-limitations-and-open-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. Strengths and Limitations
+        8. Strengths, Limitations, and Open Questions
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="8. Strengths and Limitations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#strengths" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Strengths
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Limitations
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#open-questions-future-directions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Open questions / future directions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -4148,52 +4070,13 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="9. Context and Broader Impact">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#relation-to-other-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Relation to other work
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#broader-scientific-and-practical-impact" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Broader scientific and practical impact
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#open-questions-for-future-research" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Open questions for future research
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#10-key-takeaways" class="md-nav__link">
+  <a href="#10-key-takeaways-bullet-summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10. Key Takeaways
+        10. Key Takeaways (Bullet Summary)
       
     </span>
   </a>
@@ -5815,100 +5698,63 @@
 
 
 <h1 id="flamingo-a-visual-language-model-for-few-shot-learning">Flamingo: a Visual Language Model for Few-Shot Learning<a class="headerlink" href="#flamingo-a-visual-language-model-for-few-shot-learning" title="Permanent link">&para;</a></h1>
-<p><strong>Authors:</strong> Jean-Baptiste Alayrac, Jeff Donahue, Pauline Luc, Antoine Miech, Iain Barr, Yana Hasson, Karel Lenc, Arthur Mensch, Katie Millican, Malcolm Reynolds, Roman Ring, Eliza Rutherford, Serkan Cabi, Tengda Han, Zhitao Gong, Sina Samangooei, Marianne Monteiro, Jacob Menick, Sebastian Borgeaud, Andrew Brock, Aida Nematzadeh, Sahand Sharifzadeh, Mikolaj Binkowski, Ricardo Barreira, Oriol Vinyals, Andrew Zisserman, Karen Simonyan<br />
+<p><strong>Authors:</strong> Jean-Baptiste Alayrac, Jeff Donahue, Pauline Luc, Antoine Miech, et al. (DeepMind)<br />
 <strong>Year:</strong> 2022<br />
-<strong>Venue:</strong> 36th Conference on Neural Information Processing Systems (NeurIPS)</p>
+<strong>Venue:</strong> NeurIPS 2022</p>
+<hr />
 <h2 id="1-classification">1. Classification<a class="headerlink" href="#1-classification" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Domain Category:</strong>  </li>
+<li>Vision / VLM / Multimodal FM  </li>
 <li>
-<p><strong>Vision / VLM / Multimodal FM.</strong> Flamingo is a visual language model (VLM) that integrates vision and language for few-shot learning on image and video understanding tasks.</p>
+<p>Flamingo is a visual language model (VLM) that integrates vision and language for few-shot learning on image and video understanding tasks.</p>
 </li>
 <li>
 <p><strong>FM Usage Type:</strong>  </p>
 </li>
 <li>
-<p><strong>Core FM development.</strong> Flamingo introduces a new family of VLMs with architectural innovations (Perceiver Resampler, GATED XATTN-DENSE layers) that enable few-shot learning via in-context examples.</p>
+<p>Core FM development <strong>+</strong> Multimodal FM or cross-modal integration</p>
 </li>
 <li>
 <p><strong>Key Modalities:</strong>  </p>
 </li>
-<li><strong>Images:</strong> High-resolution images from web data.</li>
-<li><strong>Videos:</strong> Short video clips (average 22 seconds) with temporal information.</li>
-<li><strong>Text:</strong> Interleaved text descriptions, captions, questions, and answers.</li>
+<li>Images (high-resolution from web data)</li>
+<li>Videos (short clips, average 22 seconds)</li>
+<li>Text (interleaved captions, questions, answers)</li>
 </ul>
 <hr />
 <h2 id="2-executive-summary">2. Executive Summary<a class="headerlink" href="#2-executive-summary" title="Permanent link">&para;</a></h2>
-<p>This paper introduces Flamingo, a family of Visual Language Models (VLMs) that achieve state-of-the-art few-shot learning on a wide range of image and video understanding tasks, simply by being prompted with a few input/output examples—analogous to how GPT-3 performs few-shot learning with text. Flamingo bridges powerful pretrained vision-only and language-only models through novel architectural components: a Perceiver Resampler that converts variable-size visual feature maps into a fixed number of visual tokens, and GATED XATTN-DENSE layers that condition frozen language models on visual representations via gated cross-attention. The model can handle arbitrarily interleaved sequences of images/videos and text, enabling natural few-shot prompting where task examples are provided as (image, text) pairs followed by a query. Flamingo is trained on a large-scale mixture of web-scraped multimodal data (interleaved image-text from webpages, image-text pairs, video-text pairs) totaling billions of examples, without using any task-specific annotations. After training, a single Flamingo model achieves new state-of-the-art few-shot performance on 16 diverse benchmarks (visual question-answering, captioning, classification, dialogue) and even outperforms fine-tuned models on 6 tasks despite using only 32 task-specific examples (around 1000× less data than fine-tuned SotA). The largest model (Flamingo-80B) sets new records across open-ended tasks like VQA and captioning. This work demonstrates how to effectively combine pretrained vision and language models for multimodal few-shot learning, and shows that large-scale web data training can enable powerful in-context learning capabilities previously seen only in text-only language models.</p>
+<p>Flamingo is a family of Visual Language Models (VLMs) that achieve state-of-the-art few-shot learning on image and video understanding tasks by being prompted with a few input/output examples—analogous to GPT-3's few-shot text learning. The model bridges pretrained vision and language models through novel architectural components: a <strong>Perceiver Resampler</strong> that converts variable-size visual features into fixed visual tokens, and <strong>GATED XATTN-DENSE layers</strong> that condition frozen language models on visual representations via gated cross-attention. Flamingo handles arbitrarily interleaved sequences of images/videos and text, enabling natural few-shot prompting. Trained on billions of web-scraped multimodal examples (interleaved image-text from webpages, image-text pairs, video-text pairs) without task-specific annotations, a single Flamingo model achieves new state-of-the-art few-shot performance on 16 diverse benchmarks and outperforms fine-tuned models on 6 tasks despite using only 32 examples (1000× less data). The largest model (Flamingo-80B) sets new records on VQA and captioning tasks.</p>
 <hr />
 <h2 id="3-problem-setup-and-motivation">3. Problem Setup and Motivation<a class="headerlink" href="#3-problem-setup-and-motivation" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Scientific / practical problem</strong></li>
-<li>Current vision-language models require extensive task-specific fine-tuning with thousands of annotated examples, making adaptation to new tasks expensive and slow.</li>
+<li><strong>Scientific / practical problem:</strong>  </li>
+<li>Current vision-language models require extensive task-specific fine-tuning with thousands of annotated examples.</li>
 <li>Contrastive models (CLIP) enable zero-shot classification but lack generative capabilities for open-ended tasks like captioning and VQA.</li>
-<li>Vision-conditioned language generation models exist but haven't shown strong few-shot learning abilities.</li>
 <li>
-<p>The goal is to build a model that can rapidly adapt to new vision-language tasks using only a few examples, similar to GPT-3's few-shot learning for text.</p>
+<p>Goal: Build a model that rapidly adapts to new vision-language tasks using only a few examples, similar to GPT-3's few-shot learning for text.</p>
 </li>
 <li>
-<p><strong>Why this is hard</strong></p>
+<p><strong>Why this is hard:</strong>  </p>
 </li>
-<li><strong>Bridging vision and language:</strong><ul>
-<li>Vision encoders and language models are typically trained separately; connecting them effectively is non-trivial.</li>
-<li>Need to preserve knowledge from both pretrained models while enabling cross-modal understanding.</li>
-</ul>
-</li>
-<li><strong>Handling interleaved multimodal sequences:</strong><ul>
-<li>Few-shot learning requires processing sequences like: (image₁, text₁), (image₂, text₂), ..., (query_image, ?).</li>
-<li>Standard architectures don't naturally handle such interleaved inputs.</li>
-</ul>
-</li>
-<li><strong>Variable-size visual inputs:</strong><ul>
-<li>Images and videos have variable resolutions and aspect ratios.</li>
-<li>Language models expect fixed-size token sequences.</li>
-</ul>
-</li>
-<li><strong>Large-scale training data:</strong><ul>
-<li>Few-shot learning requires massive pretraining on diverse multimodal data.</li>
-<li>Need to collect and process billions of image-text and video-text examples from the web.</li>
-</ul>
-</li>
-<li><strong>Training stability:</strong><ul>
-<li>Combining frozen pretrained models with new trainable components can be unstable.</li>
-<li>Need careful initialization and gating mechanisms.</li>
-</ul>
-</li>
+<li><strong>Bridging vision and language:</strong> Vision encoders and language models are trained separately; connecting them effectively while preserving both pretrained knowledges is non-trivial.</li>
+<li><strong>Handling interleaved multimodal sequences:</strong> Few-shot learning requires processing sequences like (image₁, text₁), (image₂, text₂), ..., (query_image, ?).</li>
+<li><strong>Variable-size visual inputs:</strong> Images and videos have variable resolutions; language models expect fixed-size token sequences.</li>
+<li><strong>Large-scale training data:</strong> Few-shot learning requires massive pretraining on diverse multimodal data (billions of examples).</li>
+<li><strong>Training stability:</strong> Combining frozen pretrained models with new trainable components requires careful initialization and gating mechanisms.</li>
 </ul>
 <hr />
 <h2 id="4-data-and-modalities">4. Data and Modalities<a class="headerlink" href="#4-data-and-modalities" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Datasets used</strong></li>
-<li><strong>M3W (MultiModal MassiveWeb):</strong><ul>
-<li>~43 million webpages with interleaved images and text extracted from HTML.</li>
-<li>Images positioned relative to text based on DOM structure.</li>
-<li>Up to 5 images per sequence, 256 tokens of text.</li>
-</ul>
-</li>
-<li><strong>ALIGN:</strong><ul>
-<li>1.8 billion image-text pairs with alt-text descriptions.</li>
-</ul>
-</li>
-<li><strong>LTIP (Long Text &amp; Image Pairs):</strong><ul>
-<li>312 million image-text pairs with longer, higher-quality descriptions.</li>
-</ul>
-</li>
-<li><strong>VTP (Video &amp; Text Pairs):</strong><ul>
-<li>27 million short videos (average 22 seconds) with sentence descriptions.</li>
-</ul>
+<li><strong>Pretraining data:</strong>  </li>
+<li><strong>M3W (MultiModal MassiveWeb):</strong> ~43M webpages with interleaved images and text (up to 5 images per sequence, 256 tokens).</li>
+<li><strong>ALIGN:</strong> 1.8B image-text pairs with alt-text descriptions.</li>
+<li><strong>LTIP (Long Text &amp; Image Pairs):</strong> 312M image-text pairs with longer, higher-quality descriptions.</li>
+<li>
+<p><strong>VTP (Video &amp; Text Pairs):</strong> 27M short videos (average 22 seconds) with sentence descriptions.</p>
 </li>
 <li>
-<p><strong>Evaluation benchmarks:</strong></p>
-<ul>
-<li>16 diverse tasks: VQAv2, OK-VQA, COCO captioning, TextVQA, VizWiz, MSRVTTQA, VATEX, VisDial, HatefulMemes, and more.</li>
-</ul>
-</li>
-<li>
-<p><strong>Modalities</strong></p>
+<p><strong>Modalities:</strong>  </p>
 </li>
 <li><strong>Images:</strong> High-resolution images from webpages and image-text pairs.</li>
 <li><strong>Videos:</strong> Short video clips (1 FPS sampling) with temporal embeddings.</li>
@@ -5916,403 +5762,204 @@
 <p><strong>Text:</strong> Captions, questions, answers, descriptions, interleaved with visual content.</p>
 </li>
 <li>
-<p><strong>Preprocessing / representation</strong></p>
+<p><strong>Preprocessing / representation:</strong>  </p>
 </li>
-<li><strong>Vision encoder:</strong><ul>
-<li>Pretrained NFNet-F6 (NormalizerFree ResNet) with contrastive pretraining.</li>
-<li>Outputs 2D spatial grid of features, flattened to 1D sequence.</li>
-<li>For videos: frames sampled at 1 FPS, encoded independently, temporal embeddings added.</li>
-</ul>
-</li>
-<li><strong>Perceiver Resampler:</strong><ul>
-<li>Takes variable number of visual features, produces fixed 64 visual tokens.</li>
-<li>Uses learned latent queries that cross-attend to visual features.</li>
-</ul>
-</li>
-<li><strong>Text:</strong><ul>
-<li>Tokenized using language model's tokenizer.</li>
-<li>Special tokens: <code>&lt;image&gt;</code>, <code>&lt;EOC&gt;</code> (end of chunk).</li>
-</ul>
-</li>
+<li><strong>Vision encoder:</strong> Pretrained NFNet-F6 (NormalizerFree ResNet) with contrastive pretraining; outputs 2D spatial grid flattened to 1D sequence.</li>
+<li><strong>Perceiver Resampler:</strong> Converts variable number of visual features to fixed 64 visual tokens using learned latent queries.</li>
+<li><strong>Text:</strong> Tokenized using language model's tokenizer; special tokens <code>&lt;image&gt;</code>, <code>&lt;EOC&gt;</code> (end of chunk).</li>
 </ul>
 <hr />
 <h2 id="5-model-foundation-model">5. Model / Foundation Model<a class="headerlink" href="#5-model-foundation-model" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Model Type</strong></li>
-<li><strong>Multimodal autoregressive language model</strong> that generates text conditioned on interleaved visual and textual inputs.</li>
+<li><strong>Model Type:</strong>  </li>
 <li>
-<p>Architecture: frozen vision encoder + trainable Perceiver Resampler + frozen language model with interleaved GATED XATTN-DENSE layers.</p>
+<p>Multimodal autoregressive language model that generates text conditioned on interleaved visual and textual inputs.</p>
 </li>
 <li>
-<p><strong>Is it a new FM or an existing one?</strong></p>
+<p><strong>Is it a new FM or an existing one?</strong>  </p>
 </li>
 <li>
-<p><strong>New FM.</strong> Flamingo introduces a new family of VLMs with specific architectural innovations for few-shot learning, though it builds on pretrained vision and language models.</p>
+<p><strong>New FM.</strong> Flamingo introduces a new family of VLMs with specific architectural innovations for few-shot learning.</p>
 </li>
 <li>
-<p><strong>Key components and innovations</strong></p>
+<p><strong>Key components and innovations:</strong></p>
 </li>
-<li><strong>Perceiver Resampler:</strong><ul>
-<li>Converts variable-size visual feature maps into fixed 64 visual tokens.</li>
-<li>Uses learned latent queries in a Transformer that cross-attends to visual features.</li>
-<li>Enables efficient processing of high-resolution images and videos.</li>
 </ul>
-</li>
-<li><strong>GATED XATTN-DENSE layers:</strong><ul>
-<li>Inserted between frozen language model layers.</li>
-<li>Structure: gated cross-attention (queries from language, keys/values from vision) + gated feed-forward.</li>
-<li>Gating: tanh(α) multiplier, initialized at 0, so model starts as pure language model and gradually incorporates vision.</li>
-<li>Preserves pretrained language model knowledge while enabling visual conditioning.</li>
-</ul>
-</li>
-<li><strong>Image-causal masking:</strong><ul>
-<li>At each text token, model only attends to visual tokens from the immediately preceding image (not all previous images).</li>
-<li>Enables generalization to any number of images, regardless of training distribution.</li>
-</ul>
-</li>
-<li>
-<p><strong>Model sizes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vision encoder</td>
+<td>Pretrained NFNet-F6 (frozen) with contrastive pretraining</td>
+</tr>
+<tr>
+<td>Perceiver Resampler</td>
+<td>Converts variable visual features → fixed 64 visual tokens via learned queries</td>
+</tr>
+<tr>
+<td>Language model</td>
+<td>Chinchilla LM (1.4B, 7B, 70B) - frozen</td>
+</tr>
+<tr>
+<td>GATED XATTN-DENSE layers</td>
+<td>Interleaved between LM layers: gated cross-attention + gated FF, initialized at 0</td>
+</tr>
+<tr>
+<td>Image-causal masking</td>
+<td>Text tokens attend only to immediately preceding image, not all previous images</td>
+</tr>
+<tr>
+<td>Model sizes</td>
+<td>Flamingo-3B, 9B, 80B (based on Chinchilla 1.4B, 7B, 70B)</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>Flamingo-3B, Flamingo-9B, Flamingo-80B (based on Chinchilla 1.4B, 7B, 70B language models).</li>
-</ul>
-</li>
-<li>
-<p><strong>Training setup</strong></p>
-</li>
+<li><strong>Training setup (high level):</strong></li>
 <li><strong>Objective:</strong> Autoregressive text generation conditioned on interleaved visual inputs.</li>
 <li><strong>Loss:</strong> Weighted sum of per-dataset negative log-likelihoods.</li>
-<li><strong>Training strategy:</strong><ul>
-<li>Gradient accumulation over all datasets (outperforms round-robin).</li>
-<li>Careful dataset weighting (λ_m) is crucial for performance.</li>
-</ul>
-</li>
-<li><strong>Few-shot adaptation:</strong><ul>
-<li>No fine-tuning; simply prompt with (image, text) example pairs followed by query.</li>
-<li>Uses beam search for open-ended generation.</li>
-</ul>
-</li>
+<li><strong>Training strategy:</strong> Gradient accumulation over all datasets (outperforms round-robin).</li>
+<li><strong>Few-shot adaptation:</strong> No fine-tuning; simply prompt with (image, text) example pairs followed by query.</li>
 </ul>
 <hr />
 <h2 id="6-multimodal-integration-aspects-if-applicable">6. Multimodal / Integration Aspects (If Applicable)<a class="headerlink" href="#6-multimodal-integration-aspects-if-applicable" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Vision-language integration:</strong></li>
+<li><strong>Modalities integrated:</strong>  </li>
 <li>
-<p>Flamingo explicitly integrates images/videos and text through:</p>
-<ul>
-<li><strong>Perceiver Resampler:</strong> Bridges vision encoder and language model by converting visual features to tokens.</li>
-<li><strong>GATED XATTN-DENSE layers:</strong> Enable language model to condition on visual tokens via cross-attention.</li>
-<li><strong>Interleaved sequences:</strong> Support arbitrary mixing of visual and textual inputs.</li>
-</ul>
+<p>Vision (images/videos) and text through late fusion with cross-attention.</p>
 </li>
 <li>
-<p><strong>Integration strategy:</strong></p>
+<p><strong>How integration works:</strong>  </p>
+</li>
+<li>Vision and language processed separately (frozen encoders), then fused via <strong>GATED XATTN-DENSE layers</strong>.</li>
+<li><strong>Perceiver Resampler</strong> bridges vision encoder and language model by converting visual features to tokens.</li>
+<li>
+<p><strong>Interleaved sequences:</strong> Support arbitrary mixing of visual and textual inputs through image-causal masking.</p>
 </li>
 <li>
-<p><strong>Late fusion with cross-attention:</strong></p>
-<ul>
-<li>Vision and language are processed separately (frozen encoders), then fused via cross-attention in GATED XATTN-DENSE layers.</li>
-<li>This preserves pretrained knowledge while enabling multimodal understanding.</li>
-</ul>
+<p><strong>Why this integration is useful / new capabilities:</strong>  </p>
 </li>
-<li>
-<p><strong>What this enables:</strong></p>
-</li>
-<li><strong>Few-shot learning:</strong> Model can adapt to new tasks by seeing a few (image, text) examples.</li>
+<li><strong>Few-shot learning:</strong> Model adapts to new tasks by seeing a few (image, text) examples.</li>
 <li><strong>Open-ended generation:</strong> Can generate captions, answers, descriptions conditioned on images/videos.</li>
-<li><strong>Multi-image reasoning:</strong> Can process sequences of multiple images with interleaved text (e.g., visual dialogue).</li>
-<li>
-<p><strong>Zero-shot capabilities:</strong> Works out-of-the-box on tasks not seen during training.</p>
-</li>
-<li>
-<p><strong>Not biological multimodal:</strong></p>
-</li>
-<li>Flamingo focuses on natural images/videos and text, not biological data (brain imaging, genomics, etc.).</li>
-<li>However, the architectural principles (Perceiver Resampler, gated cross-attention) could potentially be adapted to biological multimodal settings.</li>
+<li><strong>Multi-image reasoning:</strong> Processes sequences of multiple images with interleaved text (e.g., visual dialogue).</li>
+<li><strong>Zero-shot capabilities:</strong> Works out-of-the-box on tasks not seen during training.</li>
 </ul>
 <hr />
 <h2 id="7-experiments-and-results">7. Experiments and Results<a class="headerlink" href="#7-experiments-and-results" title="Permanent link">&para;</a></h2>
-<h3 id="main-findings">Main findings<a class="headerlink" href="#main-findings" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>State-of-the-art few-shot performance:</strong></li>
-<li>Flamingo-80B sets new SotA on 9 of 16 tasks with few-shot learning (4-32 shots).</li>
+<li><strong>Benchmarks:</strong>  </li>
 <li>
-<p>Outperforms fine-tuned models on 6 tasks despite using only 32 examples (vs. thousands for fine-tuning).</p>
+<p>16 diverse tasks: VQAv2, OK-VQA, COCO captioning, TextVQA, VizWiz, MSRVTTQA, VATEX, VisDial, HatefulMemes, etc.</p>
 </li>
 <li>
-<p><strong>Performance by task type:</strong></p>
-</li>
-<li><strong>Visual question-answering:</strong> Flamingo-80B achieves 57.8% on VQAv2 (32-shot) vs. 80.2% for fine-tuned SotA, but with 1000× less data.</li>
-<li><strong>Captioning:</strong> 113.8 CIDEr on COCO (32-shot) vs. 143.3 for fine-tuned SotA.</li>
-<li><strong>Video understanding:</strong> Strong performance on MSRVTTQA, VATEX, NextQA.</li>
-<li>
-<p><strong>Visual dialogue:</strong> Competitive on VisDial, TextVQA.</p>
+<p><strong>Baselines:</strong>  </p>
 </li>
 <li>
-<p><strong>Scaling with model size:</strong></p>
+<p>Fine-tuned task-specific models, CLIP, other VLMs.</p>
 </li>
 <li>
-<p>Performance improves with model size (3B → 9B → 80B) and number of shots (0 → 4 → 32).</p>
+<p><strong>Key findings (trends):</strong>  </p>
 </li>
-<li>
-<p><strong>Zero-shot performance:</strong></p>
-</li>
-<li>Flamingo-80B achieves strong zero-shot results on many tasks, though few-shot prompting further improves performance.</li>
+<li><strong>State-of-the-art few-shot performance:</strong> Flamingo-80B sets new SotA on 9 of 16 tasks with 4-32 shots.</li>
+<li><strong>Outperforms fine-tuned models on 6 tasks</strong> despite using only 32 examples (vs. thousands for fine-tuning).</li>
+<li><strong>Performance by task:</strong><ul>
+<li>VQAv2: 57.8% (32-shot) vs. 80.2% (fine-tuned SotA)</li>
+<li>COCO captioning: 113.8 CIDEr (32-shot) vs. 143.3 (fine-tuned)</li>
+<li>Strong video understanding on MSRVTTQA, VATEX, NextQA</li>
 </ul>
-<h3 id="ablation-studies">Ablation studies<a class="headerlink" href="#ablation-studies" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Perceiver Resampler:</strong></li>
-<li>
-<p>Outperforms plain Transformer and MLP alternatives for vision-language connection.</p>
 </li>
 <li>
-<p><strong>GATED XATTN-DENSE layers:</strong></p>
-</li>
-<li>Gating mechanism (tanh initialization) improves training stability and final performance.</li>
-<li>
-<p>Frequency of layer insertion trades off efficiency vs. expressivity.</p>
+<p><strong>Scaling:</strong> Performance improves with model size (3B → 9B → 80B) and number of shots (0 → 4 → 32).</p>
 </li>
 <li>
-<p><strong>Image-causal masking:</strong></p>
+<p><strong>Ablations:</strong></p>
 </li>
-<li>
-<p>Single-image cross-attention (only attend to immediately preceding image) outperforms attending to all previous images.</p>
-</li>
-<li>
-<p><strong>Dataset weighting:</strong></p>
-</li>
-<li>Careful tuning of per-dataset weights (λ_m) is crucial; gradient accumulation outperforms round-robin sampling.</li>
-</ul>
-<h3 id="key-insights">Key insights<a class="headerlink" href="#key-insights" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Large-scale web data enables few-shot learning:</strong></li>
-<li>
-<p>Training on billions of interleaved image-text examples from the web (without task-specific annotations) enables powerful few-shot capabilities.</p>
-</li>
-<li>
-<p><strong>Frozen pretrained models + trainable connectors:</strong></p>
-</li>
-<li>
-<p>Preserving pretrained vision and language knowledge while adding minimal trainable components (Perceiver, GATED layers) is effective.</p>
-</li>
-<li>
-<p><strong>Interleaved sequences are key:</strong></p>
-</li>
-<li>Ability to process arbitrarily interleaved visual and textual inputs enables natural few-shot prompting.</li>
+<li><strong>Perceiver Resampler</strong> outperforms plain Transformer and MLP alternatives.</li>
+<li><strong>Gating mechanism</strong> (tanh initialization) improves training stability and performance.</li>
+<li><strong>Image-causal masking</strong> (attend only to immediately preceding image) outperforms attending to all previous images.</li>
+<li><strong>Dataset weighting</strong> is crucial; gradient accumulation outperforms round-robin sampling.</li>
 </ul>
 <hr />
-<h2 id="8-strengths-and-limitations">8. Strengths and Limitations<a class="headerlink" href="#8-strengths-and-limitations" title="Permanent link">&para;</a></h2>
-<h3 id="strengths">Strengths<a class="headerlink" href="#strengths" title="Permanent link">&para;</a></h3>
+<h2 id="8-strengths-limitations-and-open-questions">8. Strengths, Limitations, and Open Questions<a class="headerlink" href="#8-strengths-limitations-and-open-questions" title="Permanent link">&para;</a></h2>
+<p><strong>Strengths:</strong></p>
 <ul>
-<li><strong>Powerful few-shot learning:</strong></li>
-<li>
-<p>Achieves SotA on many tasks with just 4-32 examples, dramatically reducing annotation requirements.</p>
-</li>
-<li>
-<p><strong>Open-ended generation:</strong></p>
-</li>
-<li>
-<p>Can generate free-form text (captions, answers) unlike contrastive models (CLIP) that only do classification.</p>
-</li>
-<li>
-<p><strong>Handles diverse tasks:</strong></p>
-</li>
-<li>
-<p>Single model works on classification, captioning, VQA, dialogue, video understanding.</p>
-</li>
-<li>
-<p><strong>Leverages pretrained models:</strong></p>
-</li>
-<li>
-<p>Effectively combines frozen vision and language models, preserving their knowledge.</p>
-</li>
-<li>
-<p><strong>Scalable architecture:</strong></p>
-</li>
-<li>
-<p>Works across model sizes (3B to 80B) with consistent improvements.</p>
-</li>
-<li>
-<p><strong>Large-scale training:</strong></p>
-</li>
-<li>Demonstrates value of web-scale multimodal data for foundation model training.</li>
+<li><strong>Powerful few-shot learning:</strong> Achieves SotA on many tasks with just 4-32 examples, dramatically reducing annotation requirements.</li>
+<li><strong>Open-ended generation:</strong> Can generate free-form text (captions, answers) unlike contrastive models (CLIP).</li>
+<li><strong>Handles diverse tasks:</strong> Single model works on classification, captioning, VQA, dialogue, video understanding.</li>
+<li><strong>Leverages pretrained models:</strong> Effectively combines frozen vision and language models, preserving their knowledge.</li>
+<li><strong>Scalable architecture:</strong> Works across model sizes (3B to 80B) with consistent improvements.</li>
 </ul>
-<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h3>
+<p><strong>Limitations:</strong></p>
 <ul>
-<li><strong>Still behind fine-tuned models:</strong></li>
-<li>
-<p>On some tasks, fine-tuned models with thousands of examples outperform Flamingo's few-shot performance.</p>
-</li>
-<li>
-<p><strong>Compute intensive:</strong></p>
-</li>
-<li>
-<p>Training on billions of examples and 80B parameters requires massive compute resources.</p>
-</li>
-<li>
-<p><strong>Limited to vision-language:</strong></p>
-</li>
-<li>
-<p>Doesn't handle other modalities (audio, 3D, etc.) or biological data.</p>
-</li>
-<li>
-<p><strong>Hallucination:</strong></p>
-</li>
-<li>
-<p>Can generate plausible but incorrect captions or answers, especially in zero-shot settings.</p>
-</li>
-<li>
-<p><strong>Evaluation gaps:</strong></p>
-</li>
-<li>Some benchmarks may have data leakage or limited diversity; held-out evaluation is important.</li>
+<li><strong>Still behind fine-tuned models:</strong> On some tasks, fine-tuned models with thousands of examples outperform Flamingo's few-shot performance.</li>
+<li><strong>Compute intensive:</strong> Training on billions of examples and 80B parameters requires massive compute resources.</li>
+<li><strong>Limited to vision-language:</strong> Doesn't handle other modalities (audio, 3D, biological data).</li>
+<li><strong>Frozen encoders:</strong> Cannot adapt vision or language encoders to new domains without retraining.</li>
 </ul>
-<h3 id="open-questions-future-directions">Open questions / future directions<a class="headerlink" href="#open-questions-future-directions" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>How to improve zero-shot performance?</strong></li>
-<li>
-<p>Can better training strategies or architectures close the gap with fine-tuned models?</p>
-</li>
-<li>
-<p><strong>Other modalities:</strong></p>
-</li>
-<li>
-<p>Can Flamingo-style architectures handle audio, 3D, or biological data?</p>
-</li>
-<li>
-<p><strong>Longer context:</strong></p>
-</li>
-<li>
-<p>Can models handle longer video sequences or more interleaved examples?</p>
-</li>
-<li>
-<p><strong>Interpretability:</strong></p>
-</li>
-<li>
-<p>How does the model reason about visual and textual inputs? Can we interpret cross-attention patterns?</p>
-</li>
-<li>
-<p><strong>Efficiency:</strong></p>
-</li>
-<li>Can smaller models achieve similar few-shot performance with better architectures or training?</li>
-</ul>
+<p><strong>Open questions and future directions:</strong></p>
+<ol>
+<li>How can few-shot performance be further improved to match or exceed fine-tuned models across all tasks?</li>
+<li>Can similar architectures be extended to other modalities (audio, 3D scenes, biological data)?</li>
+<li>How to make training more compute-efficient while maintaining few-shot capabilities?</li>
+<li>Can the gated cross-attention mechanism be adapted to biological multimodal settings (gene-brain-behavior)?</li>
+</ol>
 <hr />
 <h2 id="9-context-and-broader-impact">9. Context and Broader Impact<a class="headerlink" href="#9-context-and-broader-impact" title="Permanent link">&para;</a></h2>
-<h3 id="relation-to-other-work">Relation to other work<a class="headerlink" href="#relation-to-other-work" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Compared to CLIP (Radford et al., 2021):</strong></li>
-<li>CLIP uses contrastive learning for zero-shot classification but can't generate text.</li>
+<li><strong>Position in the landscape:</strong>  </li>
+<li>Flamingo demonstrates that large-scale web data training enables powerful in-context learning capabilities (previously seen only in text-only LLMs) for multimodal tasks.</li>
 <li>
-<p>Flamingo enables open-ended generation and few-shot learning via in-context examples.</p>
+<p>Bridges the gap between contrastive models (CLIP) and generative models, offering both zero-shot and few-shot capabilities.</p>
 </li>
 <li>
-<p><strong>Compared to BLIP-2 (Li et al., 2023):</strong></p>
+<p><strong>Relation to well-known ideas:</strong>  </p>
 </li>
-<li>BLIP-2 also bridges vision and language but focuses on fine-tuning rather than few-shot learning.</li>
+<li>Extends <strong>GPT-3's few-shot learning paradigm</strong> to vision-language tasks.</li>
+<li>Uses <strong>Perceiver-style</strong> cross-attention for vision-language bridging.</li>
 <li>
-<p>Flamingo's few-shot capabilities are more flexible for rapid adaptation.</p>
-</li>
-<li>
-<p><strong>Compared to GPT-3 (Brown et al., 2020):</strong></p>
-</li>
-<li>GPT-3 showed few-shot learning works for text; Flamingo extends this to vision-language.</li>
-<li>
-<p>Uses similar prompting paradigm but with multimodal inputs.</p>
+<p>Combines ideas from <strong>frozen encoders</strong> (preserving pretrained knowledge) and <strong>trainable connectors</strong> (enabling multimodal fusion).</p>
 </li>
 <li>
-<p><strong>Connection to Perceiver (Jaegle et al., 2021):</strong></p>
+<p><strong>Why this paper is a useful reference:</strong>  </p>
 </li>
-<li>Flamingo's Perceiver Resampler adapts Perceiver architecture for vision-language connection.</li>
-<li>Enables handling variable-size visual inputs efficiently.</li>
-</ul>
-<h3 id="broader-scientific-and-practical-impact">Broader scientific and practical impact<a class="headerlink" href="#broader-scientific-and-practical-impact" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Enables rapid adaptation:</strong></li>
-<li>
-<p>Few-shot learning reduces annotation costs and enables faster deployment to new tasks.</p>
-</li>
-<li>
-<p><strong>Demonstrates web-scale training value:</strong></p>
-</li>
-<li>
-<p>Shows that large-scale web data (without task-specific annotations) can enable powerful capabilities.</p>
-</li>
-<li>
-<p><strong>Influences future VLMs:</strong></p>
-</li>
-<li>
-<p>Architectural innovations (Perceiver Resampler, gated cross-attention) influence subsequent models (GPT-4V, LLaVA, etc.).</p>
-</li>
-<li>
-<p><strong>Opens new applications:</strong></p>
-</li>
-<li>Few-shot learning enables applications where collecting large labeled datasets is impractical.</li>
-</ul>
-<h3 id="open-questions-for-future-research">Open questions for future research<a class="headerlink" href="#open-questions-for-future-research" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>How to scale further?</strong></li>
-<li>
-<p>Can even larger models or more data improve few-shot performance?</p>
-</li>
-<li>
-<p><strong>Other modalities:</strong></p>
-</li>
-<li>
-<p>Can similar architectures handle audio, 3D, or biological multimodal data?</p>
-</li>
-<li>
-<p><strong>Efficiency:</strong></p>
-</li>
-<li>
-<p>Can smaller, more efficient models achieve similar capabilities?</p>
-</li>
-<li>
-<p><strong>Robustness:</strong></p>
-</li>
-<li>How do models handle out-of-distribution images, adversarial examples, or biased data?</li>
+<li><strong>For multimodal FM research:</strong> Provides a blueprint for bridging vision and language FMs with minimal trainable parameters.</li>
+<li><strong>For gene-brain-behavior integration:</strong> Architectural principles (Perceiver Resampler, gated cross-attention, interleaved sequences) could be adapted to biological multimodal settings.</li>
+<li><strong>For few-shot learning:</strong> Demonstrates the power of large-scale web data for enabling in-context learning.</li>
 </ul>
 <hr />
-<h2 id="10-key-takeaways">10. Key Takeaways<a class="headerlink" href="#10-key-takeaways" title="Permanent link">&para;</a></h2>
-<ol>
+<h2 id="10-key-takeaways-bullet-summary">10. Key Takeaways (Bullet Summary)<a class="headerlink" href="#10-key-takeaways-bullet-summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Problem:</strong>  </li>
 <li>
-<p><strong>Few-shot learning works for vision-language:</strong><br />
-   Just as GPT-3 showed few-shot learning for text, Flamingo demonstrates it's possible for multimodal tasks by prompting with (image, text) examples.</p>
+<p>Vision-language models require extensive fine-tuning; goal is to enable few-shot learning like GPT-3.</p>
 </li>
 <li>
-<p><strong>Bridging pretrained models is effective:</strong><br />
-   Rather than training from scratch, combining frozen vision and language models with minimal trainable connectors (Perceiver, gated cross-attention) preserves knowledge while enabling new capabilities.</p>
+<p><strong>Method / model:</strong>  </p>
+</li>
+<li>Flamingo is a family of VLMs (3B to 80B) that bridge frozen vision encoders and language models via <strong>Perceiver Resampler</strong> and <strong>GATED XATTN-DENSE layers</strong>.</li>
+<li>
+<p>Trained on billions of web-scraped multimodal examples (interleaved image-text, image-text pairs, video-text pairs).</p>
 </li>
 <li>
-<p><strong>Interleaved sequences enable natural prompting:</strong><br />
-   Ability to process arbitrarily interleaved visual and textual inputs makes few-shot prompting natural and flexible.</p>
+<p><strong>Results:</strong>  </p>
+</li>
+<li>State-of-the-art few-shot performance on 16 benchmarks; outperforms fine-tuned models on 6 tasks with only 32 examples.</li>
+<li>
+<p>Largest model (Flamingo-80B) sets new records on VQA and captioning.</p>
 </li>
 <li>
-<p><strong>Large-scale web data is valuable:</strong><br />
-   Training on billions of web-scraped image-text pairs (without task annotations) enables powerful few-shot capabilities.</p>
+<p><strong>Why it matters:</strong>  </p>
 </li>
-<li>
-<p><strong>Gating mechanisms stabilize training:</strong><br />
-   Initializing new layers with tanh gating (starting at 0) ensures model begins as pure language model and gradually incorporates vision, improving stability.</p>
-</li>
-<li>
-<p><strong>Perceiver Resampler handles variable inputs:</strong><br />
-   Converting variable-size visual feature maps to fixed tokens enables efficient processing of diverse images and videos.</p>
-</li>
-<li>
-<p><strong>Single-image cross-attention is sufficient:</strong><br />
-   Attending only to the immediately preceding image (not all previous images) works well and enables generalization to any number of images.</p>
-</li>
-<li>
-<p><strong>Few-shot can match fine-tuning:</strong><br />
-   On some tasks, 32-shot Flamingo matches or exceeds fine-tuned models trained on thousands of examples.</p>
-</li>
-<li>
-<p><strong>Open-ended generation is powerful:</strong><br />
-   Unlike contrastive models, Flamingo can generate free-form text, enabling captioning, VQA, and dialogue.</p>
-</li>
-<li>
-<p><strong>This is foundational work:</strong><br />
-    Flamingo establishes few-shot learning as a viable paradigm for vision-language tasks, influencing subsequent VLMs and demonstrating the power of web-scale multimodal training.</p>
-</li>
-</ol>
+<li>Shows that large-scale web data enables powerful in-context learning for multimodal tasks.</li>
+<li>Demonstrates effective architectural patterns for bridging frozen pretrained models.</li>
+<li>Provides a reference for adapting few-shot learning to biological multimodal settings (gene-brain-behavior).</li>
+</ul>
+<hr />
 
 
 
